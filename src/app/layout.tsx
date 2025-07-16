@@ -5,7 +5,7 @@ import "./globals.css";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  weight: "100 900", // Optional range for variable fonts
+  weight: "100 900", 
 });
 
 export const metadata: Metadata = {
