@@ -29,6 +29,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-toastify": "^11.0.5",
     "viem": "^2.30.0",
+    "hamburger-react": "^2.5.2",
     "wagmi": "^2.15.4"
   },
   "devDependencies": {
