@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Socials from "./socials";
 import SearchBar from "./searchBar";
 import CreateClubButton from "./buttons/create-club";
+import CustomConnectButton from "./buttons/customConnectButton";
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
@@ -76,6 +77,7 @@ function Header() {
           <div className="flex items-center justify-center gap-4">
             <SearchBar />
             <LaunchApp />
+            <CustomConnectButton />
 
             {/* Mobile Hamburger */}
             <div className="lg:hidden cursor-pointer flex items-center justify-center w-fit">

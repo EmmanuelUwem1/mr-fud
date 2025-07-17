@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/header";
+
 
 
 export const metadata: Metadata = {
@@ -19,7 +21,11 @@ export default function RootLayout({
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
       </head>
-      <body className="antialiased overflow-x-hidden">{children}</body>
+      <body className="antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full items-start justify-start">
+              <Header />
+        
+        {children}
+      </body>
     </html>
   );
 }

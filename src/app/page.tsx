@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Header from "@/components/header";
 import ActionCards from "@/components/action-cards";
 import Socials from "@/components/socials";
 import { motion } from "framer-motion";
@@ -40,9 +39,7 @@ export default function Home() {
   };
 
   return (
-    <div className="screen-minus-5rem flex-col flex w-full items-start justify-start">
-      
-      <Header />
+    <>
 
       <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 sm:px-8 md:px-16 sm:pb-20 w-full">
         <motion.div
@@ -79,8 +76,8 @@ export default function Home() {
 
         <motion.div
           className="relative hero-image max-sm:-top-20 flex justify-center items-center w-full md:w-1/2 px-4 py-4"
-          initial={{ opacity: 0, scale: 0.9, x:20 }}
-          animate={{ opacity: 1, scale: 1, x:0 }}
+          initial={{ opacity: 0, scale: 0.9, x: 20 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ delay: 1, duration: 0.6 }}
         >
           <div className="relative w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
@@ -102,6 +99,6 @@ export default function Home() {
         </div>
         <Socials theme="dark-red" />
       </footer>
-    </div>
+    </>
   );
 }
