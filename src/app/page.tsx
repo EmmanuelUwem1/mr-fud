@@ -29,6 +29,7 @@ export default function Home() {
     visible: {
       transition: {
         staggerChildren: 0.3,
+
       },
     },
   };
@@ -44,8 +45,9 @@ export default function Home() {
         <motion.div
           className="relative hero-image max-sm:-top-20 flex justify-center items-center w-full md:w-1/2 px-4 py-4"
           initial={{ opacity: 0, scale: 0.9, x: 20 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
+          whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          viewport={{ once: true }}
         >
           <div className="relative w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
             <Image
@@ -62,7 +64,8 @@ export default function Home() {
           className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-1/2 items-start max-sm:-top-20 hero-text relative"
           variants={container}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true }}
         >
           <motion.div
             className="flex flex-col justify-start items-start gap-4 w-full max-md:pt-8 pt-8"
