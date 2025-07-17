@@ -15,6 +15,7 @@ import { useEffect, useRef } from "react";
 function Header() {
   const [isOpen, setOpen] = useState(false);
   const pathName = usePathname();
+  const showCreateButton = pathName !== "/";
 
  const navLinks = [
    { label: "Degen Feed", path: "/degen-feed" },
@@ -44,7 +45,10 @@ function Header() {
 
   return (
     <div className="relative w-full">
-      <header className="flex w-full overflow-x-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-14 md:px-16">
+      <header
+        className="flex w-full overflow-x-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-14 md:px-16"
+        ref={menuRef}
+      >
         {/* logo */}
         <Link href={"/"} className="relative flex items-center justify-center">
           <span className="relative w-16 sm:w-20 sm:h-10 h-8 flex items-center justify-center">
@@ -61,7 +65,7 @@ function Header() {
 
         <div className="flex justify-between items-center gap-20">
           {/* nav links (desktop only) */}
-          <nav className="lg:flex hidden justify-center items-center font-medium text-base gap-8">
+          <nav className="lg:flex hidden justify-center items-center font-medium text-base gap-8 w-[26rem]">
             {navLinks.map(({ label, path }) => (
               <Link
                 key={path}
@@ -97,6 +101,12 @@ function Header() {
           <div className="flex items-center justify-center gap-4">
             <SearchBar />
             <LaunchApp />
+            {showCreateButton && (
+              <div className="hidden lg:flex items-center justify-center">
+                <CreateClubButton />
+              </div>
+            )}
+
             <CustomConnectButton />
 
             {/* Mobile Hamburger */}
@@ -117,7 +127,6 @@ function Header() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            ref={menuRef}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
