@@ -10,6 +10,7 @@ import Socials from "./socials";
 import SearchBar from "./searchBar";
 import CreateClubButton from "./buttons/create-club";
 import CustomConnectButton from "./buttons/customConnectButton";
+import { useEffect, useRef } from "react";
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
@@ -19,7 +20,26 @@ function Header() {
    { label: "Degen Feed", path: "/degen-feed" },
    { label: "Staking", path: "/staking" },
    { label: "Leaderboard", path: "/leaderboard" },
- ];
+  ];
+  
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
 
 
   return (
@@ -97,6 +117,7 @@ function Header() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={menuRef}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
