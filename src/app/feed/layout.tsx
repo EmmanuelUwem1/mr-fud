@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import Footer from "@/components/footer";
 
 
 export const metadata: Metadata = {
@@ -13,5 +13,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    return <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">{children}</main>;
+ return (
+   <>
+     <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">
+       {children}
+     </main>
+     <Footer />
+   </>
+ );
+
 }

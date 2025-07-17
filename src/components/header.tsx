@@ -18,7 +18,7 @@ function Header() {
   const [isOpen, setOpen] = useState(false);
   const pathName = usePathname();
     const {  address, isConnected } = useAccount();
-  const showCreateButton = pathName !== "/";
+  const show = pathName !== "/";
 
  const navLinks = [
    { label: "Degen Feed", path: "/feed" },
@@ -75,8 +75,8 @@ function Header() {
                 href={path}
                 className={`${
                   pathName === path
-                    ? "font-bold bg-gradient-to-r from-[#FF0E32] to-[#FFB7C2] bg-clip-text text-transparent"
-                    : "text-[#E3E3E3]"
+                    ? "font-bold bg-gradient-to-r from-[#FF0E32] transition-class to-[#FFB7C2] bg-clip-text text-transparent"
+                    : "text-[#E3E3E3] hover:font-bold  transition-class hover:bg-gradient-to-r hover:from-[#FF0E32] hover:to-[#FFB7C2] hover:bg-clip-text hover:text-transparent"
                 }`}
               >
                 {label}
@@ -104,7 +104,7 @@ function Header() {
           <div className="flex items-center justify-center gap-4">
             <SearchBar />
             <LaunchApp />
-            {showCreateButton && (
+            {show && (
               <div className="hidden lg:flex items-center justify-center">
                 <CreateClubButton />
               </div>
@@ -113,7 +113,7 @@ function Header() {
             <div className="relative -right-4">
               <CustomConnectButton />
             </div>
-            {address && isConnected && (
+            {address && isConnected && show && (
               <div className="hidden sm:flex">
                 <Avatar borderColor="#FF3C38" border />
               </div>
@@ -151,8 +151,8 @@ function Header() {
                     href={path}
                     className={`${
                       pathName === path
-                        ? "font-bold bg-gradient-to-r from-[#FF0E32] to-[#FFB7C2] bg-clip-text text-transparent"
-                        : "text-[#E3E3E3]"
+                        ? "font-bold bg-gradient-to-r from-[#FF0E32] to-[#FFB7C2] bg-clip-text text-transparent transition-class"
+                        : "text-[#E3E3E3] hover:font-bold  transition-class hover:bg-gradient-to-r hover:from-[#FF0E32] hover:to-[#FFB7C2] hover:bg-clip-text hover:text-transparent"
                     }`}
                   >
                     {label}
