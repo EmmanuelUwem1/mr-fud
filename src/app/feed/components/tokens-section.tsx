@@ -18,7 +18,7 @@ export default function TokensSection() {
     <section className="w-full py-10 flex flex-col gap-8">
       {/* Tabs Navigation */}
       <div className="w-full overflow-x-auto">
-        <div className="flex gap-4 justify-start lg:justify-center items-center min-w-[600px] sm:min-w-full">
+        <div className="flex lg:mx-auto gap-4 justify-start lg:justify-center items-center min-w-[600px] sm:min-w-full">
           {tabOptions.map((tab) => (
             <button
               key={tab}

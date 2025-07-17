@@ -16,9 +16,10 @@ export default function FeaturedSection() {
 
             return (
               <FeaturedCard
-                key={token.ca}
+                    key={token.ca}
+                    ticker={token.ticker}
                 title={token.name}
-                price={token.marketCap}
+                price={token.price}
                 chain={"BSC"}
                 ca={token.ca}
                 image={token.image}
