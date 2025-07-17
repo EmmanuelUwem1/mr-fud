@@ -2,7 +2,6 @@
 import { usePathname } from "next/navigation";
 import { useAccount } from "wagmi";
 import { modal } from "@/context/AppKitProvider";
-import Image from "next/image";
 
 export default function CustomConnectButton() {
   const {  address } = useAccount();
@@ -15,15 +14,9 @@ const pathname = usePathname();
   return show ? (
     <button
       onClick={() => modal.open()}
-      className="relative px-6 py-2 font-orbitron bg-[#FF2727] text-white rounded-full flex items-center gap-2 overflow-hidden group cursor-pointer"
+      className="relative px-6 py-2 bg-[#FF2727] text-white rounded-full flex items-center gap-2 overflow-hidden group cursor-pointer"
     >
-      <Image
-        src="/connect_wallet.svg"
-        alt="Wallet"
-        width={20}
-        height={20}
-        priority
-      />
+    
 
       {shortenedAddress}
 
