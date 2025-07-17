@@ -52,7 +52,7 @@ function Header() {
       <div className="flex justify-center items-center gap-4">
         <LaunchApp />
         {/* Mobile Hamburger */}
-        <div className="lg:hidden">
+        <div className="lg:hidden cursor-pointer">
           <Hamburger
             toggled={isOpen}
             toggle={setOpen}
