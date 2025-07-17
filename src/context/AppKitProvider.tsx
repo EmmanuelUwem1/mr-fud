@@ -16,11 +16,11 @@ if (!projectId) {
 
 // Set up metadata
 const metadata = {
-  name: "Ocicat- NFT Club",
+  name: "FUDClub",
   description:
-    "Ocicat NFT Club — a next-gen minting platform for exclusive Ocicat NFTs on the blockchain. Connect your wallet, explore rare collectibles, and be part of the wildest digital feline community. Powered by Web3 and built for collectors.",
-  url: "https://ocicat-nft-club.vercel.app",
-  icons: ["https://ocicat-nft-club.vercel.app/public/cat_bg.jpg"],
+    "Discover, invest, and launch the future of crypto. Our cutting-edge launchpad empowers blockchain innovators and early adopters with seamless token offerings, community-building tools, and real-time analytics—all in one platform.",
+  url: "https://mr-fud.vercel.app/",
+  icons: ["https://mr-fud.vercel.app//public/logomrfud 2.png"],
 };
 
 // Create the modal
