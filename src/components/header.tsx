@@ -113,7 +113,11 @@ function Header() {
             <div className="relative -right-4">
               <CustomConnectButton />
             </div>
-            {address && isConnected && (<Avatar />)}
+            {address && isConnected && (
+              <div className="hidden sm:flex">
+                <Avatar borderColor="#FF3C38" border />
+              </div>
+            )}
 
             {/* Mobile Hamburger */}
             <div className="xl:hidden cursor-pointer flex items-center justify-center w-fit">

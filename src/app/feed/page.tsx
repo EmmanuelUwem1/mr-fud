@@ -1,11 +1,10 @@
 "use client"
+import Banner from "./components/feedBanner"
 function Page() {
   return (
-    <>
-      <section>
-        
-      </section>
-    </>
+    <div className="flex w-full items-start flex-col justify-start">
+      <Banner />
+    </div>
   )
 }
 

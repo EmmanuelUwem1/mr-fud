@@ -1,5 +1,6 @@
 import { formatUnits, parseUnits } from "ethers";
 
+
 /**
  * Converts a BigNumber or string value from wei (18 decimals) to a readable number string
  * @param value - Value in wei (as BigNumber or string)
@@ -18,4 +19,8 @@ export function fromWei(value: string | bigint, decimals: number = 18): string {
  */
 export function toWei(value: string, decimals: number = 18): string {
   return parseUnits(value, decimals).toString();
+}
+
+export function formatWalletAddress(address: string) {
+  return `${address.slice(0, 5)}...${address.slice(-4)}`;
 }

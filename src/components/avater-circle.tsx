@@ -12,7 +12,7 @@ type AvatarProps = {
 export default function Avatar({
   src,
   alt = "User avatar",
-  size = 46,
+  size = 40,
   border = false,
   borderColor = "#DBD9FF",
 }: AvatarProps) {

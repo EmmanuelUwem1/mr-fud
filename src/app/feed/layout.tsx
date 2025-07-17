@@ -13,5 +13,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    return <main>{children}</main>;
+    return <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">{children}</main>;
 }

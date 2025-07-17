@@ -2,13 +2,14 @@
 import { usePathname } from "next/navigation";
 import { useAccount } from "wagmi";
 import { modal } from "@/context/AppKitProvider";
+import { formatWalletAddress } from "@/lib/utils";
 
 export default function CustomConnectButton() {
   const {  address, isConnected } = useAccount();
 const pathname = usePathname();
   const show = pathname !== "/";
   const shortenedAddress = address && isConnected
-    ? `${address.slice(0, 6)}...${address.slice(-4)}`
+    ? formatWalletAddress(address)
     : "Connect";
 
   return show ? (
