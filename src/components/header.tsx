@@ -66,7 +66,7 @@ function Header() {
         </div>
       </header>
 
-      {/* 🃏 Animated Mobile Nav Card */}
+      {/* Mobile Nav Card */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -74,10 +74,10 @@ function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="absolute z-50 top-full left-4 right-4"
+            className="absolute z-50 top-20 right-4"
           >
-            <div className="relative before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#A74D4D] before:via-[#4B1F1F] before:to-[#180A0A] before:-z-10">
-              <div className="bg-[#181818] rounded-[15px] px-6 py-5 flex flex-col gap-6 text-white font-medium shadow-md">
+            <div className="relative w-2xs before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#A74D4D] before:via-[#4B1F1F] before:to-[#180A0A] before:-z-10 p-0.5">
+              <div className="bg-[#181818] rounded-[15px] px-6 py-8 flex flex-col gap-6 text-white font-medium shadow-md mobile-nav">
                 <Link href="/degen-feed">Degen Feed</Link>
                 <Link href="/staking">Staking</Link>
                 <Link href="/leaderboard">Leaderboard</Link>

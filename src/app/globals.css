@@ -95,6 +95,9 @@ nav a:hover{
   padding-right:1rem;
 }
 }
+.mobile-nav a{
+  width: fit-content;
+}
 
 
 
