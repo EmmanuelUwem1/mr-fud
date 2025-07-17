@@ -2,7 +2,9 @@
 function Page() {
   return (
     <>
-      <section></section>
+      <section>
+        
+      </section>
     </>
   )
 }

@@ -11,10 +11,13 @@ import SearchBar from "./searchBar";
 import CreateClubButton from "./buttons/create-club";
 import CustomConnectButton from "./buttons/customConnectButton";
 import { useEffect, useRef } from "react";
+import Avatar from "./avater-circle";
+import { useAccount } from "wagmi";
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
   const pathName = usePathname();
+    const {  address, isConnected } = useAccount();
   const showCreateButton = pathName !== "/";
 
  const navLinks = [
@@ -110,6 +113,7 @@ function Header() {
             <div className="relative -right-4">
               <CustomConnectButton />
             </div>
+            {address && isConnected && (<Avatar />)}
 
             {/* Mobile Hamburger */}
             <div className="xl:hidden cursor-pointer flex items-center justify-center w-fit">
