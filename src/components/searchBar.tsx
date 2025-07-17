@@ -1,72 +1,57 @@
-"use client"
-import { useState } from "react";
+"use client";
+import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const showSearch = pathname !== "/";
+  const showSearch = pathname !== "/degen";
+
+  const ref = useRef<HTMLDivElement>(null);
+
+// Close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return showSearch ? (
-    <>
-      {/* Visible on medium and larger screens */}
-      <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#554EB9] to-[#262353] border border-[#DBD9FF] text-white">
-        <Image
-          src="/search-icon.png"
-          alt="Search icon"
-          width={16}
-          height={16}
-        />
-        <input
+    <motion.div
+      ref={ref}
+      className="flex items-center gap-2 px-2 py-2 border border-[#DBD9FF] rounded-full bg-gradient-to-r from-[#554EB9] to-[#262353] text-white overflow-hidden cursor-pointer"
+      initial={false}
+      animate={{
+        width: isOpen ? "14rem" : "2rem",
+        paddingLeft: isOpen ? "1rem" : "0.5rem",
+        paddingRight: isOpen ? "1rem" : "0.5rem",
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      onClick={() => setIsOpen(true)}
+    >
+      <Image src="/search.png" alt="Search icon" width={16} height={16} />
+
+      {isOpen && (
+        <motion.input
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
           type="text"
+          autoFocus
           className="bg-transparent outline-none placeholder-gray-300 w-full text-sm"
           placeholder="Search..."
         />
-      </div>
-
-      {/* Mobile toggle icon */}
-      <button
-        aria-label="Toggle search"
-        title="Search"
-        onClick={() => setIsOpen(!isOpen)}
-        className="sm:hidden p-2 rounded-full border border-[#DBD9FF] bg-gradient-to-r from-[#554EB9] to-[#262353]"
-      >
-        <Image
-          src="/search.png"
-          alt="Search icon"
-          width={16}
-          height={16}
-        />
-      </button>
-
-      {/* Animated search on small screens */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="sm:hidden fixed top-20 left-4 right-4 z-50 px-4 py-2 rounded-full bg-gradient-to-r from-[#554EB9] to-[#262353] border border-[#DBD9FF] flex items-center gap-2 text-white"
-          >
-            <Image
-              src="/search-icon.png"
-              alt="Search icon"
-              width={16}
-              height={16}
-            />
-            <input
-              type="text"
-              className="bg-transparent outline-none placeholder-gray-300 w-full text-sm"
-              placeholder="Search"
-              autoFocus
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+      )}
+    </motion.div>
   ) : null;
 }
 

@@ -78,8 +78,8 @@ export default function Home() {
 
         <motion.div
           className="relative hero-image max-sm:-top-20 flex justify-center items-center w-full md:w-1/2 px-4 py-4"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.9, x:20 }}
+          animate={{ opacity: 1, scale: 1, x:0 }}
           transition={{ delay: 1, duration: 0.6 }}
         >
           <div className="relative w-full max-w-[560px] h-[500px] sm:h-[700px] overflow-hidden">
