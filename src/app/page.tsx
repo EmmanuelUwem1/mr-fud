@@ -41,7 +41,7 @@ export default function Home() {
   return (
     <>
 
-      <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 sm:px-8 md:px-16 sm:pb-20 w-full">
+      <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 pt-8 sm:px-8 md:px-16 sm:pb-20 w-full">
         <motion.div
           className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-1/2 items-start max-sm:-top-20 hero-text relative"
           variants={container}

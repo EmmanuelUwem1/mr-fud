@@ -24,13 +24,15 @@ function SearchBar() {
   }, []);
 
   return showSearch ? (
-    <div className="relative flex items-center justify-end">
+    <div className="relative flex items-center justify-end max-w-56">
       <motion.div
         ref={ref}
-        className={`flex items-center border border-[#DBD9FF] rounded-full bg-gradient-to-r from-[#554EB9] to-[#262353] text-white h-10 overflow-hidden cursor-pointer shadow-md backdrop-blur-md`}
+        className={`${
+          isOpen ? "absolute right-0 z-50" : ""
+        } flex items-center border border-[#DBD9FF] rounded-full bg-gradient-to-r from-[#554EB9] to-[#262353] text-white h-10 overflow-hidden cursor-pointer shadow-md backdrop-blur-md`}
         initial={false}
         animate={{
-          width: isOpen ? "14rem" : "2.6rem",
+          width: isOpen ? "100%" : "2.6rem",
           paddingLeft: isOpen ? "1rem" : ".6rem",
           paddingRight: isOpen ? "1rem" : "0.2rem",
         }}

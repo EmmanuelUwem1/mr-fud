@@ -18,7 +18,7 @@ function Header() {
   const showCreateButton = pathName !== "/";
 
  const navLinks = [
-   { label: "Degen Feed", path: "/degen-feed" },
+   { label: "Degen Feed", path: "/feed" },
    { label: "Staking", path: "/staking" },
    { label: "Leaderboard", path: "/leaderboard" },
   ];
@@ -46,7 +46,7 @@ function Header() {
   return (
     <div className="relative w-full">
       <header
-        className="flex w-full overflow-x-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-14 md:px-16"
+        className="flex w-full overflow-x-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 md:px-16"
         ref={menuRef}
       >
         {/* logo */}
@@ -65,7 +65,7 @@ function Header() {
 
         <div className="flex justify-between items-center gap-20">
           {/* nav links (desktop only) */}
-          <nav className="lg:flex hidden justify-center items-center font-medium text-base gap-8 w-[26rem]">
+          <nav className="xl:flex hidden justify-center items-center font-medium text-base gap-8 w-[26rem]">
             {navLinks.map(({ label, path }) => (
               <Link
                 key={path}
@@ -107,10 +107,12 @@ function Header() {
               </div>
             )}
 
-            <CustomConnectButton />
+            <div className="relative -right-4">
+              <CustomConnectButton />
+            </div>
 
             {/* Mobile Hamburger */}
-            <div className="lg:hidden cursor-pointer flex items-center justify-center w-fit">
+            <div className="xl:hidden cursor-pointer flex items-center justify-center w-fit">
               <Hamburger
                 toggled={isOpen}
                 toggle={setOpen}
