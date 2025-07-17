@@ -10,7 +10,7 @@ export default function Home() {
     {
       title: "Create now",
       description: "Connect your wallet and create for free",
-      href: "/",
+      href: "/connect",
     },
     {
       title: "Create on X.com",

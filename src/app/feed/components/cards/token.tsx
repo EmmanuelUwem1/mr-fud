@@ -2,6 +2,7 @@
 import React from "react";
 import { formatWalletAddress } from "@/lib/utils";
 import Image from "next/image";
+import RatingBar from '../rating-bar'
 type TokenCardProps = {
   ticker: string;
   name: string;
@@ -59,10 +60,8 @@ export default function TokenCard({
        </div>
 
        {/* Footer */}
-       <div className="flex justify-between items-center">
-         <p className="text-sm font-medium text-white">Rating</p>
-         <span className="text-sm font-bold text-[#FF7A7A]">{rating}%</span>
-       </div>
+       <RatingBar rating={rating} />
+        
      </div>
    </div>
  );
