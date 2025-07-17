@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Header from "@/components/header";
 import ActionCards from "@/components/action-cards";
 import Socials from "@/components/socials";
+import { motion } from "framer-motion";
+
 export default function Home() {
   const actions = [
     {
@@ -20,22 +24,64 @@ export default function Home() {
       href: "/",
     },
   ];
+
+  const container = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="screen-minus-5rem flex-col flex w-full items-start justify-start">
       <Header />
-      <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 sm:px-8 md:px-16 pb-20 w-full">
-        <div className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-1/2 items-start">
-          <div className="flex flex-col justify-start items-start gap-4 w-full max-md:pt-8 pt-8">
-            <h1 className="font-extrabold text-3xl">Start a club for free.</h1>
-            <p className="font-extralight text-lg">
-              launch a token on any network in seconds.
-            </p>
-          </div>
 
-          {/* action cards */}
-          <ActionCards actions={actions} />
-        </div>
-        <div className="relative max-sm:-bottom-20 flex justify-center items-center w-full md:w-1/2 px-4 py-4">
+      <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 sm:px-8 md:px-16 pb-20 w-full">
+        <motion.div
+          className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-1/2 items-start max-sm:-top-20 hero-text relative"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
+            className="flex flex-col justify-start items-start gap-4 w-full max-md:pt-8 pt-8"
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.h1
+              className="font-extrabold text-3xl"
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+            >
+              Start a club for free.
+            </motion.h1>
+            <motion.p
+              className="font-extralight text-lg"
+              variants={fadeUp}
+              transition={{ duration: 0.5 }}
+            >
+              launch a token on any network in seconds.
+            </motion.p>
+          </motion.div>
+
+          <motion.div variants={fadeUp} transition={{ duration: 0.7 }}>
+            <ActionCards actions={actions} />
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="relative hero-image max-sm:-top-20 flex justify-center items-center w-full md:w-1/2 px-4 py-4"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1, duration: 0.6 }}
+        >
           <div className="relative w-full max-w-[560px] h-[500px] sm:h-[700px] overflow-hidden">
             <Image
               alt="Illustration"
@@ -46,14 +92,14 @@ export default function Home() {
               priority
             />
           </div>
-        </div>
+        </motion.div>
       </main>
 
-      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 sm:hidden">
+      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 sm:hidden pb-10">
         <div className="text-center flex items-center justify-center px-8">
           In a sea of noise, we bring FUD — Fearless, Unstoppable Diamondhands.
         </div>
-      <Socials theme="dark-red" />
+        <Socials theme="dark-red" />
       </footer>
     </div>
   );

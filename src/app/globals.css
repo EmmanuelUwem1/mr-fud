@@ -71,11 +71,20 @@ nav a:hover{
 ::-webkit-scrollbar-thumb:hover {
   background-color: #4B5563; /* Hover effect */
 }
-
+ 
 .screen-minus-5rem {
-  height: calc(100vh - 5rem);
+ 
   min-height: calc(100vh - 5rem);
 
+}
+@media (width < 400px){
+
+  .hero-text{
+  top: -18rem;
+  }
+  .hero-image{
+  top: -8rem;
+  }
 }
 
 

@@ -25,9 +25,9 @@ export default function Socials({ theme = "dark-red" }: Props) {
         <Link
           key={index}
           href={social.url}
-          className={`flex items-center ${bgColor} hover:opacity-80 relative transition-class rounded-full border ${borderColor}`}
+          className={`flex items-center ${bgColor} hover:opacity-80 relative transition-class rounded-full border ${borderColor} overflow-hidden h-9 w-9 p-2`}
         >
-          <span className="relative flex items-center justify-center h-9 w-9 p-2">
+          <span className="relative flex h-9 w-9 items-center justify-center">
             <Image
               src={social.icon}
               alt={`${social.title} icon`}
