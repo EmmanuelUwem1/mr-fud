@@ -4,12 +4,22 @@ import Image from "next/image";
 import LaunchApp from "./buttons/launch-app";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Socials from "./socials";
 import SearchBar from "./searchBar";
+import CreateClubButton from "./buttons/create-club";
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
+  const pathName = usePathname();
+
+ const navLinks = [
+   { label: "Degen Feed", path: "/degen-feed" },
+   { label: "Staking", path: "/staking" },
+   { label: "Leaderboard", path: "/leaderboard" },
+ ];
+
 
   return (
     <div className="relative w-full">
@@ -30,15 +40,30 @@ function Header() {
 
         <div className="flex justify-between items-center gap-20">
           {/* nav links (desktop only) */}
-          <nav className="lg:flex hidden justify-center items-center font-medium text-base gap-8 text-[#E3E3E3]">
-            <Link href={"/degen-feed"}>Degen Feed</Link>
-            <Link href={"/staking"}>Staking</Link>
-            <Link href={"/leaderboard"}>Leaderboard</Link>
-            <Link href={"/airdrop"} className="airdrop-link relative">
-              <span className="absolute -top-1 -right-3">
-                <Image alt="star" src={"/Star 1.png"} height={15} width={15} />
-              </span>
+          <nav className="lg:flex hidden justify-center items-center font-medium text-base gap-8">
+            {navLinks.map(({ label, path }) => (
+              <Link
+                key={path}
+                href={path}
+                className={`${
+                  pathName === path
+                    ? "font-bold bg-gradient-to-r from-[#FF0E32] to-[#FFB7C2] bg-clip-text text-transparent"
+                    : "text-[#E3E3E3]"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+
+            {/* Airdrop styled separately */}
+            <Link
+              href="/airdrop"
+              className="relative font-bold bg-gradient-to-r from-[#70B0FF] to-[#FF01BF] bg-clip-text text-transparent"
+            >
               Airdrop
+              <span className="absolute -top-1 -right-3">
+                <Image alt="star" src="/Star 1.png" width={15} height={15} />
+              </span>
             </Link>
           </nav>
 
@@ -76,22 +101,45 @@ function Header() {
             transition={{ duration: 0.3 }}
             className="absolute z-50 top-20 right-4"
           >
-            <div className="relative w-2xs before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#A74D4D] before:via-[#4B1F1F] before:to-[#180A0A] before:-z-10 p-0.5">
-              <div className="bg-[#181818] rounded-[15px] px-6 py-8 flex flex-col gap-6 text-white font-medium shadow-md mobile-nav">
-                <Link href="/degen-feed">Degen Feed</Link>
-                <Link href="/staking">Staking</Link>
-                <Link href="/leaderboard">Leaderboard</Link>
-                <Link href="/airdrop" className="relative">
-                  <span className="absolute -top-1 -right-3">
+            <div className="relative w-[280px] before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#A74D4D] before:via-[#4B1F1F] before:to-[#180A0A] before:-z-10 p-0.5">
+              <div className="bg-[#181818] rounded-[15px] px-6 py-8 flex flex-col gap-6 text-[#E3E3E3] font-medium shadow-md mobile-nav">
+                {navLinks.map(({ label, path }) => (
+                  <Link
+                    key={path}
+                    href={path}
+                    className={`${
+                      pathName === path
+                        ? "font-bold bg-gradient-to-r from-[#FF0E32] to-[#FFB7C2] bg-clip-text text-transparent"
+                        : "text-[#E3E3E3]"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                ))}
+
+                {/* Airdrop mobile link with unique gradient */}
+                <Link
+                  href="/airdrop"
+                  className="relative font-bold bg-gradient-to-r from-[#70B0FF] to-[#FF01BF] bg-clip-text text-transparent"
+                >
+                  Airdrop
+                  <span className="absolute -top-1 -right-4">
                     <Image
                       alt="star"
-                      src={"/Star 1.png"}
-                      height={15}
+                      src="/Star 1.png"
                       width={15}
+                      height={15}
                     />
                   </span>
-                  Airdrop
                 </Link>
+
+                {/* buttons section */}
+                <div className="flex flex-col justify-start items-start gap-4 h-full w-full pt-2">
+                  <CreateClubButton />
+                  <div className="sm:hidden flex w-full">
+                    <Socials theme="dark-blue" />
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

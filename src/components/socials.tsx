@@ -25,17 +25,14 @@ export default function Socials({ theme = "dark-red" }: Props) {
         <Link
           key={index}
           href={social.url}
-          className={`flex items-center ${bgColor} hover:opacity-80 relative transition-class rounded-full border ${borderColor} overflow-hidden h-9 w-9 p-2`}
+          className={`flex items-center justify-center ${bgColor} hover:opacity-80 transition-all rounded-full border ${borderColor} h-9 w-9 p-2`}
         >
-          <span className="relative flex h-9 w-9 items-center justify-center">
-            <Image
-              src={social.icon}
-              alt={`${social.title} icon`}
-              layout="fill"
-              objectFit="contain"
-              objectPosition="center"
-            />
-          </span>
+          <Image
+            src={social.icon}
+            alt={`${social.title} icon`}
+            width={20}
+            height={20}
+          />
         </Link>
       ))}
     </div>
