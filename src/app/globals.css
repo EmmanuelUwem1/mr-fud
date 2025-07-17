@@ -91,16 +91,22 @@ nav a:hover{
 }
 @media (width < 400px){
 
-  /* .hero-text{
-  top: -10rem;
-  } */
+  .hero-text{
+  top: -13rem;
+  }
+  .go-up{
+      top: -13rem;
+
+  }
  
   /* .hero-image{
   top: -8rem;
   }  */
   .mobile-padding{
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
+  padding-left: .6rem !important;
+  padding-right: .6rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
 }
 .launch{
   padding-left:1rem;

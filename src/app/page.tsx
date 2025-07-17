@@ -94,7 +94,7 @@ export default function Home() {
         </motion.div>
       </main>
 
-      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 sm:hidden pb-10">
+      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 sm:hidden relative go-up">
         <div className="text-center flex items-center justify-center px-8 font-normal text-base">
           In a sea of noise, we bring FUD — Fearless, Unstoppable Diamondhands.
         </div>
