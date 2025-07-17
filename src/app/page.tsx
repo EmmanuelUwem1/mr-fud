@@ -40,8 +40,24 @@ export default function Home() {
 
   return (
     <>
-
-      <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 pt-8 sm:px-8 md:px-16 sm:pb-20 w-full">
+      <main className="flex my-auto flex-row-reverse relative justify-between h-full md:flex-nowrap flex-wrap items-center max-sm:gap-0 gap-4 px-4 pt-8 sm:px-8 md:px-16 sm:pb-20 w-full">
+        <motion.div
+          className="relative hero-image max-sm:-top-20 flex justify-center items-center w-full md:w-1/2 px-4 py-4"
+          initial={{ opacity: 0, scale: 0.9, x: 20 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ delay: 1, duration: 0.6 }}
+        >
+          <div className="relative w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
+            <Image
+              alt="Illustration"
+              src="/trasp1.png"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="center"
+              priority
+            />
+          </div>
+        </motion.div>
         <motion.div
           className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-1/2 items-start max-sm:-top-20 hero-text relative"
           variants={container}
@@ -72,24 +88,6 @@ export default function Home() {
           <motion.div variants={fadeUp} transition={{ duration: 0.7 }}>
             <ActionCards actions={actions} />
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="relative hero-image max-sm:-top-20 flex justify-center items-center w-full md:w-1/2 px-4 py-4"
-          initial={{ opacity: 0, scale: 0.9, x: 20 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
-        >
-          <div className="relative w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
-            <Image
-              alt="Illustration"
-              src="/trasp1.png"
-              layout="fill"
-              objectFit="contain"
-              objectPosition="center"
-              priority
-            />
-          </div>
         </motion.div>
       </main>
 
