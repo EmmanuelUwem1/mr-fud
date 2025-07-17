@@ -16,7 +16,7 @@ export default function AuthGatePage() {
   // Redirect if wallet is connected
   useEffect(() => {
     if (isConnected) {
-      router.replace("/feeds"); // redirect to feeds page
+      router.replace("/feed"); // redirect to feeds page
     }
   }, [isConnected, router]);
 
