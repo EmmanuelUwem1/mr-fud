@@ -41,9 +41,10 @@ export default function Home() {
 
   return (
     <div className="screen-minus-5rem flex-col flex w-full items-start justify-start">
+      
       <Header />
 
-      <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 sm:px-8 md:px-16 pb-20 w-full">
+      <main className="flex my-auto relative justify-between h-full md:flex-nowrap flex-wrap-reverse items-center max-sm:gap-0 gap-4 px-4 sm:px-8 md:px-16 sm:pb-20 w-full">
         <motion.div
           className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-1/2 items-start max-sm:-top-20 hero-text relative"
           variants={container}
@@ -82,7 +83,7 @@ export default function Home() {
           animate={{ opacity: 1, scale: 1, x:0 }}
           transition={{ delay: 1, duration: 0.6 }}
         >
-          <div className="relative w-full max-w-[560px] h-[500px] sm:h-[700px] overflow-hidden">
+          <div className="relative w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
             <Image
               alt="Illustration"
               src="/trasp1.png"
@@ -96,7 +97,7 @@ export default function Home() {
       </main>
 
       <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 sm:hidden pb-10">
-        <div className="text-center flex items-center justify-center px-8">
+        <div className="text-center flex items-center justify-center px-8 font-normal text-base">
           In a sea of noise, we bring FUD — Fearless, Unstoppable Diamondhands.
         </div>
         <Socials theme="dark-red" />

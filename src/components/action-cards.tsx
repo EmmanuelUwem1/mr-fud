@@ -46,7 +46,7 @@ export default function ActionCards({ actions }: Props) {
         >
           <Link
             href={action.href}
-            className="w-full flex justify-between items-center rounded-[10px] px-8 py-6"
+            className="w-full flex justify-between items-center rounded-[10px] px-8 py-6 mobile-padding"
             style={{ backgroundColor: bgColors[index % bgColors.length] }}
           >
             <div className="flex-col flex justify-start items-start text-white">

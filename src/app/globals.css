@@ -79,12 +79,23 @@ nav a:hover{
 }
 @media (width < 400px){
 
-  .hero-text{
-  top: -18rem;
-  }
-  .hero-image{
+  /* .hero-text{
+  top: -10rem;
+  } */
+ 
+  /* .hero-image{
   top: -8rem;
-  }
+  }  */
+  .mobile-padding{
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }
+.launch{
+  padding-left:1rem;
+  padding-right:1rem;
+}
+}
+
+
 
 
