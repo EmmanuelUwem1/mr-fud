@@ -63,11 +63,11 @@ const LeaderboardTable = () => {
         {/* Rows */}
         {mockTokens.map((token, i) => (
           <div
-            key={token.index}
+            key={i}
             className="grid grid-cols-3 py-4 border-t border-[#221C28] items-center"
           >
             <TokenAvatar
-              index={token.index}
+              index={i}
               imageUrl={token.imageUrl}
               ticker={token.ticker}
               name={token.name}

@@ -41,26 +41,29 @@ const topThreeTokens: TopToken[] = [
 
 const Leaderboard = () => {
   return (
-    <section className="bg-[#141414] p-6 rounded-xl space-y-10">
-      {/* Top 3 Leaderboard Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topThreeTokens.map((token) => (
-          <LeaderboardCard
-            key={token.index}
-            index={token.index}
-            ticker={token.ticker}
-            name={token.name}
-            marketCap={token.marketCap}
-            creator={token.creator}
-            // imageUrl={token.imageUrl}
-            // onBuyClick={() => console.log(`Buy ${token.ticker}`)}
-          />
-        ))}
+    <>
+      <div className="flex items-center justify-center lg:flex-nowrap flex-wrap py-4 gap-4 w-full">
+        {/* Top 3 Leaderboard Cards */}
+        
+          {topThreeTokens.map((token, index) => (
+            <LeaderboardCard
+              key={index}
+              index={index}
+              ticker={token.ticker}
+              name={token.name}
+              marketCap={token.marketCap}
+              creator={token.creator}
+              // imageUrl={token.imageUrl}
+              // onBuyClick={() => console.log(`Buy ${token.ticker}`)}
+            />
+          ))}
+        
       </div>
-
-      {/* Rest of the Leaderboard Table */}
-      <LeaderboardTable />
-    </section>
+      <section className="bg-[#141414] p-6 rounded-xl space-y-10 flex-col w-full">
+        {/* Rest of the Leaderboard Table */}
+        <LeaderboardTable />
+      </section>
+    </>
   );
 };
 
