@@ -23,7 +23,7 @@ const MarketCap = ({
 
   return (
     <div className="flex flex-col">
-      <div className="text-lg font-bold text-white">{displayCap}</div>
+      <div className="text-base font-medium text-white">{displayCap}</div>
       <div className={`text-xs ${changeColor}`}>{formattedChange}</div>
     </div>
   );

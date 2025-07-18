@@ -24,28 +24,36 @@ const LeaderboardCard = ({
 
   return (
     <div className="relative py-6 rounded-[14px] shadow-lg bg-[#0A0A0A] text-white w-full max-w-sm mx-auto">
-      <div className="flex px-6 pb-3 flex-col items-start justify-start gap-4 border-b border-b-[#221C28]">
-        <div className=" text-3xl font-light text-[#ffffff] geometric">
-          {formattedIndex}
-        </div>
+      <div className="flex items-center justify-between gap-3  border-b border-b-[#221C28] pb-3 px-4">
+        {/* left hand side */}
+        <div className="flex w-full flex-col items-start justify-start gap-4">
+          <div className=" text-3xl font-light text-[#ffffff] geometric">
+            {formattedIndex}
+          </div>
 
-        <div className="flex items-center space-x-4 mb-4">
-          {/* image */}
-          <div>
-            <span className="text-lg text-[#E3E3E3] font-normal GasoekOne-Regular">
-              ${ticker}
-            </span>
-            <div className="text-base font-semibold text-[#A0A0A0]">{name}</div>
+          <div className="flex items-center space-x-4 mb-4">
+            {/* image */}
+            <div>
+              <span className="text-lg text-[#E3E3E3] font-normal GasoekOne-Regular">
+                ${ticker}
+              </span>
+              <div className="text-base font-semibold text-[#A0A0A0]">
+                {name}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between gap-2">
+            <span className="text-sm text-white/70">mc </span>
+            <span className="text-sm font-medium">{formattedCap}</span>
           </div>
         </div>
-
-        <div className="flex justify-between gap-2">
-          <span className="text-sm text-white/70">mc </span>
-          <span className="text-sm font-medium">{formattedCap}</span>
-        </div>
+        {/* right hand side */}
+        {/* image */}
+        <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative"></div>
       </div>
 
-      <div className="flex items-center justify-between w-full mt-3 px-6">
+      <div className="flex items-center justify-between w-full mt-3 px-4">
         <CreatedBy />
 
         <button

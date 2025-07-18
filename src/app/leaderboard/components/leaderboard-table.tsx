@@ -54,7 +54,7 @@ const LeaderboardTable = () => {
     <div className="w-full overflow-x-auto bg-[#141414] rounded-xl p-4">
       <div className="min-w-[600px]">
         {/* Header */}
-        <div className="grid grid-cols-3 text-white text-sm font-semibold pb-3 border-b border-[#221C28]">
+        <div className="grid grid-cols-3 text-[#777777] text-base font-medium pb-3 border-b border-[#221C28]">
           <div>Token</div>
           <div>Created By</div>
           <div>Market Cap</div>
