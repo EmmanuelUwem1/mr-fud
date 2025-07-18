@@ -24,3 +24,11 @@ export function toWei(value: string, decimals: number = 18): string {
 export function formatWalletAddress(address: string) {
   return `${address.slice(0, 5)}...${address.slice(-4)}`;
 }
+
+export const formatDaysAgo = (createdAt: string | number | Date): string => {
+  const createdDate = new Date(createdAt);
+  const now = new Date();
+  const diffTime = Math.abs(now.getTime() - createdDate.getTime());
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
+};

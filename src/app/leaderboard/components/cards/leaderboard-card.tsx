@@ -1,6 +1,5 @@
 "use client";
-// import Image from "next/image";
-
+import CreatedBy from "../created-by";
 const formatMarketCap = (cap: number): string => {
   if (cap >= 1_000_000_000) {
     return `$${(cap / 1_000_000_000).toFixed(1)}B+`;
@@ -24,40 +23,38 @@ const LeaderboardCard = ({
   const formattedCap = formatMarketCap(Number(marketCap));
 
   return (
-    <div
-      className="relative p-6 rounded-xl shadow-lg backdrop-blur-md 
-      bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] 
-      from-[#19367C]/30 to-transparent text-white w-full max-w-sm mx-auto"
-    >
-      <div className="absolute top-4 left-4 text-2xl font-bold text-white/90">
-        #{formattedIndex}
-      </div>
-
-      <div className="flex items-center space-x-4 mb-4">
-        {/* image */}
-        <div>
-          <div className="text-lg font-semibold uppercase">{ticker}</div>
-          <div className="text-sm text-white/70">{name}</div>
+    <div className="relative py-6 rounded-[14px] shadow-lg bg-[#0A0A0A] text-white w-full max-w-sm mx-auto">
+      <div className="flex px-6 pb-3 flex-col items-start justify-start gap-4 border-b border-b-[#221C28]">
+        <div className=" text-3xl font-light text-[#ffffff] geometric">
+          {formattedIndex}
         </div>
-      </div>
 
-      <div className="space-y-2">
-        <div className="flex justify-between">
-          <span className="text-sm text-white/70">Market Cap:</span>
+        <div className="flex items-center space-x-4 mb-4">
+          {/* image */}
+          <div>
+            <span className="text-lg text-[#E3E3E3] font-normal GasoekOne-Regular">
+              ${ticker}
+            </span>
+            <div className="text-base font-semibold text-[#A0A0A0]">{name}</div>
+          </div>
+        </div>
+
+        <div className="flex justify-between gap-2">
+          <span className="text-sm text-white/70">mc </span>
           <span className="text-sm font-medium">{formattedCap}</span>
         </div>
-        <div className="flex justify-between truncate">
-          <span className="text-sm text-white/70">Created By:</span>
-          <span className="text-sm font-medium truncate">{creator}</span>
-        </div>
       </div>
 
-      <button
-        className="mt-6 w-full bg-green-500 hover:bg-green-600 
-        text-white font-semibold py-2 px-4 rounded-full transition"
-      >
-        Buy Now
-      </button>
+      <div className="flex items-center justify-between w-full mt-3 px-6">
+        <CreatedBy />
+
+        <button
+          className=" w-fit bg-green-500 hover:bg-green-600 
+        text-white font-semibold text-sm py-2 px-4 rounded-full transition-class"
+        >
+          Buy
+        </button>
+      </div>
     </div>
   );
 };
