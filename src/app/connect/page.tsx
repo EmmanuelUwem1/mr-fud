@@ -17,7 +17,6 @@ export default function AuthGatePage() {
     }
     else {
           modal.open();
-
     }
   }, [isConnected, router]);
 
