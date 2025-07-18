@@ -8,15 +8,16 @@ export default function AuthGatePage() {
   const { isConnected } = useAccount();
   const router = useRouter();
 
-  // Auto-open modal on page load
-  useEffect(() => {
-    modal.open();
-  }, []);
+ 
 
   // Redirect if wallet is connected
   useEffect(() => {
     if (isConnected) {
       router.replace("/feed"); // redirect to feeds page
+    }
+    else {
+          modal.open();
+
     }
   }, [isConnected, router]);
 
