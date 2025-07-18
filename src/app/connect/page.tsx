@@ -21,7 +21,7 @@ export default function AuthGatePage() {
   }, [isConnected, router]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center text-white bg-black">
+    <div className="w-full h-screen flex flex-col items-center justify-center text-white">
       <h2 className="text-xl font-semibold">Connecting your wallet...</h2>
       <p className="text-sm mt-2 text-gray-400">Waiting for authentication</p>
     </div>

@@ -57,9 +57,8 @@ function Header() {
           <span className="relative w-16 sm:w-20 sm:h-10 h-8 flex items-center justify-center">
             <Image
               alt="MrFUD"
-              layout="fill"
-              objectPosition="center"
-              objectFit="contain"
+              height={1000}
+              width={1000}
               quality={100}
               priority
               src={"/logomrfud 2.png"}
