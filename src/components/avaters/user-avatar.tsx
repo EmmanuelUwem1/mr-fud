@@ -11,14 +11,14 @@ type UserAvatarProps = {
 const UserAvatar = ({ imageUrl, username, subtitle }: UserAvatarProps) => {
   return (
     <div className="flex items-center space-x-3">
-      <div className="relative w-10 h-10">
-        <Image
+      <div className="relative w-10 h-10 bg-white rounded-full">
+        {/* <Image
           src={imageUrl}
           alt={`${username} avatar`}
           layout="fill"
           className="rounded-full object-cover"
           priority
-        />
+        /> */}
       </div>
       <div>
         <div className="font-bold text-sm text-white">{username}</div>

@@ -3,51 +3,8 @@
 import TokenAvatar from "@/components/avaters/token-avatar";
 import MarketCap from "@/components/market-cap";
 import UserAvatar from "@/components/avaters/user-avatar";
+import { mockTokens } from "@/lib/data/mock-tokens";
 
-type TokenData = {
-  index: string;
-  imageUrl: string;
-  ticker: string;
-  name: string;
-  marketCap: string;
-  changePercent: string;
-  createdBy: {
-    imageUrl: string;
-    username: string;
-    subtitle: string;
-  };
-};
-
-// 👇🏽 Example Mock Data
-const mockTokens: TokenData[] = [
-  {
-    index: "001",
-    imageUrl: "/images/eth.png",
-    ticker: "ETH",
-    name: "Ethereum",
-    marketCap: "3200000",
-    changePercent: "12.3",
-    createdBy: {
-      imageUrl: "/images/emmanuel.png",
-      username: "Emmanuel.eth",
-      subtitle: "0x4FC...1818",
-    },
-  },
-  {
-    index: "002",
-    imageUrl: "/images/btc.png",
-    ticker: "BTC",
-    name: "Bitcoin",
-    marketCap: "885000000",
-    changePercent: "-3.1",
-    createdBy: {
-      imageUrl: "/images/satoshi.png",
-      username: "Satoshi",
-      subtitle: "0x91A...FF2E",
-    },
-  },
-  // Add more rows as needed
-];
 
 const LeaderboardTable = () => {
   return (

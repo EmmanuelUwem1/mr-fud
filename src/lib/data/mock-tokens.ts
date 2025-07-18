@@ -200,3 +200,353 @@ export const Mocktokens = [
   rating: 95,
 }
 ]
+
+
+
+
+
+type Token = {
+  index: string;
+  ticker: string;
+  name: string;
+  marketCap: string;
+  creator: string;
+  imageUrl: string;
+};
+
+export const Tokens: Token[] = [
+  {
+    index: "001",
+    ticker: "ETH",
+    name: "Ethereum",
+    marketCap: "3200000000",
+    creator: "0x4FC...1818",
+    imageUrl: "/images/eth.png",
+  },
+  {
+    index: "002",
+    ticker: "BTC",
+    name: "Bitcoin",
+    marketCap: "885000000",
+    creator: "0x91A...FF2E",
+    imageUrl: "/images/btc.png",
+  },
+  {
+    index: "003",
+    ticker: "SOL",
+    name: "Solana",
+    marketCap: "460000000",
+    creator: "0x73D...990A",
+    imageUrl: "/images/sol.png",
+  },
+  {
+    index: "004",
+    ticker: "BNB",
+    name: "BNB Chain",
+    marketCap: "380000000",
+    creator: "0x29B...AB41",
+    imageUrl: "/images/bnb.png",
+  },
+  {
+    index: "005",
+    ticker: "ADA",
+    name: "Cardano",
+    marketCap: "260000000",
+    creator: "0x18E...1A2B",
+    imageUrl: "/images/ada.png",
+  },
+  {
+    index: "006",
+    ticker: "XRP",
+    name: "XRP",
+    marketCap: "210000000",
+    creator: "0xDD9...BC33",
+    imageUrl: "/images/xrp.png",
+  },
+  {
+    index: "007",
+    ticker: "AVAX",
+    name: "Avalanche",
+    marketCap: "180000000",
+    creator: "0x45F...982C",
+    imageUrl: "/images/avax.png",
+  },
+  {
+    index: "008",
+    ticker: "MATIC",
+    name: "Polygon",
+    marketCap: "165000000",
+    creator: "0x71A...420D",
+    imageUrl: "/images/matic.png",
+  },
+  {
+    index: "009",
+    ticker: "DOT",
+    name: "Polkadot",
+    marketCap: "150000000",
+    creator: "0xA33...DD42",
+    imageUrl: "/images/dot.png",
+  },
+  {
+    index: "010",
+    ticker: "TRX",
+    name: "Tron",
+    marketCap: "120000000",
+    creator: "0xB9C...8E3F",
+    imageUrl: "/images/trx.png",
+  },
+  {
+    index: "011",
+    ticker: "LINK",
+    name: "Chainlink",
+    marketCap: "110000000",
+    creator: "0xC8F...7A9B",
+    imageUrl: "/images/link.png",
+  },
+  {
+    index: "012",
+    ticker: "ATOM",
+    name: "Cosmos",
+    marketCap: "95000000",
+    creator: "0xE2B...6AC8",
+    imageUrl: "/images/atom.png",
+  },
+  {
+    index: "013",
+    ticker: "NEAR",
+    name: "NEAR Protocol",
+    marketCap: "90000000",
+    creator: "0xF1D...ABCD",
+    imageUrl: "/images/near.png",
+  },
+  {
+    index: "014",
+    ticker: "OP",
+    name: "Optimism",
+    marketCap: "86000000",
+    creator: "0xD22...761E",
+    imageUrl: "/images/op.png",
+  },
+  {
+    index: "015",
+    ticker: "ARB",
+    name: "Arbitrum",
+    marketCap: "83000000",
+    creator: "0xAC4...8B20",
+    imageUrl: "/images/arb.png",
+  },
+];
+
+
+
+type TokenData = {
+  index: string;
+  imageUrl: string;
+  ticker: string;
+  name: string;
+  marketCap: string;
+  changePercent: string;
+  createdBy: {
+    imageUrl: string;
+    username: string;
+    subtitle: string;
+  };
+};
+
+export const mockTokens: TokenData[] = [
+  {
+    index: "001",
+    imageUrl: "/images/eth.png",
+    ticker: "ETH",
+    name: "Ethereum",
+    marketCap: "3200000",
+    changePercent: "12.3",
+    createdBy: {
+      imageUrl: "/images/emmanuel.png",
+      username: "Emmanuel.eth",
+      subtitle: "0x4FC...1818",
+    },
+  },
+  {
+    index: "002",
+    imageUrl: "/images/btc.png",
+    ticker: "BTC",
+    name: "Bitcoin",
+    marketCap: "885000000",
+    changePercent: "-3.1",
+    createdBy: {
+      imageUrl: "/images/satoshi.png",
+      username: "Satoshi",
+      subtitle: "0x91A...FF2E",
+    },
+  },
+  {
+    index: "003",
+    imageUrl: "/images/sol.png",
+    ticker: "SOL",
+    name: "Solana",
+    marketCap: "460000000",
+    changePercent: "5.8",
+    createdBy: {
+      imageUrl: "/images/user1.png",
+      username: "SolanaGirl",
+      subtitle: "0x73D...990A",
+    },
+  },
+  {
+    index: "004",
+    imageUrl: "/images/bnb.png",
+    ticker: "BNB",
+    name: "BNB Chain",
+    marketCap: "380000000",
+    changePercent: "3.4",
+    createdBy: {
+      imageUrl: "/images/user2.png",
+      username: "CZ.bnb",
+      subtitle: "0x29B...AB41",
+    },
+  },
+  {
+    index: "005",
+    imageUrl: "/images/ada.png",
+    ticker: "ADA",
+    name: "Cardano",
+    marketCap: "260000000",
+    changePercent: "-1.2",
+    createdBy: {
+      imageUrl: "/images/user3.png",
+      username: "AdaLord",
+      subtitle: "0x18E...1A2B",
+    },
+  },
+  {
+    index: "006",
+    imageUrl: "/images/xrp.png",
+    ticker: "XRP",
+    name: "XRP",
+    marketCap: "210000000",
+    changePercent: "2.1",
+    createdBy: {
+      imageUrl: "/images/user4.png",
+      username: "RippleX",
+      subtitle: "0xDD9...BC33",
+    },
+  },
+  {
+    index: "007",
+    imageUrl: "/images/avax.png",
+    ticker: "AVAX",
+    name: "Avalanche",
+    marketCap: "180000000",
+    changePercent: "4.6",
+    createdBy: {
+      imageUrl: "/images/user5.png",
+      username: "SnowDev",
+      subtitle: "0x45F...982C",
+    },
+  },
+  {
+    index: "008",
+    imageUrl: "/images/matic.png",
+    ticker: "MATIC",
+    name: "Polygon",
+    marketCap: "165000000",
+    changePercent: "-0.9",
+    createdBy: {
+      imageUrl: "/images/user6.png",
+      username: "PolyGuy",
+      subtitle: "0x71A...420D",
+    },
+  },
+  {
+    index: "009",
+    imageUrl: "/images/dot.png",
+    ticker: "DOT",
+    name: "Polkadot",
+    marketCap: "150000000",
+    changePercent: "7.3",
+    createdBy: {
+      imageUrl: "/images/user7.png",
+      username: "DotWave",
+      subtitle: "0xA33...DD42",
+    },
+  },
+  {
+    index: "010",
+    imageUrl: "/images/trx.png",
+    ticker: "TRX",
+    name: "Tron",
+    marketCap: "120000000",
+    changePercent: "1.7",
+    createdBy: {
+      imageUrl: "/images/user8.png",
+      username: "TRXKing",
+      subtitle: "0xB9C...8E3F",
+    },
+  },
+  {
+    index: "011",
+    imageUrl: "/images/link.png",
+    ticker: "LINK",
+    name: "Chainlink",
+    marketCap: "110000000",
+    changePercent: "3.9",
+    createdBy: {
+      imageUrl: "/images/user9.png",
+      username: "OracleDev",
+      subtitle: "0xC8F...7A9B",
+    },
+  },
+  {
+    index: "012",
+    imageUrl: "/images/atom.png",
+    ticker: "ATOM",
+    name: "Cosmos",
+    marketCap: "95000000",
+    changePercent: "-2.7",
+    createdBy: {
+      imageUrl: "/images/user10.png",
+      username: "Atomic",
+      subtitle: "0xE2B...6AC8",
+    },
+  },
+  {
+    index: "013",
+    imageUrl: "/images/near.png",
+    ticker: "NEAR",
+    name: "NEAR Protocol",
+    marketCap: "90000000",
+    changePercent: "6.2",
+    createdBy: {
+      imageUrl: "/images/user11.png",
+      username: "NearFar",
+      subtitle: "0xF1D...ABCD",
+    },
+  },
+  {
+    index: "014",
+    imageUrl: "/images/op.png",
+    ticker: "OP",
+    name: "Optimism",
+    marketCap: "86000000",
+    changePercent: "1.5",
+    createdBy: {
+      imageUrl: "/images/user12.png",
+      username: "OptiDev",
+      subtitle: "0xD22...761E",
+    },
+  },
+  {
+    index: "015",
+    imageUrl: "/images/arb.png",
+    ticker: "ARB",
+    name: "Arbitrum",
+    marketCap: "83000000",
+    changePercent: "2.8",
+    createdBy: {
+      imageUrl: "/images/user13.png",
+      username: "Arby",
+      subtitle: "0xAC4...8B20",
+    },
+  },
+];

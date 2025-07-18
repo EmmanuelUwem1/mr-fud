@@ -3,42 +3,9 @@
 import { useState } from "react";
 import LeaderboardCard from "./cards/leaderboard-card";
 import LeaderboardTable from "./leaderboard-table";
+import { Tokens } from "@/lib/data/mock-tokens";
 
-type TopToken = {
-  index: string;
-  ticker: string;
-  name: string;
-  marketCap: string;
-  creator: string;
-  imageUrl: string;
-};
 
-const topThreeTokens: TopToken[] = [
-  {
-    index: "001",
-    ticker: "ETH",
-    name: "Ethereum",
-    marketCap: "3200000000",
-    creator: "0x4FC...1818",
-    imageUrl: "/images/eth.png",
-  },
-  {
-    index: "002",
-    ticker: "BTC",
-    name: "Bitcoin",
-    marketCap: "885000000",
-    creator: "0x91A...FF2E",
-    imageUrl: "/images/btc.png",
-  },
-  {
-    index: "003",
-    ticker: "SOL",
-    name: "Solana",
-    marketCap: "460000000",
-    creator: "0x73D...990A",
-    imageUrl: "/images/sol.png",
-  },
-];
 
 const Leaderboard = () => {
   const [activeTab, setActiveTab] = useState<
@@ -71,7 +38,7 @@ const Leaderboard = () => {
       {/* Top 3 Leaderboard Cards */}
       {activeTab === "tokens" && (
         <div className="flex items-center justify-center lg:flex-nowrap flex-wrap py-4 gap-4 w-full">
-          {topThreeTokens.map((token, index) => (
+          {Tokens.slice(0, 3).map((token, index) => (
             <LeaderboardCard
               key={index}
               index={index}

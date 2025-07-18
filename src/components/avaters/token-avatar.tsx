@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image";
 
 type TokenAvatarProps = {
   index: number; // Updated to number type
@@ -16,18 +16,28 @@ const TokenAvatar = ({ index, imageUrl, ticker, name }: TokenAvatarProps) => {
   return (
     <div className="flex items-center space-x-3">
       {/* Index on the left */}
-      <div className="text-xs font-semibold text-white/70 w-10 text-center">
+      <div className="text-lg font-normal text-[#777777] w-10 text-center geometric">
         {formattedIndex}
       </div>
 
-      {/* Token Image in the middle */}
-      <div className="relative w-10 h-10">
-        <Image
-          src={imageUrl}
-          alt={`${name} Logo`}
-          layout="fill"
-          className="rounded-full object-cover"
-          priority
+      <div className="relative w-10 h-10 flex items-center justify-center rounded-full">
+        {/* Outer Gradient Ring */}
+        <div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: "linear-gradient(to right, #FA3C39, #FFA393)",
+          }}
+        />
+
+        {/* Inner White Circle with Black Border */}
+        <div
+          className="z-10 rounded-full"
+          style={{
+            width: "90%", // adjust to taste
+            height: "90%",
+            backgroundColor: "#FFFFFF",
+            border: "2px solid black",
+          }}
         />
       </div>
 
