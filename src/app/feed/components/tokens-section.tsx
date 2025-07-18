@@ -2,14 +2,16 @@
 import TokenCard from "./cards/token";
 import { Mocktokens } from "@/lib/data/mock-tokens";
 import { useState } from "react";
+import Image from "next/image";
 
 const tabOptions = [
-  "Trending",
-  "Market Cap",
-  "Newly Launched",
-  "Graduated",
-  "About to Graduate",
+  { text: "Trending", image: "/Vector-fire.png" },
+  { text: "Market Cap", image: "/trend-up.png" },
+  { text: "Newly Launched", image: "/trend-up.png" },
+  { text: "Graduated", image: "/Vector-rocket.png" },
+  { text: "About to Graduate", image: "/Vector-rocket.png" },
 ];
+
 
 export default function TokensSection() {
   const [activeTab, setActiveTab] = useState("Trending");
@@ -18,19 +20,26 @@ export default function TokensSection() {
     <section className="w-full py-10 flex flex-col gap-8">
       {/* Tabs Navigation */}
       <div className="w-full overflow-x-auto">
-        <div className="flex lg:mx-auto gap-4 justify-start lg:justify-center items-center min-w-[600px] sm:min-w-full">
+        <div className="flex lg:mx-auto gap-4 justify-start lg:justify-center items-center min-w-[600px] full mb-4 border-[#F8F8F8]s sm:min-w-full">
           {tabOptions.map((tab) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-5 py-2 rounded-full border border-white transition-class whitespace-nowrap text-sm font-medium cursor-pointer ${
-                activeTab === tab
+              key={tab.text}
+              onClick={() => setActiveTab(tab.text)}
+              className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium tabs-gradient-wrapper cursor-pointer flex items-center justify-center gap-2 ${
+                activeTab === tab.text
                   ? "bg-white text-black"
                   : "bg-transparent text-white hover:bg-white hover:text-black"
               }`}
             >
-              {tab}
-              {/* Icon placeholder to be added later */}
+              <span className="relative w-4 h-4 flex-shrink-0">
+                <Image
+                  src={tab.image}
+                  alt={`${tab.text} icon`}
+                  fill
+                  className="object-contain"
+                />
+              </span>
+              {tab.text}
             </button>
           ))}
         </div>

@@ -60,6 +60,7 @@ function Header() {
               layout="fill"
               objectPosition="center"
               objectFit="contain"
+              quality={100}
               priority
               src={"/logomrfud 2.png"}
             />
@@ -105,7 +106,7 @@ function Header() {
             <SearchBar />
             <LaunchApp />
             {show && (
-              <div className="hidden lg:flex items-center justify-center">
+              <div className="hidden lg:flex items-center justify-center relative -right-4">
                 <CreateClubButton />
               </div>
             )}
@@ -114,7 +115,7 @@ function Header() {
               <CustomConnectButton />
             </div>
             {address && isConnected && show && (
-              <div className="hidden sm:flex">
+              <div className="hidden sm:flex relative cursor-pointer -right-4">
                 <Avatar borderColor="#FF3C38" border />
               </div>
             )}

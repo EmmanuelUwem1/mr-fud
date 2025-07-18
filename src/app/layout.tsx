@@ -25,16 +25,25 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        ></link>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        ></link>
       </head>
       <body className="antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full items-start justify-start">
-                <ContextProvider cookies={cookies}>
+        <ContextProvider cookies={cookies}>
+          <Header />
 
-              <Header />
-        
           {children}
-          </ContextProvider>
+        </ContextProvider>
       </body>
     </html>
   );

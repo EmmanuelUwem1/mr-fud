@@ -102,7 +102,7 @@ nav a:hover{
   /* .hero-image{
   top: -8rem;
   }  */
-    
+
   .mobile-padding{
   padding-left: .6rem !important;
   padding-right: .6rem !important;
@@ -157,6 +157,29 @@ nav a:hover{
   background: linear-gradient(90deg, #A40E0E, #FF7A7A, #A40E0E);
 }
 
+.tabs-gradient-wrapper{
+   position: relative;
+   border-color: transparent !important;
+   /* background-color: #0D0D0D; */
+
+
+}
+.tabs-gradient-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  z-index: -2;
+  background: linear-gradient(90deg, #494952,#A5A5B8);
+}
+.tabs-gradient-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 9999px;
+  z-index: -1;
+  background-color: #020213;
+}
 
 
 

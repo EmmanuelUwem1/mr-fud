@@ -23,7 +23,7 @@ export default function RatingBar({ rating }: RatingBarProps) {
       />
 
       {/* Rating text */}
-      <span className="absolute left-2 top-1/2 -translate-y-1 text-[8px] font-medium text-white z-10">
+      <span className="absolute left-2 top-[40%] -translate-y-1 text-[8px] font-medium text-white z-10">
         {rating}%
       </span>
 
