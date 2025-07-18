@@ -25,7 +25,7 @@ export default function Banner() {
           The Club for tomorrow’s meme kings
         </h1>
 
-        <div className="relative inline-block h-full hover:opacity-90 transition-class flex ">
+        <div className="relative inline-block h-full hover:opacity-90 transition-class ">
           {/* White background layer */}
           <div className="absolute w-full h-full bg-white rounded-[6px] -bottom-0.5 -right-0.5 z-0" />
 

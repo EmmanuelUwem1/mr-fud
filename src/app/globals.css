@@ -181,19 +181,7 @@ nav a:hover{
   background-color: #020213;
 }
 
-.leaderboard-banner{
-  height: 100px;
-}
-@media (width < 360px ){
-  .leaderboard-banner{
-  height: 70px;
-}
-}
-@media (width > 500px ){
-  .leaderboard-banner{
-  height: 160px;
-}
-}
+
 
 
 

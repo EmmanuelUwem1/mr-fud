@@ -1,12 +1,12 @@
-import React from "react";
-
+"use client"
+// import Image from "next/image";
 const LeaderboardCard = ({
   index = "001",
   ticker = "ETH",
   name = "Ethereum",
   marketCap = "$248B",
   creator = "0x4FC...1818",
-  imageUrl = "https://via.placeholder.com/64",
+//   imageUrl = "https://via.placeholder.com/64",
 
 }) => {
   return (
@@ -20,11 +20,7 @@ const LeaderboardCard = ({
       </div>
 
       <div className="flex items-center space-x-4 mb-4">
-        <img
-          src={imageUrl}
-          alt={`${name} Logo`}
-          className="w-16 h-16 rounded-full border border-white/30"
-        />
+       {/* image */}
         <div>
           <div className="text-lg font-semibold uppercase">{ticker}</div>
           <div className="text-sm text-white/70">{name}</div>
