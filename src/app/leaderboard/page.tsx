@@ -1,5 +1,6 @@
 "use client";
 import Banner from "./components/banner";
+import Leaderboard from "./components/leaderboard-section";
 import { motion } from "framer-motion";
 function Page() {
   return (
@@ -10,6 +11,7 @@ function Page() {
       className="flex w-full items-start flex-col justify-start"
     >
       <Banner />
+      <Leaderboard />
     </motion.div>
   );
 }

@@ -19,13 +19,9 @@ export default function Banner() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 z-10" />
 
       {/* Content */}
-      <div className="relative z-20 px-4 sm:px-8 md:px-16 flex font-bold flex-col items-start justify-center w-[22rem] gap-3">
-        <h1 className="text-xl md:text-2xl text-[#FF0000] ">
-          Reward
-        </h1>
-        <h1 className="text-xl md:text-2xl text-white">
-          Leaderboards
-        </h1>
+      <div className="relative z-20 px-4 sm:px-8 md:px-16 flex font-bold flex-col items-start justify-center w-[22rem] ">
+        <h1 className="text-xl md:text-2xl text-[#FF0000] ">Reward</h1>
+        <h1 className="text-xl md:text-2xl text-white">Leaderboards</h1>
       </div>
     </section>
   );

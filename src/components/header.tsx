@@ -11,7 +11,7 @@ import SearchBar from "./searchBar";
 import CreateClubButton from "./buttons/create-club";
 import CustomConnectButton from "./buttons/customConnectButton";
 import { useEffect, useRef } from "react";
-import Avatar from "./avater-circle";
+import Avatar from "./avaters/avater-circle";
 import { useAccount } from "wagmi";
 
 function Header() {
