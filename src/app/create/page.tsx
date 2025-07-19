@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Form from "./components/form";
 
 export default function Page() {
     return (
@@ -7,7 +8,8 @@ export default function Page() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{duration: .5}}
-            className="flex w-full items-start flex-col justify-start">Create new coin
+            className="flex w-full items-center flex-col justify-start py-6">
+            <Form />
         </motion.div>
     )
 }
