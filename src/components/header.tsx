@@ -114,9 +114,9 @@ function Header() {
               <CustomConnectButton />
             </div>
             {address && isConnected && show && (
-              <div className="hidden sm:flex relative cursor-pointer -right-4">
+              <Link href="/user" className="hidden sm:flex relative cursor-pointer -right-4">
                 <Avatar borderColor="#FF3C38" border />
-              </div>
+              </Link>
             )}
 
             {/* Mobile Hamburger */}
