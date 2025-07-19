@@ -105,7 +105,7 @@ function Header() {
             <SearchBar />
             <LaunchApp />
             {show && (
-              <div className="hidden lg:flex items-center justify-center relative -right-4">
+              <div className="hidden lg:flex items-center w-fit justify-center relative -right-4">
                 <CreateClubButton />
               </div>
             )}
