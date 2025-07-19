@@ -6,7 +6,7 @@ function Page() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex w-full items-start flex-col justify-start"
+      className="flex w-full items-start flex-col justify-start px-4 sm:px-8 md:px-16"
       >
           Profile Page
     </motion.div>
