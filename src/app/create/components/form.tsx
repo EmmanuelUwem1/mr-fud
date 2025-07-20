@@ -1,6 +1,7 @@
-function Form(){
+import AntiGeetToggle from "./anti-geet-toggle";
+function Form() {
   return (
-    <div className="max-w-4xl w-full mx-auto text-white">
+    <div className="max-w-4xl w-full mx-auto text-[#F8F8F8]">
       {/* Heading */}
       <h1 className="text-xl font-semibold bg-clip-text text-transparent w-full text-center bg-gradient-to-r from-[#FA3C39] to-[#FFA393]">
         Create New Coin
@@ -21,7 +22,7 @@ function Form(){
             </label>
             <input
               type="text"
-              className="w-full border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
+              className="w-full border font-semibold border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
               //   placeholder="e.g. FUDCoin"
               title="name"
             />
@@ -32,7 +33,7 @@ function Form(){
             </label>
             <input
               type="text"
-              className="w-full border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
+              className="w-full GasoekOne-Regular border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
               title="ticker"
               //   placeholder="e.g. FUD"
             />
@@ -52,12 +53,9 @@ function Form(){
           ></textarea>
         </div>
 
-        {/* Flex boxes below */}
-        {/* <div className="flex flex-wrap md:flex-nowrap gap-4 mt-4">
-          <div className="flex-1 bg-[#1A1A1A] p-4 rounded-md">Box One</div>
-          <div className="flex-1 bg-[#1A1A1A] p-4 rounded-md">Box Two</div>
-        </div> */}
+        <AntiGeetToggle />
       </div>
+    
     </div>
   );
 };
