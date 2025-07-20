@@ -8,7 +8,7 @@ function Page() {
       transition={{ duration: 0.5 }}
       className="flex w-full items-start flex-col justify-start px-4 sm:px-8 md:px-16"
       >
-          Profile Page
+        User Profile
     </motion.div>
   );
 }
