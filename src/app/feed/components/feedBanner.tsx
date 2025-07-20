@@ -31,7 +31,7 @@ export default function Banner() {
 
           {/* Red foreground button */}
           <Link
-            href="/create-club"
+            href="/create"
             className="relative z-10 p-3 bg-[#FF0E32] text-white font-medium rounded-[6px] text-base shadow-md inline-block"
           >
             Launch Memecoin
