@@ -180,16 +180,17 @@ function Header() {
 
                 {/* buttons section */}
                 <div className="flex flex-col justify-start items-start gap-4 h-full w-full pt-2">
-                  {address && isConnected && show && (
-                    <Link
-                      href="/user"
-                      className="flex sm:hidden relative cursor-pointer -right-4"
-                    >
-                      <Avatar borderColor="#FF3C38" border />
-                    </Link>
-                  )}
-
-                  <CreateClubButton />
+                  <div className="flex gap-8 items-center justify-between w-full pr-4">
+                    <CreateClubButton />
+                    {address && isConnected && show && (
+                      <Link
+                        href="/user"
+                        className="flex sm:hidden relative cursor-pointer -right-4"
+                      >
+                        <Avatar borderColor="#FF3C38" border />
+                      </Link>
+                    )}
+                  </div>
 
                   <div className="sm:hidden flex w-full">
                     <Socials theme="dark-blue" />
