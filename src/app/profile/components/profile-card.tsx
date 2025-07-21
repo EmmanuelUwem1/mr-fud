@@ -19,7 +19,7 @@ export default function ProfileCard() {
       }, [isConnected, router]);
     
   return (
-    <div className="bg-[#141414] p-6 my-8 rounded-[18px] shadow-lg w-full max-w-2xl">
+    <div className="bg-[#141414] p-6 my-8 rounded-[18px] shadow-lg w-full max-w-2xl overflow-hidden">
       <h2 className="text-white text-xl md:text-2xl font-bold mb-4">
         User Profile
       </h2>
