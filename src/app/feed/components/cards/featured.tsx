@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { formatWalletAddress } from "@/lib/utils";
+import { copyToClipboard } from "@/lib/utils";
 type FeaturedCardProps = {
   title: string;
   price: string;
@@ -53,7 +54,7 @@ export default function FeaturedCard({
             <span className="font-medium text-[#E3E3E3]">
               {formatWalletAddress(ca)}
             </span>
-            <span className="relative h-3 w-3 flex items-center justify-center">
+            <span className="relative h-3 w-3 flex items-center justify-center" onClick={() => copyToClipboard(ca)}>
               <Image
                 src="/copy.png"
                 alt="copy"

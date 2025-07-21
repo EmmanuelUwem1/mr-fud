@@ -40,7 +40,29 @@ export default async function RootLayout({
       </head>
       <body className="antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full items-start justify-start">
         <ContextProvider cookies={cookies}>
-          <Toaster position="top-right" reverseOrder={false} />
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              style: {
+                background: "#1f1f1f",
+                color: "#ffffff",
+                border: "1px solid #444",
+              },
+              success: {
+                iconTheme: {
+                  primary: "#00ffae",
+                  secondary: "#141414",
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: "#ff4444",
+                  secondary: "#141414",
+                },
+              },
+            }}
+          />
           <Header />
 
           {children}

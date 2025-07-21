@@ -24,8 +24,8 @@ export default function ProfileCard() {
         User Profile
       </h2>
 
-      <div className="flex items-center w-full flex-wrap md:flex-nowrap gap-4 justify-start">
-        <span className="relative flex items-center justify-center w-full h-72 aspect-square rounded-[9px] bg-[#1a1a23]">
+      <div className="flex items-center w-full flex-wrap sm:flex-nowrap gap-4 justify-start">
+        <span className="relative flex items-center justify-center w-full h-full max-w-60 aspect-square rounded-[9px] bg-[#1a1a23]">
           {/* <Image alt="" src={} /> */}
         </span>
 
@@ -49,12 +49,15 @@ export default function ProfileCard() {
             <h2 className="text-[#777777] font-medium md:text-sm text-xs">
               Wallet Address
             </h2>
-            <p className="text-xs font-bold">{address ? address : " "}</p>
+            <p className="text-xs font-bold overflow-x-auto whitespace-nowrap max-w-full">
+              {address ? address : " "}
+            </p>
+
             <button
               className="bg-[#1E1E1E] p-2 rounded-[10px] font-medium text-xs cursor-pointer my-2"
               onClick={() => {
                 if (address) {
-                    copyToClipboard(address);
+                  copyToClipboard(address);
                 }
               }}
             >
@@ -64,14 +67,14 @@ export default function ProfileCard() {
 
           {/* third row volume and rewards */}
           <div className="flex items-center justify-start gap-8">
-              {/* volume */}
+            {/* volume */}
             <div className="flex flex-col justify-start items">
               <h2 className="text-[#777777] font-medium md:text-sm text-xs">
                 Volume
               </h2>
               <p className="text-lg md:text-xl font-bold">$0</p>
             </div>
-              {/* reward */}
+            {/* reward */}
             <div className="flex flex-col justify-start items">
               <h2 className="text-[#777777] font-medium md:text-sm text-xs">
                 Reward
@@ -81,7 +84,6 @@ export default function ProfileCard() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }

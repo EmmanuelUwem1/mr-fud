@@ -3,6 +3,7 @@ import React from "react";
 import { formatWalletAddress } from "@/lib/utils";
 import Image from "next/image";
 import RatingBar from '../rating-bar'
+import { copyToClipboard } from "@/lib/utils";
 type TokenCardProps = {
   ticker: string;
   name: string;
@@ -37,7 +38,7 @@ export default function TokenCard({
              <span className="font-normal text-[#E3E3E3]">
                {formatWalletAddress(ca)}
              </span>
-             <span className="relative h-4 w-4 flex items-center justify-center">
+             <span className="relative h-4 w-4 flex items-center justify-center" onClick={() => copyToClipboard(ca)}>
                <Image
                  src="/copy-red.png"
                  alt="copy"
