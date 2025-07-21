@@ -1,4 +1,5 @@
 import { formatUnits, parseUnits } from "ethers";
+import toast from "react-hot-toast";
 
 
 /**
@@ -31,4 +32,14 @@ export const formatDaysAgo = (createdAt: string | number | Date): string => {
   const diffTime = Math.abs(now.getTime() - createdDate.getTime());
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
+};
+
+
+export const copyToClipboard = async (text :string) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!");
+  } catch (err) {
+    toast.error("Failed to copy");
+  }
 };

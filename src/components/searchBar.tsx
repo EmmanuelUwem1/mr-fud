@@ -7,7 +7,7 @@ import Image from "next/image";
 function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const showSearch = pathname !== "/";
+const showSearch = pathname === "/feed" || pathname === "/leaderboard";
 
   const ref = useRef<HTMLDivElement>(null);
 

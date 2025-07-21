@@ -115,7 +115,7 @@ function Header() {
             </div>
             {address && isConnected && show && (
               <Link
-                href="/user"
+                href="/profile"
                 className="hidden sm:flex relative cursor-pointer -right-4"
               >
                 <Avatar borderColor="#FF3C38" border />
@@ -184,7 +184,7 @@ function Header() {
                     <CreateClubButton />
                     {address && isConnected && show && (
                       <Link
-                        href="/user"
+                        href="/profile"
                         className="flex sm:hidden relative cursor-pointer -right-4"
                       >
                         <Avatar borderColor="#FF3C38" border />

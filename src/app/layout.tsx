@@ -3,7 +3,7 @@ import "./globals.css";
 import { headers } from "next/headers";
 import Header from "@/components/header";
 import ContextProvider from "@/context/AppKitProvider";
-
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "FUDClub",
@@ -40,6 +40,7 @@ export default async function RootLayout({
       </head>
       <body className="antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full items-start justify-start">
         <ContextProvider cookies={cookies}>
+          <Toaster position="top-right" reverseOrder={false} />
           <Header />
 
           {children}
