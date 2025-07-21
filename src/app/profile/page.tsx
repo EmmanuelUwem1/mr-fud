@@ -11,7 +11,7 @@ function Page() {
       className="flex w-full items-center flex-col justify-start px-4 sm:px-8 md:px-16"
       >
       <div className="flex my-4 w-full justify-start max-w-4xl items-center">
-          <Link className="text-[#D92C2A]" href={"/"} >Back home</Link>
+          <Link className="text-[#D92C2A]" href={"/feed"} >Back home</Link>
       </div>
       <ProfileCard />
     </motion.div>
