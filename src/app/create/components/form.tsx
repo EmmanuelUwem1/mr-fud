@@ -22,8 +22,8 @@ function Form() {
             </label>
             <input
               type="text"
-              className="w-full border font-semibold border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
-              //   placeholder="e.g. FUDCoin"
+              className="w-full border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
+              placeholder="name your coin"
               title="name"
             />
           </div>
@@ -33,9 +33,9 @@ function Form() {
             </label>
             <input
               type="text"
-              className="w-full GasoekOne-Regular border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
+              className="w-full border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
               title="ticker"
-              //   placeholder="e.g. FUD"
+              placeholder="add a coin ticker (e.g. Pepe)"
             />
           </div>
         </div>
@@ -55,7 +55,6 @@ function Form() {
 
         <AntiGeetToggle />
       </div>
-    
     </div>
   );
 };

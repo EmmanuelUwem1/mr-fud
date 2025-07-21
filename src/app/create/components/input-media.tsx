@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, DragEvent, ChangeEvent } from "react";
 import Image from "next/image";
 
@@ -27,7 +28,7 @@ const MediaUpload: React.FC = () => {
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => e.preventDefault();
 
   return (
-    <div className="bg-[#141414] p-2.5 rounded-[13px] flex flex-col w-full items-center justify-center">
+    <div className="bg-[#141414] p-2.5 rounded-[13px] flex flex-col w-full h-full items-center justify-center">
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}

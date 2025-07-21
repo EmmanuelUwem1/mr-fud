@@ -19,7 +19,7 @@ export default function Page() {
         </div>
         {/* notice */}
         <div className="bg-[#3C3517] text-[#FACC15] w-full rounded-[4px] font-medium text-sm max-w-4xl mt-4 flex items-center justify-start gap-3 p-3">
-          <span className="relative h-6 w-6">
+          <span className="relative h-6 w-10">
             <Image src={"/warning.png"} alt="warning-icon" layout="fill" objectFit="contain" objectPosition="center" />
           </span>
           {`Coin data (social links, banner, etc) can only be added now, and can't
