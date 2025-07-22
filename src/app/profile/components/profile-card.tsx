@@ -49,7 +49,7 @@ export default function ProfileCard() {
             <h2 className="text-[#777777] font-medium md:text-sm text-xs">
               Wallet Address
             </h2>
-            <p className="text-xs font-bold overflow-x-auto whitespace-nowrap max-w-96">
+            <p className="text-xs font-bold overflow-x-auto whitespace-nowrap max-sm:max-w-60">
               {address ? address : " "}
             </p>
 
