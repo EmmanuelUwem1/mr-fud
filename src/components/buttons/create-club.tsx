@@ -1,7 +1,13 @@
 "use client";
+
+import { useAccount } from "wagmi";
 import Link from "next/link";
 
 export default function CreateClubButton() {
+  const { isConnected, address } = useAccount();
+
+  if (!isConnected || !address) return null;
+
   return (
     <Link
       href="/create"

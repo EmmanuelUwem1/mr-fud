@@ -4,6 +4,7 @@ import { formatWalletAddress } from "@/lib/utils";
 import Image from "next/image";
 import RatingBar from '../rating-bar'
 import { copyToClipboard } from "@/lib/utils";
+import Link from "next/link";
 type TokenCardProps = {
   ticker: string;
   name: string;
@@ -22,7 +23,9 @@ export default function TokenCard({
   rating,
 }: TokenCardProps) {
  return (
-   <div className="token-gradient-wrapper">
+   <Link href={
+      `/token/${ca}`
+   } className="token-gradient-wrapper">
      <div className="bg-[#141414] text-white rounded-[15px] py-3 pl-3 pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
        {/* Header */}
        <div className="flex w-full gap-3 items-center justify-start">
@@ -38,7 +41,11 @@ export default function TokenCard({
              <span className="font-normal text-[#E3E3E3]">
                {formatWalletAddress(ca)}
              </span>
-             <span className="relative h-4 w-4 flex items-center justify-center" onClick={() => copyToClipboard(ca)}>
+             <span className="relative h-4 w-4 flex items-center justify-center" onClick={(e) => {
+               e.stopPropagation(); // Prevents navigation
+               e.preventDefault();
+               copyToClipboard(ca)
+             }}>
                <Image
                  src="/copy-red.png"
                  alt="copy"
@@ -64,7 +71,7 @@ export default function TokenCard({
        <RatingBar rating={rating} />
         
      </div>
-   </div>
+   </Link>
  );
 
 }

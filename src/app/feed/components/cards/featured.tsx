@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { formatWalletAddress } from "@/lib/utils";
 import { copyToClipboard } from "@/lib/utils";
 type FeaturedCardProps = {
@@ -21,7 +22,8 @@ export default function FeaturedCard({
   type = "a",
 }: FeaturedCardProps) {
   return (
-    <div
+    <Link
+      href={`/token/${ca}`}
       className={`card-gradient-wrapper ${type === "b" ? "card-type-b" : ""}`}
     >
       <div className="w-full max-w-[252px] bg-[#0C0C0C] rounded-[15px] overflow-hidden flex gap-4 justify-between p-2 text-white">
@@ -54,7 +56,11 @@ export default function FeaturedCard({
             <span className="font-medium text-[#E3E3E3]">
               {formatWalletAddress(ca)}
             </span>
-            <span className="relative h-3 w-3 flex items-center justify-center" onClick={() => copyToClipboard(ca)}>
+            <span className="relative h-3 w-3 flex items-center justify-center" onClick={(e) => {
+                           e.stopPropagation(); // Prevents navigation
+                           e.preventDefault();
+                           copyToClipboard(ca)
+                         }}>
               <Image
                 src="/copy.png"
                 alt="copy"
@@ -66,6 +72,6 @@ export default function FeaturedCard({
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
