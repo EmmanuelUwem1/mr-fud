@@ -8,11 +8,15 @@ import TokenDescription from "../components/TokenDescription";
 import CommentThread from "../components/CommentThread";
 import { useAccount } from "wagmi";
 import { useParams } from "next/navigation";
+import { Mocktokens } from "@/lib/data/mock-tokens";
+import { title } from "process";
+
 
 
 export default function TokenPage() {
   const router = useRouter();
-const { id } = useParams();
+  const { id } = useParams();
+  const token = Mocktokens.find((t) => t.ca === id);
   const { address, isConnected } = useAccount();
 
   // Simulated token data — replace with actual API or contract data
@@ -24,7 +28,8 @@ const { id } = useParams();
     referralReward: 2,
     description:
       "This token powers a decentralized ecosystem built for real-time data sharing.",
-    symbol: "BSC-TKN",
+    symbol: token?.ticker || "TKN",
+    title: token?.name || "Token Name",
   });
 
   // Sample user balance and comments
@@ -51,7 +56,7 @@ const { id } = useParams();
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8">
+    <div className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8">
       {/* Stats + Price Chart */}
       <TokenStatsCard {...tokenData} />
       <TradingViewWidget symbol={`BINANCE:${tokenData.symbol}`} />

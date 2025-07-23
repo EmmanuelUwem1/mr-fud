@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import { copyToClipboard } from "@/lib/utils";
+import CoinsTabs from "./coins-tabs";
 
 export default function ProfileCard() {
 
@@ -84,6 +85,8 @@ export default function ProfileCard() {
           </div>
         </div>
       </div>
+      {/* coins tabs */}
+      <CoinsTabs />
     </div>
   );
 }

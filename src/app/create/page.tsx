@@ -4,8 +4,20 @@ import Form from "./components/form";
 import MediaUpload from "./components/input-media";
 import SocialsInput from "./components/input-socials";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const { isConnected } = useAccount();
+  const router = useRouter();
+    // Redirect if wallet is not connected
+    useEffect(() => {
+      if (!isConnected) {
+        router.replace("/connect"); // redirect to connect   page
+      }
+    
+    }, [isConnected, router]);
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -26,7 +38,7 @@ export default function Page() {
           be changed or edited after creation`}
         </div>
         {/* button */}
-        <div className="bg-[#FF3C38] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3">
+        <div className="bg-[#FF3C38] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3 cursor-pointer transition-class hover:opacity-90">
           Next
         </div>
       </motion.div>
