@@ -4,21 +4,24 @@ import Form from "./components/form";
 import MediaUpload from "./components/input-media";
 import SocialsInput from "./components/input-socials";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
+import CreateCoinModal from "./components/create-coin-modal";
 
 export default function Page() {
   const { isConnected } = useAccount();
   const router = useRouter();
-    // Redirect if wallet is not connected
-    useEffect(() => {
-      if (!isConnected) {
-        router.replace("/connect"); // redirect to connect   page
-      }
-    
-    }, [isConnected, router]);
-    return (
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (!isConnected) {
+      router.replace("/connect");
+    }
+  }, [isConnected, router]);
+
+  return (
+    <>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -29,18 +32,30 @@ export default function Page() {
         <div className="flex w-full items-start justify-center md:flex-nowrap flex-wrap gap-4 max-w-4xl">
           <MediaUpload /> <SocialsInput />
         </div>
-        {/* notice */}
+
         <div className="bg-[#3C3517] text-[#FACC15] w-full rounded-[4px] font-medium text-sm max-w-4xl mt-4 flex items-center justify-start gap-3 p-3">
           <span className="relative h-6 w-10">
-            <Image src={"/warning.png"} alt="warning-icon" layout="fill" objectFit="contain" objectPosition="center" />
+            <Image
+              src={"/warning.png"}
+              alt="warning-icon"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="center"
+            />
           </span>
-          {`Coin data (social links, banner, etc) can only be added now, and can't
+         {` Coin data (social links, banner, etc) can only be added now, and can't
           be changed or edited after creation`}
         </div>
-        {/* button */}
-        <div className="bg-[#FF3C38] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3 cursor-pointer transition-class hover:opacity-90">
+
+        <div
+          onClick={() => setShowModal(true)}
+          className="bg-[#FF3C38] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3 cursor-pointer transition-class hover:opacity-90"
+        >
           Next
         </div>
       </motion.div>
-    );
+
+      {showModal && <CreateCoinModal onClose={() => setShowModal(false)} />}
+    </>
+  );
 }
