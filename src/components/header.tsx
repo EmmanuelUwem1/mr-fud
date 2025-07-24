@@ -118,7 +118,7 @@ function Header() {
                 href="/profile"
                 className="hidden sm:flex relative cursor-pointer -right-4"
               >
-                <Avatar borderColor="#FF3C38" border />
+                <Avatar borderColor="#FF3C38" border src="/Image holder.png" />
               </Link>
             )}
 
@@ -187,7 +187,11 @@ function Header() {
                         href="/profile"
                         className="flex sm:hidden relative cursor-pointer -right-4"
                       >
-                        <Avatar borderColor="#FF3C38" border />
+                        <Avatar
+                          borderColor="#FF3C38"
+                          border
+                          src="/Image holder.png"
+                        />
                       </Link>
                     )}
                   </div>

@@ -86,8 +86,8 @@ export default function TokenPage() {
       {/* Token Description */}
       <TokenDescription description={tokenData.description} />
 
-      {/* Comment Thread
-      <CommentThread comments={comments} isConnected={isConnected} /> */}
+      {/* Comment Thread */}
+      <CommentThread comments={comments} isConnected={isConnected} ca={token?.ca || ""} createdDate={token?.createdAt || "" } />
     </motion.div>
   );
 }

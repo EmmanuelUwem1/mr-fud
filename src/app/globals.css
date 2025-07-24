@@ -207,6 +207,18 @@ nav a:hover{
   background-color: #020213;
 }
 
+.tab-active::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #520000;
+  border-radius: 1px;
+}
+
+
 
 
 

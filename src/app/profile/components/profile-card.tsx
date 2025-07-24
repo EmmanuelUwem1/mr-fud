@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-// import Image from "next/image";
+import Image from "next/image";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import { copyToClipboard } from "@/lib/utils";
@@ -27,7 +27,7 @@ export default function ProfileCard() {
 
       <div className="flex items-center w-full flex-wrap sm:flex-nowrap gap-4 justify-start">
         <span className="relative flex items-center justify-center w-full h-full max-w-60 aspect-square rounded-[9px] bg-[#1a1a23]">
-          {/* <Image alt="" src={} /> */}
+          <Image alt="" src={"/Image holder.png"} layout="fill" objectFit="contain" objectPosition="center" />
         </span>
 
         <div className="flex flex-col items-start justify-center gap-5 w-full">
