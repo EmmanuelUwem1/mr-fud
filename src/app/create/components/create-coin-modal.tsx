@@ -64,12 +64,12 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             </button>
           ))}
         </div>
-
+<div className="flex w-full h-14">
         {/* CAPTCHA */}
         <Turnstile onSuccess={() => setCaptchaVerified(true)} />
-
+</div>
         {/* Buttons */}
-        <div className="flex justify-end gap-2">
+        <div className="flex w-full justify-end gap-2">
           <button
             onClick={onClose}
             className="bg-gray-700 text-white px-4 py-2 rounded-md"
