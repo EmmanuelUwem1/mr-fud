@@ -27,7 +27,7 @@ const AntiGeetToggle: React.FC = () => {
           />
         </span>
         <p>
-          <b className="font-semibold">Anti - GEET ON:</b> Users will be
+          <b className="font-semibold">Anti - FUD ON:</b> Users will be
           penalized 25% by selling before graduation. 50% of this penalty will
           be added to liquidity.
         </p>
@@ -53,7 +53,7 @@ const AntiGeetToggle: React.FC = () => {
           />
         </span>
         <p>
-          <b className="font-semibold">Anti - GEET OFF:</b> 
+          <b className="font-semibold">Anti - FUD OFF:</b> 
           Users can buy and sell freely before graduation.
         </p>
       </div>

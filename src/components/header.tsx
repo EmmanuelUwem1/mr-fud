@@ -21,7 +21,7 @@ function Header() {
   const show = pathName !== "/";
 
  const navLinks = [
-   { label: "Degen Feed", path: "/feed" },
+   { label: "FOMO Feed", path: "/feed" },
    { label: "Staking", path: "/staking" },
    { label: "Leaderboard", path: "/leaderboard" },
   ];
