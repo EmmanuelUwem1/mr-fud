@@ -41,6 +41,21 @@
   --GasoekOne-Regular: "GasoekOne-Regular";
   --geometric-slabserif-703-bold-condensed-bt:'geometric-slabserif-703-bold-condensed-bt';
 }
+/* hide number input arrows for Chrome, Safari, Edge */
+/* Chrome, Safari, Edge (WebKit-based) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;       /* Standard property */
+  -moz-appearance: textfield;  /* Gecko-specific fallback */
+}
+
+
 .GasoekOne-Regular{
     font-family: var(--GasoekOne-Regular), sans-serif;
 }

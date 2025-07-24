@@ -1,6 +1,6 @@
 "use client";
-
 // import Image from "next/image";
+
 
 type TokenAvatarProps = {
   index: number; // Updated to number type

@@ -34,7 +34,7 @@ export default function TokenStatsCard({
         
       </div>
       <div className="flex items-center justify-start gap-3">
-        <button className="text-xs font-medium flex items-center justify-center gap-2 w-40 bg-[#FF3C38] rounded-full p-3 transtion-class hover:opacity-90 cursor-pointer">
+        <button className="text-xs font-medium flex items-center justify-center gap-2 w-40 bg-[#FF3C38] rounded-full p-3 transition-class hover:opacity-90 cursor-pointer">
           Refer a friend{" "}
           <span className="relative flex items-center justify-center h-4 w-4">
             <Image

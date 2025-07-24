@@ -9,7 +9,7 @@ const CoinsTabs = () => {
       <div className="flex gap-4 w-full border-b border-[#2A2A2A]">
         <button
           onClick={() => setActiveTab("held")}
-          className={`flex transition-class py-3 text-center ${
+          className={`flex py-3 text-center ${
             activeTab === "held"
               ? "text-[#FF0E32] border-b border-[#FF0E32]"
               : "text-white"
@@ -19,7 +19,7 @@ const CoinsTabs = () => {
         </button>
         <button
           onClick={() => setActiveTab("created")}
-          className={`flex transition-class py-3 text-center ${
+          className={`flex py-3 text-center ${
             activeTab === "created"
               ? "text-[#FF0E32] border-b border-[#FF0E32]"
               : "text-white"

@@ -6,11 +6,11 @@ import TradingViewWidget from "../components/TradingViewWidget";
 import BuySellCard from "../components/BuySellCard";
 import TokenDescription from "../components/TokenDescription";
 import CommentThread from "../components/CommentThread";
-import { useAccount } from "wagmi";
 import { useParams } from "next/navigation";
 import { Mocktokens } from "@/lib/data/mock-tokens";
-import { title } from "process";
-
+import Token from "../components/token";
+import { motion } from "framer-motion";
+import { useAccount, useBalance } from "wagmi";
 
 
 export default function TokenPage() {
@@ -18,6 +18,16 @@ export default function TokenPage() {
   const { id } = useParams();
   const token = Mocktokens.find((t) => t.ca === id);
   const { address, isConnected } = useAccount();
+
+
+
+  const { data: balanceData } = useBalance({
+    address,
+    token: undefined, // native token (BNB)
+    chainId: 56, // BSC Mainnet
+  });
+
+  const userBalance = balanceData?.formatted ?? "0";
 
   // Simulated token data — replace with actual API or contract data
   const [tokenData, setTokenData] = useState({
@@ -33,7 +43,6 @@ export default function TokenPage() {
   });
 
   // Sample user balance and comments
-  const [userBalance, setUserBalance] = useState(10.0); // BNB
   const [comments, setComments] = useState([
     {
       id: "1",
@@ -56,23 +65,29 @@ export default function TokenPage() {
   };
 
   return (
-    <div className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8">
+    <motion.div
+         initial={{ opacity: 0 }}
+         animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8">
       {/* Stats + Price Chart */}
+      <Token address={token?.ca || "" } tokenName={token?.name || ""} tokenTicker={token?.ticker || ""} />
       <TokenStatsCard {...tokenData} />
       <TradingViewWidget symbol={`BINANCE:${tokenData.symbol}`} />
 
       {/* Buy/Sell Tabs */}
       <BuySellCard
-        balance={userBalance}
+        balance={Number(userBalance)}
         onBuy={handleBuy}
         onSell={handleSell}
+        tokenName={tokenData.title}
       />
 
       {/* Token Description */}
       <TokenDescription description={tokenData.description} />
 
-      {/* Comment Thread */}
-      <CommentThread comments={comments} isConnected={isConnected} />
-    </div>
+      {/* Comment Thread
+      <CommentThread comments={comments} isConnected={isConnected} /> */}
+    </motion.div>
   );
 }
