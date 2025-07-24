@@ -22,7 +22,7 @@ export default function ReferModal({ onClose }: ReferModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
       <div
         ref={modalRef}
-        className="bg-[#1C1C1C] rounded-xl p-6 w-full max-w-sm text-white border border-gray-700 shadow-lg"
+        className="bg-[#1C1C1C] mx-4 rounded-xl p-6 w-full max-w-sm text-white shadow-lg"
       >
         <h2 className="text-lg font-semibold mb-2">Refer a friend</h2>
         <p className="text-sm text-gray-300 mb-4">

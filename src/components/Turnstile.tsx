@@ -24,19 +24,20 @@ declare global {
 export default function Turnstile({ onSuccess }: TurnstileProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (ref.current && window.turnstile) {
-      window.turnstile.render(ref.current, {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
-        theme: "dark",
-        callback: () => {
-          if (typeof onSuccess === "function") {
-            onSuccess();
-          }
-        },
-      });
-    }
-  }, [onSuccess]);
+useEffect(() => {
+  if (ref.current && window.turnstile && !ref.current.hasChildNodes()) {
+    window.turnstile.render(ref.current, {
+      sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
+      theme: "dark",
+      callback: () => {
+        if (typeof onSuccess === "function") {
+          onSuccess();
+        }
+      },
+    });
+  }
+}, [onSuccess]);
+
 
   return (
     <>

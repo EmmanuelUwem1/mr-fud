@@ -25,7 +25,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center">
       <div
         ref={modalRef}
-        className="bg-[#1C1C1C] p-6 rounded-lg w-full max-w-lg border border-gray-700 text-white"
+        className="bg-[#212121] mx-4 p-6 rounded-lg w-full max-w-lg text-white overflow-hidden"
       >
         <h2 className="text-xl font-semibold mb-4">Create Coin</h2>
 
@@ -47,7 +47,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           value={bnbAmount}
           onChange={(e) => setBnbAmount(e.target.value)}
           onWheel={(e) => e.currentTarget.blur()}
-          className="w-full bg-[#2A2A2A] text-white px-4 py-3 rounded-[6px] border-none placeholder-gray-500 mb-4 appearance-none"
+          className="w-full bg-[#1B1B1B] text-white px-4 py-3 rounded-[6px] border-[2px] border-[#626262] placeholder-gray-500 mb-4 appearance-none"
           placeholder="Amount in BNB"
         />
 
@@ -58,27 +58,22 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             <button
               key={val}
               onClick={() => formatInput(val)}
-              className="text-xs bg-[#2A2A2A] px-4 py-2 rounded-md hover:bg-[#3A3A3A]"
+              className="text-xs bg-[#2A2A2A] px-2 py-2 rounded-md hover:bg-[#3A3A3A]"
             >
               {val} BNB
             </button>
           ))}
         </div>
-<div className="flex w-full h-14">
-        {/* CAPTCHA */}
-        <Turnstile onSuccess={() => setCaptchaVerified(true)} />
-</div>
+        <div className="flex w-full h-16 ">
+          {/* CAPTCHA */}
+          <Turnstile onSuccess={() => setCaptchaVerified(true)} />
+        </div>
         {/* Buttons */}
         <div className="flex w-full justify-end gap-2">
-          <button
-            onClick={onClose}
-            className="bg-gray-700 text-white px-4 py-2 rounded-md"
-          >
-            Cancel
-          </button>
+         
           <button
             disabled={!captchaVerified}
-            className={`px-4 py-2 rounded-md font-medium ${
+            className={`px-4 py-3 rounded-md font-medium flex w-full items-center justify-center ${
               captchaVerified
                 ? "bg-[#FF3C38] text-white hover:opacity-90"
                 : "bg-gray-600 text-gray-400 cursor-not-allowed"
