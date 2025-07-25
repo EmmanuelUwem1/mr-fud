@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatWalletAddress } from "@/lib/utils";
 import { copyToClipboard } from "@/lib/utils";
+import { useState } from "react";
+
 type FeaturedCardProps = {
   title: string;
   price: number;
@@ -23,6 +25,17 @@ export default function FeaturedCard({
   id,
   type = "a",
 }: FeaturedCardProps) {
+   const [retryCount, setRetryCount] = useState(0);
+ const handleError = () => {
+   if (retryCount < 3) {
+     setTimeout(() => {
+       setRetryCount((prev) => prev + 1);
+     }, 1000); // Retry after 1 second
+   }
+ };
+
+ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
+
   return (
     <Link
       href={`/token/${id}`}
@@ -32,11 +45,12 @@ export default function FeaturedCard({
         {/* Left: Image */}
         <div className="h-24 w-24 aspect-square rounded-[9px] relative overflow-hidden bg-[#1a1a23]">
           <Image
-            src={image}
+            src={`${image}${cacheBuster}`}
             alt={""}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
+            onError={handleError}
           />
         </div>
 
@@ -58,11 +72,14 @@ export default function FeaturedCard({
             <span className="font-medium text-[#E3E3E3]">
               {formatWalletAddress(ca)}
             </span>
-            <span className="relative h-3 w-3 flex items-center justify-center" onClick={(e) => {
-                           e.stopPropagation(); // Prevents navigation
-                           e.preventDefault();
-                           copyToClipboard(ca)
-                         }}>
+            <span
+              className="relative h-3 w-3 flex items-center justify-center"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevents navigation
+                e.preventDefault();
+                copyToClipboard(ca);
+              }}
+            >
               <Image
                 src="/copy.png"
                 alt="copy"

@@ -3,36 +3,39 @@ import Image from "next/image";
 type TokenAvatarProps = {
   tokenName: string;
   tokenTicker: string;
+  image: string;
 };
 
 export default function TokenAvatar({
   tokenName,
   tokenTicker,
+  image,
 }: TokenAvatarProps) {
   return (
     <>
-      <div className="relative w-10 h-10 flex items-center justify-center rounded-full">
+      <div className="relative w-14 h-14 flex items-center justify-center">
         {/* Outer Gradient Ring */}
         <div
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 flex items-center justify-center rounded-full p-[2px]"
           style={{
             background: "linear-gradient(to right, #FA3C39, #FFA393)",
           }}
-        />
-
-        {/* Inner White Circle with Black Border */}
-        <div
-          className="z-10 rounded-full"
-          style={{
-            width: "90%", // adjust to taste
-            height: "90%",
-            backgroundColor: "#FFFFFF",
-            border: "2px solid black",
-          }}
-        />
+        >
+          {/* Inner Circle with Black Border */}
+          <div className="bg-white rounded-full relative h-12 w-12 flex items-center justify-center border-[4px] border-black overflow-hidden m-auto">
+            <Image
+              alt={`${tokenName} Logo`}
+              src={image}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+             
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-col items-start justify-center">
+      <div className="flex flex-col items-start justify-center ml-4">
         <span className="text-lg GasoekOne-Regular font-normal text-[#E3E3E3]">
           {tokenTicker}
         </span>
