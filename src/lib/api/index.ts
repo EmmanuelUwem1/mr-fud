@@ -41,3 +41,17 @@ export async function createToken(payload : CreateTokenPayload) {
     }
   }
 }
+
+export async function fetchTokens() {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/v1/tokens/`);
+    console.log("fetched tokens:", response.data);
+    return response.data; 
+  } catch (error) {
+    console.error(
+      "Error fetching tokens:",
+       (error as Error).message
+    );
+    throw new Error("Failed to fetch tokens");
+  }
+};

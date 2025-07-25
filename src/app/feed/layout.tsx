@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
-
+import { TokensProvider } from "@/context/TokensContext";
 
 export const metadata: Metadata = {
   title: "FUDClub || Degen Feed",
@@ -15,8 +15,8 @@ export default function RootLayout({
 }>) {
  return (
    <>
-     <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">  
-       {children}
+     <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">
+       <TokensProvider>{children}</TokensProvider>
      </main>
      <Footer />
    </>

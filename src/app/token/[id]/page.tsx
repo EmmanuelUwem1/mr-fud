@@ -7,16 +7,20 @@ import BuySellCard from "../components/BuySellCard";
 import TokenDescription from "../components/TokenDescription";
 import CommentThread from "../components/CommentThread";
 import { useParams } from "next/navigation";
-import { Mocktokens } from "@/lib/data/mock-tokens";
+// import { Mocktokens } from "@/lib/data/mock-tokens";
 import Token from "../components/token";
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
+import { useTokens } from "@/context/TokensContext";
+
 
 
 export default function TokenPage() {
+    const { tokens, loading } = useTokens();
+  
   const router = useRouter();
   const { id } = useParams();
-  const token = Mocktokens.find((t) => t.ca === id);
+  const token = tokens.find((t) => t._id === id);
   const { address, isConnected } = useAccount();
 
 
@@ -71,7 +75,7 @@ export default function TokenPage() {
       transition={{ duration: 0.5 }}
       className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8">
       {/* Stats + Price Chart */}
-      <Token address={token?.ca || "" } tokenName={token?.name || ""} tokenTicker={token?.ticker || ""} />
+      <Token address={token?.contractAddress || "" } tokenName={token?.name || ""} tokenTicker={token?.ticker || ""} />
       <TokenStatsCard {...tokenData} />
       <TradingViewWidget symbol={`BINANCE:${tokenData.symbol}`} />
 
@@ -87,7 +91,7 @@ export default function TokenPage() {
       <TokenDescription description={tokenData.description} />
 
       {/* Comment Thread */}
-      <CommentThread comments={comments} isConnected={isConnected} ca={token?.ca || ""} createdDate={token?.createdAt || "" } />
+      <CommentThread comments={comments} isConnected={isConnected} ca={token?.contractAddress || ""} createdDate={token?.createdAt || "" } />
     </motion.div>
   );
 }

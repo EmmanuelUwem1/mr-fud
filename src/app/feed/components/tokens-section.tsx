@@ -1,8 +1,9 @@
 "use client";
 import TokenCard from "./cards/token";
-import { Mocktokens } from "@/lib/data/mock-tokens";
+import TokensSkeleton from "./loaders/TokensSkeleton"; 
 import { useState } from "react";
 import Image from "next/image";
+import { useTokens } from "@/context/TokensContext";
 
 const tabOptions = [
   { text: "Trending", image: "/Vector-fire.png" },
@@ -12,9 +13,9 @@ const tabOptions = [
   { text: "About to Graduate", image: "/Vector-rocket.png" },
 ];
 
-
 export default function TokensSection() {
   const [activeTab, setActiveTab] = useState("Trending");
+  const { tokens, loading } = useTokens();
 
   return (
     <section className="w-full py-10 flex flex-col gap-8">
@@ -47,17 +48,27 @@ export default function TokensSection() {
 
       {/* Tokens Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Mocktokens.map((token) => (
-          <TokenCard
-            key={token.ca}
-            ticker={token.ticker}
-            name={token.name}
-            ca={token.ca}
-            marketCap={token.marketCap}
-            createdBy={token.createdBy}
-            rating={token.rating}
-          />
-        ))}
+        {loading ? (
+          <TokensSkeleton />
+        ) : tokens.length === 0 ? (
+          <p className="text-center text-gray-400 col-span-full">
+            No tokens available.
+          </p>
+        ) : (
+          tokens.map((token) => (
+            <TokenCard
+              key={token._id}
+              ticker={token.ticker}
+              name={token.name}
+              ca={token.contractAddress}
+              marketCap={token.currentPrice * token.totalSupply}
+              createdBy={token.creatorWallet}
+              rating={80}
+              image={token.image} 
+              id={token._id}
+            />
+          ))
+        )}
       </div>
     </section>
   );

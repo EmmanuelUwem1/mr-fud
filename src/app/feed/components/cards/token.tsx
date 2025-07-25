@@ -9,9 +9,11 @@ type TokenCardProps = {
   ticker: string;
   name: string;
   ca: string;
-  marketCap: string;
+  marketCap: number;
   createdBy: string;
   rating: number;
+  image: string;
+  id: string;
 };
 
 export default function TokenCard({
@@ -21,16 +23,18 @@ export default function TokenCard({
   marketCap,
   createdBy,
   rating,
+  image,
+  id,
 }: TokenCardProps) {
  return (
    <Link href={
-      `/token/${ca}`
+      `/token/${id}`
    } className="token-gradient-wrapper">
      <div className="bg-[#141414] text-white rounded-[15px] py-3 pl-3 pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
        {/* Header */}
        <div className="flex w-full gap-3 items-center justify-start">
          {/* image */}
-         <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative"></div>
+         <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative"><Image alt="" src={image} layout="fill" objectFit="contain" objectPosition="center" /></div>
          <div className="flex flex-col w-full items-start text-left justify-start gap-1">
            <span className="text-lg text-[#E3E3E3] font-normal GasoekOne-Regular">
              ${ticker}
