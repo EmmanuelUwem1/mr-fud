@@ -27,14 +27,20 @@ export default function TokenCard({
   id,
 }: TokenCardProps) {
  return (
-   <Link href={
-      `/token/${id}`
-   } className="token-gradient-wrapper">
+   <Link href={`/token/${id}`} className="token-gradient-wrapper">
      <div className="bg-[#141414] text-white rounded-[15px] py-3 pl-3 pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
        {/* Header */}
        <div className="flex w-full gap-3 items-center justify-start">
          {/* image */}
-         <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative"><Image alt="" src={image} layout="fill" objectFit="contain" objectPosition="center" /></div>
+         <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
+           <Image
+             alt=""
+             src={image}
+             layout="fill"
+             objectFit="contain"
+             objectPosition="center"
+           />
+         </div>
          <div className="flex flex-col w-full items-start text-left justify-start gap-1">
            <span className="text-lg text-[#E3E3E3] font-normal GasoekOne-Regular">
              ${ticker}
@@ -45,11 +51,14 @@ export default function TokenCard({
              <span className="font-normal text-[#E3E3E3]">
                {formatWalletAddress(ca)}
              </span>
-             <span className="relative h-4 w-4 flex items-center justify-center" onClick={(e) => {
-               e.stopPropagation(); // Prevents navigation
-               e.preventDefault();
-               copyToClipboard(ca)
-             }}>
+             <span
+               className="relative h-4 w-4 flex items-center justify-center"
+               onClick={(e) => {
+                 e.stopPropagation(); // Prevents navigation
+                 e.preventDefault();
+                 copyToClipboard(ca);
+               }}
+             >
                <Image
                  src="/copy-red.png"
                  alt="copy"
@@ -73,7 +82,6 @@ export default function TokenCard({
 
        {/* Footer */}
        <RatingBar rating={rating} />
-        
      </div>
    </Link>
  );

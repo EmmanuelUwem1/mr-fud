@@ -5,6 +5,8 @@ import Header from "@/components/header";
 import ContextProvider from "@/context/AppKitProvider";
 import { Toaster } from "react-hot-toast";
 import WalletAuthGuard from "@/auth/wallet-auth";
+import { TokensProvider } from "@/context/TokensContext";
+
 
 export const metadata: Metadata = {
   title: "FUDClub",
@@ -65,8 +67,8 @@ export default async function RootLayout({
             }}
           />
           <Header />
-<WalletAuthGuard />
-          {children}
+          <WalletAuthGuard />
+          <TokensProvider>{children}</TokensProvider>
         </ContextProvider>
       </body>
     </html>
