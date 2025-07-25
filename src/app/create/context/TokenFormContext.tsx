@@ -3,11 +3,14 @@
 import { createContext, useContext, useState } from "react";
 import { CreateTokenPayload } from "@/lib/api/index";
 
+
 type TokenFormContextType = {
   payload: CreateTokenPayload;
   setPayload: (updates: Partial<CreateTokenPayload>) => void;
   resetPayload: () => void;
 };
+
+
 
 const defaultPayload: CreateTokenPayload = {
   name: "",
@@ -19,7 +22,7 @@ const defaultPayload: CreateTokenPayload = {
   totalSupply: 0,
   initialPrice: 0,
   image: "",
-  contractAddress: "",
+  contractAddress: "0x928848acf420028944accaaaaccccc",
   twitter: "",
   website: "",
   telegram: "",

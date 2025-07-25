@@ -22,6 +22,8 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
 
   const { file } = useImageContext();
 
+
+
  const handleSubmit = async () => {
    if (!file) return;
 

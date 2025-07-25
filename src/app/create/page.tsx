@@ -8,15 +8,20 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import CreateCoinModal from "./components/create-coin-modal";
+import { useTokenForm } from "./context/TokenFormContext";
+
 
 export default function Page() {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
-
+const {setPayload} = useTokenForm();
   useEffect(() => {
     if (!isConnected) {
       router.replace("/connect");
+    }
+    else if (address) {
+      setPayload({ creatorWallet: address });
     }
   }, [isConnected, router]);
 
