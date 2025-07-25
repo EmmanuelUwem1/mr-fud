@@ -1,15 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useTokenForm } from "../context/TokenFormContext";
 
 const AntiGeetToggle: React.FC = () => {
   const [selected, setSelected] = useState<"green" | "black" | null>("green");
+  const { setPayload } = useTokenForm();
 
   return (
     <div className="flex gap-4 w-full flex-wrap md:flex-nowrap">
       {/* Green Card */}
       <div
-        onClick={() => setSelected("green")}
+        onClick={() => {
+          setSelected("green");
+          setPayload({ isAntiGeet: true });
+        }}
         className={`cursor-pointer p-4 rounded-xl w-full h-32 flex items-center justify-start bg-[#021302] text-white font-extralight text-sm transition-all
           ${
             selected === "green"
@@ -35,7 +40,10 @@ const AntiGeetToggle: React.FC = () => {
 
       {/* Black Card */}
       <div
-        onClick={() => setSelected("black")}
+        onClick={() => {
+          setSelected("black");
+          setPayload({ isAntiGeet: false });
+        }}
         className={`cursor-pointer p-4 rounded-xl w-full h-32 flex items-center justify-start bg-[#080808] text-white font-extralight transition-all
           ${
             selected === "black"
@@ -53,7 +61,7 @@ const AntiGeetToggle: React.FC = () => {
           />
         </span>
         <p>
-          <b className="font-semibold">Anti - FUD OFF:</b> 
+          <b className="font-semibold">Anti - FUD OFF:</b>
           Users can buy and sell freely before graduation.
         </p>
       </div>

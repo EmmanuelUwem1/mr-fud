@@ -1,5 +1,9 @@
+"use client";
 import AntiGeetToggle from "./anti-geet-toggle";
+import { useTokenForm } from "../context/TokenFormContext";
+
 function Form() {
+  const { payload, setPayload } = useTokenForm();
   return (
     <div className="max-w-4xl w-full mx-auto text-[#F8F8F8]">
       {/* Heading */}
@@ -22,6 +26,8 @@ function Form() {
             </label>
             <input
               type="text"
+              value={payload.name}
+              onChange={(e) => setPayload({ ...payload, name: e.target.value })}
               className="w-full border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
               placeholder="name your coin"
               title="name"
@@ -33,6 +39,10 @@ function Form() {
             </label>
             <input
               type="text"
+              value={payload.ticker}
+              onChange={(e) =>
+                setPayload({ ...payload, ticker: e.target.value })
+              }
               className="w-full border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
               title="ticker"
               placeholder="add a coin ticker (e.g. Pepe)"
@@ -47,6 +57,10 @@ function Form() {
           </label>
           <textarea
             rows={4}
+            value={payload.description}
+            onChange={(e) =>
+              setPayload({ ...payload, description: e.target.value })
+            }
             className="w-full border border-[#2A2A2A] rounded-md bg-transparent px-3 py-2 resize-none"
             title="description"
             // placeholder="Briefly describe your coin..."
