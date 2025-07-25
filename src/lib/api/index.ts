@@ -2,6 +2,7 @@
 
 import axios from "axios";
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 
 export interface CreateTokenPayload {
@@ -23,14 +24,17 @@ export interface CreateTokenPayload {
 export async function createToken(payload : CreateTokenPayload) {
   try {
     const response = await axios.post(
-      "http://localhost:3000/api/v1/tokens/create",
+      `${BACKEND_URL}/api/v1/tokens/create`,
       payload
     );
-    return response.data;
+      console.log("CreateToken response:", response.data);
+    return {success:true, data: response.data};
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+      if (axios.isAxiosError(error)) {
+        
       console.error("CreateToken error:", error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || "Error creating token");
+        //   throw new Error(error.response?.data?.message || "Error creating token");
+          return {success:false, error: error.response?.data || error.message};
     } else {
       console.error("CreateToken error:", (error as Error).message);
       throw new Error((error as Error).message || "Error creating token");

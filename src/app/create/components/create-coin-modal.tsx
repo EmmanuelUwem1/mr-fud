@@ -18,23 +18,54 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState("BNB");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { file } = useImageContext();
 
-  const handleSubmit = async () => {
-    if (!file) return;
+ const handleSubmit = async () => {
+   if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const result = await res.json();
-    console.log("Image upload result:", result);
-    toast.success(`Image uploaded successfully! ${result}`);
-    // await createToken(payload);
-  };
+   setIsLoading(true); 
+
+   try {
+     const formData = new FormData();
+     formData.append("file", file);
+
+     const res = await fetch("/api/upload", {
+       method: "POST",
+       body: formData,
+     });
+
+     const result = await res.json();
+     const image = result.ipfsUrl;
+     setPayload({ image });
+
+    //  toast.success("Image uploaded successfully!");
+
+     const finalResponse = await createToken(payload);
+     if (finalResponse.success) {
+       toast.success("Coin created successfully!");
+       onClose();
+     } else {
+       toast.error(
+         `An error occurred: ${
+           finalResponse.error.response?.data?.message ||
+           finalResponse.error.message ||
+           "Unknown error"
+         }`
+       );
+     }
+   } catch (error) {
+     toast.error(
+       `Unexpected error: 
+         Something went wrong
+       `
+     );
+   } finally {
+     setIsLoading(false);
+   }
+ };
+
 
   const currencies = [
     { name: "BNB", image: "/IMG_5135 1.png", hardCap: [10, 20, 30, 80], chain: "BSC" },
@@ -144,7 +175,9 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
                       className="px-4 gap-1 py-2 hover:bg-[#3a3a3a] text-sm flex items-center justify-center cursor-pointer bg-[#525252] rounded-full text-white"
                       onClick={() => {
                         setSelectedCurrency(currency.name);
-                        setPayload({ chain: currency.chain as "BSC" | "ETH" | undefined });
+                        setPayload({
+                          chain: currency.chain as "BSC" | "ETH" | undefined,
+                        });
                         setDropdownOpen(false);
                       }}
                     >
@@ -175,7 +208,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
               <button
                 key={val}
                 onClick={() => formatInput(val)}
-                className="text-xs bg-[#2A2A2A] px-2 py-2 rounded-md hover:bg-[#3A3A3A]"
+                className="text-xs bg-[#2A2A2A] px-2 py-2 rounded-md hover:bg-[#3A3A3A] cursor-pointer"
               >
                 {val} {selectedCurrency}
               </button>
@@ -201,15 +234,41 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
         {/* Buttons */}
         <div className="flex w-full justify-end gap-2">
           <button
-            disabled={!captchaVerified}
+            disabled={!captchaVerified || isLoading}
             onClick={handleSubmit}
-            className={`px-4 py-3 rounded-md font-medium flex w-full items-center justify-center ${
+            className={`px-4 py-3 rounded-md font-medium flex w-full items-center justify-center gap-2 ${
               captchaVerified
-                ? "bg-[#FF3C38] text-white hover:opacity-90"
+                ? "bg-[#FF3C38] text-white hover:opacity-90 cursor-pointer"
                 : "bg-[#1B1B1B] text-gray-400 cursor-not-allowed"
             }`}
           >
-            Create Coin
+            {isLoading ? (
+              <>
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="white"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="white"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+                Loading...
+              </>
+            ) : (
+              "Create Coin"
+            )}
           </button>
         </div>
       </div>
