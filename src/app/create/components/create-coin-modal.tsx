@@ -3,7 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import Turnstile from "@/components/Turnstile";
 import { useTokenForm } from "../context/TokenFormContext";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { createToken } from "@/lib/api";
+import { useImageContext } from "../context/ImageContext";
+import toast from "react-hot-toast";
 
+// const imageUploadEndpoint = "/api/upload";
+        
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const { payload, setPayload } = useTokenForm();
@@ -13,7 +19,27 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const [selectedCurrency, setSelectedCurrency] = useState("BNB");
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const currencies = ["BNB", "ETH"];
+  const { file } = useImageContext();
+
+  const handleSubmit = async () => {
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+    const result = await res.json();
+    console.log("Image upload result:", result);
+    toast.success(`Image uploaded successfully! ${result}`);
+    // await createToken(payload);
+  };
+
+  const currencies = [
+    { name: "BNB", image: "/IMG_5135 1.png", hardCap: [10, 20, 30, 80], chain: "BSC" },
+    { name: "ETH", image: "/eth.png", hardCap: [0.01, 0.5, 1, 2], chain: "ETH" },
+  ];
 
 
   useEffect(() => {
@@ -25,6 +51,9 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [onClose]);
+
+
+
 
 
 
@@ -62,9 +91,42 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="bg-[#2C2C2C] text-white px-3 py-1 rounded text-sm border border-[#626262]"
+              className="bg-[#525252] text-white px-3 py-1 rounded-[7px] text-sm cursor-pointer flex items-center justify-center gap-1"
             >
-              {selectedCurrency}
+              {(() => {
+                const selected = currencies.find(
+                  (value) => value.name === selectedCurrency
+                );
+                return selected ? (
+                  <>
+                    <span className="mr-1">{selected.chain}</span>
+                    <span className="relative flex items-center justify-center h-4 w-4">
+                      <Image
+                        alt=""
+                        src={selected.image}
+                        layout="fill"
+                        objectFit="contain"
+                        objectPosition="center"
+                      />
+                    </span>
+                  </>
+                ) : (
+                  ""
+                );
+              })()}
+              <span
+                className={`relative mx-1 h-6 w-6 flex items-center justify-center transition-all duration-300 ${
+                  dropdownOpen ? "rotate-0" : "rotate-180"
+                }`}
+              >
+                <Image
+                  alt=""
+                  src="/arrow-down.png"
+                  layout="fill"
+                  objectFit="contain"
+                  objectPosition="center"
+                />
+              </span>
             </button>
 
             <AnimatePresence>
@@ -74,18 +136,28 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-1 bg-[#2C2C2C] border border-[#626262] rounded shadow-lg overflow-hidden"
+                  className="absolute right-0 mt-1 space-y-1.5 rounded-[7px] shadow-lg overflow-hidden"
                 >
                   {currencies.map((currency) => (
                     <li
-                      key={currency}
-                      className="px-3 py-2 hover:bg-[#3a3a3a] text-sm cursor-pointer text-white"
+                      key={currency.name}
+                      className="px-4 gap-1 py-2 hover:bg-[#3a3a3a] text-sm flex items-center justify-center cursor-pointer bg-[#525252] rounded-full text-white"
                       onClick={() => {
-                        setSelectedCurrency(currency);
+                        setSelectedCurrency(currency.name);
+                        setPayload({ chain: currency.chain as "BSC" | "ETH" | undefined });
                         setDropdownOpen(false);
                       }}
                     >
-                      {currency}
+                      {currency.name}{" "}
+                      <span className="relative flex items-center justify-center h-4 w-4">
+                        <Image
+                          alt=""
+                          src={currency.image}
+                          layout="fill"
+                          objectFit="contain"
+                          objectPosition="center"
+                        />
+                      </span>
                     </li>
                   ))}
                 </motion.ul>
@@ -97,16 +169,19 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
         {/* Hardcap */}
         <p className="text-sm font-bold text-[#FF3C38] mb-2">Choose Hardcap</p>
         <div className="flex gap-2 mb-4">
-          {[10, 20, 30, 80].map((val) => (
-            <button
-              key={val}
-              onClick={() => formatInput(val)}
-              className="text-xs bg-[#2A2A2A] px-2 py-2 rounded-md hover:bg-[#3A3A3A]"
-            >
-              {val} BNB
-            </button>
-          ))}
+          {currencies
+            .find((value) => value.name === selectedCurrency)
+            ?.hardCap.map((val) => (
+              <button
+                key={val}
+                onClick={() => formatInput(val)}
+                className="text-xs bg-[#2A2A2A] px-2 py-2 rounded-md hover:bg-[#3A3A3A]"
+              >
+                {val} {selectedCurrency}
+              </button>
+            ))}
         </div>
+
         <p>You receive: 342810.12 ${payload.ticker}</p>
         <div className="relative w-full h-18">
           {/* Loader Layer */}
@@ -127,6 +202,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
         <div className="flex w-full justify-end gap-2">
           <button
             disabled={!captchaVerified}
+            onClick={handleSubmit}
             className={`px-4 py-3 rounded-md font-medium flex w-full items-center justify-center ${
               captchaVerified
                 ? "bg-[#FF3C38] text-white hover:opacity-90"

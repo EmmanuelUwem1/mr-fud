@@ -1,9 +1,13 @@
 "use client";
 import React, { useState, DragEvent, ChangeEvent } from "react";
 import Image from "next/image";
+import { useImageContext } from "../context/ImageContext";
+
+
+
 
 const MediaUpload: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
+const { file, setFile } = useImageContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const isImageFile = (file: File) => file.type.startsWith("image/");
