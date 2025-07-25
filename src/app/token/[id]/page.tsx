@@ -36,12 +36,12 @@ export default function TokenPage() {
   // Simulated token data — replace with actual API or contract data
   const [tokenData, setTokenData] = useState({
     price: 0.5231,
-    marketCap: 2340000,
+    marketCap: ((token?.currentPrice ?? 0) * (token?.totalSupply ?? 0)),
     volume24h: 120000,
     creatorReward: 5,
     referralReward: 2,
     description:
-      "This token powers a decentralized ecosystem built for real-time data sharing.",
+      token?.description || "",
     symbol: token?.ticker || "TKN",
     title: token?.name || "Token Name",
   });
@@ -95,7 +95,7 @@ export default function TokenPage() {
         />
 
         {/* Token Description */}
-        <TokenDescription description={tokenData.description} />
+        <TokenDescription description={tokenData.description} twitter={token.twitter || "#"} telegram={token.telegram || "#"} />
 
         {/* Comment Thread */}
         <CommentThread
