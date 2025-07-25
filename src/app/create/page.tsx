@@ -9,7 +9,7 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import CreateCoinModal from "./components/create-coin-modal";
 import { useTokenForm } from "./context/TokenFormContext";
-
+import BackButton from "@/components/buttons/backButton";
 
 export default function Page() {
   const { isConnected, address } = useAccount();
@@ -33,6 +33,7 @@ const {setPayload} = useTokenForm();
         transition={{ duration: 0.5 }}
         className="flex w-full items-center flex-col justify-start py-6"
       >
+        <BackButton />
         <Form />
         <div className="flex w-full items-start justify-center md:flex-nowrap flex-wrap gap-4 max-w-4xl">
           <MediaUpload /> <SocialsInput />

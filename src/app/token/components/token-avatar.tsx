@@ -22,7 +22,7 @@ export default function TokenAvatar({
           }}
         >
           {/* Inner Circle with Black Border */}
-          <div className="bg-white rounded-full relative h-12 w-12 flex items-center justify-center border-[4px] border-black overflow-hidden m-auto">
+          <div className="bg-white rounded-full relative h-12 w-12 flex items-center justify-center overflow-hidden m-auto">
             <Image
               alt={`${tokenName} Logo`}
               src={image}

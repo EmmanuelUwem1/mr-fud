@@ -27,7 +27,7 @@ export default function FeaturedCard({
 }: FeaturedCardProps) {
    const [retryCount, setRetryCount] = useState(0);
  const handleError = () => {
-   if (retryCount < 3) {
+   if (retryCount < 5) {
      setTimeout(() => {
        setRetryCount((prev) => prev + 1);
      }, 1000); // Retry after 1 second

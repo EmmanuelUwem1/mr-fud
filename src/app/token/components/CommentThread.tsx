@@ -5,6 +5,8 @@ import { copyToClipboard } from "@/lib/utils";
 import { formatWalletAddress } from "@/lib/utils";
 import TradesTable from "./tradesTable";
 import UserAvatar from "./userAvatar";
+import { formatDateToCustom } from "@/lib/utils";
+
 type Comment = {
   id: string;
   text: string;
@@ -85,7 +87,7 @@ export default function CommentThread({
                 alt="clock"
               />
             </span>
-            {createdDate}
+            {formatDateToCustom(createdDate)}
           </button>
         </div>
       </div>
@@ -98,7 +100,9 @@ export default function CommentThread({
             >
               <div className="flex flex-col items-start justify-start">
                 {" "}
-                <div><UserAvatar imageUrl="" username="" /> {c.text}</div>
+                <div>
+                  <UserAvatar imageUrl="" username="" /> {c.text}
+                </div>
                 {c.replies.map((r) => (
                   <div key={r.id} className="ml-4 text-sm text-gray-300">
                     {r.text}
@@ -106,7 +110,10 @@ export default function CommentThread({
                 ))}
               </div>
               {isConnected ? (
-                <button className="bg-[#343434] rounded-[7px] px-4 py-2 cursor-pointer font-bold" onClick={() => handleReply(c.id)}>
+                <button
+                  className="bg-[#343434] rounded-[7px] px-4 py-2 cursor-pointer font-bold"
+                  onClick={() => handleReply(c.id)}
+                >
                   Reply
                 </button>
               ) : null}

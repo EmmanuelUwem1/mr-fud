@@ -43,3 +43,44 @@ export const copyToClipboard = async (text :string) => {
     toast.error("Failed to copy");
   }
 };
+
+export const formatMarketCap = (cap: number): string => {
+  if (cap >= 1_000_000_000) {
+    return `$${(cap / 1_000_000_000).toFixed(1)}B+`;
+  } else if (cap >= 1_000_000) {
+    return `$${(cap / 1_000_000).toFixed(1)}M+`;
+  } else if (cap >= 1_000) {
+    return `$${(cap / 1_000).toFixed(1)}K+`;
+  }
+  return `$${cap}+`;
+};
+
+export function formatDateToCustom(dateString: string): string {
+  const date = new Date(dateString);
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const month = months[date.getMonth()];
+  const day = String(date.getDate()).padStart(2, "0");
+  const year = date.getFullYear();
+
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
+  return `${month} ${day} ${year} ${hours}:${minutes}:${seconds}`;
+}
+

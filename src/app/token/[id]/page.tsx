@@ -12,7 +12,7 @@ import Token from "../components/token";
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 import { useTokens } from "@/context/TokensContext";
-
+import BackButton from "@/components/buttons/backButton";
 
 
 export default function TokenPage() {
@@ -76,6 +76,8 @@ export default function TokenPage() {
         transition={{ duration: 0.5 }}
         className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8"
       >
+        {/* Back Button */}
+        <BackButton />
         {/* Stats + Price Chart */}
         <Token
           address={token?.contractAddress || ""}
@@ -83,7 +85,7 @@ export default function TokenPage() {
           tokenTicker={token?.ticker || ""}
           image={token?.image || ""}
         />
-        <TokenStatsCard {...tokenData} />
+        <TokenStatsCard mCap={tokenData.marketCap}  />
         <TradingViewWidget symbol={`${tokenData.symbol}`} />
 
         {/* Buy/Sell Tabs */}

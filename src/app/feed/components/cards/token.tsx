@@ -5,6 +5,9 @@ import Image from "next/image";
 import RatingBar from '../rating-bar'
 import { copyToClipboard } from "@/lib/utils";
 import Link from "next/link";
+import { formatMarketCap } from "@/lib/utils";
+import { useState } from "react";
+
 type TokenCardProps = {
   ticker: string;
   name: string;
@@ -26,6 +29,18 @@ export default function TokenCard({
   image,
   id,
 }: TokenCardProps) {
+     const [retryCount, setRetryCount] = useState(0);
+   const handleError = () => {
+     if (retryCount < 5) {
+       setTimeout(() => {
+         setRetryCount((prev) => prev + 1);
+       }, 1000); // Retry after 1 second
+     }
+   };
+  
+  const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
+  
+
  return (
    <Link href={`/token/${id}`} className="token-gradient-wrapper">
      <div className="bg-[#141414] text-white rounded-[15px] py-3 pl-3 pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
@@ -33,13 +48,14 @@ export default function TokenCard({
        <div className="flex w-full gap-3 items-center justify-start">
          {/* image */}
          <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
-           <Image
-             alt=""
-             src={image}
-             layout="fill"
-             objectFit="contain"
-             objectPosition="center"
-           />
+            <Image
+                       src={`${image}${cacheBuster}`}
+                       alt={""}
+                       layout="fill"
+                       objectFit="cover"
+                       objectPosition="center"
+                       onError={handleError}
+                     />
          </div>
          <div className="flex flex-col w-full items-start text-left justify-start gap-1">
            <span className="text-lg text-[#E3E3E3] font-normal GasoekOne-Regular">
@@ -70,7 +86,7 @@ export default function TokenCard({
            </p>
            <p className="text-sm">
              <span className="font-normal text-[#FF3C38]">Market Cap:</span>{" "}
-             {marketCap}
+             {formatMarketCap(marketCap)}
            </p>
 
            <p className="text-sm">

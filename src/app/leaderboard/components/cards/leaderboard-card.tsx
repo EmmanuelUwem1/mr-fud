@@ -1,16 +1,6 @@
 "use client";
 import CreatedBy from "../created-by";
-
-const formatMarketCap = (cap: number): string => {
-  if (cap >= 1_000_000_000) {
-    return `$${(cap / 1_000_000_000).toFixed(1)}B+`;
-  } else if (cap >= 1_000_000) {
-    return `$${(cap / 1_000_000).toFixed(1)}M+`;
-  } else if (cap >= 1_000) {
-    return `$${(cap / 1_000).toFixed(1)}K+`;
-  }
-  return `$${cap}+`;
-};
+import { formatMarketCap } from "@/lib/utils";
 
 // Helper to determine background color based on index
 const getGradientColor = (index: number): string => {
