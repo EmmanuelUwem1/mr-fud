@@ -6,6 +6,8 @@ interface BuySellCardProps {
   onBuy: (amount: string) => void;
   onSell: (amount: string) => void;
   tokenName: string;
+  tokenPrice: number; 
+  tokenChain: string; 
 }
 
 export default function BuySellCard({
@@ -13,6 +15,8 @@ export default function BuySellCard({
   onBuy,
   onSell,
   tokenName,
+  tokenPrice,
+  tokenChain,
 }: BuySellCardProps) {
   const [tab, setTab] = useState<"buy" | "sell">("buy");
   const [amount, setAmount] = useState("");
@@ -104,15 +108,13 @@ export default function BuySellCard({
         </div>
       </div>
 
-      {/* Fee & Hint Section */}
-      {/* <div className="text-xs text-gray-400">
-        Estimated Price Impact: <span className="text-yellow-400">~0.12%</span>
-      </div>
-      <div className="text-xs text-gray-400">
-        Network Fee: <span className="text-white">0.0002 BNB</span>
-      </div> */}
+      {/* BNB Equivalent Price Preview */}
+      {amount && !isNaN(parseFloat(amount)) && tokenPrice > 0 && (
+        <div className="text-xs text-[#999999] font-medium">
+          ≈ {(parseFloat(amount) * tokenPrice).toFixed(6)} BNB
+        </div>
+      )}
 
-      {/* Submit Button */}
       <button
         className={`mt-2 flex cursor-pointer items-center w-full justify-center rounded-full px-3 py-3.5 text-xs font-semibold ${
           tab === "buy" ? "bg-[#06D57B]" : "bg-[#fe3c3cf4]"

@@ -12,7 +12,7 @@ import Token from "../components/token";
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 import { useTokens } from "@/context/TokensContext";
-import BackButton from "@/components/buttons/backButton";
+import BackButton from "@/components/buttons/backButton"
 
 
 export default function TokenPage() {
@@ -94,6 +94,8 @@ export default function TokenPage() {
           onBuy={handleBuy}
           onSell={handleSell}
           tokenName={tokenData.title}
+          tokenPrice={token?.currentPrice || 0}
+          tokenChain={"BSC"}
         />
       </div>
       {/* Token Description */}

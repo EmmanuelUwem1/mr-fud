@@ -55,3 +55,66 @@ export async function fetchTokens() {
     throw new Error("Failed to fetch tokens");
   }
 };
+
+
+
+type BuyPayload = {
+  txHash: string;
+  wallet: string;
+  tokenAddress: string;
+  amountInChainCurrency: number;
+  amountInToken: number;
+  price: number;
+  value: number;
+  chain: string;
+};
+
+export const buyToken = async (data: BuyPayload): Promise<void> => {
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/api/v1/transactions/buy`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Buy token response:", response.data);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error("Server error:", error.response.data);
+    } else if (error instanceof Error) {
+      console.error("Network error:", error.message);
+    } else {
+      console.error("An unknown error occurred during buyToken.");
+    }
+  }
+};
+
+
+export const sellToken = async (data: BuyPayload): Promise<void> => {
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/api/v1/transactions/sell`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Sell token response:", response.data);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error("Server error:", error.response.data);
+    } else if (error instanceof Error) {
+      console.error("Network error:", error.message);
+    } else {
+      console.error("An unknown error occurred during SellToken.");
+    }
+  }
+};
+
