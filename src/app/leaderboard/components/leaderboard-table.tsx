@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import TokenAvatar from "@/components/avaters/token-avatar";
 import MarketCap from "@/components/market-cap";
 import UserAvatar from "@/components/avaters/user-avatar";
@@ -24,9 +24,10 @@ const LeaderboardTable = () => {
 
         {/* Rows */}
         {tokens.map((token, i) => (
-          <div
+          <Link 
+            href={`/token/${token._id}`}
             key={i}
-            className="grid grid-cols-3 py-4 border-t border-[#221C28] items-center"
+            className="grid grid-cols-3 py-4 border-t border-[#221C28] items-center cursor-pointer hover:bg-[#1d1d1d] transition-class"
           >
             <TokenAvatar
               index={i}
@@ -43,7 +44,7 @@ const LeaderboardTable = () => {
               marketCap={token.totalSupply * token.currentPrice}
               // changePercent={}
             />
-          </div>
+          </Link>
         ))}
       </div>
     </div>
