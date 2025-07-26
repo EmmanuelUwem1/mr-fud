@@ -1,12 +1,12 @@
 "use client";
 
 type MarketCapProps = {
-  marketCap: string;
-  changePercent: string;
+  marketCap: number;
+  changePercent?: string;
 };
 
 const MarketCap = ({
-  marketCap = "0",
+  marketCap = 0,
   changePercent = "0",
 }: MarketCapProps) => {
   const capNumber = Number(marketCap);

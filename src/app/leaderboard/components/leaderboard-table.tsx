@@ -3,10 +3,15 @@
 import TokenAvatar from "@/components/avaters/token-avatar";
 import MarketCap from "@/components/market-cap";
 import UserAvatar from "@/components/avaters/user-avatar";
-import { mockTokens } from "@/lib/data/mock-tokens";
+// import { mockTokens } from "@/lib/data/mock-tokens";
+import { useTokens } from "@/context/TokensContext";
+import {formatDaysAgo} from "@/lib/utils";
+import { formatWalletAddress } from "@/lib/utils";
 
 
 const LeaderboardTable = () => {
+      const { tokens, loading } = useTokens();
+  
   return (
     <div className="w-full overflow-x-auto bg-[#141414] rounded-xl p-4">
       <div className="min-w-[600px]">
@@ -18,25 +23,25 @@ const LeaderboardTable = () => {
         </div>
 
         {/* Rows */}
-        {mockTokens.map((token, i) => (
+        {tokens.map((token, i) => (
           <div
             key={i}
             className="grid grid-cols-3 py-4 border-t border-[#221C28] items-center"
           >
             <TokenAvatar
               index={i}
-              imageUrl={token.imageUrl}
+              imageUrl={token.image}
               ticker={token.ticker}
               name={token.name}
             />
             <UserAvatar
-              imageUrl={token.createdBy.imageUrl}
-              username={token.createdBy.username}
-              subtitle={token.createdBy.subtitle}
+              // imageUrl={token.createdBy}
+              username={formatWalletAddress(token.creatorWallet)}
+              subtitle={formatDaysAgo(token.createdAt)}
             />
             <MarketCap
-              marketCap={token.marketCap}
-              changePercent={token.changePercent}
+              marketCap={token.totalSupply * token.currentPrice}
+              // changePercent={}
             />
           </div>
         ))}

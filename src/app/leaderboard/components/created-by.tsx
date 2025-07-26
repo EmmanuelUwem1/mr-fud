@@ -4,14 +4,14 @@ import { formatWalletAddress, formatDaysAgo } from "@/lib/utils";
 import Avatar from "@/components/avaters/avater-circle";
 
 type CreatedByProps = {
-  wallet?: string;
-  createdAt?: string | number | Date;
+  wallet: string;
+  createdAt: string;
   avatarUrl?: string;
 };
 
 const CreatedBy = ({
   wallet = "0x4FC12345678901818", // default wallet
-  createdAt = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+  createdAt, 
   avatarUrl,
 }: CreatedByProps) => {
   return (

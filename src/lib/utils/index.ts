@@ -26,13 +26,26 @@ export function formatWalletAddress(address: string) {
   return `${address.slice(0, 5)}...${address.slice(-4)}`;
 }
 
-export const formatDaysAgo = (createdAt: string | number | Date): string => {
-  const createdDate = new Date(createdAt);
+export const formatDaysAgo = (createdAt: string): string => {
+  if (!createdAt || typeof createdAt !== "string") return "Invalid date";
+
+  const parsedDate = new Date(createdAt.trim());
+  if (isNaN(parsedDate.getTime())) {
+    console.warn("Unparsable date:", createdAt);
+    return "Invalid date";
+  }
+
   const now = new Date();
-  const diffTime = Math.abs(now.getTime() - createdDate.getTime());
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const diffMs = now.getTime() - parsedDate.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+
   return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
 };
+
+
+
+
 
 
 export const copyToClipboard = async (text :string) => {

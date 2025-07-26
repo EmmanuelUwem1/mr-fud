@@ -20,7 +20,7 @@ export default function BuySellCard({
   const maxAmount = balance.toString();
 
   return (
-    <div className="max-w-96 p-4 rounded-md bg-[#141414] text-white space-y-4">
+    <div className="w-96 p-4 rounded-md bg-[#141414] text-white space-y-4">
       {/* Buy/Sell Tabs */}
       <div className="bg-[#2A2A2A] rounded-full flex w-full items-center">
         <button

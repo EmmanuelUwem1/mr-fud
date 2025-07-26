@@ -1,9 +1,10 @@
 "use client";
-
 import { useState } from "react";
 import LeaderboardCard from "./cards/leaderboard-card";
 import LeaderboardTable from "./leaderboard-table";
-import { Tokens } from "@/lib/data/mock-tokens";
+// import { Tokens } from "@/lib/data/mock-tokens";
+import { useTokens } from "@/context/TokensContext";
+
 
 
 
@@ -11,6 +12,9 @@ const Leaderboard = () => {
   const [activeTab, setActiveTab] = useState<
     "tokens" | "referrals" | "socials"
   >("tokens");
+
+    const { tokens, loading } = useTokens();
+  
 
   const tabs = ["tokens", "referrals", "socials"];
 
@@ -38,15 +42,17 @@ const Leaderboard = () => {
       {/* Top 3 Leaderboard Cards */}
       {activeTab === "tokens" && (
         <div className="flex items-center justify-center lg:flex-nowrap flex-wrap py-4 gap-4 w-full">
-          {Tokens.slice(0, 3).map((token, index) => (
+          {tokens.slice(0, 3).map((token, index) => (
             <LeaderboardCard
-              key={index}
+              key={token._id}
               index={index}
               ticker={token.ticker}
               name={token.name}
-              marketCap={token.marketCap}
-              creator={token.creator}
-              // imageUrl={token.imageUrl}
+              marketCap={token.totalSupply * token.currentPrice}
+              creator={token.creatorWallet}
+              imageUrl={token.image}
+              createdDate={token.createdAt}
+              id={token._id}
             />
           ))}
         </div>

@@ -68,24 +68,24 @@ export default function TokenPage() {
     console.log("Selling", amount);
   };
 
-  return (
-    token ? (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8"
-      >
-        {/* Back Button */}
-        <BackButton />
-        {/* Stats + Price Chart */}
-        <Token
-          address={token?.contractAddress || ""}
-          tokenName={token?.name || ""}
-          tokenTicker={token?.ticker || ""}
-          image={token?.image || ""}
-        />
-        <TokenStatsCard mCap={tokenData.marketCap}  />
+  return token ? (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8"
+    >
+      {/* Back Button */}
+      <BackButton />
+      {/* Stats + Price Chart */}
+      <Token
+        address={token?.contractAddress || ""}
+        tokenName={token?.name || ""}
+        tokenTicker={token?.ticker || ""}
+        image={token?.image || ""}
+      />
+      <TokenStatsCard mCap={tokenData.marketCap} />
+      <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <TradingViewWidget symbol={`${tokenData.symbol}`} />
 
         {/* Buy/Sell Tabs */}
@@ -95,20 +95,23 @@ export default function TokenPage() {
           onSell={handleSell}
           tokenName={tokenData.title}
         />
+      </div>
+      {/* Token Description */}
+      <TokenDescription
+        description={tokenData.description}
+        twitter={token.twitter || "#"}
+        telegram={token.telegram || "#"}
+      />
 
-        {/* Token Description */}
-        <TokenDescription description={tokenData.description} twitter={token.twitter || "#"} telegram={token.telegram || "#"} />
-
-        {/* Comment Thread */}
-        <CommentThread
-          comments={comments}
-          isConnected={isConnected}
-          ca={token?.contractAddress || ""}
-          createdDate={token?.createdAt || ""}
-        />
-      </motion.div>
-    ) : (
-      <div className="flex items-center justify-center h-screen"></div>
-    )
+      {/* Comment Thread */}
+      <CommentThread
+        comments={comments}
+        isConnected={isConnected}
+        ca={token?.contractAddress || ""}
+        createdDate={token?.createdAt || ""}
+      />
+    </motion.div>
+  ) : (
+    <div className="flex items-center justify-center h-screen"></div>
   );
 }

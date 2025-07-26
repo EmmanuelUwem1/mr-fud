@@ -1,6 +1,8 @@
 "use client";
 import CreatedBy from "../created-by";
 import { formatMarketCap } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 
 // Helper to determine background color based on index
 const getGradientColor = (index: number): string => {
@@ -22,12 +24,18 @@ const LeaderboardCard = ({
   name = "Ethereum",
   marketCap = "3200000000",
   creator = "0x4FC...1818",
+  imageUrl,
+  createdDate,
+  id,
 }: {
   index: number;
   ticker: string;
   name: string;
   marketCap: string | number;
-  creator: string;
+    creator: string;
+    imageUrl: string;
+    createdDate: string;
+  id: string;
 }) => {
   const formattedIndex = String(index + 1).padStart(3, "0");
   const formattedCap = formatMarketCap(Number(marketCap));
@@ -68,14 +76,16 @@ const LeaderboardCard = ({
         </div>
 
         {/* right section (image placeholder) */}
-        <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative"></div>
+        <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
+          <Image alt="" src={imageUrl} layout="fill" objectPosition="center" objectFit="cover" />
+        </div>
       </div>
 
       <div className="flex items-center justify-between w-full mt-3 px-4">
-        <CreatedBy />
-        <button className="w-fit bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-4 rounded-full transition-class">
+        <CreatedBy wallet={creator } createdAt={createdDate} />
+        <Link href={`/token/${id}`} className="w-fit bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-4 rounded-full transition-class">
           Buy
-        </button>
+        </Link>
       </div>
     </div>
   );
