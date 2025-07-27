@@ -91,11 +91,10 @@ export default function TokenPage() {
         {/* Buy/Sell Tabs */}
         <BuySellCard
           balance={Number(userBalance)}
-          onBuy={handleBuy}
-          onSell={handleSell}
           tokenName={tokenData.title}
           tokenPrice={token?.currentPrice || 0}
           tokenChain={"BSC"}
+          tokenCa= {token?.contractAddress || ""}
         />
       </div>
       {/* Token Description */}

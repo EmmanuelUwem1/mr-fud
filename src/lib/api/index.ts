@@ -69,7 +69,7 @@ type BuyPayload = {
   chain: string;
 };
 
-export const buyToken = async (data: BuyPayload): Promise<void> => {
+export const buyToken = async (data: BuyPayload) => {
   try {
     const response = await axios.post(
       `${BACKEND_URL}/api/v1/transactions/buy`,
@@ -80,8 +80,8 @@ export const buyToken = async (data: BuyPayload): Promise<void> => {
         },
       }
     );
-
-    console.log("Buy token response:", response.data);
+console.log("BuyToken response:", response.data);
+   return {success: true, data: response.data };
   } catch (error: unknown) {
     if (axios.isAxiosError(error) && error.response) {
       console.error("Server error:", error.response.data);
@@ -94,7 +94,7 @@ export const buyToken = async (data: BuyPayload): Promise<void> => {
 };
 
 
-export const sellToken = async (data: BuyPayload): Promise<void> => {
+export const sellToken = async (data: BuyPayload) => {
   try {
     const response = await axios.post(
       `${BACKEND_URL}/api/v1/transactions/sell`,
@@ -105,8 +105,8 @@ export const sellToken = async (data: BuyPayload): Promise<void> => {
         },
       }
     );
-
-    console.log("Sell token response:", response.data);
+console.log("SellToken response:", response.data);
+   return { success: true, data: response.data };
   } catch (error: unknown) {
     if (axios.isAxiosError(error) && error.response) {
       console.error("Server error:", error.response.data);

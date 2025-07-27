@@ -1,27 +1,109 @@
 "use client";
 import { useState } from "react";
+import { buyToken } from "@/lib/api";
+import { sellToken } from "@/lib/api";
+import { useAccount } from "wagmi";
+import toast from "react-hot-toast";
 
 interface BuySellCardProps {
   balance: number;
-  onBuy: (amount: string) => void;
-  onSell: (amount: string) => void;
   tokenName: string;
   tokenPrice: number; 
   tokenChain: string; 
+  tokenCa: string;
 }
 
 export default function BuySellCard({
   balance,
-  onBuy,
-  onSell,
   tokenName,
   tokenPrice,
   tokenChain,
+  tokenCa,
 }: BuySellCardProps) {
   const [tab, setTab] = useState<"buy" | "sell">("buy");
   const [amount, setAmount] = useState("");
+const {  address, } = useAccount();
+const [loading, setLoading] = useState(false);
+
 
   const maxAmount = balance.toString();
+async function onBuy(amount: string) {
+  if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+    toast.error("Please enter a valid amount to buy.");
+    return;
+  }
+
+  const amountInBNB = parseFloat(amount);
+  const amountInToken = amountInBNB / tokenPrice;
+
+  const data = {
+    txHash: "mock-tx-hash",
+    wallet: address as `0x${string}`,
+    tokenAddress: tokenCa,
+    amountInChainCurrency: amountInBNB,
+    amountInToken,
+    price: tokenPrice,
+    value: amountInBNB * tokenPrice,
+    chain: tokenChain,
+  };
+
+  setLoading(true);
+  try {
+    const response = await buyToken(data);
+    if (response?.success) {
+      toast.success(
+        `Successfully bought ${amountInToken.toFixed(4)} ${tokenName}`
+      );
+      setAmount("");
+    }
+    else {
+      toast.error("Failed to buy token. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error buying token:", error);
+    toast.error("Failed to buy token. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+}
+
+async function onSell(amount: string) {
+  if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+    toast.error("Please enter a valid amount to sell.");
+    return;
+  }
+
+  const amountInBNB = parseFloat(amount);
+  const amountInToken = amountInBNB / tokenPrice;
+
+  const data = {
+    txHash: "mock-tx-hash",
+    wallet: address as `0x${string}`,
+    tokenAddress: tokenCa,
+    amountInChainCurrency: amountInBNB,
+    amountInToken,
+    price: tokenPrice,
+    value: amountInBNB * tokenPrice,
+    chain: tokenChain,
+  };
+
+  setLoading(true);
+  try {
+    const response = await sellToken(data);
+    if (response?.success) {
+      toast.success(`Successfully sold ${amountInToken.toFixed(4)} ${tokenName}`);
+      setAmount("");
+    }
+    else {
+      toast.error("Failed to sell token. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error selling token:", error);
+    toast.error("Failed to sell token. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+}
 
   return (
     <div className="w-96 p-4 rounded-md bg-[#141414] text-white space-y-4">
@@ -108,21 +190,44 @@ export default function BuySellCard({
         </div>
       </div>
 
-      {/* BNB Equivalent Price Preview */}
+      {/*  Preview */}
       {amount && !isNaN(parseFloat(amount)) && tokenPrice > 0 && (
         <div className="text-xs text-[#999999] font-medium">
-          ≈ {(parseFloat(amount) * tokenPrice).toFixed(6)} BNB
+          ≈ {parseFloat(amount) / tokenPrice} {tokenName}
         </div>
       )}
 
       <button
-        className={`mt-2 flex cursor-pointer items-center w-full justify-center rounded-full px-3 py-3.5 text-xs font-semibold ${
+        disabled={loading}
+        className={`mt-2 flex items-center justify-center w-full rounded-full px-3 py-3.5 text-xs font-semibold cursor-pointer ${
           tab === "buy" ? "bg-[#06D57B]" : "bg-[#fe3c3cf4]"
-        } text-white`}
+        } text-white ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
         onClick={() => (tab === "buy" ? onBuy(amount) : onSell(amount))}
       >
-        {tab === "buy" ? "Buy" : "Sell"}
-        {" " + tokenName}
+        {loading ? (
+          <svg
+            className="animate-spin h-4 w-4 text-white mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="white"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="white"
+              d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 010 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
+            />
+          </svg>
+        ) : (
+          `${tab === "buy" ? "Buy" : "Sell"} ${tokenName}`
+        )}
       </button>
     </div>
   );
