@@ -32,7 +32,7 @@ const { file, setFile } = useImageContext();
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => e.preventDefault();
 
   return (
-    <div className="bg-[#141414] p-2.5 rounded-[13px] flex flex-col w-full h-full items-center justify-center">
+    <div className="sm:bg-[#141414] bg-[#212121] p-2.5 rounded-[13px] flex flex-col w-full h-full items-center justify-center">
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}

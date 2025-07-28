@@ -31,9 +31,24 @@ const {setPayload} = useTokenForm();
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex w-full items-center flex-col justify-start py-6"
+        className="flex w-full items-center flex-col justify-start sm:py-6 pb-8"
       >
-        <BackButton />
+        <div className="flex sm:items-center sm:justify-center gap-6 justify-start items-start w-full max-w-4xl">
+          <div className="w-full">
+            {/* Heading */}
+            <h1 className="text-xl font-semibold bg-clip-text text-transparent w-full text-left sm:text-center bg-gradient-to-r from-[#FA3C39] to-[#FFA393]">
+              Create New Coin
+            </h1>
+
+            {/* Subheading */}
+            <p className="text-sm w-full py-3 text-left sm:text-center font-light text-[#7B93D5]">
+              {`choose carefully, these can't be changed once the coin is created`}
+            </p>
+          </div>
+          <span className="sm:hidden">
+            <BackButton />
+          </span>
+        </div>
         <Form />
         <div className="flex w-full items-start justify-center md:flex-nowrap flex-wrap gap-4 max-w-4xl">
           <MediaUpload /> <SocialsInput />
@@ -49,7 +64,7 @@ const {setPayload} = useTokenForm();
               objectPosition="center"
             />
           </span>
-         {` Coin data (social links, banner, etc) can only be added now, and can't
+          {` Coin data (social links, banner, etc) can only be added now, and can't
           be changed or edited after creation`}
         </div>
 
