@@ -66,7 +66,7 @@ export default function TokenPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8"
+      className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18"
     >
       {/* Back Button */}
       <BackButton />
@@ -80,14 +80,49 @@ export default function TokenPage() {
       <TokenStatsCard mCap={tokenData.marketCap} />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <div className="flex flex-col items-start justify-start w-full gap-4">
-        <TradingViewWidget symbol={`${tokenData.symbol}`} />
-        <div className="flex flex-col w-full items-start justify-start gap-4">
+          <TradingViewWidget symbol={`${tokenData.symbol}`} />
+          <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
+            {/* Token Description */}
+            <TokenDescription
+              description={tokenData.description}
+              twitter={token.twitter || ""}
+              telegram={token.telegram || ""}
+              ca={token?.contractAddress || ""}
+              createdDate={token?.createdAt || ""}
+            />
+
+            {/* Comment Thread */}
+            <CommentThread
+              comments={comments}
+              isConnected={isConnected}
+              ca={token?.contractAddress || ""}
+              createdDate={token?.createdAt || ""}
+            />
+          </div>
+        </div>
+
+        <div className="lg:hidden flex flex-col w-full items-start justify-start gap-4">
           {/* Token Description */}
           <TokenDescription
+            ca={token?.contractAddress || ""}
+            createdDate={token?.createdAt || ""}
             description={tokenData.description}
-            twitter={token.twitter || "#"}
-            telegram={token.telegram || "#"}
+            twitter={token.twitter}
+            telegram={token.telegram}
           />
+
+          <div className="flex w-full flex-wrap lg:flex-col gap-4 items-start justify-start">
+            {/* Buy/Sell Tabs */}
+            <BuySellCard
+              balance={Number(userBalance)}
+              tokenName={token?.name || ""}
+              tokenPrice={token?.currentPrice || 0}
+              tokenChain={"BSC"}
+              tokenCa={token?.contractAddress || ""}
+            />
+            <GraduatedCard />
+            <AntiFudCard antiFudEnabled={token.isAntiGeet} />
+          </div>
 
           {/* Comment Thread */}
           <CommentThread
@@ -96,24 +131,6 @@ export default function TokenPage() {
             ca={token?.contractAddress || ""}
             createdDate={token?.createdAt || ""}
           />
-          </div>
-          
-          
-        </div>
-
-
-
-        <div className="flex flex-col gap-4 items-start justify-start">
-          {/* Buy/Sell Tabs */}
-          <BuySellCard
-            balance={Number(userBalance)}
-            tokenName={token?.name || ""}
-            tokenPrice={token?.currentPrice || 0}
-            tokenChain={"BSC"}
-            tokenCa={token?.contractAddress || ""}
-          />
-          <GraduatedCard />
-          <AntiFudCard antiFudEnabled={token.isAntiGeet} />
         </div>
       </div>
     </motion.div>

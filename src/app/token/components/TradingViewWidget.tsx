@@ -22,7 +22,7 @@ export default function TradingViewWidget({ symbol }: { symbol: string }) {
   }, [symbol]);
 
   return (
-    <div className="bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full sm:h-full max-sm:max-h-56 overflow-hidden">
+    <div className="bg-[#212121] sm:bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full sm:h-full max-sm:max-h-56 overflow-hidden">
       <div
         className="tradingview-widget-container"
         ref={containerRef}

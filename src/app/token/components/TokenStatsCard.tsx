@@ -1,17 +1,17 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import ReferModal from "./ReferModal";
 import { LabelValuePair } from "./labelValuePair";
 import BlackBar from "./blackBar";
 import { formatMarketCap } from "@/lib/utils";
+import ReferButton from "./refer-button";
 
 export default function TokenStatsCard({mCap }: { mCap: number }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <div className="card px-4 md:px-6 flex w-full justify-center items-center md:justify-between rounded-[18px] gap-3 py-3 bg-[#1C1C1C] text-white border border-black flex-wrap md:flex-nowrap">
+      <div className="card px-4 md:px-6 flex w-full justify-center items-center md:justify-between rounded-[18px] gap-3 py-3 bg-[#212121] sm:bg-[#1C1C1C] text-white border border-black flex-wrap md:flex-nowrap">
         {/* Stats */}
         <div className="flex h-full flex-wrap md:flex-nowrap items-center sm:gap-4 justify-start">
           <LabelValuePair label="Mcap" value={formatMarketCap(mCap)} />
@@ -24,26 +24,12 @@ export default function TokenStatsCard({mCap }: { mCap: number }) {
         </div>
 
         {/* Refer Button */}
-        <div className="flex items-center justify-start gap-3">
-          <button
-            onClick={() => setShowModal(true)}
-            className="text-xs font-medium flex items-center justify-center gap-2 w-40 bg-[#FF3C38] rounded-full p-3 transition-class hover:opacity-90 cursor-pointer"
-          >
-            Refer a friend
-            <span className="relative flex items-center justify-center h-4 w-4">
-              <Image
-                alt=""
-                src="/export.png"
-                layout="fill"
-                objectFit="contain"
-                objectPosition="center"
-              />
-            </span>
-          </button>
-        </div>
+        <span className="hidden sm:flex">
+          <ReferButton setShowModal={setShowModal} />
+        </span>
       </div>
 
-      {showModal && <ReferModal onClose={() => setShowModal(false)} />}
+     
     </>
   );
 }

@@ -1,11 +1,8 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
-import { copyToClipboard } from "@/lib/utils";
-import { formatWalletAddress } from "@/lib/utils";
 import TradesTable from "./tradesTable";
 import UserAvatar from "./userAvatar";
-import { formatDateToCustom } from "@/lib/utils";
+import WalletAndDateFlex from "./walletAndDateFlex";
 
 type Comment = {
   id: string;
@@ -61,34 +58,8 @@ export default function CommentThread({
             Trades
           </button>
         </div>
-        <div className="flex items-center flex-wrap sm:flex-nowrap font-semibold justify-end gap-3">
-          <button
-            onClick={() => copyToClipboard(ca)}
-            className="text-xs relative flex items-center justify-center gap-2 cursor-pointer bg-[#2A2A2A] rounded-[5px] px-3 py-2"
-          >
-            {formatWalletAddress(ca)}
-            <span className="relative h-3.5 w-4">
-              <Image
-                src={"/copy-white.png"}
-                layout="fill"
-                objectFit="contain"
-                objectPosition="center"
-                alt="copy"
-              />
-            </span>
-          </button>
-          <button className="text-xs relative flex items-center justify-center gap-2 cursor-pointer bg-[#2A2A2A] rounded-[5px] px-3 py-2">
-            <span className="relative h-3.5 w-4">
-              <Image
-                src={"/clock.png"}
-                layout="fill"
-                objectFit="contain"
-                objectPosition="center"
-                alt="clock"
-              />
-            </span>
-            {formatDateToCustom(createdDate)}
-          </button>
+        <div className="w-full hidden lg:flex items-center justify-end gap-4">
+          <WalletAndDateFlex ca={ca} createdDate={createdDate} />
         </div>
       </div>
       {activeTab === "Comments" ? (

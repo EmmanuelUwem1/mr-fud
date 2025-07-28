@@ -9,7 +9,7 @@ export default function AntiFudCard({ antiFudEnabled }: AntiFudCardProps) {
   return (
     <>
       {antiFudEnabled ? (
-        <div className="cursor-pointer p-4 rounded-xl w-96 h-32 flex items-center justify-start text-white font-extralight text-sm transition-all border bg-[#021302] border-[#0FBF38]">
+        <div className="cursor-pointer p-4 rounded-xl w-full max-w-96 h-32 flex items-center justify-start text-white font-extralight text-sm transition-all border bg-[#021302] border-[#0FBF38]">
           <span className="relative flex items-center h-20 w-full justify-center">
             <Image
               alt="Anti-FUD ON"
@@ -26,7 +26,7 @@ export default function AntiFudCard({ antiFudEnabled }: AntiFudCardProps) {
           </p>
         </div>
       ) : (
-        <div className="cursor-pointer p-4 rounded-xl w-96 h-32 flex items-center justify-start text-white font-extralight text-sm transition-all border bg-[#130202] border-[#FF3C38]">
+        <div className="cursor-pointer p-4 rounded-xl w-full max-w-96 h-32 flex items-center justify-start text-white font-extralight text-sm transition-all border bg-[#130202] border-[#FF3C38]">
           <span className="relative flex items-center h-full w-full justify-center">
             <Image
               alt="Anti-FUD OFF"
