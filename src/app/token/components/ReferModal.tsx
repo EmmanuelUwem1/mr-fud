@@ -19,7 +19,7 @@ export default function ReferModal({ onClose }: ReferModalProps) {
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black h-full w-full border-[#923A07] rounded-[7px] bg-opacity-60">
+    <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-black h-full w-full border-[#923A07] rounded-[7px] bg-opacity-60">
       <div
         ref={modalRef}
         className="bg-[#1C1C1C] mx-4 rounded-xl p-6 w-full max-w-sm text-white shadow-lg"

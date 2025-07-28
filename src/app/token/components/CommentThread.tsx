@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import TradesTable from "./tradesTable";
 import UserAvatar from "./userAvatar";
 import WalletAndDateFlex from "./walletAndDateFlex";
@@ -17,102 +19,175 @@ export default function CommentThread({
   createdDate,
 }: {
   comments: Comment[];
-    isConnected: boolean;
-    ca: string;
-    createdDate: string;
+  isConnected: boolean;
+  ca: string;
+  createdDate: string;
 }) {
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [newComment, setNewComment] = useState("");
- const [activeTab, setActiveTab] = useState("Comments");
+  const [activeTab, setActiveTab] = useState("Comments");
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const handleReply = (id: string) => setReplyingTo(id);
 
   const postComment = () => {
-    // Handle post comment logic
     console.log("Post:", newComment);
     setNewComment("");
   };
 
-     
-  
-
   return (
     <div className="w-full">
-      <div className="flex w-full justify-between border-b border-[#2A2A2A] items-center">
-        <div className="flex gap-4 mb-2 w-fit text-xs font-semibold cursor-pointer">
-          <button
-            onClick={() => setActiveTab("Comments")}
-            className={`flex relative cursor-pointer rounded-[6px] px-4 py-3 text-center ${
-              activeTab === "Comments"
-                ? "bg-[#520000] tab-active"
-                : "text-white"
-            }`}
-          >
-            Comments
-          </button>
-          <button
-            onClick={() => setActiveTab("Trades")}
-            className={`flex cursor-pointer relative rounded-[6px] px-4 py-3 text-center ${
-              activeTab === "Trades" ? "bg-[#520000] tab-active" : "text-white"
-            }`}
-          >
-            Trades
-          </button>
-        </div>
-        <div className="w-full hidden lg:flex items-center justify-end gap-4">
-          <WalletAndDateFlex ca={ca} createdDate={createdDate} />
-        </div>
-      </div>
-      {activeTab === "Comments" ? (
-        <div className="p-4 my-4 rounded-[10px] text-xs relative font-normal bg-[#1C1C1C] text-white">
-          {comments.map((c) => (
-            <div
-              key={c.id}
-              className="mb-4 bg-[#212121] p-3 rounded-md w-full relative  flex items-center justify-between gap-3"
+      {/* Header Tabs & Wallet */}
+      <div className="border-b border-[#2A2A2A]">
+        {/* Desktop Tabs */}
+        <div className="hidden lg:flex w-full justify-between items-center">
+          <div className="flex gap-4 mb-2 w-fit text-xs font-semibold cursor-pointer">
+            <button
+              onClick={() => setActiveTab("Comments")}
+              className={`flex relative rounded-[6px] px-4 py-3 ${
+                activeTab === "Comments" ? "bg-[#520000]" : "text-white"
+              }`}
             >
-              <div className="flex flex-col items-start justify-start">
-                {" "}
-                <div>
-                  <UserAvatar imageUrl="" username="" /> {c.text}
-                </div>
-                {c.replies.map((r) => (
-                  <div key={r.id} className="ml-4 text-sm text-gray-300">
-                    {r.text}
-                  </div>
-                ))}
-              </div>
-              {isConnected ? (
-                <button
-                  className="bg-[#343434] rounded-[7px] px-4 py-2 cursor-pointer font-bold"
-                  onClick={() => handleReply(c.id)}
-                >
-                  Reply
-                </button>
-              ) : null}
-            </div>
-          ))}
-
-          {isConnected ? (
-            <div className="mt-4 w-full gap-4 flex items-center justify-between">
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Write your comment here..."
-                title="Comment input"
-              />
-              <button
-                className="bg-[#FF3C38] p-3 rounded-full"
-                onClick={postComment}
-              >
-                Add Comment
-              </button>
-            </div>
-          ) : (
-            <p>Please connect your wallet to comment or reply.</p>
-          )}
+              Comments
+            </button>
+            <button
+              onClick={() => setActiveTab("Trades")}
+              className={`flex relative rounded-[6px] px-4 py-3 ${
+                activeTab === "Trades" ? "bg-[#520000]" : "text-white"
+              }`}
+            >
+              Trades
+            </button>
+          </div>
+          <div className="w-full flex justify-end items-center gap-4">
+            <WalletAndDateFlex ca={ca} createdDate={createdDate} />
+          </div>
         </div>
-      ) : (
-        <TradesTable />
-      )}
+
+        {/* Mobile Dropdown */}
+        <div
+          className="lg:hidden px-4 py-3 flex justify-between items-center cursor-pointer bg-[#1C1C1C]"
+          onClick={() => setShowDropdown(!showDropdown)}
+        >
+          <span className="text-xs font-semibold ">{activeTab}</span>
+          <span
+            className={`transition-transform relative h-6 w-6 ${
+              showDropdown ? "rotate-180" : ""
+            }`}
+          >
+            <Image
+              alt=""
+              src={
+                "/Property 1=vuesax, Property 2=bold, Property 3=arrow-circle-up.png"
+                
+              }
+              layout="fill"
+              objectFit="contain"
+              objectPosition="center"
+            />
+          </span>
+         
+        </div>
+
+        <AnimatePresence>
+          {showDropdown && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="lg:hidden bg-[#212121] flex flex-col px-4 py-2 text-white text-sm"
+            >
+              <button
+                onClick={() => {
+                  setActiveTab("Comments");
+                  setShowDropdown(false);
+                }}
+                className="py-2"
+              >
+                Comments
+              </button>
+              <button
+                onClick={() => {
+                  setActiveTab("Trades");
+                  setShowDropdown(false);
+                }}
+                className="py-2"
+              >
+                Trades
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Tab Content */}
+      <AnimatePresence mode="wait">
+        {activeTab === "Comments" ? (
+          <motion.div
+            key="comments"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 30 }}
+            transition={{ duration: 0.25 }}
+            className="p-4 my-4 rounded-[10px] text-xs bg-[#1C1C1C] text-white"
+          >
+            {comments.map((c) => (
+              <div
+                key={c.id}
+                className="mb-4 bg-[#212121] p-3 rounded-md w-full flex justify-between items-center gap-3"
+              >
+                <div className="flex flex-col items-start">
+                  <div>
+                    <UserAvatar imageUrl="" username="" /> {c.text}
+                  </div>
+                  {c.replies.map((r) => (
+                    <div key={r.id} className="ml-4 text-sm text-gray-300">
+                      {r.text}
+                    </div>
+                  ))}
+                </div>
+                {isConnected && (
+                  <button
+                    className="bg-[#343434] rounded-[7px] px-4 py-2 font-bold"
+                    onClick={() => handleReply(c.id)}
+                  >
+                    Reply
+                  </button>
+                )}
+              </div>
+            ))}
+
+            {isConnected ? (
+              <div className="mt-4 flex gap-4 items-center justify-between w-full">
+                <textarea
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Write your comment here..."
+                  className="flex-grow bg-[#2A2A2A] text-white px-4 py-2 rounded-md resize-none"
+                />
+                <button
+                  className="bg-[#FF3C38] p-3 rounded-full"
+                  onClick={postComment}
+                >
+                  Add Comment
+                </button>
+              </div>
+            ) : (
+              <p>Please connect your wallet to comment or reply.</p>
+            )}
+          </motion.div>
+        ) : (
+          <motion.div
+            key="trades"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.25 }}
+          >
+            <TradesTable />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
