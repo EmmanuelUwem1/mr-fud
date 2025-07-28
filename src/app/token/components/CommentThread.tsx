@@ -39,7 +39,7 @@ export default function CommentThread({
   
 
   return (
-    <div>
+    <div className="w-full">
       <div className="flex w-full justify-between border-b border-[#2A2A2A] items-center">
         <div className="flex gap-4 mb-2 w-fit text-xs font-semibold cursor-pointer">
           <button

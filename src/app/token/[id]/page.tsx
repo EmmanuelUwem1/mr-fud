@@ -13,6 +13,8 @@ import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 import { useTokens } from "@/context/TokensContext";
 import BackButton from "@/components/buttons/backButton"
+import GraduatedCard from "../components/graduated";
+import AntiFudCard from "../components/anti-fud-card";
 
 
 export default function TokenPage() {
@@ -77,31 +79,43 @@ export default function TokenPage() {
       />
       <TokenStatsCard mCap={tokenData.marketCap} />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
+        <div className="flex flex-col items-start justify-start w-full gap-4">
         <TradingViewWidget symbol={`${tokenData.symbol}`} />
+        <div className="flex flex-col w-full items-start justify-start gap-4">
+          {/* Token Description */}
+          <TokenDescription
+            description={tokenData.description}
+            twitter={token.twitter || "#"}
+            telegram={token.telegram || "#"}
+          />
 
-        {/* Buy/Sell Tabs */}
-        <BuySellCard
-          balance={Number(userBalance)}
-          tokenName={token?.name || ""}
-          tokenPrice={token?.currentPrice || 0}
-          tokenChain={"BSC"}
-          tokenCa= {token?.contractAddress || ""}
-        />
+          {/* Comment Thread */}
+          <CommentThread
+            comments={comments}
+            isConnected={isConnected}
+            ca={token?.contractAddress || ""}
+            createdDate={token?.createdAt || ""}
+          />
+          </div>
+          
+          
+        </div>
+
+
+
+        <div className="flex flex-col gap-4 items-start justify-start">
+          {/* Buy/Sell Tabs */}
+          <BuySellCard
+            balance={Number(userBalance)}
+            tokenName={token?.name || ""}
+            tokenPrice={token?.currentPrice || 0}
+            tokenChain={"BSC"}
+            tokenCa={token?.contractAddress || ""}
+          />
+          <GraduatedCard />
+          <AntiFudCard antiFudEnabled={token.isAntiGeet} />
+        </div>
       </div>
-      {/* Token Description */}
-      <TokenDescription
-        description={tokenData.description}
-        twitter={token.twitter || "#"}
-        telegram={token.telegram || "#"}
-      />
-
-      {/* Comment Thread */}
-      <CommentThread
-        comments={comments}
-        isConnected={isConnected}
-        ca={token?.contractAddress || ""}
-        createdDate={token?.createdAt || ""}
-      />
     </motion.div>
   ) : (
     <div className="flex items-center justify-center h-screen"></div>

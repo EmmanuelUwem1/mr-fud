@@ -209,7 +209,7 @@ export default function BuySellCard({
             setTab("buy");
             setModalOpen(true);
           }}
-          className="text-xs text-white font-semibold flex w-full items-center justify-center bg-[#06D57B] px-5 py-3 rounded-full"
+          className="text-xs text-white font-semibold flex w-full items-center justify-center bg-[#06D57B] px-5 py-4 rounded-full"
         >
           Buy
         </button>
@@ -218,7 +218,7 @@ export default function BuySellCard({
             setTab("sell");
             setModalOpen(true);
           }}
-          className="text-xs flex w-full items-center justify-center text-white font-semibold px-5 py-3 rounded-full"
+          className="text-xs flex w-full items-center justify-center text-white font-semibold px-5 py-4 rounded-full"
         >
           Sell
         </button>
@@ -228,7 +228,7 @@ export default function BuySellCard({
       <AnimatePresence>
         {modalOpen && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black bg-opacity-80 z-[1100] flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -236,24 +236,40 @@ export default function BuySellCard({
           >
             <motion.div
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141414] w-full max-w-sm p-5 rounded-md text-white"
+              className="bg-[#141414] w-full max-w-sm p-5 rounded-xl text-white"
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="text-center mb-4">
-                <h3 className="text-lg font-semibold capitalize">
-                  {tab} {tokenName}
-                </h3>
+                <div className="w-full flex items-center justify-center mb-2">
+                  {" "}
+                  <button
+                    onClick={() => {
+                      setTab("buy");
+                      setModalOpen(true);
+                    }}
+                    className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
+                      tab === "buy" ? "bg-[#06D57B]" : ""
+                    }`}
+                  >
+                    Buy
+                  </button>
+                  <button
+                    onClick={() => {
+                      setTab("sell");
+                      setModalOpen(true);
+                    }}
+                    className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
+                      tab === "sell" ? "bg-[#fe3c3cf4]" : ""
+                    }`}
+                  >
+                    Sell
+                  </button>
+                </div>
               </div>
               {inputSection}
-              <button
-                onClick={() => setModalOpen(false)}
-                className="mt-4 text-xs underline text-[#999]"
-              >
-                Cancel
-              </button>
             </motion.div>
           </motion.div>
         )}
