@@ -4,7 +4,7 @@ import RatingBar from "@/app/feed/components/rating-bar";
 
 export default function GraduatedCard() {
   return (
-    <div className="relative w-full max-w-md rounded-lg overflow-hidden shadow-lg text-white p-4 border-[2px] border-[#923A07] bg-[#291403] flex flex-col items-center justify-center">
+    <div className="relative w-full max-w-96 rounded-lg overflow-hidden shadow-lg text-white p-4 border-[2px] border-[#923A07] bg-[#291403] flex flex-col items-center justify-center">
       {/*  Background Image */}
       <Image
         src="/texture.png"

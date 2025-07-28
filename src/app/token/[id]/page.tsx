@@ -80,7 +80,22 @@ export default function TokenPage() {
       <TokenStatsCard mCap={tokenData.marketCap} />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <div className="flex flex-col items-start justify-start w-full gap-4">
-          <TradingViewWidget symbol={`${tokenData.symbol}`} />
+          <div className="flex w-full items-start justify-start gap-4">
+            <TradingViewWidget symbol={`${tokenData.symbol}`} />
+            <div className="flex flex-wrap lg:flex-col gap-4 items-start justify-start">
+              {/* Buy/Sell Tabs */}
+              <BuySellCard
+                balance={Number(userBalance)}
+                tokenName={token?.name || ""}
+                tokenPrice={token?.currentPrice || 0}
+                tokenChain={"BSC"}
+                tokenCa={token?.contractAddress || ""}
+              />
+              <GraduatedCard />
+              <AntiFudCard antiFudEnabled={token.isAntiGeet} />
+            </div>
+          </div>
+
           <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
             {/* Token Description */}
             <TokenDescription

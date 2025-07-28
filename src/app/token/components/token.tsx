@@ -24,7 +24,7 @@ export default function Token({ address, tokenName, tokenTicker, image }: TokenP
             image={image}
           />
           <TokenPrice tokenAddress={address} />
-          <span className="justify-self-end">
+          <span className="justify-self-end hidden max-sm:flex">
             <ReferButton setShowModal={setShowModal} />
           </span>
         </div>
