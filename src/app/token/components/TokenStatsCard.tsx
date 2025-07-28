@@ -29,7 +29,7 @@ export default function TokenStatsCard({mCap }: { mCap: number }) {
         </span>
       </div>
 
-     
+        {showModal && <ReferModal onClose={() => setShowModal(false)} />}
     </>
   );
 }

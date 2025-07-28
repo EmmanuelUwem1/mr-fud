@@ -80,9 +80,9 @@ export default function TokenPage() {
       <TokenStatsCard mCap={tokenData.marketCap} />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <div className="flex flex-col items-start justify-start w-full gap-4">
-          <div className="flex w-full items-start justify-start gap-4">
+          <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
             <TradingViewWidget symbol={`${tokenData.symbol}`} />
-            <div className="flex flex-wrap lg:flex-col gap-4 items-start justify-start">
+            <div className="max-sm:hidden flex flex-wrap lg:flex-col gap-4 items-start justify-start">
               {/* Buy/Sell Tabs */}
               <BuySellCard
                 balance={Number(userBalance)}
@@ -126,7 +126,7 @@ export default function TokenPage() {
             telegram={token.telegram}
           />
 
-          <div className="flex w-full flex-wrap lg:flex-col gap-4 items-start justify-start">
+          <div className="max-sm:flex hidden w-full flex-wrap sm:flex-col gap-4 items-start justify-start">
             {/* Buy/Sell Tabs */}
             <BuySellCard
               balance={Number(userBalance)}

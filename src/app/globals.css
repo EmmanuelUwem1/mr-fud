@@ -218,6 +218,10 @@ nav a:hover{
   border-radius: 1px;
 }
 
+button{
+  cursor: pointer !important;
+}
+
 
 
 
