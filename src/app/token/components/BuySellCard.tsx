@@ -146,7 +146,11 @@ async function onSell(amount: string) {
           inputMode="decimal"
           value={amount}
           placeholder="0.00"
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={(e) => {
+            const val = parseFloat(e.target.value);
+            if (val > balance) return; 
+            setAmount(e.target.value);
+          }}
           onWheel={(e) => e.currentTarget.blur()}
           className="input w-full bg-[#2A2A2A] text-white px-3 py-4 rounded-[7px] placeholder-gray-500 border-none appearance-none"
         />
