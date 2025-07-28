@@ -7,6 +7,7 @@ import { copyToClipboard } from "@/lib/utils";
 import Link from "next/link";
 import { formatMarketCap } from "@/lib/utils";
 import { useState } from "react";
+import { formatTimeAgo } from "@/lib/utils";
 
 type TokenCardProps = {
   ticker: string;
@@ -17,6 +18,7 @@ type TokenCardProps = {
   rating: number;
   image: string;
   id: string;
+  createdTime: string;
 };
 
 export default function TokenCard({
@@ -28,6 +30,7 @@ export default function TokenCard({
   rating,
   image,
   id,
+  createdTime ,
 }: TokenCardProps) {
      const [retryCount, setRetryCount] = useState(0);
    const handleError = () => {
@@ -43,23 +46,24 @@ export default function TokenCard({
 
  return (
    <Link href={`/token/${id}`} className="token-gradient-wrapper">
-     <div className="bg-[#141414] text-white rounded-[15px] py-3 pl-3 pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
+     <div className="bg-[#141414] text-white rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
        {/* Header */}
        <div className="flex w-full gap-3 items-center justify-start">
          {/* image */}
          <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
-            <Image
-                       src={`${image}${cacheBuster}`}
-                       alt={""}
-                       layout="fill"
-                       objectFit="cover"
-                       objectPosition="center"
-                       onError={handleError}
-                     />
+           <Image
+             src={`${image}${cacheBuster}`}
+             alt={""}
+             layout="fill"
+             objectFit="cover"
+             objectPosition="center"
+             onError={handleError}
+           />
          </div>
          <div className="flex flex-col w-full items-start text-left justify-start gap-1">
-           <span className="text-lg text-[#E3E3E3] font-normal GasoekOne-Regular">
-             ${ticker}
+           <span className="text-lg text-[#E3E3E3] font-normal  flex items-center w-full justify-between gap-2">
+             <span className="GasoekOne-Regular"> ${ticker}</span>
+             <span className="text-xs overflow-ellipsis w-20 text-[#A0A0A0]">{formatTimeAgo(createdTime)}</span>
            </span>
            <h2 className="text-base text-[#A0A0A0] font-semibold">{name}</h2>
            <p className="text-base text-[#A0A0A0] cursor-pointer flex items-center font-medium justify-start gap-2">

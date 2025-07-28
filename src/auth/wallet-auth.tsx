@@ -3,7 +3,7 @@
 import { useAccount } from "wagmi";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { modal } from "@/context/AppKitProvider";
+// import { modal } from "@/context/AppKitProvider";
 
 export default function WalletAuthGuard() {
   const { isConnected } = useAccount();
@@ -14,9 +14,9 @@ export default function WalletAuthGuard() {
     if (pathname === "/") return;
 
     // Trigger modal if wallet not connected
-    if (!isConnected) {
-      modal.open();
-    }
+    // if (!isConnected) {
+    //   modal.open();
+    // }
   }, [pathname, isConnected]);
 
   return null;

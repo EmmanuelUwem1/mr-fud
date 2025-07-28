@@ -41,9 +41,9 @@ export default function FeaturedCard({
       href={`/token/${id}`}
       className={`card-gradient-wrapper ${type === "b" ? "card-type-b" : ""}`}
     >
-      <div className="w-full max-w-[252px] bg-[#0C0C0C] rounded-[15px] flex gap-4 justify-between p-2 text-white h-fit">
+      <div className="w-fit max-w-[200px] sm:max-w-[252px] bg-[#0C0C0C] rounded-[15px] flex gap-4 justify-between p-2 text-white h-fit">
         {/* Left: Image */}
-        <div className="h-24 w-24 aspect-square rounded-[9px] relative overflow-hidden bg-[#1a1a23]">
+        <div className="w-24 aspect-square rounded-[9px] relative overflow-hidden bg-[#1a1a23]">
           <Image
             src={`${image}${cacheBuster}`}
             alt={""}
@@ -55,7 +55,7 @@ export default function FeaturedCard({
         </div>
 
         {/* Right: Content */}
-        <div className="flex flex-col  gap-3 justify-center w-full">
+        <div className="flex flex-col gap-1 sm:gap-3 justify-center w-full">
           <h2 className="text-base font-normal GasoekOne-Regular">${ticker}</h2>
           <p
             className={`text-sm font-medium flex items-center justify-start gap-2 bg-gradient-to-r ${

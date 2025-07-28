@@ -43,6 +43,30 @@ export const formatDaysAgo = (createdAt: string): string => {
   return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
 };
 
+export const formatTimeAgo = (createdAt: string): string => {
+  if (!createdAt || typeof createdAt !== "string") return "Invalid date";
+
+  const parsedDate = new Date(createdAt.trim());
+  if (isNaN(parsedDate.getTime())) {
+    console.warn("Unparsable date:", createdAt);
+    return "Invalid date";
+  }
+
+  const now = new Date();
+  const diffMs = now.getTime() - parsedDate.getTime();
+  const diffSeconds = Math.floor(diffMs / 1000);
+  const diffMinutes = Math.floor(diffSeconds / 60);
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffSeconds < 60) return "just now";
+  if (diffMinutes < 60)
+    return `${diffMinutes} min${diffMinutes !== 1 ? "s" : ""} ago`;
+  if (diffHours < 24) return `${diffHours} hr${diffHours !== 1 ? "s" : ""} ago`;
+  if (diffDays === 1) return "yesterday";
+
+  return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
+};
 
 
 

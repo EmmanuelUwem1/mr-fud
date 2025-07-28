@@ -66,6 +66,7 @@ export default function TokensSection() {
               rating={80}
               image={token.image} 
               id={token._id}
+              createdTime={token.createdAt}
             />
           ))
         )}
