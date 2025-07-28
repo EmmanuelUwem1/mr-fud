@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import TokenStatsCard from "../components/TokenStatsCard";
 import TradingViewWidget from "../components/TradingViewWidget";
 import BuySellCard from "../components/BuySellCard";
@@ -58,15 +58,6 @@ export default function TokenPage() {
     { id: "2", text: "Can we use this for staking?", replies: [] },
   ]);
 
-  const handleBuy = (amount: string) => {
-    // Interact with smart contract to buy
-    console.log("Buying", amount);
-  };
-
-  const handleSell = (amount: string) => {
-    // Interact with smart contract to sell
-    console.log("Selling", amount);
-  };
 
   return token ? (
     <motion.div
@@ -91,7 +82,7 @@ export default function TokenPage() {
         {/* Buy/Sell Tabs */}
         <BuySellCard
           balance={Number(userBalance)}
-          tokenName={tokenData.title}
+          tokenName={token?.name || ""}
           tokenPrice={token?.currentPrice || 0}
           tokenChain={"BSC"}
           tokenCa= {token?.contractAddress || ""}

@@ -37,7 +37,7 @@ async function onBuy(amount: string) {
   const amountInToken = amountInBNB / tokenPrice;
 
   const data = {
-    txHash: "mock-tx-hash",
+    txHash: "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdev",
     wallet: address as `0x${string}`,
     tokenAddress: tokenCa,
     amountInChainCurrency: amountInBNB,
