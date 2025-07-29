@@ -6,7 +6,16 @@ import BlackBar from "./blackBar";
 import { formatMarketCap } from "@/lib/utils";
 import ReferButton from "./refer-button";
 
-export default function TokenStatsCard({mCap }: { mCap: number }) {
+interface TokenStatsProps {
+  mCap: number;
+  tokenName: string;
+  tokenTicker: string;
+  tokenCreatedDate: string;
+  tokenImage: string;
+  tokenId: string;
+}
+
+export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreatedDate, tokenImage, tokenId }: TokenStatsProps) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -29,7 +38,7 @@ export default function TokenStatsCard({mCap }: { mCap: number }) {
         </span>
       </div>
 
-        {showModal && <ReferModal onClose={() => setShowModal(false)} />}
+      {showModal && <ReferModal  tokenCreatedDate={tokenCreatedDate} tokenName={ tokenName } tokenId={tokenId} tokenImage={tokenImage} tokenTicker={tokenTicker}  onClose={() => setShowModal(false)} />}
     </>
   );
 }

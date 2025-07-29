@@ -10,9 +10,11 @@ type TokenProps = {
   address: string;
   tokenName: string;
     tokenTicker: string;
-    image: string;
+  image: string;
+  tokenCreatedDate: string;
+  tokenId: string;
 };
-export default function Token({ address, tokenName, tokenTicker, image }: TokenProps) {
+export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId }: TokenProps) {
       const [showModal, setShowModal] = useState(false);
     
     return (
@@ -28,7 +30,7 @@ export default function Token({ address, tokenName, tokenTicker, image }: TokenP
             <ReferButton setShowModal={setShowModal} />
           </span>
         </div>
-        {showModal && <ReferModal onClose={() => setShowModal(false)} />}
+        {showModal && <ReferModal tokenCreatedDate={tokenCreatedDate} tokenId={tokenId} tokenImage={image} tokenName={tokenName} tokenTicker={tokenTicker} onClose={() => setShowModal(false)} />}
       </>
     );
 }
