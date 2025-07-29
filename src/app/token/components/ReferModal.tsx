@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import QRBox from "./QR-Code";
 import Image from "next/image";
+import { copyToClipboard } from "@/lib/utils";
+import { formatTimeAgo } from "@/lib/utils";
 
 
 interface ReferModalProps {
@@ -21,7 +23,8 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
   const modalRef = useRef<HTMLDivElement>(null);
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
-  const tokenUrl = `/token/${tokenId}`;
+  const referalCode = "2r4dwwf";
+  const tokenUrl = `/token/${tokenId}?ref=${referalCode}`;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -73,29 +76,68 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="bg-gradient-to-br from-[#4800bc] via-[#24005f] to-[#24005f] rounded-xl p-4 mt-4 w-full text-white shadow-xl"
+            className="bg-gradient-to-br from-[#4800bc] via-[#24005f] to-[#24005f] rounded-xl px-4 py-6 sm:px-6 mt-4 w-full text-white shadow-xl relative overflow-hidden"
           >
-
-          
-          
-            <div className="text-sm space-y-1">
-              <div className="flex justify-between">
-                <span>Token:</span>
-                <span>$BTCBABY</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Profit:</span>
-                <span className="text-green-300">+312%</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Wallet:</span>
-                <span>0x928...cccc</span>
-              </div>
-              <div className="mt-4 text-center">
+            <div className="text-sm flex justify-between items-start">
+              <div>
+                <div className="relative w-16 sm:w-20 sm:h-10 h-8 flex items-center justify-center">
+                  <Image
+                    alt="MrFUD"
+                    height={1000}
+                    width={1000}
+                    quality={100}
+                    priority
+                    src={"/logomrfud 2.png"}
+                  />
+                </div>
                 
-                <QRBox url={tokenUrl} />
+                  <div className="text-xs font-extralight">{tokenName}</div>
+                  <div className="text-2xl text-[#E3E3E3] font-extrabold">
+                    $${tokenTicker}
+                  </div>
+                
+                <div className="text-green-300 font-extrabold text-2xl">
+                
+                  +312%
+                </div>
+                <div className="flex items-center gap-2 justify-between">
+                  <span className="relative h-3.5 w-4">
+                                   <Image
+                                     src={"/clock.png"}
+                                     layout="fill"
+                                     objectFit="contain"
+                                     objectPosition="center"
+                                     alt="clock"
+                                   />
+                                 </span>
+                <span classNme="font-medium text-sm">{formatTimeAgo(tokenCreatedDate)}</span>
+                </div>
               </div>
+              {/* image by the right */}
+              <span className="h-24 sm:h-32 sm:w-32 w-24 aspect-square flex items-center justify-center relative rounded-lg overflow-hidden">
+                <Image
+                  alt=""
+                  src={tokenImage}
+                  layout="fill"
+                  objectFit="contain"
+                  objectPosition="center"
+                />
+              </span>
             </div>
+
+            <div className="mt-4 text-center absolute bottom-6 left-6">
+              <QRBox url={tokenUrl} />
+            </div>
+             {/*
+                  <Image
+                    src="/banner.png"
+                    alt="Banner background"
+                    layout="fill"
+                    objectFit="contain"
+                    objectPosition="center"
+                    priority
+                    className="z-0 absolute bottom-0 right-0"
+                  /> */}
           </motion.div>
 
           <div className="flex justify-between mt-4">
@@ -107,8 +149,13 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
             </button>
           </div>
           <div className="w-full items-center flex justify-between bg-[#212121] rounded-full p-1">
-            <span className="px-4">{}</span>
-            <button className="bg-[#FF3C38] text-xs font-medium py-2 px-3 rounded-full">copy</button>
+            <span className="px-4 font-normal text-xs">{tokenUrl}</span>
+            <button
+              className="bg-[#FF3C38] text-xs font-medium py-2 px-3 rounded-full"
+              onClick={() => copyToClipboard(tokenUrl)}
+            >
+              copy
+            </button>
           </div>
         </motion.div>
       </motion.div>
