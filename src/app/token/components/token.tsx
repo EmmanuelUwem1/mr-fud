@@ -18,11 +18,11 @@ export default function Token({ address, tokenName, tokenTicker, image }: TokenP
     return (
       <>
         <div className="flex w-full items-center gap-3 justify-start">
-          <TokenAvatar
-            tokenName={tokenName}
-            tokenTicker={tokenTicker}
-            image={image}
-          />
+            <TokenAvatar
+              tokenName={tokenName}
+              tokenTicker={tokenTicker}
+              image={image}
+            />
           <TokenPrice tokenAddress={address} />
           <span className="justify-self-end hidden max-sm:flex">
             <ReferButton setShowModal={setShowModal} />

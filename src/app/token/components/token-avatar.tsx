@@ -35,7 +35,7 @@ export default function TokenAvatar({
         </div>
       </div>
 
-      <div className="flex flex-col items-start justify-center ml-4">
+      <div className="flex flex-col items-start justify-center sm:ml-4">
         <span className="text-lg GasoekOne-Regular font-normal text-[#E3E3E3]">
          ${tokenTicker}
         </span>

@@ -66,7 +66,7 @@ export default function TokenPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="max-w-6xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18"
+      className="max-w76xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18"
     >
       {/* Back Button */}
       <BackButton />
@@ -81,8 +81,29 @@ export default function TokenPage() {
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <div className="flex flex-col items-start justify-start w-full gap-4">
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
-            <TradingViewWidget symbol={`${tokenData.symbol}`} />
-            <div className="max-sm:hidden flex flex-wrap lg:flex-col gap-4 items-start justify-start">
+            <div className="flex flex-col items-start justify-start gap-4 w-full">
+              <TradingViewWidget symbol={`${tokenData.symbol}`} />
+              <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
+                {/* Token Description */}
+                <TokenDescription
+                  description={tokenData.description}
+                  twitter={token.twitter || ""}
+                  telegram={token.telegram || ""}
+                  ca={token?.contractAddress || ""}
+                  createdDate={token?.createdAt || ""}
+                />
+
+                {/* Comment Thread */}
+                <CommentThread
+                  comments={comments}
+                  isConnected={isConnected}
+                  ca={token?.contractAddress || ""}
+                  createdDate={token?.createdAt || ""}
+                />
+              </div>
+            </div>
+
+            <div className="max-sm:hidden flex flex-nowrap lg:flex-col gap-4 items-start justify-start">
               {/* Buy/Sell Tabs */}
               <BuySellCard
                 balance={Number(userBalance)}
@@ -91,28 +112,11 @@ export default function TokenPage() {
                 tokenChain={"BSC"}
                 tokenCa={token?.contractAddress || ""}
               />
-              <GraduatedCard />
-              <AntiFudCard antiFudEnabled={token.isAntiGeet} />
+              <div className="flex flex-col items-start justify-start gap-4">
+                <GraduatedCard />
+                <AntiFudCard antiFudEnabled={token.isAntiGeet} />
+              </div>
             </div>
-          </div>
-
-          <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
-            {/* Token Description */}
-            <TokenDescription
-              description={tokenData.description}
-              twitter={token.twitter || ""}
-              telegram={token.telegram || ""}
-              ca={token?.contractAddress || ""}
-              createdDate={token?.createdAt || ""}
-            />
-
-            {/* Comment Thread */}
-            <CommentThread
-              comments={comments}
-              isConnected={isConnected}
-              ca={token?.contractAddress || ""}
-              createdDate={token?.createdAt || ""}
-            />
           </div>
         </div>
 
