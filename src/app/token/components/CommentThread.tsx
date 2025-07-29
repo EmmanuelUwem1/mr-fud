@@ -9,7 +9,7 @@ import TopHoldersCard from "./topHoldersCard";
 
 type Comment = {
   id: string;
-  text: string; 
+  text: string;
   replies: Comment[];
 };
 
@@ -18,18 +18,21 @@ export default function CommentThread({
   isConnected,
   ca,
   createdDate,
+  tokenName,
 }: {
   comments: Comment[];
   isConnected: boolean;
   ca: string;
-  createdDate: string;
+    createdDate: string;
+   tokenName: string;
+
 }) {
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [newComment, setNewComment] = useState("");
   const [activeTab, setActiveTab] = useState("Comments");
   const [showDropdown, setShowDropdown] = useState(false);
 const tabs = ["Comments", "Trades"];
-const mobileTabs = [...tabs, "Holders"];
+const mobileTabs = [...tabs, "Top Holders"];
   const handleReply = (id: string) => setReplyingTo(id);
 
   const postComment = () => {
@@ -40,9 +43,9 @@ const mobileTabs = [...tabs, "Holders"];
   return (
     <div className="w-full">
       {/* Header Tabs & Wallet */}
-      <div className="border-b border-[#2A2A2A]">
+      <div className="">
         {/* Desktop Tabs */}
-        <div className="hidden lg:flex w-full justify-between items-center">
+        <div className="hidden border-b border-[#2A2A2A] lg:flex w-full justify-between items-center">
           <div className="flex gap-4 mb-2 w-fit text-xs font-semibold cursor-pointer">
             <button
               onClick={() => setActiveTab("Comments")}
@@ -142,23 +145,24 @@ const mobileTabs = [...tabs, "Holders"];
           {activeTab === "Trades" && (
             <motion.div
               key="trades"
+              className="my-4"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -30 }}
               transition={{ duration: 0.25 }}
             >
-              <TradesTable />
+              <TradesTable token={tokenName } />
             </motion.div>
           )}
 
-          {activeTab === "Holders" && (
+          {activeTab === "Top Holders" && (
             <motion.div
               key="holders"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25 }}
-              className="p-4 my-4"
+              className="p-4 mb-4"
             >
               <TopHoldersCard />
             </motion.div>

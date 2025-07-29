@@ -12,7 +12,7 @@ import Token from "../components/token";
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 import { useTokens } from "@/context/TokensContext";
-import BackButton from "@/components/buttons/backButton"
+import BackButton from "@/components/buttons/backButton";
 import GraduatedCard from "../components/graduated";
 import AntiFudCard from "../components/anti-fud-card";
 import TopHoldersCard from "../components/topHoldersCard";
@@ -99,6 +99,7 @@ export default function TokenPage() {
                   isConnected={isConnected}
                   ca={token?.contractAddress || ""}
                   createdDate={token?.createdAt || ""}
+                  tokenName={token?.name || "token name"}
                 />
               </div>
             </div>
@@ -155,6 +156,7 @@ export default function TokenPage() {
             isConnected={isConnected}
             ca={token?.contractAddress || ""}
             createdDate={token?.createdAt || ""}
+            tokenName={token.name || "token name"}
           />
         </div>
       </div>

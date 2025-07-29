@@ -1,4 +1,7 @@
-import React from "react";
+import Image from "next/image";
+interface TradeTableProps{
+  token: string;
+}
 
 const sampleTrades = [
   {
@@ -17,55 +20,61 @@ const sampleTrades = [
     date: "Jul 28 2025 12:33",
     txHash: "0xdef456...",
   },
-  // More fake trades if needed
 ];
 
-function TradesTable() {
+function TradesTable({token}:TradeTableProps) {
   return (
-    <div className="w-full overflow-x-auto bg-[#1C1C1C] border border-black rounded-[18px] p-4 md:p-6 text-white">
-      <h3 className="text-lg font-semibold mb-4">Recent Trades</h3>
-      <table className="min-w-full table-auto border-separate border-spacing-y-3">
-        <thead>
-          <tr className="text-sm text-gray-300">
-            <th className="text-left px-3">Trader</th>
-            <th className="text-left px-3">Action</th>
-            <th className="text-right px-3">BNB</th>
-            <th className="text-right px-3">Token</th>
-            <th className="text-left px-3">Date</th>
-            <th className="text-left px-3">Tx</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sampleTrades.map((trade, idx) => (
-            <tr
-              key={idx}
-              className="bg-[#2A2A2A] hover:bg-[#333] rounded-lg text-sm"
-            >
-              <td className="py-2 px-3">{trade.trader}</td>
-              <td
-                className={`py-2 px-3 font-semibold ${
-                  trade.action === "Buy" ? "text-green-400" : "text-red-400"
-                }`}
-              >
-                {trade.action}
-              </td>
-              <td className="py-2 px-3 text-right">{trade.bnbAmount}</td>
-              <td className="py-2 px-3 text-right">{trade.tokenAmount}</td>
-              <td className="py-2 px-3">{trade.date}</td>
-              <td className="py-2 px-3">
-                <a
-                  href={`https://bscscan.com/tx/${trade.txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 underline"
-                >
-                  View
-                </a>
-              </td>
+    <div className="w-full bg-[#1C1C1C] border border-black rounded-[18px] text-white">
+      <div className="overflow-x-auto lg:max-h-[400px] lg:overflow-y-auto px-4 md:px-6 py-4">
+        <table className="min-w-[800px] w-full max-w-6xl table-auto border-collapse">
+          <thead>
+            <tr className="text-xs font-semibold text-[#FFFFFF]">
+              <th className="text-left min-w-[120px] px-3 pb-4">Trader</th>
+              <th className="text-left min-w-[100px] px-3 pb-4">Action</th>
+              <th className="text-right min-w-[80px] px-3 pb-4">BNB</th>
+              <th className="text-right min-w-[100px] px-3 pb-4">${token}</th>
+              <th className="text-left min-w-[160px] px-3 pb-4">Date</th>
+              <th className="text-left min-w-[40px] px-3 pb-4">Tx</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sampleTrades.map((trade, idx) => (
+              <tr
+                key={idx}
+                className="border-t border-t-[#2A2A2A] text-xs font-semibold transition-class"
+              >
+                <td className="py-4 px-3 text-[#626262]">{trade.trader}</td>
+                <td
+                  className={`py-4 px-3 font-semibold ${
+                    trade.action === "Buy" ? "text-[#4ADE80]" : "text-[#D92C2A]"
+                  }`}
+                >
+                  {trade.action}
+                </td>
+                <td className="py-4 px-3 text-right">{trade.bnbAmount}</td>
+                <td className="py-4 px-3 text-right">{trade.tokenAmount}</td>
+                <td className="py-4 px-3">{trade.date}</td>
+                <td className="py-4 px-3">
+                  <a
+                    href={`https://bscscan.com/tx/${trade.txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative h-7 w-7 flex items-center justify-center cursor-pointer"
+                  >
+                    <Image
+                      src="/Frame 75.png"
+                      alt=""
+                      layout="fill"
+                      objectFit="contain"
+                      objectPosition="center"
+                    />
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
