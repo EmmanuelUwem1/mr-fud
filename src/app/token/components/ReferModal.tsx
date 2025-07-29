@@ -125,7 +125,7 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
               </span>
             </div>
 
-            <div className="mt-4 text-center absolute bottom-6 left-14">
+            <div className="mt-4 text-center absolute bottom-6 left-1/2">
               <QRBox url={tokenUrl} />
             </div>
              {/*

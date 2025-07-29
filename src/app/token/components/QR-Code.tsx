@@ -6,10 +6,10 @@ interface QRBoxProps {
 
 export default function QRBox({ url }: QRBoxProps) {
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md w-fit mx-auto">
+    <div className="bg-white p-2 rounded-xl shadow-md w-fit mx-auto">
       <QRCode
         value={url}
-        size={40}
+        size={60}
         bgColor="#ffffff"
         fgColor="#000000"
         level="H"
