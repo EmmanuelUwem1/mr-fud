@@ -110,7 +110,7 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
                                      alt="clock"
                                    />
                                  </span>
-                <span classNme="font-medium text-sm">{formatTimeAgo(tokenCreatedDate)}</span>
+                <span className="font-medium text-sm">{formatTimeAgo(tokenCreatedDate)}</span>
                 </div>
               </div>
               {/* image by the right */}
