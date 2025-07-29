@@ -41,7 +41,7 @@ const {setPayload} = useTokenForm();
             </h1>
 
             {/* Subheading */}
-            <p className="text-sm w-full py-3 text-left sm:text-center font-light text-[#7B93D5]">
+            <p className="text-sm w-full py-3 text-left sm:text-center font-light text-[#BBBBBB] sm:text-[#7B93D5]">
               {`choose carefully, these can't be changed once the coin is created`}
             </p>
           </div>

@@ -16,7 +16,7 @@ const SocialsInput: React.FC = () => {
           <h2 className="text-base font-semibold text-[#FF3C38]">
             Socials (optional)
           </h2>
-          <span className="relative mx-1 h-6 w-6 flex items-center justify-center">
+          <span className="relative sm:hidden mx-1 h-6 w-6 flex items-center justify-center">
             <Image
               alt="Dropdown icon"
               src="/arrow-down.png"

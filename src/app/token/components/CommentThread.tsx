@@ -8,7 +8,7 @@ import WalletAndDateFlex from "./walletAndDateFlex";
 
 type Comment = {
   id: string;
-  text: string;
+  text: string; 
   replies: Comment[];
 };
 
