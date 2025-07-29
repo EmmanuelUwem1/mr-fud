@@ -15,6 +15,7 @@ import { useTokens } from "@/context/TokensContext";
 import BackButton from "@/components/buttons/backButton"
 import GraduatedCard from "../components/graduated";
 import AntiFudCard from "../components/anti-fud-card";
+import TopHoldersCard from "../components/topHoldersCard";
 
 
 export default function TokenPage() {
@@ -114,7 +115,13 @@ export default function TokenPage() {
               <div className="flex flex-col items-start justify-start gap-4">
                 <GraduatedCard />
                 <AntiFudCard antiFudEnabled={token.isAntiGeet} />
+                <div className="lg:flex w-full items-center justify-center hidden">
+                  <TopHoldersCard />
+                </div>
               </div>
+            </div>
+            <div className="sm:flex lg:hidden w-full items-center justify-center hidden">
+              <TopHoldersCard />
             </div>
           </div>
         </div>
