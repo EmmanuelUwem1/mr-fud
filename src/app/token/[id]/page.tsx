@@ -42,8 +42,7 @@ export default function TokenPage() {
     volume24h: 120000,
     creatorReward: 5,
     referralReward: 2,
-    description:
-      token?.description || "",
+ 
     symbol: token?.ticker || "TKN",
     title: token?.name || "Token Name",
   });
@@ -86,7 +85,7 @@ export default function TokenPage() {
               <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
                 {/* Token Description */}
                 <TokenDescription
-                  description={tokenData.description}
+                  description={token.description || ""}
                   twitter={token.twitter || ""}
                   telegram={token.telegram || ""}
                   ca={token?.contractAddress || ""}
@@ -125,7 +124,7 @@ export default function TokenPage() {
           <TokenDescription
             ca={token?.contractAddress || ""}
             createdDate={token?.createdAt || ""}
-            description={tokenData.description}
+            description={token?.description || ""}
             twitter={token.twitter}
             telegram={token.telegram}
           />

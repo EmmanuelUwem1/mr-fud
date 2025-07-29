@@ -23,14 +23,19 @@ export default function GraduatedCard() {
       {/*  Content Layer */}
       <div className="z-10 flex items-center justify-between w-full">
         {/* Left Content */}
-        <div className="flex w-1/2 flex-col space-y-2">
-          <span className="text-xs uppercase tracking-wide text-[#06D57B] font-bold">
-            100% Graduated
+        <div className="flex w-1/2 flex-col">
+          <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
+            100%
           </span>
-          <h3 className="text-lg font-semibold">This token is now on DEX</h3>
-          <p className="text-sm text-gray-300">
-            Target: <span className="font-medium text-white">120 BNB</span>
-          </p>
+          <span className="GasoekOne-Regular font-normal text-xl">
+            Graduated
+          </span>
+          <h3 className="text-xs font-normal">
+            This token is now on <span className="text-[#FF3C38]">DEX</span>{" "}
+          </h3>
+          <div className="text-sm font-bold text-[#E3E3E3]">
+            Target: <span className="text-[#FF3C38]">120 BNB</span>
+          </div>
         </div>
 
         {/* Right Image */}
@@ -42,11 +47,11 @@ export default function GraduatedCard() {
             objectFit="cover"
           />
         </div>
-          </div>
-          {/*  Rating Bar */}
-            <div className="w-full mt-4 pr-4">
-              <RatingBar rating={100} />
-              </div>
+      </div>
+      {/*  Rating Bar */}
+      <div className="w-full mt-2 pr-4">
+        <RatingBar rating={100} />
+      </div>
     </div>
   );
 }
