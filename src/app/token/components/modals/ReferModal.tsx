@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import domtoimage from "dom-to-image";
-import QRBox from "./QR-Code";
+import QRBox from "../QR-Code";
 import Image from "next/image";
 import { copyToClipboard } from "@/lib/utils";
 import { formatTimeAgo } from "@/lib/utils";

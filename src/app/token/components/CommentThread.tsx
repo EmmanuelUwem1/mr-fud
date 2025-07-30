@@ -5,7 +5,7 @@ import Image from "next/image";
 import TradesTable from "./tradesTable";
 import UserAvatar from "./userAvatar";
 import WalletAndDateFlex from "./walletAndDateFlex";
-import TopHoldersCard from "./topHoldersCard";
+import TopHoldersCard from "./cards/topHoldersCard";
 
 type Comment = {
   id: string;

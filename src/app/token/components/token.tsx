@@ -3,7 +3,7 @@ import TokenAvatar from "./token-avatar";
 import TokenPrice from "./tokenPrice";
 import ReferButton from "./refer-button";
 import { useState } from "react";
-import ReferModal from "./ReferModal";
+import ReferModal from "./modals/ReferModal";
 
 
 type TokenProps = {

@@ -1,9 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import {  useState } from "react";
-import TokenStatsCard from "../components/TokenStatsCard";
+import TokenStatsCard from "../components/cards/TokenStatsCard";
 import TradingViewWidget from "../components/TradingViewWidget";
-import BuySellCard from "../components/BuySellCard";
+import BuySellCard from "../components/cards/BuySellCard";
 import TokenDescription from "../components/TokenDescription";
 import CommentThread from "../components/CommentThread";
 import { useParams } from "next/navigation";
@@ -13,9 +13,9 @@ import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 import { useTokens } from "@/context/TokensContext";
 import BackButton from "@/components/buttons/backButton";
-import GraduatedCard from "../components/graduated";
-import AntiFudCard from "../components/anti-fud-card";
-import TopHoldersCard from "../components/topHoldersCard";
+import GraduatedCard from "../components/cards/graduated";
+import AntiFudCard from "../components/cards/anti-fud-card";
+import TopHoldersCard from "../components/cards/topHoldersCard";
 
 
 export default function TokenPage() {

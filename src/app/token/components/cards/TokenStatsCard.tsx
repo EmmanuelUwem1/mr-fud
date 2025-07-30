@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import ReferModal from "./ReferModal";
-import { LabelValuePair } from "./labelValuePair";
-import BlackBar from "./blackBar";
+import ReferModal from "../modals/ReferModal";
+import { LabelValuePair } from "../labelValuePair";
+import BlackBar from "../blackBar";
 import { formatMarketCap } from "@/lib/utils";
-import ReferButton from "./refer-button";
+import ReferButton from "../refer-button";
 
 interface TokenStatsProps {
   mCap: number;

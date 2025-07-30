@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 const topHolders = [
   { address: "0x4FC...1818", percent: 40.2 },
