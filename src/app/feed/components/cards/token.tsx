@@ -63,7 +63,9 @@ export default function TokenCard({
          <div className="flex flex-col w-full items-start text-left justify-start gap-1">
            <span className="text-lg text-[#E3E3E3] font-normal  flex items-center w-full justify-between gap-2">
              <span className="GasoekOne-Regular"> ${ticker}</span>
-             <span className="text-xs overflow-ellipsis w-20 text-[#A0A0A0]">{formatTimeAgo(createdTime)}</span>
+             <span className="text-xs overflow-ellipsis w-20 text-[#A0A0A0]">
+               {formatTimeAgo(createdTime)}
+             </span>
            </span>
            <h2 className="text-base text-[#A0A0A0] font-semibold">{name}</h2>
            <p className="text-base text-[#A0A0A0] cursor-pointer flex items-center font-medium justify-start gap-2">
@@ -88,20 +90,19 @@ export default function TokenCard({
                />
              </span>
            </p>
-           <p className="text-sm">
+           <p className="text-sm w-full flex justify-between items-center">
              <span className="font-normal text-[#FF3C38]">Market Cap:</span>{" "}
              {formatMarketCap(marketCap)}
            </p>
 
-           <p className="text-sm">
+           <p className="text-sm w-full flex justify-between items-center">
              <span className="font-medium text-[#FF3C38]">Created by:</span>{" "}
              {formatWalletAddress(createdBy)}
            </p>
          </div>
        </div>
 
-       {/* Footer */}
-       <RatingBar rating={rating} />
+         <RatingBar rating={rating} />
      </div>
    </Link>
  );

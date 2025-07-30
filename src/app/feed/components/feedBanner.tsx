@@ -1,43 +1,94 @@
 "use client";
 import Image from "next/image";
+import BannerTokenCard from "./cards/bannerCard";
+import { useTokens } from "@/context/TokensContext";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function Banner() {
+  const { tokens, loading } = useTokens();
+  const [carouselIndex, setCarouselIndex] = useState(0);
+
+  const randomThree = tokens.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCarouselIndex((prev) => (prev + 1) % randomThree.length);
+    }, 3000); // Change slide every 3 seconds
+    return () => clearInterval(interval);
+  }, [randomThree.length]);
+
   return (
-    <section className="relative py-12 w-full lg:h-80 rounded-[20px] overflow-hidden flex items-center center">
+    <section className="relative py-12 w-full lg:h-80 mt-32 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38]">
       {/* Background Image */}
       <Image
-        src="/banner.png"
+        src="/Group 4.png"
         alt="Banner background"
         layout="fill"
         objectFit="cover"
         objectPosition="center"
         priority
-        className="z-0"
+        className="absolute inset-0 z-0 rounded-[20px]"
       />
 
       {/* Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 z-10" />
+      <div className="absolute rounded-[20px] inset-0 bg-gradient-to-t from-[#A20B0B]/80 to-[#3C0404]/30 z-10" />
 
-      {/* Content */}
-      <div className="relative z-20 px-4 sm:px-8 md:px-16 flex flex-col items-start w-[22rem] gap-4 sm:gap-8">
-        <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-white GasoekOne-Regular">
-          The Club for tomorrow’s meme kings
-        </h1>
-
-        <div className="relative inline-block h-full hover:opacity-90 transition-class ">
-          {/* White background layer */}
-          <div className="absolute w-full h-full bg-white rounded-[6px] -bottom-0.5 -right-0.5 z-0" />
-
-          {/* Red foreground button */}
-          <Link
-            href="/create"
-            className="relative z-10 p-3 bg-[#FF0E32] text-white font-medium rounded-[6px] text-base shadow-md inline-block"
-          >
-            Launch Memecoin
-          </Link>
+      {/* Loader */}
+      {loading ? (
+        <div className="z-20 text-white text-sm animate-pulse">
+          Loading tokens...
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Carousel for mobile */}
+          <div className="z-20 block md:hidden w-full max-w-sm px-6 sm:px-10">
+            <div className="transition-all duration-500">
+              <Link href={`/token/${randomThree[carouselIndex]._id}`}>
+                <BannerTokenCard
+                  ticker={randomThree[carouselIndex].ticker}
+                  name={randomThree[carouselIndex].name}
+                  ca={randomThree[carouselIndex].contractAddress}
+                  marketCap={
+                    randomThree[carouselIndex].currentPrice *
+                    randomThree[carouselIndex].totalSupply
+                  }
+                  createdBy={randomThree[carouselIndex].creatorWallet}
+                  rating={80}
+                  image={randomThree[carouselIndex].image}
+                  id={randomThree[carouselIndex]._id}
+                  createdTime={randomThree[carouselIndex].createdAt}
+                />
+              </Link>
+            </div>
+          </div>
+
+          {/* Static layout for md+ screens */}
+          <div className="z-20 hidden md:flex gap-4 items-center justify-center w-full px-6 sm:px-10">
+            {randomThree.map((token, index) => (
+              <Link
+                href={`/token/${token._id}`}
+                key={token._id || index}
+                className={`transition-transform token-gradient-wrapper h-full relative duration-500 w-full max-w-sm ${
+                  index === 1 ? "md:-top-20" : ""
+                }`}
+              >
+                <BannerTokenCard
+                  ticker={token.ticker}
+                  name={token.name}
+                  ca={token.contractAddress}
+                  marketCap={token.currentPrice * token.totalSupply}
+                  createdBy={token.creatorWallet}
+                  rating={80}
+                  image={token.image}
+                  id={token._id}
+                  createdTime={token.createdAt}
+                />
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 }
