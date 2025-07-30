@@ -9,7 +9,7 @@ export default function QRBox({ url }: QRBoxProps) {
     <div className="bg-white p-2 rounded-xl shadow-md w-fit mx-auto">
       <QRCode
         value={url}
-        size={60}
+        size={80}
         bgColor="#ffffff"
         fgColor="#000000"
         level="H"

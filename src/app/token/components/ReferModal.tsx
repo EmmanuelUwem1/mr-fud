@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image";
 import QRBox from "./QR-Code";
 import Image from "next/image";
 import { copyToClipboard } from "@/lib/utils";
@@ -23,8 +23,8 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
   const modalRef = useRef<HTMLDivElement>(null);
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
-  const referalCode = "2r4dwwf";
-  const tokenUrl = `/token/${tokenId}?ref=${referalCode}`;
+  const referalCode = "2r4dw99f";
+  const tokenUrl = `https://mr-fud.vercel.app/token/${tokenId}?ref=${referalCode}`;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -36,18 +36,25 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
-  const captureTradeCard = async () => {
-    const card = document.getElementById("trade-card");
-    if (!card) return;
-    const canvas = await html2canvas(card);
-    const img = canvas.toDataURL("image/png");
-    setImageDataUrl(img);
 
-    const link = document.createElement("a");
-    link.href = img;
-    link.download = "trade_snapshot.png";
-    link.click();
-  };
+
+ const captureTradeCard = () => {
+   const card = document.getElementById("trade-card");
+   if (!card) return;
+
+   domtoimage
+     .toPng(card)
+     .then((dataUrl) => {
+       setImageDataUrl(dataUrl);
+       const link = document.createElement("a");
+       link.href = dataUrl;
+       link.download = "trade_snapshot.png";
+       link.click();
+     })
+     .catch((error) => {
+       console.error("Image capture failed:", error);
+     });
+ };
 
   return (
     <AnimatePresence>
@@ -76,7 +83,7 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="bg-gradient-to-br from-[#4800bc] via-[#24005f] to-[#24005f] rounded-xl px-4 py-6 sm:px-6 mt-4 w-full text-white shadow-xl relative overflow-hidden"
+            className="bg-gradient-to-br from-[#4800bc] via-[#24005f] to-[#24005f] rounded-xl px-4 py-6 sm:px-6 mt-4 w-full min-h-72 text-white shadow-xl relative overflow-hidden"
           >
             <div className="text-sm flex justify-between items-start">
               <div>
@@ -90,27 +97,28 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
                     src={"/logomrfud 2.png"}
                   />
                 </div>
-                
-                  <div className="text-xs font-extralight">{tokenName}</div>
-                  <div className="text-2xl text-[#E3E3E3] font-extrabold">
-                    $${tokenTicker}
-                  </div>
-                
+
+                <div className="text-xs font-extralight">{tokenName}</div>
+                <div className="text-2xl text-[#E3E3E3] font-extrabold">
+                  $${tokenTicker}
+                </div>
+
                 <div className="text-green-300 font-extrabold text-2xl">
-                
                   +312%
                 </div>
-                <div className="flex items-center gap-2 justify-between">
+                <div className="flex items-center gap-2 justify-start">
                   <span className="relative h-3.5 w-4">
-                                   <Image
-                                     src={"/clock.png"}
-                                     layout="fill"
-                                     objectFit="contain"
-                                     objectPosition="center"
-                                     alt="clock"
-                                   />
-                                 </span>
-                <span className="font-medium text-sm">{formatTimeAgo(tokenCreatedDate)}</span>
+                    <Image
+                      src={"/clock.png"}
+                      layout="fill"
+                      objectFit="contain"
+                      objectPosition="center"
+                      alt="clock"
+                    />
+                  </span>
+                  <span className="font-medium text-sm">
+                    {formatTimeAgo(tokenCreatedDate)}
+                  </span>
                 </div>
               </div>
               {/* image by the right */}
@@ -125,23 +133,24 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
               </span>
             </div>
 
-            <div className="mt-4 text-center absolute bottom-6 left-1/2">
+            <div className="mt-4 text-center absolute bottom-6 left-8 z0-10">
               <QRBox url={tokenUrl} />
             </div>
-             {/*
-                  <Image
+
+            {/* <Image
                     src="/banner.png"
                     alt="Banner background"
                     layout="fill"
                     objectFit="contain"
                     objectPosition="center"
                     priority
-                    className="z-0 absolute bottom-0 right-0"
+                    className="z-0 absolute w-full bottom-0 right-0"
                   /> */}
           </motion.div>
 
           <div className="flex justify-between mt-4">
             <button
+              type="button"
               onClick={captureTradeCard}
               className="px-4 py-2 rounded-md text-[#FF3C38] text-xs font-medium"
             >
