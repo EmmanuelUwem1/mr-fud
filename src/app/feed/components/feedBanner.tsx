@@ -19,7 +19,7 @@ export default function Banner() {
   }, [randomThree.length]);
 
   return (
-    <section className="relative py-12 w-full lg:h-80 mt-32 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38]">
+    <section className="relative py-12 w-full lg:h-80 mt-24 sm:mt-32 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38]">
       {/* Background Image */}
       <Image
         src="/Group 4.png"
