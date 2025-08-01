@@ -45,11 +45,11 @@ export default function BannerTokenCard({
   
 
  return (
-   <div className="bg-[#141414] text-white rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between h-72 gap-2 w-full">
+   <div className="bg-[#141414] text-white rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between h-96 gap-2 w-full">
      {/* Header */}
      <div className="flex flex-col w-full gap-3 items-center justify-start">
        {/* image */}
-       <div className="flex w-full h-36 rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
+       <div className="flex w-full h-60 rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
          <Image
            src={`${image}${cacheBuster}`}
            alt={""}

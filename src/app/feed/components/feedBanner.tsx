@@ -7,19 +7,13 @@ import { useState, useEffect } from "react";
 
 export default function Banner() {
   const { tokens, loading } = useTokens();
-  const [carouselIndex, setCarouselIndex] = useState(0);
+  // const [carouselIndex, setCarouselIndex] = useState(0);
 
-  const randomThree = tokens.sort(() => 0.5 - Math.random()).slice(0, 3);
+  const randomThree = tokens.slice(0, 3);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCarouselIndex((prev) => (prev + 1) % randomThree.length);
-    }, 3000); // Change slide every 3 seconds
-    return () => clearInterval(interval);
-  }, [randomThree.length]);
 
   return (
-    <section className="relative py-12 w-full lg:h-80 sm:mt-20 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38]">
+    <section className="relative py-12 w-full lg:h-[27rem] sm:mt-20 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38]">
       {/* Background Image */}
       <Image
         src="/Group 4.png"
@@ -42,24 +36,26 @@ export default function Banner() {
       ) : (
         <>
           {/* Carousel for mobile */}
-          <div className="z-20 block md:hidden w-full max-w-sm px-6 sm:px-10">
+          <div className="z-20 md:hidden w-full flex flex-wrap max-w-sm px-6 gap-4 sm:px-10">
             <div className="transition-all duration-500">
-              <Link href={`/token/${randomThree[carouselIndex]?._id}`}>
-                <BannerTokenCard
-                  ticker={randomThree[carouselIndex]?.ticker}
-                  name={randomThree[carouselIndex]?.name}
-                  ca={randomThree[carouselIndex]?.contractAddress}
-                  marketCap={
-                    randomThree[carouselIndex]?.currentPrice *
-                    randomThree[carouselIndex]?.totalSupply
-                  }
-                  createdBy={randomThree[carouselIndex]?.creatorWallet}
-                  rating={80}
-                  image={randomThree[carouselIndex]?.image}
-                  id={randomThree[carouselIndex]?._id}
-                  createdTime={randomThree[carouselIndex]?.createdAt}
-                />
-              </Link>
+              {randomThree.map((token) => (
+                <Link key={token._id} href={`/token/${token._id}`}>
+                  <BannerTokenCard
+                    ticker={token.ticker}
+                    name={token.name}
+                    ca={token.contractAddress}
+                    marketCap={
+                      token.currentPrice *
+                      token.totalSupply
+                    }
+                    createdBy={token.creatorWallet}
+                    rating={80}
+                    image={token.image}
+                    id={token._id}
+                    createdTime={token.createdAt}
+                  />
+                </Link>
+              ))}
             </div>
           </div>
 

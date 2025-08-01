@@ -8,7 +8,7 @@ export default function FeaturedSection() {
   const { tokens, loading } = useTokens();
 
   return (
-    <section className="w-full py-6 flex flex-col gap-6">
+    <section className="w-full py-6 hidden sm:flex flex-col gap-6">
       <div className="w-full xl:w-[1280px] xl:mx-auto overflow-x-auto">
         <Marquee
           pauseOnHover
