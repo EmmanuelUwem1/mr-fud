@@ -55,7 +55,7 @@ export default function BannerTokenCard({
            alt={""}
                     layout="fill"
                      objectFit="cover"
-           objectPosition="center"
+           objectPosition="top"
            onError={handleError}
          />
        </div>
