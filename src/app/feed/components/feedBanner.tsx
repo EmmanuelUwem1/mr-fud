@@ -35,19 +35,20 @@ export default function Banner() {
         </div>
       ) : (
         <>
-          {/* Carousel for mobile */}
-          <div className="z-20 md:hidden w-full flex flex-wrap max-w-sm px-6 gap-4 sm:px-10">
-            <div className="transition-all duration-500">
+          {/*  for mobile */}
+          <div className="z-20 md:hidden items-center justify-center w-full flex flex-wrap px-6 gap-4 sm:px-10">
+            <div className="transition-all duration-500 items-center justify-center w-full flex flex-wrap gap-4 ">
               {randomThree.map((token) => (
-                <Link key={token._id} href={`/token/${token._id}`}>
+                <Link
+                  key={token._id}
+                  href={`/token/${token._id}`}
+                  className="transition-transform token-gradient-wrapper h-full relative duration-500 w-full max-w-[20rem]"
+                >
                   <BannerTokenCard
                     ticker={token.ticker}
                     name={token.name}
                     ca={token.contractAddress}
-                    marketCap={
-                      token.currentPrice *
-                      token.totalSupply
-                    }
+                    marketCap={token.currentPrice * token.totalSupply}
                     createdBy={token.creatorWallet}
                     rating={80}
                     image={token.image}
@@ -59,8 +60,8 @@ export default function Banner() {
             </div>
           </div>
 
-          {/* Static layout for md+ screens */}
-          <div className="z-20 hidden md:flex gap-4 items-center justify-center w-full px-6 sm:px-10">
+          {/* layout for md+ screens */}
+          <div className="z-20 hidden md:flex gap-4 items-center justify-center w-full px-6 lg:gap-8 sm:px-10">
             {randomThree.map((token, index) => (
               <Link
                 href={`/token/${token?._id}`}

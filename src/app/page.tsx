@@ -49,7 +49,7 @@ export default function Home() {
           transition={{ delay: 0.3, duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="relative w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
+          <div className="relative lg:-left-28 w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
             <Image
               alt="Illustration"
               src="/trasp1.png"
@@ -94,7 +94,7 @@ export default function Home() {
         </motion.div>
       </main>
 
-      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 sm:hidden relative go-up">
+      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 relative go-up lg:pb-16">
         <div className="text-center flex items-center justify-center px-8 font-normal text-base">
           In a sea of noise, we bring FUD — Fearless, Unstoppable Diamondhands.
         </div>
