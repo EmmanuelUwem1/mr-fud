@@ -49,7 +49,7 @@ export default function Home() {
           transition={{ delay: 0.3, duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="relative lg:-left-28 w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
+          <div className="relative md:-left-14 lg:-left-18 2xl:-left-28 w-full max-w-[600px] h-[400px] sm:h-[700px] overflow-hidden">
             <Image
               alt="Illustration"
               src="/trasp1.png"
@@ -88,13 +88,13 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          <motion.div variants={fadeUp} transition={{ duration: 0.7 }}>
+          <motion.div variants={fadeUp} transition={{ duration: 0.7 }} className="w-full">
             <ActionCards actions={actions} />
           </motion.div>
         </motion.div>
       </main>
 
-      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 relative go-up lg:pb-16">
+      <footer className="flex-col flex items-center justify-center gap-8 w-full px-4 relative go-up pb-8 lg:pb-16">
         <div className="text-center flex items-center justify-center px-8 font-normal text-base">
           In a sea of noise, we bring FUD — Fearless, Unstoppable Diamondhands.
         </div>
