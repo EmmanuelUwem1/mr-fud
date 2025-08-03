@@ -70,7 +70,7 @@ const mobileTabs = [...tabs, "Top Holders"];
         </div>
 
         {/* Mobile Tabs */}
-        <div className="lg:hidden flex justify-start gap-3 items-center border-b border-[#2A2A2A] px-4 py-3 text-xs font-semibold w-full">
+        <div className="lg:hidden flex justify-start items-center border-b border-[#2A2A2A] sm:px-4 py-3 text-xs font-semibold w-full">
           {mobileTabs.map((tab) => (
             <button
               key={tab}
