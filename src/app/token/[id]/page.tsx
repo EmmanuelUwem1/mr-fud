@@ -66,7 +66,7 @@ export default function TokenPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="max-w76xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18"
+      className="max-w76xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 bg-[#0D0D0D]"
     >
       {/* Back Button */}
       <BackButton />
