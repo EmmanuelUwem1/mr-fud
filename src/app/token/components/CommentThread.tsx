@@ -84,7 +84,7 @@ const mobileTabs = [...tabs, "Top Holders"];
           ))}
           {/* collapse(close down ) icon */}
           <span
-            className={`relative flex items-center justify-center h-5 w-5 justify-self-end cursor-pointer transition-class ${isCollapsed ? "rotate-180" : "-rotate-180"}`}
+            className={`relative flex items-center justify-center h-5 w-5 justify-self-end cursor-pointer transition-class ${isCollapsed ? "-rotate-180" : "rotate-180"}`}
             onClick={() => setIsCollapsed((prev) => !prev)}
           >
             <Image
