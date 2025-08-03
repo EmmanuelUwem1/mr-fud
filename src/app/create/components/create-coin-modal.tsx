@@ -19,6 +19,10 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const [selectedCurrency, setSelectedCurrency] = useState("BNB");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedHardCap, setSelectedHardCap] = useState(
+    selectedCurrency === "BNB" ? 10 : 0.01
+  );
+
 
   const { file } = useImageContext();
 
@@ -82,7 +86,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
     {
       name: "BNB",
       image: "/IMG_5135 1.png",
-      hardCap: [10, 20, 30, 80],
+      hardCap: [10, 20, 30, 40],
       chain: "BSC",
     },
     {
@@ -106,20 +110,17 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const formatInput = (amount: number) => setBnbAmount(amount.toString());
 
   return (
-    
-      <div
-        className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center"
-    >
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center">
       <AnimatePresence>
-       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 20,
-        }}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 20,
+          }}
           ref={modalRef}
           className="bg-[#212121] mx-4 p-6 rounded-lg w-full max-w-sm text-white overflow-hidden"
         >
@@ -225,21 +226,36 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Hardcap */}
+          {/* Hardcap */}
           <p className="text-sm font-bold text-[#FF3C38] mb-2">
             Choose Hardcap
           </p>
+
           <div className="flex gap-2 mb-4">
             {currencies
               .find((value) => value.name === selectedCurrency)
-              ?.hardCap.map((val) => (
-                <button
-                  key={val}
-                  onClick={() => formatInput(val)}
-                  className="text-xs bg-[#2A2A2A] px-2 py-2 rounded-md hover:bg-[#3A3A3A] cursor-pointer"
-                >
-                  {val} {selectedCurrency}
-                </button>
-              ))}
+              ?.hardCap.map((val, index, arr) => {
+                const isDisabled = index >= arr.length - 2; // Disable last two
+                const isSelected = selectedHardCap === val;
+
+                return (
+                  <button
+                    key={val}
+                    onClick={() => !isDisabled && setSelectedHardCap(val)}
+                    disabled={isDisabled}
+                    className={`text-xs px-2 py-2 rounded-md cursor-pointer
+    ${
+      isDisabled
+        ? "bg-[#444] text-gray-400 cursor-not-allowed"
+        : isSelected
+        ? "bg-white text-black"
+        : "bg-[#2A2A2A] hover:bg-[#3A3A3A] text-white"
+    }`}
+                  >
+                    {val} {selectedCurrency}
+                  </button>
+                );
+              })}
           </div>
 
           <p>You receive: 342810.12 ${payload.ticker}</p>
@@ -299,7 +315,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             </button>
           </div>
         </motion.div>
-</AnimatePresence>
-      </div>
+      </AnimatePresence>
+    </div>
   );
 }
