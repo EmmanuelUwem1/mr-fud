@@ -41,7 +41,7 @@ export default async function RootLayout({
           href="/favicon-16x16.png"
         ></link>
       </head>
-      <body className="antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full items-start justify-start">
+      <body className="antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full h-full items-start justify-start">
         <ContextProvider cookies={cookies}>
           <Toaster
             position="top-right"

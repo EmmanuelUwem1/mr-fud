@@ -50,8 +50,8 @@ export default function ActionCards({ actions }: Props) {
             style={{ backgroundColor: bgColors[index % bgColors.length] }}
           >
             <div className="flex-col flex justify-start items-start text-white">
-              <h3 className="font-bold text-lg">{action.title}</h3>
-              <p className="font-extralight text-lg">{action.description}</p>
+              <h3 className="font-bold max-sm:text-base text-lg">{action.title}</h3>
+              <p className="font-extralight max-sm:text-sm text-lg">{action.description}</p>
             </div>
             <span className="relative flex items-center justify-center h-9 w-9">
               <Image

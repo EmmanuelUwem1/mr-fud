@@ -140,6 +140,12 @@ nav a:hover{
   padding-right:1rem;
 }
 }
+/* for iPhones maxes */
+@media (width > 400px){
+  .hero-image{
+    top: 0 !important;
+  }
+}
 .mobile-nav a{
   width: fit-content;
 
