@@ -79,7 +79,7 @@ export default function Home() {
               Start the Next Hype for Free
             </motion.h1>
             <motion.p
-              className="font-extralight text-lg"
+              className="font-extralight text-lg lg:text-xl"
               variants={fadeUp}
               transition={{ duration: 0.5 }}
             >
