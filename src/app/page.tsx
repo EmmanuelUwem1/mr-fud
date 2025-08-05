@@ -14,7 +14,7 @@ export default function Home() {
     {
       title: "Create on telegram bot",
       description: "Connect your telegram account and start a club",
-      href: "/",
+      href: "https://t.me/MrFUDBOT",
     },
     {
       title: "Create on X.com",
@@ -60,7 +60,7 @@ export default function Home() {
           </div>
         </motion.div>
         <motion.div
-          className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-[100%] items-start -top-18 lg:w-[130%] sm:top-0 hero-text relative"
+          className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-[100%] items-start -top-18 lg:w-[115%] sm:top-0 hero-text relative"
           variants={container}
           initial="hidden"
           whileInView="visible"
