@@ -32,14 +32,14 @@ export default function TokensSection() {
                   : "bg-transparent text-white hover:bg-white hover:text-black"
               }`}
             >
-              <span className="relative w-4 h-4 flex-shrink-0">
+              {/* <span className="relative w-4 h-4 flex-shrink-0">
                 <Image
                   src={tab.image}
                   alt={`${tab.text} icon`}
                   fill
                   className="object-contain"
                 />
-              </span>
+              </span> */}
               {tab.text}
             </button>
           ))}

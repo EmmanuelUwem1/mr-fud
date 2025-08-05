@@ -48,7 +48,7 @@ export default function Home() {
           transition={{ delay: 0.3, duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="relative w-full md:w-[200%] max-w-[2000px] h-[400px] lg:h-[450px] overflow-hidden lg:scale-140 xl:scale-130">
+          <div className="relative w-full md:w-[200%] max-w-[2000px] h-[400px] lg:h-[450px] overflow-hidden lg:scale-140 xl:scale-145">
             <Image
               alt="Illustration"
               src="/trasp1.png"
@@ -60,7 +60,7 @@ export default function Home() {
           </div>
         </motion.div>
         <motion.div
-          className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-[100%] items-start -top-18 sm:top-0 hero-text relative"
+          className="flex max-md:mx-auto max-sm:my-8 flex-col gap-8 justify-start w-full sm:w-[80%] md:w-[100%] items-start -top-18 lg:w-[130%] sm:top-0 hero-text relative"
           variants={container}
           initial="hidden"
           whileInView="visible"
@@ -72,7 +72,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <motion.h1
-              className="font-extrabold text-3xl"
+              className="font-extrabold text-3xl lg:text-4xl"
               variants={fadeUp}
               transition={{ duration: 0.6 }}
             >
