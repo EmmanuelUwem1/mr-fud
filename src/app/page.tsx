@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import ActionCards from "@/components/action-cards";
 import Socials from "@/components/socials";
@@ -49,7 +48,7 @@ export default function Home() {
           transition={{ delay: 0.3, duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="relative w-full md:w-[200%] max-w-[2000px] h-[400px] lg:h-[450px] xl:h-[500px] overflow-hidden lg:scale-140 xl:scale-150 2xl:scale-180">
+          <div className="relative w-full md:w-[200%] max-w-[2000px] h-[400px] lg:h-[450px] overflow-hidden lg:scale-140 xl:scale-130">
             <Image
               alt="Illustration"
               src="/trasp1.png"
@@ -88,7 +87,11 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          <motion.div variants={fadeUp} transition={{ duration: 0.7 }} className="w-full">
+          <motion.div
+            variants={fadeUp}
+            transition={{ duration: 0.7 }}
+            className="w-full"
+          >
             <ActionCards actions={actions} />
           </motion.div>
         </motion.div>
@@ -96,7 +99,7 @@ export default function Home() {
 
       <footer className="flex-col justify-self-end flex items-center justify-center gap-8 w-full px-4 relative go-up pb-4 sm:pt-4 lg:pt-8 xl:pt-16 2xl:pt-24 lg:pb-10 lg:mt-auto">
         <div className="text-center flex items-center justify-center px-8 font-normal text-base italic">
-          In a sea of noise, we bring FUD — Fearless, Unstoppable Diamondhands.
+          Create fast. Purnish the FUD hard. Teleport to 100x.
         </div>
         <Socials theme="dark-red" />
       </footer>

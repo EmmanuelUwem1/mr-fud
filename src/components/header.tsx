@@ -7,7 +7,6 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Socials from "./socials";
-import SearchBar from "./searchBar";
 import CreateClubButton from "./buttons/create-club";
 import CustomConnectButton from "./buttons/customConnectButton";
 import { useEffect, useRef } from "react";
@@ -103,7 +102,6 @@ function Header() {
 
           {/* buttons */}
           <div className="flex items-center justify-center gap-4">
-            <SearchBar />
             <LaunchApp />
             {show && (
               <div className="hidden lg:flex items-center w-fit justify-center relative -right-4">
