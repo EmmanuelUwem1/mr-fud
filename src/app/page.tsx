@@ -76,14 +76,14 @@ export default function Home() {
               variants={fadeUp}
               transition={{ duration: 0.6 }}
             >
-              Start a club for free.
+              Start the Next Hype for Free
             </motion.h1>
             <motion.p
               className="font-extralight text-lg"
               variants={fadeUp}
               transition={{ duration: 0.5 }}
             >
-              launch a token on any network in seconds.
+              launch a token on your desired network in seconds.
             </motion.p>
           </motion.div>
 
