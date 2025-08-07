@@ -158,7 +158,9 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
             </button>
           </div>
           <div className="w-full items-center flex justify-between bg-[#212121] rounded-full p-1">
-            <span className="px-4 font-normal text-xs">{tokenUrl}</span>
+            <span className="px-4 font-normal text-xs w-[300px] overflow-hidden text-ellipsis whitespace-nowrap block">
+              {tokenUrl}
+            </span>
             <button
               className="bg-[#FF3C38] text-xs font-medium py-2 px-3 rounded-full"
               onClick={() => copyToClipboard(tokenUrl)}
