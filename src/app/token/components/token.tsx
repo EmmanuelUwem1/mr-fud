@@ -4,6 +4,7 @@ import TokenPrice from "./tokenPrice";
 import ReferButton from "./refer-button";
 import { useState } from "react";
 import ReferModal from "./modals/ReferModal";
+import BlackBar from "./blackBar";
 
 
 type TokenProps = {
@@ -20,12 +21,14 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
     return (
       <>
         <div className="flex w-full items-center gap-3 justify-between">
-          <div className="w-full items-center gap-3  flex">
+          <div className="w-full items-center gap-2  flex">
             <TokenAvatar
               tokenName={tokenName}
               tokenTicker={tokenTicker}
               image={image}
             />
+            <div><BlackBar /></div>
+
             <TokenPrice tokenAddress={address} />
           </div>
           <span className="justify-self-end hidden max-sm:flex">

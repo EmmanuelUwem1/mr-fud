@@ -5,6 +5,7 @@ import { LabelValuePair } from "../labelValuePair";
 import BlackBar from "../blackBar";
 import { formatMarketCap } from "@/lib/utils";
 import ReferButton from "../refer-button";
+import RatingStars from "../rating-stars";
 
 interface TokenStatsProps {
   mCap: number;
@@ -33,7 +34,8 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
         </div>
 
         {/* Refer Button */}
-        <span className="hidden sm:flex">
+      <span className="hidden sm:flex items-center justify-center gap-4">
+        <RatingStars rating={2} size={30} />
           <ReferButton setShowModal={setShowModal} />
         </span>
         {showModal && (

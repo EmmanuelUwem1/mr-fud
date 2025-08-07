@@ -15,9 +15,26 @@ export default function GraduatedCard() {
         priority
       />
 
-      {/*  Radial Gradient on the Right */}
-      <div className="absolute right-0 top-0 bottom-0 w-1/2 z-0 pointer-events-none">
-        <div className="w-full h-full bg-gradient-radial from-[#A72D12] via-[#a78212] to-[#da920e] opacity-30" />
+      {/* Radial Gradient - Top Left */}
+      <div className="absolute top-0 left-0 w-1/2 h-full z-0 pointer-events-none">
+        <div
+          className="w-full h-full"
+          style={{
+            background:
+              "radial-gradient(circle at top left, rgba(139, 0, 0, 0.4), transparent 70%)",
+          }}
+        />
+      </div>
+
+      {/* Radial Gradient - Top Right */}
+      <div className="absolute top-0 right-0 w-1/2 h-full z-0 pointer-events-none">
+        <div
+          className="w-full h-full"
+          style={{
+            background:
+              "radial-gradient(circle at top right, rgba(139, 0, 0, 0.4), transparent 70%)",
+          }}
+        />
       </div>
 
       {/*  Content Layer */}
