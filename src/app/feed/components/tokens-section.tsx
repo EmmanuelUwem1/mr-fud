@@ -2,7 +2,6 @@
 import TokenCard from "./cards/token";
 import TokensSkeleton from "./loaders/TokensSkeleton"; 
 import { useState } from "react";
-import Image from "next/image";
 import { useTokens } from "@/context/TokensContext";
 import SearchBar from "@/components/searchBar";
 
@@ -17,12 +16,63 @@ const tabOptions = [
 export default function TokensSection() {
   const [activeTab, setActiveTab] = useState("Trending");
   const { tokens, loading } = useTokens();
+  const [searchTerm, setSearchTerm] = useState("");
+
+    const filteredTokens = tokens.filter((token) =>
+      `${token.name} ${token.contractAddress}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+  );
+  
+const sortedTokens = [...filteredTokens]; 
+
+switch (activeTab) {
+  case "Trending":
+    sortedTokens.sort(
+      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
+    );
+    break;
+
+  case "Market Cap":
+    sortedTokens.sort(
+      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
+    );
+    break;
+
+  case "Newly Launched":
+    sortedTokens.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    break;
+
+  // case "Graduated":
+  //   sortedTokens.sort((a, b) => {
+  //     if (a.isGraduated === b.isGraduated) return 0;
+  //     return a.isGraduated ? -1 : 1;
+  //   });
+  //   break;
+
+  // case "About to Graduate":
+    // sortedTokens
+    //   .filter((token) => !token.isGraduated)
+    //   .sort(
+    //     (a, b) =>
+    //       b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
+    //   );
+    // break;
+
+  default:
+    break;
+}
+
+
 
   return (
     <section className="w-full py-10 flex flex-col gap-8">
       {/* Tabs Navigation */}
       <div className="w-full overflow-x-auto">
-        <div className="flex mx-auto gap-4 justify-center items-center w-full mb-4 border-[#F8F8F8] flex-wrap">
+        <div className="flex mx-auto gap-2 md:gap-4 justify-center items-center w-full mb-4 border-[#F8F8F8] flex-wrap">
           {tabOptions.map((tab) => (
             <button
               key={tab.text}
@@ -44,20 +94,19 @@ export default function TokensSection() {
               {tab.text}
             </button>
           ))}
-        <SearchBar />
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
 
-      {/* Tokens Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {loading ? (
-          <TokensSkeleton />
-        ) : tokens.length === 0 ? (
-          <p className="text-center text-gray-400 col-span-full">
-            No tokens available.
-          </p>
-        ) : (
-          tokens.map((token) => (
+      {loading ? (
+        <TokensSkeleton />
+      ) : sortedTokens.length === 0 ? (
+        <p className="text-center text-gray-400 col-span-full">
+          No tokens available.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {sortedTokens.map((token) => (
             <TokenCard
               key={token._id}
               ticker={token.ticker}
@@ -66,13 +115,13 @@ export default function TokensSection() {
               marketCap={token.currentPrice * token.totalSupply}
               createdBy={token.creatorWallet}
               rating={80}
-              image={token.image} 
+              image={token.image}
               id={token._id}
               createdTime={token.createdAt}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

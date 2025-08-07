@@ -7,7 +7,7 @@ export default function TokensSkeleton() {
         .map((_, i) => (
           <div
             key={i}
-            className="animate-pulse rounded-[15px] bg-[#1A1A1A] py-3 pl-3 pr-6 shadow-md w-full flex flex-col gap-4 h-[200px]"
+            className="animate-pulse rounded-[15px] bg-[#1A1A1A] py-3 pl-3 pr-6 shadow-md w-full min-w-80 flex flex-col gap-4 h-[200px]"
           >
             <div className="flex gap-3 w-full">
               <div className="w-[64px] h-[64px] rounded-[10px] bg-[#262626]" />
