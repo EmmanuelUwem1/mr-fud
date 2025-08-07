@@ -165,8 +165,9 @@ const mobileTabs = [...tabs, "Top Holders"];
                         <Image
                           alt=""
                           src={"/send.png"}
-                          width={34}
-                          height={26}
+                          layout="fill"
+                          objectPosition="center"
+                          objectFit="contain"
                           className="p-1"
                         />
                       </button>
