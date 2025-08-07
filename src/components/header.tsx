@@ -18,6 +18,7 @@ function Header() {
   const pathName = usePathname();
     const {  address, isConnected } = useAccount();
   const show = pathName !== "/";
+  const prePage = pathName === "/";
 
  const navLinks = [
    { label: "FOMO Feed", path: "/feed" },
@@ -48,7 +49,7 @@ function Header() {
   return (
     <div className="relative w-full">
       <header
-        className="flex w-full overflow-x-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 md:px-16"
+        className="flex w-full overflow-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 md:px-16"
         ref={menuRef}
       >
         {/* logo */}
@@ -60,14 +61,18 @@ function Header() {
               width={1000}
               quality={100}
               priority
-              src={'/pill.png'}
+              src={"/pill.png"}
             />
           </span>
         </Link>
 
-        <div className="flex justify-between items-center gap-20">
+        <div
+          className={`flex justify-between items-center ${
+            prePage ? "gap-28" : "gap-12 2xl:gap-24"
+          }`}
+        >
           {/* nav links (desktop only) */}
-          <nav className="xl:flex hidden justify-center items-center font-medium text-base lg:text-lg gap-8 lg:gap-12 w-[26rem]">
+          <nav className="xl:flex hidden justify-center items-center font-medium text-base lg:text-lg gap-8 lg:gap-12 w-[500px]">
             {navLinks.map(({ label, path }) => (
               <Link
                 key={path}
@@ -95,7 +100,7 @@ function Header() {
           </nav>
 
           {/* socials */}
-          <div className="max-sm:hidden">
+          <div className="max-sm:hidden w-fit">
             <Socials theme="dark-blue" />
           </div>
 

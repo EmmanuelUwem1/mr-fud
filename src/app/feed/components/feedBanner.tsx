@@ -3,11 +3,9 @@ import Image from "next/image";
 import BannerTokenCard from "./cards/bannerCard";
 import { useTokens } from "@/context/TokensContext";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 export default function Banner() {
   const { tokens, loading } = useTokens();
-  // const [carouselIndex, setCarouselIndex] = useState(0);
 
   const randomThree = tokens.slice(0, 3);
 
@@ -35,6 +33,7 @@ export default function Banner() {
         </div>
       ) : (
         <>
+
           {/*  for mobile */}
           <div className="z-20 md:hidden items-center justify-center w-full flex flex-wrap px-6 gap-4 sm:px-10">
             <div className="transition-all duration-500 items-center justify-center w-full flex flex-wrap gap-4 ">

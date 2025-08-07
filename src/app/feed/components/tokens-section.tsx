@@ -4,6 +4,7 @@ import TokensSkeleton from "./loaders/TokensSkeleton";
 import { useState } from "react";
 import Image from "next/image";
 import { useTokens } from "@/context/TokensContext";
+import SearchBar from "@/components/searchBar";
 
 const tabOptions = [
   { text: "Trending", image: "/Vector-fire.png" },
@@ -43,6 +44,7 @@ export default function TokensSection() {
               {tab.text}
             </button>
           ))}
+        <SearchBar />
         </div>
       </div>
 
