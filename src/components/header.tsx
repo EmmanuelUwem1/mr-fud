@@ -60,7 +60,6 @@ function Header() {
               width={1000}
               quality={100}
               priority
-              // src={"/logomrfud 2.png"}
               src={'/pill.png'}
             />
           </span>
