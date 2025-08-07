@@ -53,7 +53,7 @@ function Header() {
       >
         {/* logo */}
         <Link href={"/"} className="relative flex items-center justify-center">
-          <span className="relative w-16 sm:w-20 sm:h-10 h-8 flex items-center justify-center">
+          <span className="relative w-16 sm:w-20 sm:h-10 lg:w-28 lg:h-14 h-8 flex items-center justify-center">
             <Image
               alt="MrFUD"
               height={1000}
@@ -67,7 +67,7 @@ function Header() {
 
         <div className="flex justify-between items-center gap-20">
           {/* nav links (desktop only) */}
-          <nav className="xl:flex hidden justify-center items-center font-medium text-base gap-8 w-[26rem]">
+          <nav className="xl:flex hidden justify-center items-center font-medium text-base lg:text-lg gap-8 lg:gap-12 w-[26rem]">
             {navLinks.map(({ label, path }) => (
               <Link
                 key={path}
