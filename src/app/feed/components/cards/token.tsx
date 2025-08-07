@@ -52,7 +52,7 @@ export default function TokenCard({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-       exit={{ opacity: 0, y: 20 }}
+        exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.4 }}
         onClick={() => router.push(`/token/${id}`)}
         className="token-gradient-wrapper cursor-pointer"
@@ -73,7 +73,10 @@ export default function TokenCard({
             </div>
             <div className="flex flex-col w-full items-start text-left justify-start gap-1">
               <span className="text-lg text-[#E3E3E3] font-normal  flex items-center w-full justify-between gap-2">
-                <span className="GasoekOne-Regular"> ${ticker}</span>
+                <span className="GasoekOne-Regular w-[80px] overflow-hidden text-ellipsis whitespace-nowrap block">
+                  ${ticker}
+                </span>
+
                 <span className="text-xs overflow-ellipsis w-20 text-[#A0A0A0]">
                   {formatTimeAgo(createdTime)}
                 </span>

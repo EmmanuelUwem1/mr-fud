@@ -29,15 +29,14 @@ export default function TokenAvatar({
               layout="fill"
               objectFit="cover"
               objectPosition="center"
-             
             />
           </div>
         </div>
       </div>
 
       <div className="flex flex-col items-start justify-center sm:ml-4">
-        <span className="text-lg GasoekOne-Regular font-normal text-[#E3E3E3]">
-         ${tokenTicker}
+        <span className="text-base sm:text-lg GasoekOne-Regular font-normal text-[#E3E3E3] w-[80px] overflow-hidden text-ellipsis whitespace-nowrap block">
+          ${tokenTicker}
         </span>
         <span className="text-xs font-semibold text-[#BBBBBB]">
           {tokenName}

@@ -19,18 +19,29 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
     
     return (
       <>
-        <div className="flex w-full items-center gap-3 justify-start">
+        <div className="flex w-full items-center gap-3 justify-between">
+          <div className="w-full items-center gap-3  flex">
             <TokenAvatar
               tokenName={tokenName}
               tokenTicker={tokenTicker}
               image={image}
             />
-          <TokenPrice tokenAddress={address} />
+            <TokenPrice tokenAddress={address} />
+          </div>
           <span className="justify-self-end hidden max-sm:flex">
             <ReferButton setShowModal={setShowModal} />
           </span>
         </div>
-        {showModal && <ReferModal tokenCreatedDate={tokenCreatedDate} tokenId={tokenId} tokenImage={image} tokenName={tokenName} tokenTicker={tokenTicker} onClose={() => setShowModal(false)} />}
+        {showModal && (
+          <ReferModal
+            tokenCreatedDate={tokenCreatedDate}
+            tokenId={tokenId}
+            tokenImage={image}
+            tokenName={tokenName}
+            tokenTicker={tokenTicker}
+            onClose={() => setShowModal(false)}
+          />
+        )}
       </>
     );
 }
