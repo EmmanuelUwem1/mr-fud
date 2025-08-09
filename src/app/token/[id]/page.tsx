@@ -16,6 +16,7 @@ import BackButton from "@/components/buttons/backButton";
 import GraduatedCard from "../components/cards/graduated";
 import AntiFudCard from "../components/cards/anti-fud-card";
 import TopHoldersCard from "../components/cards/topHoldersCard";
+import TestTradingViewWidget from "../components/testTradingViewWidget";
 
 
 export default function TokenPage() {
@@ -92,7 +93,9 @@ export default function TokenPage() {
         <div className="flex flex-col items-start justify-start w-full gap-4">
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
             <div className="flex flex-col items-start justify-start gap-4 w-full">
-              <TradingViewWidget symbol={`${tokenData.symbol}`} />
+              {/* <TradingViewWidget pairAddress={token.contractAddress} /> */}
+              <TestTradingViewWidget symbol={`${tokenData.symbol}`} />
+
               <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
                 {/* Token Description */}
                 <TokenDescription
