@@ -32,7 +32,7 @@ export default function GraduatedCard() {
           className="w-full h-full"
           style={{
             background:
-              "radial-gradient(circle at top right, rgba(139, 0, 0, 0.4), transparent 70%)",
+              "radial-gradient(circle at top right, rgba(180, 130, 20, 0.4), transparent 70%)",
           }}
         />
       </div>

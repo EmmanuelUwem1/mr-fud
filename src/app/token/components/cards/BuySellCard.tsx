@@ -4,6 +4,7 @@ import { buyToken, sellToken } from "@/lib/api";
 import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 interface BuySellCardProps {
   balance: number;
@@ -26,12 +27,21 @@ export default function BuySellCard({
   const { address } = useAccount();
   const [loading, setLoading] = useState(false);
   const maxAmount = balance.toString();
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [selectedSlippage, setSelectedSlippage] = useState<string>("");
+
+    const handleSlippageSelect = (value: string) => {
+      setSelectedSlippage(value);
+    };
 
   const handleTransaction = async () => {
     const isBuy = tab === "buy";
     const action = isBuy ? onBuy : onSell;
     await action(amount);
   };
+
+
+
 
   async function onBuy(amount: string) {
     if (!amount || isNaN(+amount) || +amount <= 0) {
@@ -117,7 +127,7 @@ export default function BuySellCard({
           if (val > balance) return;
           setAmount(e.target.value);
         }}
-        className="w-full bg-[#2A2A2A] text-white px-3 py-4 rounded-md placeholder-gray-500 mb-3"
+        className="w-full h-16 bg-[#2A2A2A] text-white px-3 py-6 rounded-md placeholder-gray-500 mb-3"
       />
 
       <div className="flex justify-between text-xs space-x-2 font-medium">
@@ -158,9 +168,67 @@ export default function BuySellCard({
       </div>
 
       {amount && !isNaN(+amount) && tokenPrice > 0 && (
-        <div className="text-xs text-[#999999] mt-2">
-          ≈ {(parseFloat(amount) / tokenPrice).toFixed(4)} {tokenName}
-        </div>
+        <>
+          <div className="text-xs flex justify-between items-center text-[#999999] mt-2">
+            <span> Min recieved</span>{" "}
+            <span>
+              {(parseFloat(amount) / tokenPrice).toFixed(4)} {tokenName}
+            </span>
+          </div>
+          <div className="text-xs flex justify-between items-center text-[#999999] mt-2">
+            <span> Advance settings</span> {/* collapse(close down ) icon */}
+            <span
+              className={`relative flex items-center justify-center h-5 w-5 justify-self-end cursor-pointer ml-auto transition-class ${
+                isCollapsed ? "rotate-0" : "rotate-180"
+              }`}
+              onClick={() => setIsCollapsed((prev) => !prev)}
+            >
+              <Image
+                alt="collapse toggle"
+                src={"/Vector.png"}
+                layout="fill"
+                objectFit="contain"
+                objectPosition="center"
+              />
+            </span>
+          </div>
+          <AnimatePresence>
+            {!isCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="border border-gray-700 rounded-md py-4 mt-2"
+              >
+                <div className="text-xs text-[#999999] mb-3 px-4">
+                  Max Slippage
+                </div>
+                <input
+                  type="text"
+                  value={selectedSlippage}
+                  readOnly
+                  placeholder="Enter custom slippage"
+                  className="w-full h-14 bg-[#2A2A2A] text-white text-sm px-3 py-4 mb-3 outline-none"
+                />
+
+                <div className="grid grid-cols-4 gap-2 px-2">
+                  {["1%", "2.5%", "5%", "Max"].map((label: string) => (
+                    <button
+                      key={label}
+                      className={`py-2 text-xs transition-colors bg-[#2A2A2A] text-gray-200 hover:opacity-80 transition-class px-3 rounded-full ${
+                        selectedSlippage === label ? "bg-[#434343]" : ""
+                      }`}
+                      onClick={() => handleSlippageSelect(label)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
       )}
 
       <button
