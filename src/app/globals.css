@@ -227,6 +227,19 @@ nav a:hover{
 button{
   cursor: pointer !important;
 }
+.tab-underline{
+  position:relative;
+
+}
+.tab-underline::before{
+  position: absolute;
+  content:"";
+  height: 1px;
+  width: 100%;
+  background-color:#520000;
+  bottom: -15px;
+  left: 0;
+}
 
 
 

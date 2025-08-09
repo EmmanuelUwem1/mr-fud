@@ -16,7 +16,7 @@ export default function GraduatedCard() {
       />
 
       {/* Radial Gradient - Top Left */}
-      <div className="absolute top-0 left-0 w-1/2 h-full z-0 pointer-events-none">
+      {/* <div className="absolute top-0 left-0 w-1/2 h-full z-0 pointer-events-none">
         <div
           className="w-full h-full"
           style={{
@@ -24,10 +24,10 @@ export default function GraduatedCard() {
               "radial-gradient(circle at top left, rgba(139, 0, 0, 0.4), transparent 70%)",
           }}
         />
-      </div>
+      </div> */}
 
       {/* Radial Gradient - Top Right */}
-      <div className="absolute top-0 right-0 w-1/2 h-full z-0 pointer-events-none">
+      <div className="absolute top-0 right-0 w-full h-full z-0 pointer-events-none">
         <div
           className="w-full h-full"
           style={{

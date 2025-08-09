@@ -50,7 +50,7 @@ const mobileTabs = [...tabs, "Top Holders"];
             <button
               onClick={() => setActiveTab("Comments")}
               className={`flex relative rounded-[6px] px-4 py-3 ${
-                activeTab === "Comments" ? "bg-[#520000]" : "text-white"
+                activeTab === "Comments" ? "bg-[#520000] tab-underline" : "text-white"
               }`}
             >
               Comments
@@ -58,7 +58,7 @@ const mobileTabs = [...tabs, "Top Holders"];
             <button
               onClick={() => setActiveTab("Trades")}
               className={`flex relative rounded-[6px] px-4 py-3 ${
-                activeTab === "Trades" ? "bg-[#520000]" : "text-white"
+                activeTab === "Trades" ? "bg-[#520000] tab-underline" : "text-white"
               }`}
             >
               Trades
@@ -76,7 +76,7 @@ const mobileTabs = [...tabs, "Top Holders"];
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-3 py-2 rounded-[6px] ${
-                activeTab === tab ? "bg-[#520000] text-white" : "text-gray-300"
+                activeTab === tab ? "bg-[#520000] tab-underline text-white" : "text-gray-300"
               }`}
             >
               {tab}
