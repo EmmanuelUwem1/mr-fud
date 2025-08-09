@@ -17,6 +17,17 @@ export default function TokensSection() {
   const [activeTab, setActiveTab] = useState("Trending");
   const { tokens, loading } = useTokens();
   const [searchTerm, setSearchTerm] = useState("");
+  const [localLoading, setLocalLoading] = useState(false);
+
+
+  const handleTabClick = (tabText:string) => {
+    setLocalLoading(true);
+    setActiveTab(tabText);
+    setTimeout(() => {
+      setLocalLoading(false);
+    }, 500); // half second delay
+  };
+
 
     const filteredTokens = tokens.filter((token) =>
       `${token.name} ${token.contractAddress}`
@@ -76,7 +87,7 @@ switch (activeTab) {
           {tabOptions.map((tab) => (
             <button
               key={tab.text}
-              onClick={() => setActiveTab(tab.text)}
+              onClick={() => handleTabClick(tab.text)}
               className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium tabs-gradient-wrapper cursor-pointer flex items-center justify-center gap-2 ${
                 activeTab === tab.text
                   ? "bg-white text-black"
@@ -98,7 +109,7 @@ switch (activeTab) {
         </div>
       </div>
 
-      {loading ? (
+      {localLoading || loading ? (
         <TokensSkeleton />
       ) : sortedTokens.length === 0 ? (
         <p className="text-center text-gray-400 col-span-full">
