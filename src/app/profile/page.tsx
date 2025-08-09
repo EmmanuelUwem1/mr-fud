@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import ProfileCard from "./components/profile-card";
 import { motion } from "framer-motion";
 import BackButton from "@/components/buttons/backButton";

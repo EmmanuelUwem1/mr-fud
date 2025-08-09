@@ -122,6 +122,8 @@ export default function TokenPage() {
                 tokenPrice={token?.currentPrice || 0}
                 tokenChain={"BSC"}
                 tokenCa={token?.contractAddress || ""}
+                tokenImage={token?.image}
+                tokenTicker={token.ticker}
               />
               <div className="flex flex-col items-start justify-start gap-4">
                 <GraduatedCard />
@@ -155,6 +157,8 @@ export default function TokenPage() {
               tokenPrice={token?.currentPrice || 0}
               tokenChain={"BSC"}
               tokenCa={token?.contractAddress || ""}
+              tokenImage={token?.image}
+              tokenTicker={token.ticker}
             />
             <GraduatedCard />
             <AntiFudCard antiFudEnabled={token.isAntiGeet} />

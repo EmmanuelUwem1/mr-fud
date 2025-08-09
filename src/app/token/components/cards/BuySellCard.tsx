@@ -12,6 +12,8 @@ interface BuySellCardProps {
   tokenPrice: number;
   tokenChain: string;
   tokenCa: string;
+  tokenImage: string;
+  tokenTicker: string;
 }
 
 export default function BuySellCard({
@@ -20,6 +22,8 @@ export default function BuySellCard({
   tokenPrice,
   tokenChain,
   tokenCa,
+  tokenImage,
+  tokenTicker,
 }: BuySellCardProps) {
   const [tab, setTab] = useState<"buy" | "sell">("buy");
   const [amount, setAmount] = useState("");
@@ -116,19 +120,35 @@ export default function BuySellCard({
         <span>Balance: {balance.toFixed(5)} BNB</span>
       </div>
 
-      <input
-        type="number"
-        min="0"
-        step="0.0001"
-        value={amount}
-        placeholder="0.00"
-        onChange={(e) => {
-          const val = parseFloat(e.target.value);
-          if (val > balance) return;
-          setAmount(e.target.value);
-        }}
-        className="w-full h-16 bg-[#2A2A2A] text-white px-3 py-6 rounded-md placeholder-gray-500 mb-3"
-      />
+      <div className="w-full flex px-3 gap-3 justify-between bg-[#2A2A2A] items-center">
+        <input
+          type="number"
+          min="0"
+          step="0.0001"
+          value={amount}
+          placeholder="0.00"
+          onChange={(e) => {
+            const val = parseFloat(e.target.value);
+            if (val > balance) return;
+            setAmount(e.target.value);
+          }}
+          className="w-full h-16 text-white py-6 rounded-md placeholder-gray-500 mb-3"
+        />
+        <div className="flex items-center justify-center gap-1 bg-[#454545] rounded-full py-2 px-3">
+          <span className="relative flex items-center justify-center h-6 w-6 rounded-full overflow-hidden">
+            <Image
+              alt=""
+              src={tokenImage}
+              layout="fill"
+              objectFit="contain"
+              objectPosition="center"
+            />
+          </span>
+          <span className="text-white text-xs font-semibold">
+            {tokenTicker}
+          </span>
+        </div>
+      </div>
 
       <div className="flex justify-between text-xs space-x-2 font-medium">
         <button

@@ -8,32 +8,21 @@ function Page() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="relative flex w-full items-center justify-center h-full overflow-hidden"
+      className="relative flex w-full items-center justify-center h-full"
     >
       {/*  Cat Image */}
-      <div className="absolute w-96">
-        <div className="block absolute left-0 top-1/2 -translate-y-1/2 z-10 w-96">
-          <Image
-            src="/Cat 1.png"
-            alt="Cat"
-            layout="fill"
-            className="object-contain"
-          />
-        </div>
-
-        <div className="md:hidden absolute top-0 left-0 z-0 w-full h-40">
-          <Image
-            src="/Cat 1.png"
-            alt="Cat"
-            layout="fill"
-            objectFit="contain"
-            objectPosition="center"
-            className="opacity-40"
-          />
-        </div>
+      <div className="absolute md:static md:mr-[-60px] md:z-20 w-64 md:w-80 lg:w-96 -top-60 md:top-auto md:-left-10">
+        <Image
+          src="/Cat 1.png"
+          alt="Cat"
+          width={384}
+          height={384}
+          className="object-contain"
+        />
       </div>
 
-      <div className="relative my-auto w-fit overflow-hidden max-w-2xl p-[1px] rounded-[18px] bg-gradient-to-r from-[#A74D4D] via-[#4B1F1F] to-[#180A0A] z-10">
+      <div className="relative z-10 my-auto w-fit overflow-hidden max-w-2xl p-[1px] rounded-[18px] bg-gradient-to-r from-[#A74D4D] via-[#4B1F1F] to-[#180A0A] md:ml-0 ml-auto mr-auto">
+
         {/*  Blurred gradients */}
         <div className="absolute -top-32 sm:-top-20 -right-32 sm:-right-20 w-72 h-72 rounded-full bg-[#520000] opacity-60 blur-2xl pointer-events-none z-0" />
         <div className="absolute -left-32 -bottom-32 sm:-bottom-20 sm:-left-20 w-72 h-72 rounded-full bg-[#520000] opacity-60 blur-2xl pointer-events-none z-0" />

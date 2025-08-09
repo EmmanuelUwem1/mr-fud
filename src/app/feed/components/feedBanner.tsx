@@ -11,9 +11,8 @@ export default function Banner() {
 
 
   return (
-    <section className="relative py-12 w-full lg:h-[27rem] sm:mt-20 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38]">
-      {/* Background Image */}
-      <Image
+    <section className="relative py-12 w-full min-h-[27rem] sm:mt-20 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38] bg-pattern">
+      {/* <Image
         src="/Group 4.png"
         alt="Banner background"
         layout="fill"
@@ -21,7 +20,7 @@ export default function Banner() {
         objectPosition="center"
         priority
         className="absolute inset-0 z-0 rounded-[20px]"
-      />
+      /> */}
 
       {/* Overlay Gradient */}
       <div className="absolute rounded-[20px] inset-0 bg-gradient-to-t from-[#A20B0B]/80 to-[#3C0404]/30 z-10" />
@@ -33,7 +32,6 @@ export default function Banner() {
         </div>
       ) : (
         <>
-
           {/*  for mobile */}
           <div className="z-20 md:hidden items-center justify-center w-full flex flex-wrap px-6 gap-4 sm:px-10">
             <div className="transition-all duration-500 items-center justify-center w-full flex flex-wrap gap-4 ">
