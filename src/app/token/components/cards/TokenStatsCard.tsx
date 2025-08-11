@@ -11,9 +11,9 @@ interface TokenStatsProps {
   mCap: number;
   tokenName: string;
   tokenTicker: string;
-  tokenCreatedDate: string;
+  tokenCreatedDate?: string;
   tokenImage: string;
-  tokenId: string;
+  tokenId?: string;
 }
 
 export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreatedDate, tokenImage, tokenId }: TokenStatsProps) {
@@ -40,9 +40,9 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
         </span>
         {showModal && (
           <ReferModal
-            tokenCreatedDate={tokenCreatedDate}
+            tokenCreatedDate={tokenCreatedDate|| ""}
             tokenName={tokenName}
-            tokenId={tokenId}
+            tokenId={tokenId || ""}
             tokenImage={tokenImage}
             tokenTicker={tokenTicker}
             onClose={() => setShowModal(false)}

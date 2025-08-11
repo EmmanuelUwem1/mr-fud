@@ -23,7 +23,7 @@ export default function CommentThread({
   comments: Comment[];
   isConnected: boolean;
   ca: string;
-    createdDate: string;
+    createdDate?: string;
    tokenName: string;
 
 }) {
@@ -65,7 +65,7 @@ const mobileTabs = [...tabs, "Top Holders"];
             </button>
           </div>
           <div className="w-full flex justify-end items-center gap-4">
-            <WalletAndDateFlex ca={ca} createdDate={createdDate} />
+            <WalletAndDateFlex ca={ca} createdDate={createdDate || ""} />
           </div>
         </div>
 

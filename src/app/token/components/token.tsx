@@ -12,8 +12,8 @@ type TokenProps = {
   tokenName: string;
     tokenTicker: string;
   image: string;
-  tokenCreatedDate: string;
-  tokenId: string;
+  tokenCreatedDate?: string;
+  tokenId?: string ;
 };
 export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId }: TokenProps) {
       const [showModal, setShowModal] = useState(false);
@@ -37,8 +37,8 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
         </div>
         {showModal && (
           <ReferModal
-            tokenCreatedDate={tokenCreatedDate}
-            tokenId={tokenId}
+            tokenCreatedDate={tokenCreatedDate || ""}
+            tokenId={tokenId || ""}
             tokenImage={image}
             tokenName={tokenName}
             tokenTicker={tokenTicker}

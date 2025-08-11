@@ -12,12 +12,12 @@ export default function TokenDescription({
     twitter: string;
     telegram: string;
     ca: string;
-    createdDate: string;
+    createdDate?: string;
 }) {
   return (
     <>
       <div className="w-full lg:hidden mt-4">
-        <WalletAndDateFlex ca={ca} createdDate={createdDate} />
+        <WalletAndDateFlex ca={ca} createdDate={createdDate || ""} />
       </div>
       <div className="border border-[#000000] p-4 sm:p-6 rounded-[7px] bg-[#262626] sm:bg-[#141414] text-white w-full">
         <div className="flex w-full items-center justify-between gap-3">

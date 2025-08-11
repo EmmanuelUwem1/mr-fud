@@ -24,6 +24,7 @@ function Header() {
    { label: "FOMO Feed", path: "/feed" },
    { label: "Staking", path: "/staking" },
    { label: "Leaderboard", path: "/leaderboard" },
+   { label: "Ocicat", path: "/token" },
   ];
   
   const menuRef = useRef<HTMLDivElement>(null);
@@ -72,7 +73,7 @@ function Header() {
           }`}
         >
           {/* nav links (desktop only) */}
-          <nav className="xl:flex hidden justify-center items-center font-medium text-base lg:text-lg gap-8 lg:gap-12 w-[500px]">
+          <nav className="xl:flex hidden justify-center items-center font-medium text-base lg:text-lg gap-8 lg:gap-8 w-[540px]">
             {navLinks.map(({ label, path }) => (
               <Link
                 key={path}
