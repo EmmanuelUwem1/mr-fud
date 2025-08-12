@@ -11,7 +11,7 @@ export default function Banner() {
 
 
   return (
-    <section className="relative py-12 w-full min-h-[27rem] sm:mt-20 rounded-[20px] flex flex-col items-center justify-center border-[1px] border-[#FF3C38] bg-pattern">
+    <section className="relative py-12 w-full min-h-[27rem] sm:mt-20 rounded-[20px] flex flex-col items-center justify-center bg-pattern">
       {/* <Image
         src="/Group 4.png"
         alt="Banner background"
@@ -22,9 +22,10 @@ export default function Banner() {
         className="absolute inset-0 z-0 rounded-[20px]"
       /> */}
 
-      {/* Overlay Gradient */}
-      <div className="absolute rounded-[20px] inset-0 bg-gradient-to-t from-[#A20B0B]/80 to-[#3C0404]/30 z-10" />
+      {/* Overlay Gradient
+      <div className="absolute rounded-[20px] inset-0 bg-gradient-to-t from-[#A20B0B]/80 to-[#3C0404]/30 z-10" /> */}
 
+      {/* <div className="absolute rounded-[20px] inset-0 bg-white/40 z-10" /> */}
       {/* Loader */}
       {loading ? (
         <div className="z-20 text-white text-sm animate-pulse">

@@ -52,18 +52,21 @@ export default function BuySellCard({
       toast.error("Enter a valid amount to buy.");
       return;
     }
-    const amountInBNB = parseFloat(amount);
-    const amountInToken = amountInBNB / tokenPrice;
-    const data = {
-      txHash: "0xBUYMOCKTX",
-      wallet: address as `0x${string}`,
-      tokenAddress: tokenCa,
-      amountInChainCurrency: amountInBNB,
-      amountInToken,
-      price: tokenPrice,
-      value: amountInBNB * tokenPrice,
-      chain: tokenChain,
-    };
+const amountInBNB = parseFloat(amount);
+const amountInToken = tokenPrice > 0 ? amountInBNB / tokenPrice : 0; // Tokens received
+const valueInUSD = amountInBNB * tokenPrice; // Optional: if tokenPrice is in USD
+
+const data = {
+  txHash: "0xBUYMOCKTX",
+  wallet: address as `0x${string}`,
+  tokenAddress: tokenCa,
+  amountInChainCurrency: amountInBNB,
+  amountInToken,
+  price: tokenPrice,
+  value: valueInUSD,
+  chain: tokenChain,
+};
+
 
     setLoading(true);
     try {
