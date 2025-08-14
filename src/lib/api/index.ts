@@ -135,11 +135,10 @@ export async function fetchOcicatTokenPrice() {
 
   try {
     const response = await axios.get(
-      `${apiUrl}/simple/token_price/binance-smart-chain`,
+      `${apiUrl}/simple/token_price/0x10ED43C718714eb63d5aA57B78B54704E256024E`,
       {
-      
         params: {
-           "x-cg-demo-api-key": apiKey,
+          "x-cg-demo-api-key": apiKey,
           contract_addresses: tokenAddress,
           vs_currencies: "usd",
           include_market_cap: true,

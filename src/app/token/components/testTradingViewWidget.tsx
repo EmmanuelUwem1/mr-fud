@@ -21,7 +21,7 @@ export default function TestTradingViewWidget({ symbol }: { symbol?: string }) {
     containerRef.current?.appendChild(script);
   }, [symbol]);
   return (
-    <div className="bg-[#212121] sm:bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full overflow-hidden h-[300px] sm:h-[600px]">
+    <div className="bg-[#212121] sm:bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full overflow-hidden h-[400px] sm:h-[600px]">
       {symbol ? (
         <div className="tradingview-widget-container" ref={containerRef}></div>
       ) : (

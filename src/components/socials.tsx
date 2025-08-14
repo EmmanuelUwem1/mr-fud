@@ -10,14 +10,22 @@ type Props = {
 };
 
 export default function Socials({ theme = "dark-red" }: Props) {
+  // const socials = [
+  //   { title: "Telegram", url: "/", icon: "/Telegram.png", },
+  //   { title: "Github", url: "/", icon: "/githab.png" },
+  //   { title: "X", url: "/", icon: "/Logo.png" },
+  // ];
+
   const socials = [
-    { title: "Telegram", url: "/", icon: "/Telegram.png", },
-    { title: "Github", url: "/", icon: "/githab.png" },
-    { title: "X", url: "/", icon: "/Logo.png" },
+    { title: "Telegram", url: "/", icon: "/telegram-blue.png" },
+    { title: "Github", url: "/", icon: "/githab-blue.png" },
+    { title: "X", url: "/", icon: "/x-blue.png" },
   ];
 
-    const bgColor = theme === "dark-blue" ? "bg-[#081131]" : "bg-[#141414]"; // Dark-blue vs Dark-red
-    const borderColor = theme === "dark-blue" ? "border-[#4F70CC]" : "border-[#BA2323]";
+  // const bgColor = theme === "dark-blue" ? "bg-[#081131]" : "bg-[#141414]"; // Dark-blue vs Dark-red
+  const bgColor = "bg-white"
+  // const borderColor = theme === "dark-blue" ? "border-[#4F70CC]" : "border-[#BA2323]";
+  const borderColor = "border-transparent"
 
   return (
     <div className={`flex items-center justify-center gap-4 flex-nowrap `}>

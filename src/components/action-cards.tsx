@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const bgColors = ["#A1120B", "#87322E", "#4B1613"];
+// const bgColors = ["#A1120B", "#87322E", "#4B1613"];
+const bgColors = ["#0B5BA1", "#2E6887", "#13354B"];
 
 type Action = {
   title: string;
