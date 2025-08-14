@@ -8,6 +8,7 @@ import WalletAuthGuard from "@/auth/wallet-auth";
 import { TokensProvider } from "@/context/TokensContext";
 
 
+
 export const metadata: Metadata = {
   title: "FUDClub",
   description:
@@ -25,6 +26,7 @@ export default async function RootLayout({
    const headersObj = await headers();
   const cookies = headersObj.get("cookie");
 
+
   return (
     <html lang="en">
       <head>
@@ -41,7 +43,9 @@ export default async function RootLayout({
           href="/favicon-16x16.png"
         ></link>
       </head>
-      <body className="antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full h-full items-start justify-start">
+      <body
+        className={`antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full h-full items-start justify-start bg-[#0077D3]`}
+      >
         <ContextProvider cookies={cookies}>
           <Toaster
             position="top-right"

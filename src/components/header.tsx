@@ -19,10 +19,12 @@ function Header() {
     const {  address, isConnected } = useAccount();
   const show = pathName !== "/";
   const prePage = pathName === "/";
+  const isTokenPage = pathName.startsWith("/token");
 
  const navLinks = [
    { label: "FOMO Feed", path: "/feed" },
    { label: "Staking", path: "/staking" },
+   { label: "Countdown", path: "/campaigns" },
    { label: "Leaderboard", path: "/leaderboard" },
    { label: "Ocicat", path: "/token" },
   ];
@@ -48,14 +50,14 @@ function Header() {
 
 
   return (
-    <div className="relative w-full">
+    <div className={`relative w-full ${isTokenPage ? "bg-[#0D0D0D]": "bg-[#0077D3]"}`}>
       <header
         className="flex w-full overflow-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 md:px-16"
         ref={menuRef}
       >
         {/* logo */}
         <Link href={"/"} className="relative flex items-center justify-center">
-          <span className="relative w-16 sm:w-20 sm:h-10 lg:w-28 lg:h-14 h-8 flex items-center justify-center">
+          <span className="relative w-16 sm:w-20 sm:h-10 2xl:w-28 2xl:h-14 h-8 flex items-center justify-center">
             <Image
               alt="MrFUD"
               height={1000}
@@ -73,15 +75,15 @@ function Header() {
           }`}
         >
           {/* nav links (desktop only) */}
-          <nav className="xl:flex hidden justify-center items-center font-medium text-base lg:text-lg gap-8 lg:gap-8 w-[540px]">
+          <nav className="xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8 lg:gap-6 2xl:gap-8 2xl:w-[540px]">
             {navLinks.map(({ label, path }) => (
               <Link
                 key={path}
                 href={path}
                 className={`${
                   pathName === path
-                    ? "font-bold bg-gradient-to-r from-[#FF0E32] transition-class to-[#FFB7C2] bg-clip-text text-transparent"
-                    : "text-[#E3E3E3] hover:font-bold  transition-class hover:bg-gradient-to-r hover:from-[#FF0E32] hover:to-[#FFB7C2] hover:bg-clip-text hover:text-transparent"
+                    ? "font-bold bg-gradient-to-r from-[#F7E436] transition-class to-[#05E02B] bg-clip-text text-transparent"
+                    : "text-[#E3E3E3] hover:font-bold  transition-class hover:bg-gradient-to-r hover:from-[#F7E436] hover:to-[#05E02B] hover:bg-clip-text hover:text-transparent"
                 }`}
               >
                 {label}
@@ -91,7 +93,7 @@ function Header() {
             {/* Airdrop styled separately */}
             <Link
               href="/airdrop"
-              className="relative font-bold bg-gradient-to-r from-[#70B0FF] to-[#FF01BF] bg-clip-text text-transparent"
+              className="relative font-bold bg-gradient-to-r from-[#AEFF70]  to-[#01FF1E] bg-clip-text text-transparent"
             >
               Airdrop
               <span className="absolute -top-1 -right-3">
@@ -150,16 +152,16 @@ function Header() {
             transition={{ duration: 0.3 }}
             className="absolute z-50 top-20 right-4"
           >
-            <div className="relative w-[280px] before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#A74D4D] before:via-[#4B1F1F] before:to-[#180A0A] before:-z-10 p-0.5">
-              <div className="bg-[#181818] rounded-[15px] px-6 py-8 flex flex-col gap-6 text-[#E3E3E3] font-medium shadow-md mobile-nav">
+            <div className="relative w-[280px] before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#F7E436]  before:to-[#05E02B] before:-z-10 p-0.5">
+              <div className="card2bg rounded-[15px] px-6 py-8 flex flex-col gap-6 text-[#E3E3E3] font-medium shadow-md mobile-nav">
                 {navLinks.map(({ label, path }) => (
                   <Link
                     key={path}
                     href={path}
                     className={`${
                       pathName === path
-                        ? "font-bold bg-gradient-to-r from-[#FF0E32] to-[#FFB7C2] bg-clip-text text-transparent transition-class"
-                        : "text-[#E3E3E3] hover:font-bold  transition-class hover:bg-gradient-to-r hover:from-[#FF0E32] hover:to-[#FFB7C2] hover:bg-clip-text hover:text-transparent"
+                        ? "font-bold bg-gradient-to-r from-[#F7E436] transition-class to-[#05E02B] bg-clip-text text-transparent"
+                        : "text-[#E3E3E3] hover:font-bold  transition-class hover:bg-gradient-to-r hover:from-[#F7E436] hover:to-[#05E02B] hover:bg-clip-text hover:text-transparent"
                     }`}
                   >
                     {label}
@@ -169,7 +171,7 @@ function Header() {
                 {/* Airdrop mobile link with unique gradient */}
                 <Link
                   href="/airdrop"
-                  className="relative font-bold bg-gradient-to-r from-[#70B0FF] to-[#FF01BF] bg-clip-text text-transparent"
+                  className="relative font-bold bg-gradient-to-r  from-[#AEFF70]  to-[#01FF1E] bg-clip-text text-transparent"
                 >
                   Airdrop
                   <span className="absolute -top-1 -right-4">

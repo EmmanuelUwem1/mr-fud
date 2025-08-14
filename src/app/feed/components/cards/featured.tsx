@@ -39,9 +39,10 @@ export default function FeaturedCard({
   return (
     <Link
       href={`/token/${id}`}
-      className={`card-gradient-wrapper ${type === "b" ? "card-type-b" : ""}`}
+      // className={`card-gradient-wrapper ${type === "b" ? "card-type-b" : ""}`}
+      className=""
     >
-      <div className="w-fit max-w-[200px] sm:max-w-[252px] bg-[#0C0C0C] rounded-[15px] flex gap-4 justify-between p-2 text-white h-fit">
+      <div className="w-fit max-w-[200px] sm:max-w-[252px] cardbg rounded-[15px] border-3 border-[#05E02B] flex gap-4 justify-between p-2 text-white h-fit">
         {/* Left: Image */}
         <div className="w-24 aspect-square rounded-[9px] relative overflow-hidden bg-[#1a1a23]">
           <Image

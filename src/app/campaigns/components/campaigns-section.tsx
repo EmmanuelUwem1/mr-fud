@@ -1,6 +1,6 @@
 "use client";
-import TokenCard from "./cards/token";
-import TokensSkeleton from "./loaders/TokensSkeleton"; 
+// import TokenCard from "./cards/token";
+// import TokensSkeleton from "./loaders/TokensSkeleton"; 
 import { useState } from "react";
 import { useTokens } from "@/context/TokensContext";
 import SearchBar from "@/components/searchBar";
@@ -13,7 +13,7 @@ const tabOptions = [
   { text: "About to Graduate", image: "/Vector-rocket.png" },
 ];
 
-export default function TokensSection() {
+export default function CampaignsSection() {
   const [activeTab, setActiveTab] = useState("Trending");
   const { tokens, loading } = useTokens();
   const [searchTerm, setSearchTerm] = useState("");
@@ -85,11 +85,10 @@ switch (activeTab) {
       <div className="w-full overflow-x-auto">
         <div className="flex mx-auto gap-2 md:gap-4 justify-center items-center w-full mb-4 border-[#F8F8F8] flex-wrap">
           {tabOptions.map((tab) => (
-            // tabs-gradient-wrapper
             <button
               key={tab.text}
               onClick={() => handleTabClick(tab.text)}
-              className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium bg-[#02021399] cursor-pointer flex items-center justify-center gap-2 ${
+              className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium tabs-gradient-wrapper cursor-pointer flex items-center justify-center gap-2 ${
                 activeTab === tab.text
                   ? "bg-white text-black"
                   : "bg-transparent text-white hover:bg-white hover:text-black"
@@ -110,8 +109,8 @@ switch (activeTab) {
         </div>
       </div>
 
-      {localLoading || loading ? (
-        <TokensSkeleton />
+      {/* {localLoading || loading ? (
+        // <TokensSkeleton />
       ) : sortedTokens.length === 0 ? (
         <p className="text-center text-gray-400 col-span-full">
           No tokens available.
@@ -133,7 +132,7 @@ switch (activeTab) {
             />
           ))}
         </div>
-      )}
+      )} */}
     </section>
   );
 }

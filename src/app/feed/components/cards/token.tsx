@@ -55,9 +55,10 @@ export default function TokenCard({
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.4 }}
         onClick={() => router.push(`/token/${id}`)}
-        className="token-gradient-wrapper cursor-pointer"
+        // className="token-gradient-wrapper cursor-pointer"
+        className="cursor-pointer"
       >
-        <div className="bg-[#141414] text-white rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
+        <div className="cardbg text-white border-[3px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
           {/* Header */}
           <div className="flex w-full gap-3 items-center justify-start">
             {/* image */}

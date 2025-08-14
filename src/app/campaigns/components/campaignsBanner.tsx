@@ -1,5 +1,6 @@
 "use client";
-import BannerTokenCard from "./cards/bannerCard";
+import Image from "next/image";
+// import BannerTokenCard from "./cards/bannerCard";
 import { useTokens } from "@/context/TokensContext";
 import Link from "next/link";
 
@@ -39,9 +40,9 @@ export default function Banner() {
                 <Link
                   key={token._id}
                   href={`/token/${token._id}`}
-                  className="transition-transform h-full relative duration-500 w-full max-w-[20rem]"
+                  className="transition-transform token-gradient-wrapper h-full relative duration-500 w-full max-w-[20rem]"
                 >
-                  <BannerTokenCard
+                  {/* <BannerTokenCard
                     ticker={token.ticker}
                     name={token.name}
                     ca={token.contractAddress}
@@ -51,7 +52,7 @@ export default function Banner() {
                     image={token.image}
                     id={token._id}
                     createdTime={token.createdAt}
-                  />
+                  /> */}
                 </Link>
               ))}
             </div>
@@ -63,11 +64,11 @@ export default function Banner() {
               <Link
                 href={`/token/${token?._id}`}
                 key={token?._id || index}
-                className={`transition-transform h-full relative duration-500 w-full max-w-[20rem] ${
+                className={`transition-transform token-gradient-wrapper h-full relative duration-500 w-full max-w-[20rem] ${
                   index === 1 ? "md:-top-24" : ""
                 }`}
               >
-                <BannerTokenCard
+                {/* <BannerTokenCard
                   ticker={token?.ticker}
                   name={token?.name}
                   ca={token?.contractAddress}
@@ -77,7 +78,7 @@ export default function Banner() {
                   image={token?.image}
                   id={token?._id}
                   createdTime={token?.createdAt}
-                />
+                /> */}
               </Link>
             ))}
           </div>

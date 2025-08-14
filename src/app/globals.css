@@ -4,6 +4,13 @@
   /* --background: #0D0D0D; */
   --background: #0077D3;
   --foreground: #ffffff;
+  --cardbg:#6ABEFF;
+}
+.cardbg{
+  background-color: var(--cardbg);
+}
+.card2bg{
+  background-color: #0077D3;
 }
 
 @theme inline {
@@ -72,7 +79,7 @@ body {
 
 
 body {
-  background: var(--background);
+  /* background: var(--background); */
   color: var(--foreground);
 }
 .airdrop-link {

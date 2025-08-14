@@ -11,12 +11,14 @@ const pathname = usePathname();
   const shortenedAddress = address && isConnected
     ? formatWalletAddress(address)
     : "Connect";
-
+// bg - [#FF2727];
   return show ? (
     <button
       onClick={() => modal.open()}
       className={`relative px-6 py-2 text-white rounded-full flex items-center gap-2 overflow-hidden group cursor-pointer ${
-        isConnected ? "bg-[#212121]" : "bg-[#FF2727]"
+        isConnected
+          ? "bg-[#2121215e]"
+          : "bg-[#00C3FE] shadow-[0_0_10px_#7BE9FFD1]"
       }`}
     >
       {shortenedAddress}
