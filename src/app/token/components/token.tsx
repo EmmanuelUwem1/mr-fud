@@ -21,8 +21,8 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
     
     return (
       <>
-        <div className="flex w-full items-center gap-3 justify-between">
-          <div className="w-full items-center gap-2  flex">
+        <div className="flex w-full items-center gap-1 sm:gap-3 justify-between">
+          <div className="w-full items-center gap-1 sm:gap-2  flex">
             <TokenAvatar
               tokenName={tokenName}
               tokenTicker={tokenTicker}
