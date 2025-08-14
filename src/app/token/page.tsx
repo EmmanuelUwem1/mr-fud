@@ -19,7 +19,7 @@ import { toast } from "react-hot-toast";
 
 
 export default function TokenPage() {
-  // Simulated token data — replace with actual API or contract data
+  const ocicatSupply = 687896090287856;
   const [tokenData, setTokenData] = useState({
     price: 0.000000005231,
     name: "Ocicat coin",
@@ -36,6 +36,7 @@ export default function TokenPage() {
     twitter: "#",
     telegram: "#",
     currentPrice: 0.000000008,
+    changePerDay:0,
   });
 
   const { address, isConnected } = useAccount();
@@ -56,11 +57,12 @@ useEffect(() => {
           currentPrice: tokenInfo.usd,
           marketCap: tokenInfo.usd_market_cap,
           volume24h: tokenInfo.usd_24h_vol,
+          changePerDay: tokenInfo.usd_24h_change,
           contractAddress: "0xE53D384Cf33294C1882227ae4f90D64cF2a5dB70",
         }));
       }),
       {
-        loading: "Fetching Ocicat price...",
+        loading: "Updating",
         success: "Price updated successfully! 🐾",
         error: "Failed to fetch Ocicat price.",
       }
@@ -105,7 +107,8 @@ useEffect(() => {
         tokenName={tokenData.name || ""}
         tokenTicker={tokenData.ticker || ""}
               image={tokenData.image || ""}
-              tokenPrice={tokenData.price}
+        tokenPrice={tokenData.marketCap/ ocicatSupply}
+        changePerDay={tokenData.changePerDay || 0}
         // tokenCreatedDate={tokenData.createdAt || ""}
         // tokenId={token?._id || ""}
       />
@@ -114,6 +117,7 @@ useEffect(() => {
         tokenName={tokenData?.name || ""}
         tokenTicker={tokenData?.ticker || ""}
         tokenImage={tokenData?.image || ""}
+        volumePerDay={tokenData.volume24h || 0}
         // tokenCreatedDate={tokenData?.createdAt || ""}
         // tokenId={tokenData?._id || ""}
       />

@@ -14,8 +14,9 @@ type TokenProps = {
   tokenCreatedDate?: string;
   tokenId?: string;
   tokenPrice?: number;
+  changePerDay?: number;
 };
-export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId, tokenPrice }: TokenProps) {
+export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId, tokenPrice, changePerDay }: TokenProps) {
       const [showModal, setShowModal] = useState(false);
     
     return (
@@ -29,7 +30,7 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
             />
             <div><BlackBar /></div>
 
-            <TokenPrice tokenAddress={address} tokenPrice={tokenPrice} />
+            <TokenPrice tokenAddress={address} tokenPrice={tokenPrice} changePerDay={changePerDay || 0} />
           </div>
           <span className="justify-self-end hidden max-sm:flex">
             <ReferButton setShowModal={setShowModal} />

@@ -129,15 +129,20 @@ export function formatSmallNumber(num: number): string {
   const leadingZerosMatch = decimalPart.match(/^0*/);
   const leadingZeros = leadingZerosMatch?.[0].length ?? 0;
 
-  // Only format if there are more than 4 leading zeros
+
   if (leadingZeros > 4) {
-    const significant = decimalPart.slice(leadingZeros).replace(/0+$/, "");
+    const significant = decimalPart
+      .slice(leadingZeros)
+      .replace(/0+$/, "")
+      .slice(0, 3); 
+
     return `0.0{${leadingZeros}}${significant}`;
   }
 
-  // Otherwise, return the number normally
+
   return num.toString();
 }
+
 
 
 

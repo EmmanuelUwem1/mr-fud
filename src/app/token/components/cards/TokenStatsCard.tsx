@@ -14,9 +14,10 @@ interface TokenStatsProps {
   tokenCreatedDate?: string;
   tokenImage: string;
   tokenId?: string;
+  volumePerDay?: number;
 }
 
-export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreatedDate, tokenImage, tokenId }: TokenStatsProps) {
+export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreatedDate, tokenImage, tokenId, volumePerDay }: TokenStatsProps) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -26,7 +27,7 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
         <div className="flex h-full flex-nowrap items-center gap-0 sm:gap-4 w-full sm:w-[80%] justify-between md:justify-start">
           <LabelValuePair label="Mcap" value={formatMarketCap(mCap)} />
           <BlackBar />
-          <LabelValuePair label="24h vol" value={formatMarketCap(120000)} />
+          <LabelValuePair label="24h vol" value={formatMarketCap(volumePerDay || 0)} />
           <BlackBar />
           <LabelValuePair label="Creator reward" value="2.5 BNB" />
           <BlackBar />
