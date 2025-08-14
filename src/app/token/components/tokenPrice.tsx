@@ -1,14 +1,16 @@
 // components/TokenPrice.tsx
 import React from "react";
 import RatingStars from "./rating-stars";
+import { formatSmallNumber } from "@/lib/utils";
 
 type TokenPriceProps = {
   tokenAddress: string;
+  tokenPrice?: number;
 };
 
-const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress }) => {
+const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress, tokenPrice }) => {
   // Mock data
-  const mockPrice = 0.00242;
+  const mockPrice = 0.000242;
   const mockChange = 5.63; // positive or negative
 
   const isPositive = mockChange >= 0;
@@ -19,7 +21,7 @@ const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress }) => {
     <div className="flex flex-col items-start space-x-2">
       <div className="flex items-center justify-start gap-2">
         <span className="text-white font-medium text-sm md:text-base">
-          ${mockPrice.toFixed(5)}
+          ${formatSmallNumber(tokenPrice || mockPrice) || mockPrice.toFixed(5)}
         </span>
         <span className={`text-xs ${priceColor}`}>
           {sign}

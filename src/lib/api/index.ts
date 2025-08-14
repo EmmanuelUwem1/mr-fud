@@ -3,6 +3,7 @@
 import axios from "axios";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+const OCICAT_TOKEN_ADDRESS = "0xE53D384Cf33294C1882227ae4f90D64cF2a5dB70";
 
 
 export interface CreateTokenPayload {
@@ -117,4 +118,50 @@ console.log("SellToken response:", response.data);
     }
   }
 };
+
+
+
+
+
+
+export async function fetchOcicatTokenPrice() {
+  const apiUrl = process.env.NEXT_PUBLIC_COINGECKO_PUBLIC_API_URL;
+  const apiKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
+  const tokenAddress = OCICAT_TOKEN_ADDRESS;
+
+  if (!apiUrl || !apiKey || !tokenAddress) {
+    throw new Error("Missing CoinGecko API configuration");
+  }
+
+  try {
+    const response = await axios.get(
+      `${apiUrl}/simple/token_price/binance-smart-chain`,
+      {
+      
+        params: {
+           "x-cg-demo-api-key": apiKey,
+          contract_addresses: tokenAddress,
+          vs_currencies: "usd",
+          include_market_cap: true,
+          include_24hr_vol: true,
+          include_24hr_change: true,
+          include_last_updated_at: true,
+          precision: "2",
+        },
+      }
+    );
+
+    const data = response.data[tokenAddress.toLowerCase()];
+    if (!data) {
+      throw new Error("Token data not found in response");
+    }
+
+    console.log("Token price data:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching token price:", error);
+    throw new Error("Failed to fetch token price");
+  }
+}
+
 

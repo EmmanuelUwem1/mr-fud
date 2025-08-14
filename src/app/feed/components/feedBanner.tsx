@@ -65,7 +65,7 @@ export default function Banner() {
                 href={`/token/${token?._id}`}
                 key={token?._id || index}
                 className={`transition-transform token-gradient-wrapper h-full relative duration-500 w-full max-w-[20rem] ${
-                  index === 1 ? "md:-top-20" : ""
+                  index === 1 ? "md:-top-24" : ""
                 }`}
               >
                 <BannerTokenCard

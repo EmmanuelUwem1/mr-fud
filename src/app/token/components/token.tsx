@@ -6,16 +6,16 @@ import { useState } from "react";
 import ReferModal from "./modals/ReferModal";
 import BlackBar from "./blackBar";
 
-
 type TokenProps = {
   address: string;
   tokenName: string;
     tokenTicker: string;
   image: string;
   tokenCreatedDate?: string;
-  tokenId?: string ;
+  tokenId?: string;
+  tokenPrice?: number;
 };
-export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId }: TokenProps) {
+export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId, tokenPrice }: TokenProps) {
       const [showModal, setShowModal] = useState(false);
     
     return (
@@ -29,7 +29,7 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
             />
             <div><BlackBar /></div>
 
-            <TokenPrice tokenAddress={address} />
+            <TokenPrice tokenAddress={address} tokenPrice={tokenPrice} />
           </div>
           <span className="justify-self-end hidden max-sm:flex">
             <ReferButton setShowModal={setShowModal} />

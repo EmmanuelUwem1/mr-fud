@@ -121,3 +121,23 @@ export function formatDateToCustom(dateString: string): string {
   return `${month} ${day} ${year} ${hours}:${minutes}:${seconds}`;
 }
 
+export function formatSmallNumber(num: number): string {
+  const full = num.toFixed(20); // high precision
+  const parts = full.split(".");
+  const decimalPart = parts[1] ?? "";
+
+  const leadingZerosMatch = decimalPart.match(/^0*/);
+  const leadingZeros = leadingZerosMatch?.[0].length ?? 0;
+
+  // Only format if there are more than 4 leading zeros
+  if (leadingZeros > 4) {
+    const significant = decimalPart.slice(leadingZeros).replace(/0+$/, "");
+    return `0.0{${leadingZeros}}${significant}`;
+  }
+
+  // Otherwise, return the number normally
+  return num.toString();
+}
+
+
+
