@@ -15,6 +15,7 @@ import AntiFudCard from "./components/cards/anti-fud-card";
 import TopHoldersCard from "./components/cards/topHoldersCard";
 import TestTradingViewWidget from "./components/testTradingViewWidget";
 import { fetchOcicatTokenPrice } from "@/lib/api";
+import { toast } from "react-hot-toast";
 
 
 export default function TokenPage() {
@@ -36,22 +37,40 @@ export default function TokenPage() {
     telegram: "#",
     currentPrice: 0.000000008,
   });
-  //   const { tokens, loading } = useTokens();
 
-  //   const router = useRouter();
-  //   const { id } = useParams();
-  //   const token = tokens.find((t) => t._id === id);
   const { address, isConnected } = useAccount();
 
-    useEffect(() => {
-        async function fetchPrice() {
-            const price = await fetchOcicatTokenPrice();
-            setTokenData(price);
-          
-        }
-        fetchPrice();
-      
-  }, [tokenData]);
+
+
+useEffect(() => {
+  async function fetchPrice() {
+    await toast.promise(
+      fetchOcicatTokenPrice().then((response) => {
+        const tokenInfo =
+          response["0xe53d384cf33294c1882227ae4f90d64cf2a5db70"];
+        if (!tokenInfo) throw new Error("Token data missing");
+
+        setTokenData((prev) => ({
+          ...prev,
+          price: tokenInfo.usd,
+          currentPrice: tokenInfo.usd,
+          marketCap: tokenInfo.usd_market_cap,
+          volume24h: tokenInfo.usd_24h_vol,
+          contractAddress: "0xE53D384Cf33294C1882227ae4f90D64cF2a5dB70",
+        }));
+      }),
+      {
+        loading: "Fetching Ocicat price...",
+        success: "Price updated successfully! 🐾",
+        error: "Failed to fetch Ocicat price.",
+      }
+    );
+  }
+
+  fetchPrice();
+}, []);
+
+
 
   const { data: balanceData } = useBalance({
     address,

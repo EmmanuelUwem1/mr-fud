@@ -30,7 +30,7 @@ export default function Socials({ theme = "dark-red" }: Props) {
   return (
     <div className={`flex items-center justify-center gap-4 flex-nowrap `}>
       {socials.map((social, index) => (
-        <Link
+        <a
           key={index}
           href={social.url}
           className={`flex items-center justify-center ${bgColor} hover:opacity-80 transition-all rounded-full border ${borderColor} h-9 w-9 p-2`}
@@ -41,7 +41,7 @@ export default function Socials({ theme = "dark-red" }: Props) {
             width={20}
             height={20}
           />
-        </Link>
+        </a>
       ))}
     </div>
   );

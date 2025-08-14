@@ -124,6 +124,8 @@ console.log("SellToken response:", response.data);
 
 
 
+
+
 export async function fetchOcicatTokenPrice() {
   const apiUrl = process.env.NEXT_PUBLIC_COINGECKO_PUBLIC_API_URL;
   const apiKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
@@ -135,10 +137,9 @@ export async function fetchOcicatTokenPrice() {
 
   try {
     const response = await axios.get(
-      `${apiUrl}/simple/token_price/0x10ED43C718714eb63d5aA57B78B54704E256024E`,
+      `${apiUrl}/simple/token_price/binance-smart-chain`,
       {
         params: {
-          "x-cg-demo-api-key": apiKey,
           contract_addresses: tokenAddress,
           vs_currencies: "usd",
           include_market_cap: true,
@@ -147,10 +148,13 @@ export async function fetchOcicatTokenPrice() {
           include_last_updated_at: true,
           precision: "2",
         },
+        headers: {
+          "x-cg-demo-api-key": apiKey,
+        },
       }
     );
 
-    const data = response.data[tokenAddress.toLowerCase()];
+    const data = response.data;
     if (!data) {
       throw new Error("Token data not found in response");
     }
@@ -162,5 +166,6 @@ export async function fetchOcicatTokenPrice() {
     throw new Error("Failed to fetch token price");
   }
 }
+
 
 
