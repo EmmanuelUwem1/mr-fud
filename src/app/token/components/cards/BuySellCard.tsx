@@ -5,9 +5,11 @@ import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useBNBPrice } from "@/app/hooks/useBNBPrice";
 
 interface BuySellCardProps {
-  balance: number;
+  BNBbalance: number;
+  tokenBalance: number;
   tokenName: string;
   tokenPrice: number;
   tokenChain: string;
@@ -17,7 +19,8 @@ interface BuySellCardProps {
 }
 
 export default function BuySellCard({
-  balance,
+  BNBbalance,
+  tokenBalance,
   tokenName,
   tokenPrice,
   tokenChain,
@@ -30,54 +33,78 @@ export default function BuySellCard({
   const [modalOpen, setModalOpen] = useState(false);
   const { address } = useAccount();
   const [loading, setLoading] = useState(false);
-  const maxAmount = balance.toString();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selectedSlippage, setSelectedSlippage] = useState<string>("");
+ const { price: bnbPriceUSD } = useBNBPrice();
 
-    const handleSlippageSelect = (value: string) => {
-      setSelectedSlippage(value);
-    };
+ const isBuy = tab === "buy";
+ const balance = isBuy ? BNBbalance : tokenBalance;
+ const maxAmount = balance.toString();
+ const inputAmount = parseFloat(amount);
+
+const estimatedValue =
+  (tokenPrice > 0 && bnbPriceUSD)
+    ? isBuy
+      ? (inputAmount *bnbPriceUSD)  / tokenPrice 
+      : (inputAmount * tokenPrice )/ bnbPriceUSD
+    : 0;
+
+
+
+  const handleSlippageSelect = (value: string) => {
+    setSelectedSlippage(value);
+  };
 
   const handleTransaction = async () => {
-    const isBuy = tab === "buy";
     const action = isBuy ? onBuy : onSell;
     await action(amount);
   };
-
-
-
 
   async function onBuy(amount: string) {
     if (!amount || isNaN(+amount) || +amount <= 0) {
       toast.error("Enter a valid amount to buy.");
       return;
     }
-const amountInBNB = parseFloat(amount);
-const amountInToken = tokenPrice > 0 ? amountInBNB / tokenPrice : 0; // Tokens received
-const valueInUSD = amountInBNB * tokenPrice; // Optional: if tokenPrice is in USD
 
-const data = {
-  txHash: "0xBUYMOCKTX",
-  wallet: address as `0x${string}`,
-  tokenAddress: tokenCa,
-  amountInChainCurrency: amountInBNB,
-  amountInToken,
-  price: tokenPrice,
-  value: valueInUSD,
-  chain: tokenChain,
-};
+    const amountInBNB = parseFloat(amount);
+    const amountInToken =
+      (tokenPrice > 0 && bnbPriceUSD) ? (inputAmount * bnbPriceUSD) / tokenPrice : 0;
+    const valueInUSD = amountInBNB * bnbPriceUSD!;
 
+    const data = {
+      txHash: "0xBUYMOCKTX",
+      wallet: address as `0x${string}`,
+      tokenAddress: tokenCa,
+      amountInChainCurrency: amountInBNB,
+      amountInToken,
+      price: tokenPrice,
+      value: valueInUSD,
+      chain: tokenChain,
+    };
 
+    const toastId = toast.loading("Processing purchase...");
     setLoading(true);
+
     try {
       const res = await buyToken(data);
       if (res?.success) {
-        toast.success(`Bought ${amountInToken.toFixed(4)} ${tokenName}`);
+        toast.success(`Bought ${amountInToken.toFixed(4)} ${tokenName}`, {
+          id: toastId,
+          duration: 4000,
+        });
         setAmount("");
         setModalOpen(false);
-      } else toast.error("Failed to buy token.");
+      } else {
+        toast.error("Failed to buy token.", {
+          id: toastId,
+          duration: 4000,
+        });
+      }
     } catch {
-      toast.error("Error while buying.");
+      toast.error("Error while buying.", {
+        id: toastId,
+        duration: 4000,
+      });
     } finally {
       setLoading(false);
     }
@@ -88,8 +115,10 @@ const data = {
       toast.error("Enter a valid amount to sell.");
       return;
     }
-    const amountInBNB = parseFloat(amount);
-    const amountInToken = amountInBNB / tokenPrice;
+
+    const amountInToken = parseFloat(amount);
+    const amountInBNB = tokenPrice > 0 ? amountInToken * tokenPrice : 0;
+
     const data = {
       txHash: "0xSELLMOCKTX",
       wallet: address as `0x${string}`,
@@ -97,20 +126,33 @@ const data = {
       amountInChainCurrency: amountInBNB,
       amountInToken,
       price: tokenPrice,
-      value: amountInBNB * tokenPrice,
+      value: amountInBNB,
       chain: tokenChain,
     };
 
+    const toastId = toast.loading("Processing sale...");
     setLoading(true);
+
     try {
       const res = await sellToken(data);
       if (res?.success) {
-        toast.success(`Sold ${amountInToken.toFixed(4)} ${tokenName}`);
+        toast.success(`Sold ${amountInToken.toFixed(4)} ${tokenName}`, {
+          id: toastId,
+          duration: 4000,
+        });
         setAmount("");
         setModalOpen(false);
-      } else toast.error("Failed to sell token.");
+      } else {
+        toast.error("Failed to sell token.", {
+          id: toastId,
+          duration: 4000,
+        });
+      }
     } catch {
-      toast.error("Error while selling.");
+      toast.error("Error while selling.", {
+        id: toastId,
+        duration: 4000,
+      });
     } finally {
       setLoading(false);
     }
@@ -120,7 +162,9 @@ const data = {
     <>
       <div className="text-xs flex justify-between text-[#626262] font-semibold mb-2">
         Quantity
-        <span>Balance: {balance.toFixed(5)} BNB</span>
+        <span>
+          Balance: {balance.toFixed(5)} {isBuy ? "BNB" : tokenTicker}
+        </span>
       </div>
 
       <div className="w-full flex px-3 gap-3 justify-between bg-[#2A2A2A] items-center">
@@ -153,106 +197,112 @@ const data = {
         </div>
       </div>
 
-      <div className="flex justify-between text-xs space-x-2 font-medium">
-        <button
-          onClick={() => setAmount("0")}
-          className="bg-[#2A2A2A] text-gray-200 px-3 py-2 rounded-full"
-        >
-          Reset
-        </button>
-        <button
-          onClick={() => setAmount("1")}
-          disabled={balance < 1}
-          className={`px-3 py-2 rounded-full ${
-            balance >= 1
-              ? "bg-[#2A2A2A] text-gray-200"
-              : "bg-[#0A0A0A] text-[#434343] cursor-not-allowed"
-          }`}
-        >
-          1 BNB
-        </button>
-        <button
-          onClick={() => setAmount("5")}
-          disabled={balance < 5}
-          className={`px-3 py-2 rounded-full ${
-            balance >= 5
-              ? "bg-[#2A2A2A] text-gray-200"
-              : "bg-[#0A0A0A] text-[#434343] cursor-not-allowed"
-          }`}
-        >
-          5 BNB
-        </button>
-        <button
-          onClick={() => setAmount(maxAmount)}
-          className="px-3 py-2 bg-[#1F1F1F] rounded-full text-gray-200"
-        >
-          Max
-        </button>
-      </div>
-
-      {amount && !isNaN(+amount) && tokenPrice > 0 && (
-        <>
-          <div className="text-xs flex justify-between items-center text-[#999999] mt-2">
-            <span> Min recieved</span>{" "}
-            <span>
-              {(parseFloat(amount) / tokenPrice).toFixed(4)} {tokenName}
-            </span>
-          </div>
-          <div className="text-xs flex justify-between items-center text-[#999999] mt-2">
-            <span> Advance settings</span> {/* collapse(close down ) icon */}
-            <span
-              className={`relative flex items-center justify-center h-5 w-5 justify-self-end cursor-pointer ml-auto transition-class ${
-                isCollapsed ? "rotate-0" : "rotate-180"
-              }`}
-              onClick={() => setIsCollapsed((prev) => !prev)}
-            >
-              <Image
-                alt="collapse toggle"
-                src={"/Vector.png"}
-                layout="fill"
-                objectFit="contain"
-                objectPosition="center"
-              />
-            </span>
-          </div>
-          <AnimatePresence>
-            {!isCollapsed && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="border border-gray-700 rounded-md py-4 mt-2"
-              >
-                <div className="text-xs text-[#999999] mb-3 px-4">
-                  Max Slippage
-                </div>
-                <input
-                  type="text"
-                  value={selectedSlippage}
-                  readOnly
-                  placeholder="Enter custom slippage"
-                  className="w-full h-14 bg-[#2A2A2A] text-white text-sm px-3 py-4 mb-3 outline-none"
-                />
-
-                <div className="grid grid-cols-4 gap-2 px-2">
-                  {["1%", "2.5%", "5%", "Max"].map((label: string) => (
-                    <button
-                      key={label}
-                      className={`py-2 text-xs transition-colors bg-[#2A2A2A] text-gray-200 hover:opacity-80 transition-class px-3 rounded-full ${
-                        selectedSlippage === label ? "bg-[#434343]" : ""
-                      }`}
-                      onClick={() => handleSlippageSelect(label)}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </>
+      {isBuy && (
+        <div className="flex justify-between text-xs space-x-2 font-medium pt-3">
+          <button
+            onClick={() => setAmount("0")}
+            className="bg-[#2A2A2A] text-gray-200 px-3 py-2 rounded-full"
+          >
+            Reset
+          </button>
+          <button
+            onClick={() => setAmount("1")}
+            disabled={balance < 1}
+            className={`px-3 py-2 rounded-full ${
+              balance >= 1
+                ? "bg-[#2A2A2A] text-gray-200"
+                : "bg-[#0A0A0A] text-[#434343] cursor-not-allowed"
+            }`}
+          >
+            1 BNB
+          </button>
+          <button
+            onClick={() => setAmount("5")}
+            disabled={balance < 5}
+            className={`px-3 py-2 rounded-full ${
+              balance >= 5
+                ? "bg-[#2A2A2A] text-gray-200"
+                : "bg-[#0A0A0A] text-[#434343] cursor-not-allowed"
+            }`}
+          >
+            5 BNB
+          </button>
+          <button
+            onClick={() => setAmount(maxAmount)}
+            className="px-3 py-2 bg-[#1F1F1F] rounded-full text-gray-200"
+          >
+            Max
+          </button>
+        </div>
       )}
+
+      {amount &&
+        !isNaN(inputAmount) &&
+        tokenPrice > 0 &&
+        bnbPriceUSD &&(
+          <>
+            <div className="text-xs flex justify-between items-center text-[#626262] font-semibold mt-2">
+              <span>Min Received</span>
+              <span>
+                {estimatedValue.toFixed(4)} {isBuy ? tokenTicker : "BNB"}
+              </span>
+            </div>
+
+            <div className="text-xs flex justify-between items-center text-[#626262] font-semibold mt-2">
+              <span>Advance settings</span>
+              <span
+                className={`relative flex items-center justify-center h-5 w-5 cursor-pointer ml-auto transition-class ${
+                  isCollapsed ? "rotate-0" : "rotate-180"
+                }`}
+                onClick={() => setIsCollapsed((prev) => !prev)}
+              >
+                <Image
+                  alt="collapse toggle"
+                  src={"/Vector.png"}
+                  layout="fill"
+                  objectFit="contain"
+                  objectPosition="center"
+                />
+              </span>
+            </div>
+
+            <AnimatePresence>
+              {!isCollapsed && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="border border-gray-700 rounded-md py-4 mt-2"
+                >
+                  <div className="text-xs text-[#999999] mb-3 px-4">
+                    Max Slippage
+                  </div>
+                  <input
+                    type="text"
+                    value={selectedSlippage}
+                    readOnly
+                    placeholder="Enter custom slippage"
+                    className="w-full h-14 bg-[#2A2A2A] text-white text-sm px-3 py-4 mb-3 outline-none"
+                  />
+                  <div className="grid grid-cols-4 gap-2 px-2">
+                    {["1%", "2.5%", "5%", "Max"].map((label) => (
+                      <button
+                        key={label}
+                        className={`py-2 text-xs transition-colors bg-[#2A2A2A] text-gray-200 hover:opacity-80 px-3 rounded-full ${
+                          selectedSlippage === label ? "bg-[#434343]" : ""
+                        }`}
+                        onClick={() => handleSlippageSelect(label)}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
+        )}
 
       <button
         disabled={loading}
@@ -335,12 +385,8 @@ const data = {
             >
               <div className="text-center mb-4">
                 <div className="w-full flex items-center justify-center mb-2">
-                  {" "}
                   <button
-                    onClick={() => {
-                      setTab("buy");
-                      setModalOpen(true);
-                    }}
+                    onClick={() => setTab("buy")}
                     className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
                       tab === "buy" ? "bg-[#06D57B]" : ""
                     }`}
@@ -348,10 +394,7 @@ const data = {
                     Buy
                   </button>
                   <button
-                    onClick={() => {
-                      setTab("sell");
-                      setModalOpen(true);
-                    }}
+                    onClick={() => setTab("sell")}
                     className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
                       tab === "sell" ? "bg-[#fe3c3cf4]" : ""
                     }`}

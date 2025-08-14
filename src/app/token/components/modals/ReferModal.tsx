@@ -12,7 +12,7 @@ interface ReferModalProps {
   onClose: () => void;
   tokenName: string;
   tokenTicker: string;
-  tokenCreatedDate: string;
+  tokenCreatedDate?: string;
   tokenImage: string;
   tokenId: string;
   // referalCode: string;
@@ -116,9 +116,11 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
                       alt="clock"
                     />
                   </span>
-                  <span className="font-medium text-sm">
-                    {formatTimeAgo(tokenCreatedDate)}
-                  </span>
+                  {tokenCreatedDate && (
+                    <span className="font-medium text-sm">
+                      {formatTimeAgo(tokenCreatedDate)}
+                    </span>
+                  )}
                 </div>
               </div>
               {/* image by the right */}

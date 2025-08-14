@@ -21,7 +21,7 @@ import { toast } from "react-hot-toast";
 export default function TokenPage() {
   const ocicatSupply = 687896090287856;
   const [tokenData, setTokenData] = useState({
-    price: 0.000000005231,
+    price: 0.00000005231,
     name: "Ocicat coin",
     marketCap: 0,
     volume24h: 120000,
@@ -35,7 +35,7 @@ export default function TokenPage() {
     description: "Dreamers coin",
     twitter: "#",
     telegram: "#",
-    currentPrice: 0.000000008,
+    currentPrice:0,
     changePerDay:0,
   });
 
@@ -106,8 +106,8 @@ useEffect(() => {
         address={tokenData?.contractAddress || ""}
         tokenName={tokenData.name || ""}
         tokenTicker={tokenData.ticker || ""}
-              image={tokenData.image || ""}
-        tokenPrice={tokenData.marketCap/ ocicatSupply}
+        image={tokenData.image || ""}
+        tokenPrice={tokenData.marketCap / ocicatSupply}
         changePerDay={tokenData.changePerDay || 0}
         // tokenCreatedDate={tokenData.createdAt || ""}
         // tokenId={token?._id || ""}
@@ -152,9 +152,10 @@ useEffect(() => {
             <div className="max-sm:hidden flex flex-nowrap lg:flex-col gap-4 items-start justify-start">
               {/* Buy/Sell Tabs */}
               <BuySellCard
-                balance={Number(userBalance)}
+                BNBbalance={Number(userBalance)}
+                tokenBalance={0}
                 tokenName={tokenData?.name || ""}
-                tokenPrice={tokenData?.currentPrice || 0}
+                tokenPrice={tokenData.marketCap / ocicatSupply || 0}
                 tokenChain={"BSC"}
                 tokenCa={tokenData?.contractAddress || ""}
                 tokenImage={tokenData?.image}
@@ -187,9 +188,10 @@ useEffect(() => {
           <div className="max-sm:flex hidden w-full flex-wrap sm:flex-col gap-4 items-start justify-start">
             {/* Buy/Sell Tabs */}
             <BuySellCard
-              balance={Number(userBalance)}
+              BNBbalance={Number(userBalance)}
+              tokenBalance={0}
               tokenName={tokenData?.name || ""}
-              tokenPrice={tokenData?.currentPrice || 0}
+              tokenPrice={tokenData.marketCap / ocicatSupply || 0}
               tokenChain={"BSC"}
               tokenCa={tokenData?.contractAddress || ""}
               tokenImage={tokenData?.image}

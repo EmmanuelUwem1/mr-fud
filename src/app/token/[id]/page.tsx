@@ -120,7 +120,8 @@ export default function TokenPage() {
             <div className="max-sm:hidden flex flex-nowrap lg:flex-col gap-4 items-start justify-start">
               {/* Buy/Sell Tabs */}
               <BuySellCard
-                balance={Number(userBalance)}
+                BNBbalance={Number(userBalance)}
+                tokenBalance={0}
                 tokenName={token?.name || ""}
                 tokenPrice={token?.currentPrice || 0}
                 tokenChain={"BSC"}
@@ -155,7 +156,8 @@ export default function TokenPage() {
           <div className="max-sm:flex hidden w-full flex-wrap sm:flex-col gap-4 items-start justify-start">
             {/* Buy/Sell Tabs */}
             <BuySellCard
-              balance={Number(userBalance)}
+              BNBbalance={Number(userBalance)}
+              tokenBalance={0}
               tokenName={token?.name || ""}
               tokenPrice={token?.currentPrice || 0}
               tokenChain={"BSC"}
