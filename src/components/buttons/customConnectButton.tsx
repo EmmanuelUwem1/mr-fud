@@ -17,7 +17,7 @@ const pathname = usePathname();
       onClick={() => modal.open()}
       className={`relative px-6 py-2 text-white rounded-full flex items-center gap-2 overflow-hidden group cursor-pointer ${
         isConnected
-          ? "bg-[#2121215e]"
+          ? "bg-[#212121]"
           : "bg-[#00C3FE] shadow-[0_0_10px_#7BE9FFD1]"
       }`}
     >

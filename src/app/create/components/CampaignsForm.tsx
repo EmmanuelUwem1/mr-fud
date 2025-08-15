@@ -1,9 +1,9 @@
 "use client";
 import { useCampaignForm } from "../context/campaignFormContext";
-import { CalendarIcon } from "@heroicons/react/24/outline";
 import BannerUpload from './input-banner-image';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import CalendarIcon from "./calender-icon";
 
 function CampaignsForm() {
   const { payload, setPayload } = useCampaignForm();
@@ -20,7 +20,7 @@ function CampaignsForm() {
             type="text"
             value={payload.name}
             onChange={(e) => setPayload({ ...payload, name: e.target.value })}
-            className="w-full border input-border rounded-md input-bg px-3 py-2"
+            className="w-full border input-border rounded-md input-bg px-3 py-2 placeholder:text-[#87DDFF]"
             placeholder="Enter campaign title"
             title="campaign-title"
           />
@@ -35,28 +35,28 @@ function CampaignsForm() {
             <label className="block mb-3 text-sm font-medium text-[#F8F8F8]">
               Start Date
             </label>
-            <div className="relative">
+            <div className="relative flex items-center justify-between w-full border input-border rounded-md input-bg px-3 py-2">
               <DatePicker
                 selected={payload.startDate}
                 onChange={(date) => setPayload({ ...payload, startDate: date })}
-                className="w-full border input-border rounded-md input-bg px-3 py-2"
+                className="w-full placeholder:text-[#87DDFF]"
                 placeholderText="Select start date"
               />
-              <CalendarIcon className="w-5 h-5 absolute right-3 top-3 text-[#F8F8F8]" />
+              <CalendarIcon />
             </div>
           </div>
           <div className="flex-1">
             <label className="block mb-3 text-sm font-medium text-[#F8F8F8]">
               End Date
             </label>
-            <div className="relative">
+            <div className="relative flex items-center justify-between w-full border input-border rounded-md input-bg px-3 py-2">
               <DatePicker
                 selected={payload.endDate}
                 onChange={(date) => setPayload({ ...payload, endDate: date })}
-                className="w-full border input-border rounded-md input-bg px-3 py-2"
+                className="w-full placeholder:text-[#87DDFF] "
                 placeholderText="Select end date"
               />
-              <CalendarIcon className="w-5 h-5 absolute right-3 top-3 text-[#F8F8F8]" />
+              <CalendarIcon />
             </div>
           </div>
         </div>

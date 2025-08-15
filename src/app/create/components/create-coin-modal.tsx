@@ -107,10 +107,10 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
     return () => document.removeEventListener("mousedown", handler);
   }, [onClose]);
 
-  const formatInput = (amount: number) => setBnbAmount(amount.toString());
+  // const formatInput = (amount: number) => setBnbAmount(amount.toString());
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-[#0077D3] bg-opacity-60 flex items-center justify-center">
       <AnimatePresence>
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
@@ -122,7 +122,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             damping: 20,
           }}
           ref={modalRef}
-          className="bg-[#212121] mx-4 p-6 rounded-lg w-full max-w-sm text-white overflow-hidden"
+          className="cardthreebg mx-4 p-6 rounded-lg w-full max-w-sm text-white overflow-hidden"
         >
           {/* Optional purchase message */}
           <p className="text-base text-white font-normal mb-2">
@@ -143,8 +143,10 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
               onChange={(e) => setBnbAmount(e.target.value)}
               onWheel={(e) => e.currentTarget.blur()}
               placeholder={`Amount in ${selectedCurrency}`}
-              className="w-full bg-[#1B1B1B] text-white px-4 py-3 pr-[90px] rounded-[6px] border-[2px] border-[#626262] placeholder-gray-500 appearance-none"
+              className="w-full input-bg input-border text-white px-4 py-3 pr-[90px] rounded-[6px] border-[2px] placeholder-gray-500 appearance-none"
             />
+            {/* bg-[#1B1B1B] */}
+            {/* border-[#626262] */}
 
             {/* Custom Dropdown */}
             <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10">
@@ -262,8 +264,8 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             {/* Loader Layer */}
             {!captchaVerified && (
               <div className="absolute inset-0 flex items-center justify-center z-0">
-                {/* Customize your loader animation here */}
-                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-[#FF3C38]" />
+                {/* loader */}
+                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-[#38B9FF]" />
               </div>
             )}
 
@@ -280,8 +282,8 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
               onClick={handleSubmit}
               className={`px-4 py-3 rounded-md font-medium flex w-full items-center justify-center gap-2 ${
                 captchaVerified
-                  ? "bg-[#FF3C38] text-white hover:opacity-90 cursor-pointer"
-                  : "bg-[#1B1B1B] text-gray-400 cursor-not-allowed"
+                  ? "bg-[#00C3FE] text-white hover:opacity-90 cursor-pointer"
+                  : "bg-[#1b1b1bb5] text-gray-400 cursor-not-allowed"
               }`}
             >
               {isLoading ? (

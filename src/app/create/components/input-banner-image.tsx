@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, DragEvent, ChangeEvent } from "react";
 import Image from "next/image";
-import { useImageContext } from "../context/ImageContext";
+import { useBannerImageContext } from "../context/BannerImageContext";
 
 const BannerUpload: React.FC = () => {
-  const { file, setFile } = useImageContext();
+  const { file, setFile } = useBannerImageContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const isImageFile = (file: File) => file.type.startsWith("image/");
@@ -38,7 +38,7 @@ const BannerUpload: React.FC = () => {
           onDragOver={handleDragOver}
           className="w-full h-full border border-dashed border-gray-300 rounded-[12px] flex flex-col items-center justify-center py-10 px-6 gap-2"
         >
-          <p className="text-white font-bold text-lg">Select image to upload</p>
+          <p className="text-white font-bold text-lg">Upoad your project banner</p>
           <p className="text-sm text-[#87DDFF]">or drag and drop it here</p>
 
           <label className="bg-[#00C3FE] text-white px-4 py-2 rounded-full cursor-pointer">

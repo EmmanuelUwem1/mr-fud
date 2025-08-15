@@ -28,7 +28,7 @@ useEffect(() => {
   if (ref.current && window.turnstile && !ref.current.hasChildNodes()) {
     window.turnstile.render(ref.current, {
       sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
-      theme: "dark",
+      theme: "light",
       callback: () => {
         if (typeof onSuccess === "function") {
           onSuccess();

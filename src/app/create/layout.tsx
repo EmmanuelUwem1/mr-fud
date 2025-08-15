@@ -5,6 +5,7 @@ import { ImageProvider } from "./context/ImageContext";
 import { CampaignFormProvider } from "./context/campaignFormContext";
 
 
+
 export const metadata: Metadata = {
   title: "FUDClub || Create new coin",
   description:
@@ -21,7 +22,9 @@ export default function RootLayout({
      <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">
        <TokenFormProvider>
          <CampaignFormProvider>
-           <ImageProvider>{children}</ImageProvider>
+           <ImageProvider>
+           {children}
+           </ImageProvider>
          </CampaignFormProvider>
        </TokenFormProvider>
      </main>
