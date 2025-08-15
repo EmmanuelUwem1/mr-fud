@@ -42,7 +42,8 @@ const LeaderboardCard = ({
   const gradientColor = getGradientColor(index);
 
   return (
-    <div className="relative py-6 rounded-[14px] shadow-lg bg-[#0A0A0A] text-white w-full md:max-w-sm mx-auto z-10 overflow-hidden">
+    <div className="relative py-6 rounded-[14px] cardthreebg shadow-lg  text-white w-full md:max-w-sm mx-auto z-10 overflow-hidden">
+      {/* bg-[#0A0A0A] */}
       {/* background radial gradient */}
       <div
         className="absolute -top-[20%] -left-[20%] w-full h-full rounded-full blur-xl -z-1"
@@ -50,7 +51,6 @@ const LeaderboardCard = ({
           background: `radial-gradient(circle, ${gradientColor} 0%, transparent 70%)`,
         }}
       ></div>
-
       <div className="flex items-center justify-between gap-3 border-b border-b-[#221C28] pb-3 px-4">
         {/* left section */}
         <div className="flex w-full flex-col items-start justify-start gap-4">
@@ -77,13 +77,21 @@ const LeaderboardCard = ({
 
         {/* right section (image placeholder) */}
         <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
-          <Image alt="" src={imageUrl} layout="fill" objectPosition="center" objectFit="cover" />
+          <Image
+            alt=""
+            src={imageUrl}
+            layout="fill"
+            objectPosition="center"
+            objectFit="cover"
+          />
         </div>
       </div>
-
       <div className="flex items-center justify-between w-full mt-3 px-4">
-        <CreatedBy wallet={creator } createdAt={createdDate} />
-        <Link href={`/token/${id}`} className="w-fit bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-4 rounded-full transition-class">
+        <CreatedBy wallet={creator} createdAt={createdDate} />
+        <Link
+          href={`/token/${id}`}
+          className="w-fit bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-4 rounded-full transition-class"
+        >
           Buy
         </Link>
       </div>
