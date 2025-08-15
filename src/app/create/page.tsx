@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import CreateCoinModal from "./components/create-coin-modal";
 import { useTokenForm } from "./context/TokenFormContext";
 import BackButton from "@/components/buttons/backButton";
+import CampaignsForm from "./components/CampaignsForm";
 
 export default function Page() {
   const { isConnected, address } = useAccount();
@@ -51,6 +52,7 @@ const {setPayload} = useTokenForm();
           </span>
         </div>
         <Form />
+        <CampaignsForm />
         <div className="flex w-full items-start justify-center md:flex-nowrap flex-wrap gap-4 max-w-4xl">
           <MediaUpload /> <SocialsInput />
         </div>

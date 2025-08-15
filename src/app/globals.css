@@ -19,6 +19,9 @@
 .input-border{
   border-color: #38B9FF;
 }
+.input-bg{
+  background-color: #2F6786;
+}
 
 @theme inline {
   --color-background: var(--background);

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/footer";
 import { TokenFormProvider } from "./context/TokenFormContext";
 import { ImageProvider } from "./context/ImageContext";
+import { CampaignFormProvider } from "./context/campaignFormContext";
 
 
 export const metadata: Metadata = {
@@ -17,13 +18,12 @@ export default function RootLayout({
 }>) {
  return (
    <>
-     <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16"> 
-       <TokenFormProvider> 
-         <ImageProvider>
-           
-           {children}
-           </ImageProvider>
-         </TokenFormProvider>
+     <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">
+       <TokenFormProvider>
+         <CampaignFormProvider>
+           <ImageProvider>{children}</ImageProvider>
+         </CampaignFormProvider>
+       </TokenFormProvider>
      </main>
      <Footer />
    </>

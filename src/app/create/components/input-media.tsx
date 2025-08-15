@@ -32,7 +32,10 @@ const { file, setFile } = useImageContext();
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => e.preventDefault();
 
   return (
-    // sm:bg-[#141414] bg-[#212121]
+    <div className="w-full">
+      <p className="text-left mb-2 font-medium text-sm">Project image</p>
+    {/* // sm:bg-[#141414] bg-[#212121] */}
+  
     <div className=" p-2.5 cardthreebg rounded-[13px] flex flex-col w-full h-full items-center justify-center">
       <div
         onDrop={handleDrop}
@@ -69,7 +72,8 @@ const { file, setFile } = useImageContext();
           <p className="mt-2 text-white text-sm">Selected: {file.name}</p>
         )}
       </div>
-    </div>
+      </div>
+      </div>
   );
 };
 

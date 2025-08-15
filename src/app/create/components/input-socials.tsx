@@ -49,7 +49,8 @@ const SocialsInput: React.FC = () => {
       {/*  Mobile version (< sm) */}
       <div className="block sm:hidden w-full">
         <div className="flex items-start justify-between gap-3 w-full">
-          <h2 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#FA3C39] to-[#FFA393]">
+          <h2 className="text-lg font-semibold text-[#00C3FE]">
+            {/* text-transparent bg-clip-text bg-gradient-to-r from-[#FA3C39] to-[#FFA393] */}
             Socials (optional)
           </h2>
           <span
@@ -117,7 +118,7 @@ const InputGroup = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={`${label.toLowerCase()} url`}
-      className="w-full px-3 py-2 cardthreebg input-border border  rounded-md text-white placeholder-[#87DDFF]"
+      className="w-full px-3 py-2 cardthreebg input-border input-bg border  rounded-md text-white placeholder-[#87DDFF]"
       // border-[#2A2A2A]
     />
   </div>
