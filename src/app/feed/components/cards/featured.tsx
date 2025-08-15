@@ -44,7 +44,7 @@ export default function FeaturedCard({
     >
       <div className="w-fit max-w-[200px] sm:max-w-[252px] cardbg rounded-[15px] border-3 border-[#05E02B] flex gap-4 justify-between p-2 text-white h-fit">
         {/* Left: Image */}
-        <div className="w-24 aspect-square rounded-[9px] relative overflow-hidden bg-[#1a1a23]">
+        <div className="w-24 aspect-square rounded-[9px] relative overflow-hidden bg-[#1a1a236e]">
           <Image
             src={`${image}${cacheBuster}`}
             alt={""}

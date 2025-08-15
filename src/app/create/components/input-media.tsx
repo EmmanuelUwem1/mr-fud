@@ -32,16 +32,17 @@ const { file, setFile } = useImageContext();
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => e.preventDefault();
 
   return (
-    <div className="sm:bg-[#141414] bg-[#212121] p-2.5 rounded-[13px] flex flex-col w-full h-full items-center justify-center">
+    // sm:bg-[#141414] bg-[#212121]
+    <div className=" p-2.5 cardthreebg rounded-[13px] flex flex-col w-full h-full items-center justify-center">
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         className="w-full h-full border-[0.5px] border-dashed border-[#9a9a9a] rounded-[12px] flex flex-col items-center justify-center py-14 px-6 gap-2"
       >
         <p className="text-white font-bold text-lg">Select image to upload</p>
-        <p className="text-sm text-[#777777] sm:text-[#2A2A2A]">or drag and drop it here</p>
+        <p className="text-sm text-[#87DDFF]">or drag and drop it here</p>
 
-        <label className="bg-[#FF3C38] text-white px-4 py-2 rounded-full cursor-pointer">
+        <label className="bg-[#00C3FE] text-white px-4 py-2 rounded-full cursor-pointer">
           Select Image
           <input
             type="file"

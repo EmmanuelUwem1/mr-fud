@@ -9,11 +9,12 @@ const SocialsInput: React.FC = () => {
   const { payload, setPayload } = useTokenForm();
 
   return (
-    <div className="bg-[#141414] flex flex-col items-start justify-start w-full rounded-[13px] p-6 space-y-4">
+    // bg-[#141414]
+    <div className=" flex cardthreebg flex-col items-start justify-start w-full rounded-[13px] p-6 space-y-4">
       {/*  Desktop version (sm and up) */}
       <div className="hidden sm:block w-full space-y-4">
         <div className="flex items-center justify-between gap-3 w-full">
-          <h2 className="text-base font-semibold text-[#FF3C38]">
+          <h2 className="text-base font-semibold text-[#00C3FE]">
             Socials (optional)
           </h2>
           <span className="relative sm:hidden mx-1 h-6 w-6 flex items-center justify-center">
@@ -116,7 +117,8 @@ const InputGroup = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={`${label.toLowerCase()} url`}
-      className="w-full px-3 py-2 bg-transparent border border-[#2A2A2A] rounded-md text-white placeholder-gray-500"
+      className="w-full px-3 py-2 cardthreebg input-border border  rounded-md text-white placeholder-[#87DDFF]"
+      // border-[#2A2A2A]
     />
   </div>
 );

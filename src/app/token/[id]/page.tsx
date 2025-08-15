@@ -17,9 +17,15 @@ import GraduatedCard from "../components/cards/graduated";
 import AntiFudCard from "../components/cards/anti-fud-card";
 import TopHoldersCard from "../components/cards/topHoldersCard";
 import TestTradingViewWidget from "../components/testTradingViewWidget";
+import { usePathname } from "next/navigation";
+
 
 
 export default function TokenPage() {
+
+  const pathName = usePathname();
+  const isTokenPage = pathName.startsWith("/token");
+
   const { tokens, loading } = useTokens();
   
   const router = useRouter();
@@ -64,12 +70,12 @@ export default function TokenPage() {
 
   
   return token ? (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18"
-    >
+     <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 ${isTokenPage ? "bg-[#0D0D0D]": "bg-[#0077D3]"}`}
+        >
       {/* Back Button */}
       <BackButton />
       {/* Stats + Price Chart */}

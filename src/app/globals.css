@@ -4,13 +4,20 @@
   /* --background: #0D0D0D; */
   --background: #0077D3;
   --foreground: #ffffff;
-  --cardbg:#6ABEFF;
+  /* --cardbg:#6ABEFF; */
+  --cardbg:#005995;
 }
 .cardbg{
   background-color: var(--cardbg);
 }
-.card2bg{
+.cardtwobg{
   background-color: #0077D3;
+}
+.cardthreebg{
+  background-color: #004A7C;
+}
+.input-border{
+  border-color: #38B9FF;
 }
 
 @theme inline {

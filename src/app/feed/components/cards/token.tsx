@@ -62,7 +62,7 @@ export default function TokenCard({
           {/* Header */}
           <div className="flex w-full gap-3 items-center justify-start">
             {/* image */}
-            <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
+            <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a236e] relative overflow-hidden">
               <Image
                 src={`${image}${cacheBuster}`}
                 alt={""}

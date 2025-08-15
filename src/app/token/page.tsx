@@ -149,7 +149,7 @@ useEffect(() => {
                   comments={comments}
                   isConnected={isConnected}
                   ca={tokenData?.contractAddress || ""}
-                  //   createdDate={token?.createdAt || ""}
+                    createdDate={tokenData?.createdAt || ""}
                   tokenName={tokenData?.name || "token name"}
                 />
               </div>
@@ -169,7 +169,7 @@ useEffect(() => {
               />
               <div className="flex flex-col items-start justify-start gap-4">
                 <GraduatedCard />
-                <AntiFudCard antiFudEnabled={true} />
+                {/* <AntiFudCard antiFudEnabled={true} /> */}
                 <div className="lg:flex w-full items-center justify-center hidden">
                   <TopHoldersCard />
                 </div>
@@ -185,7 +185,7 @@ useEffect(() => {
           {/* Token Description */}
           <TokenDescription
             ca={tokenData?.contractAddress || ""}
-            // createdDate={tokenData?.createdAt || ""}
+            createdDate={tokenData?.createdAt || ""}
             description={tokenData?.description || ""}
             twitter={tokenData.twitter}
             telegram={tokenData.telegram}
@@ -204,7 +204,7 @@ useEffect(() => {
               tokenTicker={tokenData.ticker}
             />
             <GraduatedCard />
-            <AntiFudCard antiFudEnabled={true} />
+            {/* <AntiFudCard antiFudEnabled={true} /> */}
           </div>
 
           {/* Comment Thread */}
@@ -212,7 +212,7 @@ useEffect(() => {
             comments={comments}
             isConnected={isConnected}
             ca={tokenData?.contractAddress || ""}
-            // createdDate={tokenD?.createdAt || ""}
+            createdDate={tokenData?.createdAt || ""}
             tokenName={tokenData.name || "token name"}
           />
         </div>

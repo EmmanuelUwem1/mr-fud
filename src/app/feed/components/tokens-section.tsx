@@ -83,16 +83,16 @@ switch (activeTab) {
     <section className="w-full py-10 flex flex-col gap-8">
       {/* Tabs Navigation */}
       <div className="w-full overflow-x-auto">
-        <div className="flex mx-auto gap-2 md:gap-4 justify-center items-center w-full mb-4 border-[#F8F8F8] flex-wrap">
+        <div className="flex mx-auto gap-2 md:gap-4 justify-center items-center w-full mb-4 flex-wrap">
           {tabOptions.map((tab) => (
             // tabs-gradient-wrapper
             <button
               key={tab.text}
               onClick={() => handleTabClick(tab.text)}
-              className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium bg-[#02021399] cursor-pointer flex items-center justify-center gap-2 ${
+              className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium bg-[#02021399] border-[#494952] cursor-pointer flex items-center justify-center gap-2 ${
                 activeTab === tab.text
                   ? "bg-white text-black"
-                  : "bg-transparent text-white hover:bg-white hover:text-black"
+                  : "text-white hover:bg-white hover:text-black"
               }`}
             >
               {/* <span className="relative w-4 h-4 flex-shrink-0">

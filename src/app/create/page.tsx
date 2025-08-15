@@ -36,12 +36,13 @@ const {setPayload} = useTokenForm();
         <div className="flex sm:items-center sm:justify-center gap-6 justify-start items-start w-full max-w-4xl">
           <div className="w-full">
             {/* Heading */}
-            <h1 className="text-xl font-semibold bg-clip-text text-transparent w-full text-left sm:text-center bg-gradient-to-r from-[#FA3C39] to-[#FFA393]">
-              Create New Coin
+            <h1 className="text-xl font-semibold bg-clip-text text-transparent w-full text-left sm:text-center bg-gradient-to-r  from-[#F7E436] transition-class to-[#05E02B] ">
+              Create a countdown
             </h1>
 
             {/* Subheading */}
-            <p className="text-sm w-full py-3 text-left sm:text-center font-light text-[#BBBBBB] sm:text-[#7B93D5]">
+            <p className="text-sm w-full py-3 text-left sm:text-center font-light text-[#FFFFFF] ">
+              {/* sm:text-[#7B93D5] */}
               {`choose carefully, these can't be changed once the coin is created`}
             </p>
           </div>
@@ -70,7 +71,7 @@ const {setPayload} = useTokenForm();
 
         <div
           onClick={() => setShowModal(true)}
-          className="bg-[#FF3C38] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3 cursor-pointer transition-class hover:opacity-90"
+          className="bg-[#00C3FE] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3 cursor-pointer transition-class hover:opacity-90"
         >
           Next
         </div>

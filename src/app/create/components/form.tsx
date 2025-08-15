@@ -7,7 +7,8 @@ function Form() {
   return (
     <div className="max-w-4xl w-full mx-auto text-[#F8F8F8]">
       {/* Form container */}
-      <div className="sm:bg-[#141414] bg-[#212121] sm:border border border-[#000000] my-6 sm:border-[#FF3C38] rounded-[10px] p-6 space-y-4">
+      {/* sm:bg-[#141414] bg-[#212121] */}
+      <div className="border my-6 input-border cardthreebg rounded-[10px] p-6 space-y-4">
         {/* Coin Name & Ticker */}
         <div className="flex flex-col gap-4 md:flex-row">
           <div className="flex-1">
@@ -18,9 +19,11 @@ function Form() {
               type="text"
               value={payload.name}
               onChange={(e) => setPayload({ ...payload, name: e.target.value })}
-              className="w-full border border-[#777777] sm:border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
+              className="w-full border input-border rounded-md bg-transparent px-3 py-2"
               placeholder="name your coin"
               title="name"
+              // border-[#777777]
+              // sm:border-[#2A2A2A] 
             />
           </div>
           <div className="flex-1">
@@ -33,9 +36,10 @@ function Form() {
               onChange={(e) =>
                 setPayload({ ...payload, ticker: e.target.value })
               }
-              className="w-full border border-[#777777] sm:border-[#2A2A2A] rounded-md bg-transparent px-3 py-2"
+              className="w-full border input-border rounded-md bg-transparent px-3 py-2"
               title="ticker"
               placeholder="add a coin ticker (e.g. Pepe)"
+              // border-[#777777] sm:border-[#2A2A2A]
             />
           </div>
         </div>
@@ -51,13 +55,14 @@ function Form() {
             onChange={(e) =>
               setPayload({ ...payload, description: e.target.value })
             }
-            className="w-full border border-[#777777] sm:border-[#2A2A2A] rounded-md bg-transparent px-3 py-2 resize-none"
+            className="w-full border input-border rounded-md bg-transparent px-3 py-2 resize-none"
             title="description"
             // placeholder="Briefly describe your coin..."
+            //  border-[#777777] sm:border-[#2A2A2A]
           ></textarea>
         </div>
 
-        <AntiGeetToggle />
+        {/* <AntiGeetToggle /> */}
       </div>
     </div>
   );

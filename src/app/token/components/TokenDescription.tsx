@@ -60,7 +60,7 @@ export default function TokenDescription({
             )}
           </div>
         </div>
-        <div className="max-sm:text-xs text-base text-left pt-4 whitespace-pre-line">
+        <div className="max-sm:text-xs text-sm text-left pt-4 whitespace-pre-line">
           {description || <span className="opacity-60">no description</span>}{" "}
         </div>
       </div>
