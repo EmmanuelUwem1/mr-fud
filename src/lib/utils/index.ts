@@ -81,13 +81,19 @@ export const copyToClipboard = async (text :string) => {
   }
 };
 
-export const formatMarketCap = (cap: number | string): string => {
-  if (typeof cap === "string") {
-   const numericCap = typeof cap === "string" ? Number(cap) : cap;
+export const formatMarketCap = (
+  cap: number | string | undefined | null
+): string => {
+  if (cap === undefined || cap === null || cap === "") {
+    return "$0";
+  }
 
-   if (isNaN(numericCap)) {
-     return cap.toString(); // fallback for non-numeric strings
-   }
+  if (typeof cap === "string") {
+    const numericCap = Number(cap);
+
+    if (isNaN(numericCap)) {
+      return cap.toString(); // fallback for non-numeric strings
+    }
 
     return `$${numericCap.toLocaleString()}`;
   }
@@ -102,6 +108,7 @@ export const formatMarketCap = (cap: number | string): string => {
 
   return `$${cap}+`;
 };
+
 
 
 export function formatDateToCustom(dateString: string): string {
@@ -153,6 +160,21 @@ export function formatSmallNumber(num: number): string {
 
 
   return num.toString();
+}
+
+
+export function formatDateMMDDYYYY(dateInput: string | Date): string {
+  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+
+  if (isNaN(date.getTime())) {
+    return "Invalid Date";
+  }
+
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${month}/${day}/${year}`;
 }
 
 
