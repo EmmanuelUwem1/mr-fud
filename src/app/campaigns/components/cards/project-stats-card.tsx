@@ -5,6 +5,7 @@ import { formatMarketCap } from "@/lib/utils";
 import ProjectProfileCard from "./project-card";
 import Image from "next/image";
 import { formatDateMMDDYYYY } from "@/lib/utils";
+import SocialLinks from "../socialLinks";
 interface TokenStatsProps {
   mCap: number | string;
   tokenName: string;
@@ -60,68 +61,7 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
           {formatDateMMDDYYYY(tokenCreatedDate)} -{" "}
           {formatDateMMDDYYYY(tokenCreatedDate)}
         </div>
-        {/* Social Links */}
-        {twitter ||
-          website ||
-          (telegram && (
-            <div className="flex bg-[#0091CA] border border-[#FFFFFF] rounded-[10px] gap-2 py-1 px-2 items-center">
-              {twitter && (
-                <>
-                  <a
-                    href={twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:opacity-80 flex items-center justify-center relative h-5 w-5"
-                  >
-                    <Image
-                      src="/icons/x.png"
-                      alt="Twitter"
-                      width={20}
-                      height={20}
-                    />
-                  </a>
-                  |
-                </>
-              )}
-              {telegram && (
-                <>
-                  {" "}
-                  <a
-                    href={telegram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:opacity-80 flex items-center justify-center relative h-5 w-5"
-                  >
-                    <Image
-                      src="/icons/telegram.png"
-                      alt="Telegram"
-                      width={20}
-                      height={20}
-                    />
-                  </a>
-                  |
-                </>
-              )}
-              {website && (
-                <>
-                  {" "}
-                  <a
-                    href={website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:opacity-80 flex items-center justify-center relative h-5 w-5"
-                  >
-                    <Image
-                      src="/icons/website.png"
-                      alt="Website"
-                      width={20}
-                      height={20}
-                    />
-                  </a>
-                </>
-              )}
-            </div>
-          ))}
+              <SocialLinks twitter={twitter} website={website} telegram={telegram} />
       </div>
     </div>
   );

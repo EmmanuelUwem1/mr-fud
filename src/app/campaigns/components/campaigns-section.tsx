@@ -89,10 +89,14 @@ export default function CampaignsSection() {
               key={token._id}
               title={token.name}
               bannerUrl={token.image}
-              startDate={token.createdAt} 
+              startDate={token.createdAt}
               createdDate={token.createdAt}
               creator={token.creatorWallet}
               endDate={token.createdAt}
+              description={token.description}
+              twitter={ token.twitter}
+              website={token.website}
+              telegram={token.telegram}
             />
           ))}
         </div>

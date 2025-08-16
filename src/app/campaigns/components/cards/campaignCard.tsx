@@ -3,6 +3,7 @@ import Image from "next/image";
 import { formatDaysAgo } from "@/lib/utils";
 import { formatWalletAddress } from "@/lib/utils";
 import Link from "next/link";
+import SocialLinks from "../socialLinks";
 
 type CampaignCardProps = {
   title: string;
@@ -13,6 +14,9 @@ type CampaignCardProps = {
   creator: string;
   id: string;
   description?: string;
+  twitter?: string;
+  website?: string;
+  telegram?: string;
 };
 
 const CampaignCard: React.FC<CampaignCardProps> = ({
@@ -23,7 +27,10 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
   createdDate,
   creator,
   id,
-  description = "No description provided.",
+  twitter,
+  website,
+  telegram,
+  description = "",
 }) => {
   const now = new Date();
   const start = new Date(startDate);
@@ -53,8 +60,15 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
           <h3 className="text-xl font-bold mb-2">{title}</h3>
           <p className="text-sm mb-4">{title}</p>
           <div className="text-xs space-y-1">
-                      <p>{description || " no description provided" }</p>
-          <button className="px-4 py-3 w-full rounded-full bg-[#00C3FE]">View more</button>
+            <p>{description || " no description provided"}</p>
+            <SocialLinks
+              twitter={twitter}
+              website={website}
+              telegram={telegram}
+            />
+            <button className="px-4 py-3 w-full rounded-full bg-[#00C3FE]">
+              View more
+            </button>
           </div>
         </div>
       </div>

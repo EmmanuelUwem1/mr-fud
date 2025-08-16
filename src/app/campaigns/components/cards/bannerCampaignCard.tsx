@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { formatDaysAgo } from "@/lib/utils";
 import { formatWalletAddress } from "@/lib/utils";
+import SocialLinks from "../socialLinks";
 
 type BannerCampaignCardProps = {
   title: string;
@@ -10,8 +11,11 @@ type BannerCampaignCardProps = {
   endDate: string;
   createdDate: string;
   creator: string;
-    position: number;
-
+  position: number;
+  description?: string;
+  twitter?: string;
+  website?: string;
+  telegram?: string;
 };
 
 const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
@@ -21,8 +25,11 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
   endDate,
   createdDate,
   creator,
-    position,
-
+  position,
+  twitter,
+  website,
+  telegram,
+  description = "No description provided.",
 }) => {
   const now = new Date();
   const start = new Date(startDate);
@@ -42,8 +49,8 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
   const formattedRange = `${formattedStart} – ${formattedEnd}`;
 
   return (
-    <div className="relative w-full max-w-[420px] h-full flex flex-col items-center">
-      {/*  Badge  */}
+    <div className="relative w-full max-w-[420px] h-full flex flex-col items-center group">
+      {/* Badge */}
       <div className="z-30 absolute -top-6 sm:-top-8 md:-top-10 lg:-top-14 aspect-[98/82] h-8 w-10 sm:h-12 sm:w-14 md:h-14 md:w-16 lg:h-20 lg:w-24 flex items-center justify-center">
         <Image
           src={`/badges/${position}.png`}
@@ -57,7 +64,26 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
       </div>
 
       {/* Card */}
-      <div className="cardonebg border md:border-[3px] border-[#05E02B] rounded-[4px] sm:rounded-[12px] overflow-hidden shadow-md w-full pb-2">
+      <div className="cardonebg border md:border-[3px] border-[#05E02B] rounded-[4px] sm:rounded-[12px] overflow-hidden shadow-md w-full pb-2 relative">
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
+          <div className="absolute inset-1 cardbg text-white p-4 rounded-[12px] flex flex-col justify-center items-center text-center">
+            <h3 className="text-xl font-bold mb-2">{title}</h3>
+            <p className="text-sm mb-4">{title}</p>
+            <div className="text-xs space-y-1">
+              <p>{description || " no description provided"}</p>
+              <SocialLinks
+                twitter={twitter}
+                website={website}
+                telegram={telegram}
+              />
+              <button className="px-4 py-3 w-full rounded-full bg-[#00C3FE]">
+                View more
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Banner Image */}
         <div className="aspect-[315/199] w-full relative bg-[#00000094]">
           <Image
@@ -92,7 +118,9 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
             {title}
           </h3>
           <div className="flex w-full sm:gap-1 items-center justify-between text-[4px] sm:text-[8px] md:text-[10px] lg:text-sm">
-            <span className="lg:w-24 w-10 sm:w-full">{formatDaysAgo(createdDate)}</span>
+            <span className="lg:w-24 w-10 sm:w-full">
+              {formatDaysAgo(createdDate)}
+            </span>
             <span className="lg:w-28 w-10 sm:w-full">
               By: {formatWalletAddress(creator)}
             </span>

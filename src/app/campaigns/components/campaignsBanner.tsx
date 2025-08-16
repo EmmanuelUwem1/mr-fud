@@ -31,6 +31,9 @@ export default function Banner() {
                 createdDate={topThree[1].createdAt}
                 creator={topThree[1].creatorWallet}
                 position={2}
+                twitter={topThree[1].twitter}
+                telegram={topThree[1].telegram}
+                website={topThree[1].website}
               />
             </Link>
 
@@ -47,6 +50,9 @@ export default function Banner() {
                 createdDate={topThree[0].createdAt}
                 creator={topThree[0].creatorWallet}
                 position={1}
+                twitter={topThree[0].twitter}
+                telegram={topThree[0].telegram}
+                website={topThree[0].website}
               />
             </Link>
 
@@ -55,8 +61,7 @@ export default function Banner() {
               href={`/campaigns/${topThree[2]._id}`}
               className="w-full max-w-[20rem] relative transition-transform -translate-y-6 md:-translate-y-10 lg:-translate-y-16"
             >
-                <BannerCampaignCard
-                  
+              <BannerCampaignCard
                 title={topThree[2].name}
                 bannerUrl={topThree[2].image}
                 startDate={topThree[2].createdAt}
@@ -64,6 +69,9 @@ export default function Banner() {
                 createdDate={topThree[2].createdAt}
                 creator={topThree[2].creatorWallet}
                 position={3}
+                twitter={topThree[2].twitter}
+                telegram={topThree[2].telegram}
+                website={topThree[2].website}
               />
             </Link>
           </div>
