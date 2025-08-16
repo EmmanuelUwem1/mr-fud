@@ -99,6 +99,7 @@ export default function TokenPage() {
         tokenId={token?._id || ""}
         referalCode="jhaddhw3"
         referalReward="2BNB"
+        creatorReward="2bnb"
         rating={2}
       />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">

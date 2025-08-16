@@ -116,6 +116,8 @@ export default function OcicatTokenPage() {
         tokenImage={tokenData?.image || ""}
         volumePerDay={(tokenData.volume24h || 0).toString()}
         tokenCreatedDate={tokenData?.createdAt || ""}
+        rating={3}
+        referalCode="sfsjsns"
         // tokenId={tokenData?._id || ""}
       />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">

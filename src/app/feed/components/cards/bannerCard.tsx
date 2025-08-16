@@ -45,7 +45,7 @@ export default function BannerTokenCard({
   
 
  return (
-   <div className="cardbg text-white border-[3px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between h-96 gap-2 w-full">
+   <div className="cardbg text-white border-[3px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 shadow-md flex flex-col justify-between h-96 gap-2 w-full">
      {/* Header */}
      <div className="flex flex-col w-full gap-3 items-center justify-start">
        {/* image */}

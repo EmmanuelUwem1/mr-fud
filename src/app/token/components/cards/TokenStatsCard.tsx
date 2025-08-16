@@ -46,7 +46,7 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
       </div>
 
       {/* Refer Button */}
-      <span className="hidden sm:flex items-center justify-center gap-4">
+      <span className="hidden sm:flex items-center justify-center gap-14">
         {rating && <RatingStars rating={rating} size={30} />}
         {referalCode && <ReferButton setShowModal={setShowModal} />}
       </span>
