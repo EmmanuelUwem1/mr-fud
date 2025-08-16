@@ -117,6 +117,7 @@ export default function OcicatTokenPage() {
         volumePerDay={(tokenData.volume24h || 0).toString()}
         tokenCreatedDate={tokenData?.createdAt || ""}
         rating={3}
+        gainPercent={tokenData.changePerDay}
         referalCode="sfsjsns"
         // tokenId={tokenData?._id || ""}
       />

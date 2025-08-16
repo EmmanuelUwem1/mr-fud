@@ -16,10 +16,11 @@ interface ReferModalProps {
   tokenImage: string;
   tokenId: string;
   referalCode: string;
+  gainPercent?: string;
   // profitPercent: string;
 }
 
-export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenImage, tokenTicker, tokenId, referalCode }: ReferModalProps) {
+export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenImage, tokenTicker, tokenId, referalCode, gainPercent }: ReferModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
@@ -104,7 +105,7 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
                 </div>
 
                 <div className="text-green-300 font-extrabold text-2xl">
-                  +312%
+                  +{gainPercent || 312}%
                 </div>
                 <div className="flex items-center gap-2 justify-start">
                   <span className="relative h-3.5 w-4">
