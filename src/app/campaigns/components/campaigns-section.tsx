@@ -1,9 +1,9 @@
 "use client";
-// import TokenCard from "./cards/token";
-// import TokensSkeleton from "./loaders/TokensSkeleton"; 
 import { useState } from "react";
 import { useTokens } from "@/context/TokensContext";
 import SearchBar from "@/components/searchBar";
+import CampaignCard from "./cards/campaignCard";
+
 
 const tabOptions = [
   { text: "Trending", image: "/Vector-fire.png" },
@@ -19,65 +19,39 @@ export default function CampaignsSection() {
   const [searchTerm, setSearchTerm] = useState("");
   const [localLoading, setLocalLoading] = useState(false);
 
-
-  const handleTabClick = (tabText:string) => {
+  const handleTabClick = (tabText: string) => {
     setLocalLoading(true);
     setActiveTab(tabText);
     setTimeout(() => {
       setLocalLoading(false);
-    }, 500); // half second delay
+    }, 500);
   };
 
-
-    const filteredTokens = tokens.filter((token) =>
-      `${token.name} ${token.contractAddress}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+  const filteredTokens = tokens.filter((token) =>
+    `${token.name} ${token.contractAddress}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
   );
-  
-const sortedTokens = [...filteredTokens]; 
 
-switch (activeTab) {
-  case "Trending":
-    sortedTokens.sort(
-      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-    );
-    break;
+  const sortedTokens = [...filteredTokens];
 
-  case "Market Cap":
-    sortedTokens.sort(
-      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-    );
-    break;
-
-  case "Newly Launched":
-    sortedTokens.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-    break;
-
-  // case "Graduated":
-  //   sortedTokens.sort((a, b) => {
-  //     if (a.isGraduated === b.isGraduated) return 0;
-  //     return a.isGraduated ? -1 : 1;
-  //   });
-  //   break;
-
-  // case "About to Graduate":
-    // sortedTokens
-    //   .filter((token) => !token.isGraduated)
-    //   .sort(
-    //     (a, b) =>
-    //       b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-    //   );
-    // break;
-
-  default:
-    break;
-}
-
-
+  switch (activeTab) {
+    case "Trending":
+    case "Market Cap":
+      sortedTokens.sort(
+        (a, b) =>
+          b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
+      );
+      break;
+    case "Newly Launched":
+      sortedTokens.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      break;
+    default:
+      break;
+  }
 
   return (
     <section className="w-full py-10 flex flex-col gap-8">
@@ -94,14 +68,6 @@ switch (activeTab) {
                   : "bg-transparent text-white hover:bg-white hover:text-black"
               }`}
             >
-              {/* <span className="relative w-4 h-4 flex-shrink-0">
-                <Image
-                  src={tab.image}
-                  alt={`${tab.text} icon`}
-                  fill
-                  className="object-contain"
-                />
-              </span> */}
               {tab.text}
             </button>
           ))}
@@ -109,30 +75,29 @@ switch (activeTab) {
         </div>
       </div>
 
-      {/* {localLoading || loading ? (
-        // <TokensSkeleton />
+      {/* Campaign Cards Grid */}
+      {localLoading || loading ? (
+        <p className="text-center text-gray-400">Loading campaigns...</p>
       ) : sortedTokens.length === 0 ? (
         <p className="text-center text-gray-400 col-span-full">
-          No tokens available.
+          No campaigns available.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {sortedTokens.map((token) => (
-            <TokenCard
+            <CampaignCard
               key={token._id}
-              ticker={token.ticker}
-              name={token.name}
-              ca={token.contractAddress}
-              marketCap={token.currentPrice * token.totalSupply}
-              createdBy={token.creatorWallet}
-              rating={80}
-              image={token.image}
-              id={token._id}
-              createdTime={token.createdAt}
+              title={token.name}
+              bannerUrl={token.image}
+              startDate={new Date(token.createdAt).toLocaleDateString()}
+              endDate={new Date(token.createdAt).toLocaleDateString()} // Replace with actual endDate if available
+              twitter={token.twitter}
+              website={token.website}
+              telegram={token.telegram}
             />
           ))}
         </div>
-      )} */}
+      )}
     </section>
   );
 }

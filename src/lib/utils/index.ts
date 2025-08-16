@@ -81,7 +81,11 @@ export const copyToClipboard = async (text :string) => {
   }
 };
 
-export const formatMarketCap = (cap: number): string => {
+export const formatMarketCap = (cap: number | string): string => {
+  if (typeof cap === "string") {
+    return ` $${cap}`;
+  }
+
   if (cap >= 1_000_000_000) {
     return `$${(cap / 1_000_000_000).toFixed(1)}B+`;
   } else if (cap >= 1_000_000) {
@@ -89,8 +93,10 @@ export const formatMarketCap = (cap: number): string => {
   } else if (cap >= 1_000) {
     return `$${(cap / 1_000).toFixed(1)}K+`;
   }
+
   return `$${cap}+`;
 };
+
 
 export function formatDateToCustom(dateString: string): string {
   const date = new Date(dateString);

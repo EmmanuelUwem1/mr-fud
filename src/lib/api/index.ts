@@ -126,46 +126,45 @@ console.log("SellToken response:", response.data);
 
 
 
-export async function fetchOcicatTokenPrice() {
-  const apiUrl = process.env.NEXT_PUBLIC_COINGECKO_PUBLIC_API_URL;
-  const apiKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
-  const tokenAddress = OCICAT_TOKEN_ADDRESS;
 
-  if (!apiUrl || !apiKey || !tokenAddress) {
-    throw new Error("Missing CoinGecko API configuration");
-  }
+
+export async function fetchOcicatTokenPrice() {
+  const pairAddress = "0x1df65d3a75AeCd000A9c17c97E99993aF01DbcD1";
+  const apiUrl = `https://api.dexscreener.com/latest/dex/pairs/bsc/${pairAddress}`;
 
   try {
-    const response = await axios.get(
-      `${apiUrl}/simple/token_price/binance-smart-chain`,
-      {
-        params: {
-          contract_addresses: tokenAddress,
-          vs_currencies: "usd",
-          include_market_cap: true,
-          include_24hr_vol: true,
-          include_24hr_change: true,
-          include_last_updated_at: true,
-          precision: "2",
-        },
-        headers: {
-          "x-cg-demo-api-key": apiKey,
-        },
-      }
-    );
-
+    const response = await axios.get(apiUrl);
     const data = response.data;
-    if (!data) {
+
+    if (!data || !data.pair) {
       throw new Error("Token data not found in response");
     }
 
-    console.log("Token price data:", data);
-    return data;
+    const pair = data.pair;
+
+    return {
+      price: parseFloat(pair.priceUsd),
+      currentPrice: parseFloat(pair.priceUsd),
+      marketCap: pair.marketCap,
+      volume24h: pair.volume.h24,
+      changePerDay: pair.priceChange.h24,
+      contractAddress: pair.baseToken.address,
+      image: pair.info.imageUrl,
+      twitter:
+        pair.info.socials.find(
+          (s: { type: string; url: string }) => s.type === "twitter"
+        )?.url || "",
+      telegram:
+        pair.info.socials.find(
+          (s: { type: string; url: string }) => s.type === "telegram"
+        )?.url || "",
+    };
   } catch (error) {
     console.error("Error fetching token price:", error);
     throw new Error("Failed to fetch token price");
   }
 }
+
 
 
 

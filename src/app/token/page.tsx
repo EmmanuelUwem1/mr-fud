@@ -19,64 +19,55 @@ import { toast } from "react-hot-toast";
 import { usePathname } from "next/navigation";
 
 
-export default function TokenPage() {
+export default function OcicatTokenPage() {
+  const { address, isConnected } = useAccount();
   const pathName = usePathname();
   const isTokenPage = pathName.startsWith("/token");
-
-  const ocicatSupply = 687896090287856;
-  const [tokenData, setTokenData] = useState({
-    price: 0.00000005231,
-    name: "Ocicat coin",
-    marketCap: 0,
-    volume24h: 120000,
-    creatorReward: 5,
-    referralReward: 2,
-    contractAddress: "",
-    symbol: "OCC",
-    ticker: "Ocicat",
-    title: "Ocicat coin",
-    image: "/cat_bg.jpg",
-    description:
-      "Ocicat is a unique deflationary token that powers the DREAMERS CLUB through the instrumentality of the DAO governance. Ocicat has created the platform that empowers systems through the DAO, NFT and MrFUD bonding curve token  launches",
-    twitter: "#",
-    telegram: "#",
-    currentPrice: 0,
-    changePerDay: 0,
-    createdAt:"2022-03-05T00:00:00.000Z",
-  });
-
-  const { address, isConnected } = useAccount();
+  
 
 
 
-useEffect(() => {
-  async function fetchPrice() {
-    await toast.promise(
-      fetchOcicatTokenPrice().then((response) => {
-        const tokenInfo =
-          response["0xe53d384cf33294c1882227ae4f90d64cf2a5db70"];
-        if (!tokenInfo) throw new Error("Token data missing");
+ const ocicatSupply = 687896090287856;
+ const [tokenData, setTokenData] = useState({
+   price: 0.00000005231,
+   name: "Ocicat coin",
+   marketCap: 0,
+   volume24h: 120000,
+   creatorReward: 5,
+   referralReward: 2,
+   contractAddress: "",
+   symbol: "OCC",
+   ticker: "Ocicat",
+   title: "Ocicat coin",
+   image: "/cat_bg.jpg",
+   description:
+     "Ocicat is a unique deflationary token that powers the DREAMERS CLUB through the instrumentality of the DAO governance. Ocicat has created the platform that empowers systems through the DAO, NFT and MrFUD bonding curve token launches",
+   twitter: "https://twitter.com/ocicatcoin",
+   telegram: "https://t.me/ocicatcoin",
+   currentPrice: 0,
+   changePerDay: 0,
+   createdAt: "2022-03-05T00:00:00.000Z",
+ });
 
-        setTokenData((prev) => ({
-          ...prev,
-          price: tokenInfo.usd,
-          currentPrice: tokenInfo.usd,
-          marketCap: tokenInfo.usd_market_cap,
-          volume24h: tokenInfo.usd_24h_vol,
-          changePerDay: tokenInfo.usd_24h_change,
-          contractAddress: "0xE53D384Cf33294C1882227ae4f90D64cF2a5dB70",
-        }));
-      }),
-      {
-        loading: "Updating",
-        success: "Price updated successfully! 🐾",
-        error: "Failed to fetch Ocicat price.",
-      }
-    );
-  }
+ useEffect(() => {
+   async function fetchPrice() {
+     await toast.promise(
+       fetchOcicatTokenPrice().then((data) => {
+         setTokenData((prev) => ({
+           ...prev,
+           ...data,
+         }));
+       }),
+       {
+         loading: "Updating",
+         success: "Price updated successfully! 🐾",
+         error: "Failed to fetch Ocicat price.",
+       }
+     );
+   }
 
-  fetchPrice();
-}, []);
+   fetchPrice();
+ }, []);
 
 
 
@@ -103,7 +94,7 @@ useEffect(() => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 ${isTokenPage ? "bg-[#0D0D0D]": "bg-[#0077D3]"}`}
+      className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 bg-[#0D0D0D]`}
     >
       {/* Back Button */}
       <BackButton />
@@ -113,17 +104,17 @@ useEffect(() => {
         tokenName={tokenData.name || ""}
         tokenTicker={tokenData.ticker || ""}
         image={tokenData.image || ""}
-        tokenPrice={tokenData.marketCap / ocicatSupply}
+        tokenPrice={tokenData.price}
         changePerDay={tokenData.changePerDay || 0}
         tokenCreatedDate={tokenData.createdAt || ""}
         // tokenId={token?._id || ""}
       />
       <TokenStatsCard
-        mCap={tokenData.marketCap}
+        mCap={(tokenData.marketCap).toString()}
         tokenName={tokenData?.name || ""}
         tokenTicker={tokenData?.ticker || ""}
         tokenImage={tokenData?.image || ""}
-        volumePerDay={tokenData.volume24h || 0}
+        volumePerDay={(tokenData.volume24h || 0).toString()}
         tokenCreatedDate={tokenData?.createdAt || ""}
         // tokenId={tokenData?._id || ""}
       />
@@ -155,19 +146,19 @@ useEffect(() => {
               </div>
             </div>
 
-            <div className="max-sm:hidden flex flex-nowrap lg:flex-col gap-4 items-start justify-start">
+            <div className="max-sm:hidden flex flex-nowrap lg:flex-col gap-4 items-start justify-start w-full lg:max-w-96">
               {/* Buy/Sell Tabs */}
               <BuySellCard
                 BNBbalance={Number(userBalance)}
                 tokenBalance={0}
                 tokenName={tokenData?.name || ""}
-                tokenPrice={tokenData.marketCap / ocicatSupply || 0}
+                tokenPrice={tokenData.price}
                 tokenChain={"BSC"}
                 tokenCa={tokenData?.contractAddress || ""}
                 tokenImage={tokenData?.image}
                 tokenTicker={tokenData.ticker}
               />
-              <div className="flex flex-col items-start justify-start gap-4">
+              <div className="flex flex-col items-start justify-start gap-4 w-full">
                 <GraduatedCard />
                 {/* <AntiFudCard antiFudEnabled={true} /> */}
                 <div className="lg:flex w-full items-center justify-center hidden">
@@ -197,7 +188,7 @@ useEffect(() => {
               BNBbalance={Number(userBalance)}
               tokenBalance={0}
               tokenName={tokenData?.name || ""}
-              tokenPrice={tokenData.marketCap / ocicatSupply || 0}
+              tokenPrice={tokenData.price}
               tokenChain={"BSC"}
               tokenCa={tokenData?.contractAddress || ""}
               tokenImage={tokenData?.image}
@@ -219,6 +210,6 @@ useEffect(() => {
       </div>
     </motion.div>
   ) : (
-    <div className={`flex items-center justify-center h-screen ${isTokenPage ? "bg-[#0D0D0D]": "bg-[#0077D3]"}`}></div>
+    <div className={`flex items-center justify-center h-screen bg-[#0D0D0D]`}></div>
   );
 }

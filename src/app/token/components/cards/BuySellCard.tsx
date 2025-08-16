@@ -321,7 +321,7 @@ const estimatedValue =
   return (
     <>
       {/* Desktop View */}
-      <div className="hidden sm:block w-96 p-4 rounded-md bg-[#141414] text-white space-y-4">
+      <div className="hidden sm:block w-full max-w-96 p-4 rounded-md bg-[#141414] text-white space-y-4">
         <div className="bg-[#2A2A2A] rounded-full flex items-center">
           <button
             onClick={() => setTab("buy")}

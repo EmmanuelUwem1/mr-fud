@@ -15,15 +15,15 @@ interface ReferModalProps {
   tokenCreatedDate?: string;
   tokenImage: string;
   tokenId: string;
-  // referalCode: string;
+  referalCode: string;
   // profitPercent: string;
 }
 
-export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenImage, tokenTicker, tokenId }: ReferModalProps) {
+export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenImage, tokenTicker, tokenId, referalCode }: ReferModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
-  const referalCode = "2r4dw99f";
+  // const referalCode = "2r4dw99f";
   const tokenUrl = `https://mr-fud.vercel.app/token/${tokenId}?ref=${referalCode}`;
 
   useEffect(() => {

@@ -15,8 +15,10 @@ type TokenProps = {
   tokenId?: string;
   tokenPrice?: number;
   changePerDay?: number;
+  referalCode?: string;
+  rating?: number;
 };
-export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId, tokenPrice, changePerDay }: TokenProps) {
+export default function Token({ address, tokenName, tokenTicker, image, tokenCreatedDate, tokenId, tokenPrice, changePerDay, referalCode, rating }: TokenProps) {
       const [showModal, setShowModal] = useState(false);
     
     return (
@@ -28,13 +30,22 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
               tokenTicker={tokenTicker}
               image={image}
             />
-            <div><BlackBar /></div>
+            <div>
+              <BlackBar />
+            </div>
 
-            <TokenPrice tokenAddress={address} tokenPrice={tokenPrice} changePerDay={changePerDay || 0} />
+            <TokenPrice
+              tokenAddress={address}
+              tokenPrice={tokenPrice}
+              changePerDay={changePerDay || 0}
+              rating={rating}
+            />
           </div>
-          <span className="justify-self-end hidden max-sm:flex">
-            <ReferButton setShowModal={setShowModal} />
-          </span>
+          {referalCode && (
+            <span className="justify-self-end hidden max-sm:flex">
+              <ReferButton setShowModal={setShowModal} />
+            </span>
+          )}
         </div>
         {showModal && (
           <ReferModal
@@ -44,6 +55,7 @@ export default function Token({ address, tokenName, tokenTicker, image, tokenCre
             tokenName={tokenName}
             tokenTicker={tokenTicker}
             onClose={() => setShowModal(false)}
+            referalCode={referalCode || ""}
           />
         )}
       </>

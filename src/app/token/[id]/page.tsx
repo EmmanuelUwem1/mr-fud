@@ -24,7 +24,7 @@ import { usePathname } from "next/navigation";
 export default function TokenPage() {
 
   const pathName = usePathname();
-  const isTokenPage = pathName.startsWith("/token");
+
 
   const { tokens, loading } = useTokens();
   
@@ -70,12 +70,13 @@ export default function TokenPage() {
 
   
   return token ? (
-     <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 ${isTokenPage ? "bg-[#0D0D0D]": "bg-[#0077D3]"}`}
-        >
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 bg-[#0D0D0D]
+      }`}
+    >
       {/* Back Button */}
       <BackButton />
       {/* Stats + Price Chart */}
@@ -86,6 +87,8 @@ export default function TokenPage() {
         image={token?.image || ""}
         tokenCreatedDate={token?.createdAt || ""}
         tokenId={token?._id || ""}
+        referalCode="jhaddhw3"
+        rating={2}
       />
       <TokenStatsCard
         mCap={tokenData.marketCap}
@@ -94,6 +97,9 @@ export default function TokenPage() {
         tokenImage={token?.image || ""}
         tokenCreatedDate={token?.createdAt || ""}
         tokenId={token?._id || ""}
+        referalCode="jhaddhw3"
+        referalReward="2BNB"
+        rating={2}
       />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <div className="flex flex-col items-start justify-start w-full gap-4">
@@ -123,7 +129,7 @@ export default function TokenPage() {
               </div>
             </div>
 
-            <div className="max-sm:hidden flex flex-nowrap lg:flex-col gap-4 items-start justify-start">
+            <div className="max-sm:hidden flex flex-nowrap lg:flex-col gap-4 items-start justify-start w-full lg:max-w-96">
               {/* Buy/Sell Tabs */}
               <BuySellCard
                 BNBbalance={Number(userBalance)}
@@ -135,7 +141,7 @@ export default function TokenPage() {
                 tokenImage={token?.image}
                 tokenTicker={token.ticker}
               />
-              <div className="flex flex-col items-start justify-start gap-4">
+              <div className="flex flex-col items-start justify-start gap-4 w-full">
                 <GraduatedCard />
                 <AntiFudCard antiFudEnabled={token.isAntiGeet} />
                 <div className="lg:flex w-full items-center justify-center hidden">
@@ -187,6 +193,6 @@ export default function TokenPage() {
       </div>
     </motion.div>
   ) : (
-    <div className="flex items-center justify-center h-screen"></div>
+    <div className="flex items-center justify-center h-screen bg-[#0D0D0D]"></div>
   );
 }
