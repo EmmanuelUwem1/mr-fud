@@ -5,7 +5,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full text-center py-8 px-4 text-sm text-white">
-      © {year} Launchpad | All rights reserved
+      © {year} MrFud | All rights reserved
     </footer>
   );
 }

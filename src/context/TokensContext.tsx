@@ -26,6 +26,7 @@ interface Token {
   sellCount24h: number;
   createdAt: string;
   updatedAt: string;
+  marketCap: number;
   __v: number;
 }
 

@@ -12,7 +12,7 @@ function SearchBar({ searchTerm, setSearchTerm }: SearchBarProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="relative flex items-center mt-3 lg:mt-0 lg:ml-3 justify-end max-w-64">
+    <div className="relative flex items-center lg:ml-3 justify-end max-w-64">
       <motion.div
         ref={ref}
         className="flex items-center border border-[#DBD9FF] rounded-[12px] bg-gradient-to-r from-[#554eb994] to-[#2623537f] text-white h-10 overflow-hidden shadow-md backdrop-blur-md right-0 z-50 px-4"

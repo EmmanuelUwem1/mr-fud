@@ -10,6 +10,9 @@
 .cardbg{
   background-color: var(--cardbg);
 }
+.cardonebg{
+  background-color:#6ABEFF;
+}
 .cardtwobg{
   background-color: #0077D3;
 }

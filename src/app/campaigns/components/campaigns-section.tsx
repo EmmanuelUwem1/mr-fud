@@ -82,17 +82,17 @@ export default function CampaignsSection() {
           No campaigns available.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center place-items-center gap-6 w-full">
           {sortedTokens.map((token) => (
             <CampaignCard
+              id={token._id}
               key={token._id}
               title={token.name}
               bannerUrl={token.image}
-              startDate={new Date(token.createdAt).toLocaleDateString()}
-              endDate={new Date(token.createdAt).toLocaleDateString()} // Replace with actual endDate if available
-              twitter={token.twitter}
-              website={token.website}
-              telegram={token.telegram}
+              startDate={token.createdAt} 
+              createdDate={token.createdAt}
+              creator={token.creatorWallet}
+              endDate={token.createdAt}
             />
           ))}
         </div>
