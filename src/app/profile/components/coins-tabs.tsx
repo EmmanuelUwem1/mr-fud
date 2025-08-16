@@ -11,7 +11,7 @@ const CoinsTabs = () => {
           onClick={() => setActiveTab("held")}
           className={`flex py-3 text-center ${
             activeTab === "held"
-              ? "text-[#FF0E32] border-b border-[#FF0E32]"
+              ? "text-[#00C3FE] border-b border-[#00C3FE]"
               : "text-white"
           }`}
         >
@@ -21,7 +21,7 @@ const CoinsTabs = () => {
           onClick={() => setActiveTab("created")}
           className={`flex py-3 text-center ${
             activeTab === "created"
-              ? "text-[#FF0E32] border-b border-[#FF0E32]"
+              ? "text-[#00C3FE] border-b border-[#00C3FE]"
               : "text-white"
           }`}
         >

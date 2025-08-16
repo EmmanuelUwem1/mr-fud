@@ -57,7 +57,7 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
       </div>
 
       <div className="flex justify-self-end gap-4 justify-center lg:justify-start flex-wrap">
-        <div className="bg-[#004A7C] font-normal  w-52 text-xs rounded-[7px] p-2.5">
+        <div className="bg-[#004A7C] font-normal  w-52 text-xs rounded-[7px] p-2.5 text-center">
           {formatDateMMDDYYYY(tokenCreatedDate)} -{" "}
           {formatDateMMDDYYYY(tokenCreatedDate)}
         </div>

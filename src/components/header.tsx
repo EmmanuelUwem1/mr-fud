@@ -57,7 +57,7 @@ function Header() {
     >
       <header
         className={`flex w-full overflow-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 ${
-          prePage ? "md:px-16" : "md:px-8"
+          prePage ? "md:px-12" : "md:px-8"
         }`}
         ref={menuRef}
       >

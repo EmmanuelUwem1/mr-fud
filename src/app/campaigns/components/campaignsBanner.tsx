@@ -34,6 +34,7 @@ export default function Banner() {
                 twitter={topThree[1].twitter}
                 telegram={topThree[1].telegram}
                 website={topThree[1].website}
+                description={topThree[1].description}
               />
             </Link>
 
@@ -53,6 +54,7 @@ export default function Banner() {
                 twitter={topThree[0].twitter}
                 telegram={topThree[0].telegram}
                 website={topThree[0].website}
+                description={topThree[0].description}
               />
             </Link>
 
@@ -72,6 +74,7 @@ export default function Banner() {
                 twitter={topThree[2].twitter}
                 telegram={topThree[2].telegram}
                 website={topThree[2].website}
+                description={topThree[2].description}
               />
             </Link>
           </div>

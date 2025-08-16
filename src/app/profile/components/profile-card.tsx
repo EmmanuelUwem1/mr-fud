@@ -25,7 +25,7 @@ export default function ProfileCard() {
 
   return (
     <>
-      <div className="bg-[#141414] p-6 my-8 rounded-[18px] shadow-lg w-full max-w-2xl overflow-hidden">
+      <div className="cardthreebg p-6 my-8 rounded-[18px] shadow-lg w-full max-w-2xl overflow-hidden">
         <h2 className="text-white text-xl md:text-2xl font-bold mb-4">
           User Profile
         </h2>
@@ -46,13 +46,13 @@ export default function ProfileCard() {
 
             <div className="flex w-full items-center justify-between">
               <div className="flex flex-col items-start justify-start">
-                <h2 className="text-[#777777] font-medium md:text-sm text-xs">
+                <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                   Username
                 </h2>
                 <p className="text-lg md:text-xl font-bold">{username}</p>
               </div>
               <button
-                className="px-6 py-2 bg-[#FF3C38] text-xs text-white rounded-[4px] cursor-pointer font-medium hover:bg-[#D92C2A] transition-class"
+                className="px-6 py-2 bg-[#00C3FE] text-xs text-white rounded-[4px] cursor-pointer font-medium hover:opacity-80 transition-class"
                 onClick={() => setIsModalOpen(true)}
               >
                 Edit
@@ -61,7 +61,7 @@ export default function ProfileCard() {
 
             {/* second row (user address) */}
             <div className="flex flex-col items-start justify-start">
-              <h2 className="text-[#777777] font-medium md:text-sm text-xs">
+              <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                 Wallet Address
               </h2>
               <p className="text-xs font-bold overflow-x-auto whitespace-nowrap max-sm:max-w-60">
@@ -69,7 +69,7 @@ export default function ProfileCard() {
               </p>
 
               <button
-                className="bg-[#1E1E1E] p-2 rounded-[10px] font-medium text-xs cursor-pointer my-2"
+                className="bg-[#1e1e1e94] p-2 rounded-[10px] font-medium text-xs cursor-pointer my-2"
                 onClick={() => {
                   if (address) {
                     copyToClipboard(address);
@@ -84,14 +84,14 @@ export default function ProfileCard() {
             <div className="flex items-center justify-start gap-8">
               {/* volume */}
               <div className="flex flex-col justify-start items">
-                <h2 className="text-[#777777] font-medium md:text-sm text-xs">
+                <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                   Volume
                 </h2>
                 <p className="text-lg md:text-xl font-bold">$0</p>
               </div>
               {/* reward */}
               <div className="flex flex-col justify-start items">
-                <h2 className="text-[#777777] font-medium md:text-sm text-xs">
+                <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                   Reward
                 </h2>
                 <p className="text-lg md:text-xl font-bold">$0</p>

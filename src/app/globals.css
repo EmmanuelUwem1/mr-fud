@@ -25,6 +25,9 @@
 .input-bg{
   background-color: #2F6786;
 }
+.button-bg{
+  background-color:#00C3FE;
+}
 
 @theme inline {
   --color-background: var(--background);
