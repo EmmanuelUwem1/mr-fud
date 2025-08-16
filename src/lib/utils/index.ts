@@ -83,7 +83,13 @@ export const copyToClipboard = async (text :string) => {
 
 export const formatMarketCap = (cap: number | string): string => {
   if (typeof cap === "string") {
-    return ` $${cap}`;
+   const numericCap = typeof cap === "string" ? Number(cap) : cap;
+
+   if (isNaN(numericCap)) {
+     return cap.toString(); // fallback for non-numeric strings
+   }
+
+    return `$${numericCap.toLocaleString()}`;
   }
 
   if (cap >= 1_000_000_000) {

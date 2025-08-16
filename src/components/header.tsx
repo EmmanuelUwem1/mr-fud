@@ -50,9 +50,15 @@ function Header() {
 
 
   return (
-    <div className={`relative w-full ${isTokenPage ? "bg-[#0D0D0D]": "bg-[#0077D3]"}`}>
+    <div
+      className={`relative w-full ${
+        isTokenPage ? "bg-[#0D0D0D]" : "bg-[#0077D3]"
+      }`}
+    >
       <header
-        className="flex w-full overflow-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 md:px-16"
+        className={`flex w-full overflow-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 ${
+          prePage ? "md:px-16" : "md:px-8"
+        }`}
         ref={menuRef}
       >
         {/* logo */}
@@ -75,7 +81,11 @@ function Header() {
           }`}
         >
           {/* nav links (desktop only) */}
-          <nav className="xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8 lg:gap-6 2xl:gap-8 2xl:w-[540px]">
+          <nav
+            className={`xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8  2xl:gap-8 2xl:w-[540px] ${
+              prePage ? " " : "lg:gap-4"
+            }`}
+          >
             {navLinks.map(({ label, path }) => (
               <Link
                 key={path}

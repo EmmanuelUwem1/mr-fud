@@ -6,15 +6,14 @@ import CampaignCard from "./cards/campaignCard";
 
 
 const tabOptions = [
-  { text: "Trending", image: "/Vector-fire.png" },
-  { text: "Market Cap", image: "/trend-up.png" },
-  { text: "Newly Launched", image: "/trend-up.png" },
-  { text: "Graduated", image: "/Vector-rocket.png" },
-  { text: "About to Graduate", image: "/Vector-rocket.png" },
+  { text: "Live", image: "/Vector-fire.png" },
+  { text: "Upcoming", image: "/trend-up.png" },
+  { text: "Meme", image: "/trend-up.png" },
+  { text: "AI ", image: "/Vector-rocket.png" },
 ];
 
 export default function CampaignsSection() {
-  const [activeTab, setActiveTab] = useState("Trending");
+  const [activeTab, setActiveTab] = useState("Live");
   const { tokens, loading } = useTokens();
   const [searchTerm, setSearchTerm] = useState("");
   const [localLoading, setLocalLoading] = useState(false);
@@ -62,10 +61,10 @@ export default function CampaignsSection() {
             <button
               key={tab.text}
               onClick={() => handleTabClick(tab.text)}
-              className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium tabs-gradient-wrapper cursor-pointer flex items-center justify-center gap-2 ${
+              className={`px-5 text-xs py-2 rounded-full border transition-class whitespace-nowrap sm:text-sm font-medium bg-[#02021399] border-[#494952] cursor-pointer flex items-center justify-center gap-2 ${
                 activeTab === tab.text
                   ? "bg-white text-black"
-                  : "bg-transparent text-white hover:bg-white hover:text-black"
+                  : " text-white hover:bg-white hover:text-black"
               }`}
             >
               {tab.text}

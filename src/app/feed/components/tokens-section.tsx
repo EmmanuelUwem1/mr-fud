@@ -89,7 +89,7 @@ switch (activeTab) {
             <button
               key={tab.text}
               onClick={() => handleTabClick(tab.text)}
-              className={`px-5 py-2 rounded-full border transition-class whitespace-nowrap text-sm font-medium bg-[#02021399] border-[#494952] cursor-pointer flex items-center justify-center gap-2 ${
+              className={`sm:px-5 px-3 py-2 rounded-full border transition-class whitespace-nowrap text-xs sm:text-sm font-medium bg-[#02021399] border-[#494952] cursor-pointer flex items-center justify-center gap-2 ${
                 activeTab === tab.text
                   ? "bg-white text-black"
                   : "text-white hover:bg-white hover:text-black"
