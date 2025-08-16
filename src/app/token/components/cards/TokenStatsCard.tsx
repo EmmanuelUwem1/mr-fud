@@ -19,7 +19,7 @@ interface TokenStatsProps {
   referalCode?: string;
   creatorReward?: string;
   referalReward?: string;
-  gainPercent?: string;
+  gainPercent?: number;
 }
 
 export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreatedDate, tokenImage, tokenId, volumePerDay, rating, referalCode, creatorReward, referalReward, gainPercent }: TokenStatsProps) {
@@ -59,7 +59,7 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
           tokenImage={tokenImage}
           tokenTicker={tokenTicker}
           referalCode={referalCode || ""}
-          gainPercent={gainPercent}
+          gainPercent={gainPercent || 0}
           onClose={() => setShowModal(false)}
         />
       )}

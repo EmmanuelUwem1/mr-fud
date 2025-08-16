@@ -16,7 +16,7 @@ interface ReferModalProps {
   tokenImage: string;
   tokenId: string;
   referalCode: string;
-  gainPercent?: string;
+  gainPercent?: number;
   // profitPercent: string;
 }
 
