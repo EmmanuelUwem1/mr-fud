@@ -3,6 +3,7 @@ import { LabelValuePair } from "../labelValuePair";
 import Bar from "../bar";
 import { formatMarketCap } from "@/lib/utils";
 import ProjectProfileCard from "./project-card";
+import Image from "next/image";
 
 interface TokenStatsProps {
   mCap: number | string;
@@ -25,7 +26,7 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
     <div className="px-3 flex w-full justify-center lg:justify-start items-end gap-3 text-white flex-wrap lg:flex-nowrap">
       <ProjectProfileCard imageUrl={tokenImage} />
       {/* Stats */}
-      <div className="flex items-center justify-center gap-3 lg:jusify-between w-full lg:flex-nowrap flex-wrap-reverse">
+      <div className="flex px-3 items-center justify-center lg:justify-start w-full flex-wrap-reverse">
         <div className="flex h-full flex-nowrap items-center gap-3 sm:gap-4 w-full justify-center lg:justify-start">
           <LabelValuePair label="Mcap" value={formatMarketCap(mCap)} />
 
@@ -40,7 +41,7 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
           )}
         </div>
 
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-3 mt-4">
           <span className="font-semibold text-lg">{tokenName}</span>
           {isCompleted ? (
             <span className="bg-[#0BDB2E] shadow-[0_0_8px_#05E02B] px-3 py-2 rounded-md">
@@ -54,36 +55,57 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
         </div>
       </div>
       {/* Social Links */}
-      <div className="flex gap-4 pt-4">
+      <div className="flex bg-[#0091CA] border border-[#FFFFFF] rounded-[10px] gap-2 py-1 px-2 items-center">
         {twitter && (
-          <a
-            href={twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:underline"
-          >
-            Twitter
-          </a>
+          <>
+            <a
+              href={twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80"
+            >
+              <Image src="/icons/x.png" alt="Twitter" width={20} height={20} />
+            </a>
+            |
+          </>
         )}
         {telegram && (
-          <a
-            href={telegram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-400 hover:underline"
-          >
-            Telegram
-          </a>
+          <>
+            {" "}
+            <a
+              href={telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80"
+            >
+              <Image
+                src="/icons/telegram.png"
+                alt="Telegram"
+                width={20}
+                height={20}
+              />
+            </a>
+            |
+          </>
         )}
         {website && (
-          <a
-            href={website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-green-400 hover:underline"
-          >
-            Website
-          </a>
+          <>
+            {" "}
+            <a
+              href={website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80"
+            >
+              <Image
+                src="/icons/website.png"
+                alt="Website"
+                width={20}
+                height={20}
+              />
+            </a>
+            |
+          </>
         )}
       </div>
     </div>

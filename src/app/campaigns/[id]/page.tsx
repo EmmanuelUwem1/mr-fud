@@ -69,12 +69,15 @@ export default function CampaignDetailPage() {
               website={campaign.website}
             />
 
-            <div className="space-y-2">
-              <h1 className="text-2xl font-bold text-white">{campaign.name}</h1>
-              <p className="text-gray-300">{campaign.description}</p>
+            <div className="space-y-2 py-4">
+             <h1 className="font-semibold text-lg">Project Description</h1>
+              <p className="text-[#FFFFFF] font-normal text-sm">{campaign.description}</p>
+            </div>
+            <div className="space-y-2 py-4 font-normal text-sm">
+             <h1 className="font-semibold text-lg">Campaign title</h1>
+                        <div className="text-white"><span className="font-semibold">{ campaign.name}</span> {campaign.description}</div>
             </div>
 
-            {/* Stats */}
           </div>
         </div>
       </motion.div>

@@ -12,7 +12,7 @@ const ProjectProfileCard: React.FC<ProjectProfileCardProps> = ({
 }) => {
   return (
     <div className="w-48 h-48 aspect-square rounded-[12px] bg-gradient-to-r from-[#F7E436] to-[#05E02B] flex items-center justify-center p-[6px]">
-      <div className="w-full h-full rounded-[12px] bg-white flex items-center justify-center overflow-hidden">
+      <div className="w-full h-full rounded-[12px] bg-white flex items-center relative justify-center overflow-hidden">
         <Image
           src={imageUrl}
           alt={altText}
