@@ -55,13 +55,13 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
         </div>
       </div>
 
-      <div className="flex gap-4 justify-center lg:justify-start sm:flex-nowrap flex-wrap">
-        <div className="bg-[#004A7C] font-normal text-xs rounded-[7px] p-2.5">
+      <div className="flex justify-self-end gap-4 justify-center lg:justify-start flex-wrap">
+        <div className="bg-[#004A7C] font-normal  w-52 text-xs rounded-[7px] p-2.5">
           {formatDateMMDDYYYY(tokenCreatedDate)} -{" "}
           {formatDateMMDDYYYY(tokenCreatedDate)}
         </div>
         {/* Social Links */}
-        {tiwtter ||
+        {twitter ||
           website ||
           (telegram && (
             <div className="flex bg-[#0091CA] border border-[#FFFFFF] rounded-[10px] gap-2 py-1 px-2 items-center">

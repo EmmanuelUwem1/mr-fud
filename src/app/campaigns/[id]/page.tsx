@@ -106,7 +106,7 @@ export default function CampaignDetailPage() {
           guarantee any project’s success. Users must perform their own due
           diligence before participating.
             </div>
-            <div className="pt-4 h-[1px] bg-white w-full"></div>
+            <div className="mt-4 h-[1px] bg-white w-full"></div>
       </motion.div>
     );
 }

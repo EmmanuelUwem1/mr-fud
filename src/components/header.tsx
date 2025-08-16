@@ -160,7 +160,7 @@ function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="absolute z-50 top-20 right-4"
+            className="absolute z-[20000] top-20 right-4"
           >
             <div className="relative w-[320px] before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#F7E436]  before:to-[#05E02B] before:-z-10 p-0.5">
               <div className="bg-[#181818] rounded-[15px] px-6 py-8 flex flex-col gap-6 text-[#E3E3E3] font-medium shadow-md mobile-nav">
