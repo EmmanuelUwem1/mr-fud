@@ -117,7 +117,7 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
           <h3 className="md:text-lg text-[8px] sm:text-xs lg:text-xl font-bold text-[#000000]">
             {title}
           </h3>
-          <div className="flex w-full sm:gap-1 items-center justify-between text-[4px] sm:text-[8px] md:text-[10px] lg:text-sm">
+          <div className="flex w-full sm:gap-1 items-center justify-between text-[5px] sm:text-[8px] md:text-[10px] lg:text-sm">
             <span className="lg:w-24 w-10 sm:w-full">
               {formatDaysAgo(createdDate)}
             </span>

@@ -85,7 +85,7 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
         />
 
         {/* Top Overlay */}
-        <div className="absolute top-0 left-0 w-full flex justify-between gap-4 items-center px-4 py-2 md:py-4 text-white text-xs font-medium z-10">
+        <div className="absolute top-0 left-0 w-full flex justify-between gap-4 items-center px-4 py-3 md:py-4 text-white text-xs font-medium z-10">
           <span className="bg-[#FFFFFF] text-black px-3 py-2 rounded-md">
             {formattedRange}
           </span>

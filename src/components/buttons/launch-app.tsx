@@ -10,7 +10,7 @@ function LaunchApp() {
   return show ? (
     <Link
       href={"/connect"}
-      className="sm:text-[#0077D3] bg-[#00C3FE] sm:bg-white rounded-[7px] text-[#FFFFFF] px-6 py-3 sm:font-bold text-xs sm:text-lg transition-class max-sm:translate-x-8 hover:opacity-80 launch sm:w-40 text-center"
+      className="sm:text-[#0077D3] bg-[#00C3FE] sm:bg-white rounded-[7px] text-[#FFFFFF] px-6 py-3 sm:font-bold text-sm sm:text-lg transition-class max-sm:translate-x-8 hover:opacity-80 launch sm:w-40 text-center"
     >
       Launch App
     </Link>
