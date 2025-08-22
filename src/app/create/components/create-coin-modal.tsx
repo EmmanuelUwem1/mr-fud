@@ -228,7 +228,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Hardcap */}
-          <p className="text-sm font-bold text-[#FF3C38] mb-2">
+          <p className="text-sm font-bold text-white mb-2">
             Choose Hardcap
           </p>
 

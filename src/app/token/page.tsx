@@ -60,7 +60,7 @@ export default function OcicatTokenPage() {
        }),
        {
          loading: "Updating",
-         success: "Price updated successfully! 🐾",
+         success: "Updated  🐾",
          error: "Failed to fetch Ocicat price.",
        }
      );

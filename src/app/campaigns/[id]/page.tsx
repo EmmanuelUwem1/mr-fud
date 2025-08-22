@@ -98,15 +98,7 @@ export default function CampaignDetailPage() {
             </div>
           </div>
         </div>
-        {/* disclaimer */}
-        <div className="font-medium text-xs text-center px-4 sm:px-8 lg:px-16 text-white">
-          <span className="text-[#E89B00]">Disclaimer:</span> Investing in tokens
-          through this launchpad involves significant risk and may result in
-          loss of your investment. We do not provide financial advice or
-          guarantee any project’s success. Users must perform their own due
-          diligence before participating.
-            </div>
-            <div className="mt-4 h-[1px] bg-white w-full"></div>
+       
       </motion.div>
     );
 }
