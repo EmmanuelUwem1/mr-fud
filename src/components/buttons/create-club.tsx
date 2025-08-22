@@ -11,11 +11,11 @@ export default function CreateClubButton() {
   return (
     <Link
       href="/create"
-      className="p-2.5 flex items-center justify-center bg-[#F8F8F8] text-[#00C3FE] font-semibold rounded-full text-sm hover:opacity-90 transition-class ease-in-out w-52 shadow-sm"
+      className="p-2.5 flex items-center justify-center bg-[#F8F8F8] text-[#00C3FE] font-semibold rounded-full text-sm hover:opacity-90 transition-class ease-in-out w-40 shadow-sm"
       // aria-label="Create a Club"
       // title="Create a Club"
     >
-      Schedule token launch
+      Schedule launch
     </Link>
   );
 }

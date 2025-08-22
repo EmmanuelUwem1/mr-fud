@@ -1,6 +1,7 @@
 "use server";
 
 import axios from "axios";
+import { AxiosResponse } from "axios";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 const OCICAT_TOKEN_ADDRESS = "0xE53D384Cf33294C1882227ae4f90D64cF2a5dB70";
@@ -118,6 +119,61 @@ console.log("SellToken response:", response.data);
     }
   }
 };
+
+
+
+
+
+export interface CampaignPayload {
+  coinName: string;
+  ticker: string;
+  description: string;
+  campaignTitle: string;
+  campaignBanner: string;
+  image: string;
+  startDate: string; // ISO format
+  endDate: string; // ISO format
+  twitter: string;
+  website: string;
+  telegram: string;
+}
+
+export interface CampaignResponse {
+  id: string;
+  coinName: string;
+  ticker: string;
+  description: string;
+  campaignTitle: string;
+  campaignBanner: string;
+  image: string;
+  startDate: string;
+  endDate: string;
+  twitter: string;
+  website: string;
+  telegram: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export async function createCampaign(
+  campaignPayload: CampaignPayload
+): Promise<CampaignResponse> {
+  try {
+    const response: AxiosResponse<CampaignResponse> = await axios.post(
+      `${BACKEND_URL}/api/v1/campaigns`,
+      campaignPayload
+    );
+    console.log("✅ Campaign created:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "❌ Failed to create campaign:",
+      // error.response?.data
+    );
+    throw error;
+  }
+}
+
 
 
 
