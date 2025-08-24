@@ -7,8 +7,8 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <div className="px-4 sm:px-8 md:px-16">
-      <div className="flex items-center justify-between gap-4 w-full">
+    <div className="px-4 sm:px-8 md:px-16 pt-4">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 w-full">
         {/* logo */}
         <Link href={"/"} className="relative flex items-center justify-center">
           <span className="relative w-16 sm:w-20 sm:h-10 2xl:w-28 2xl:h-14 h-8 flex items-center justify-center">
@@ -32,7 +32,9 @@ export default function Footer() {
             own due diligence before participating.
           </div>
         </div>
-        <Socials theme="dark-blue" />
+        <div className="max-sm:mx-auto">
+          <Socials theme="dark-blue" />
+        </div>
       </div>
       <div className="mt-4 h-[1px] bg-white w-full"></div>
       <footer className="w-full text-center py-8 px-4 text-sm text-white">

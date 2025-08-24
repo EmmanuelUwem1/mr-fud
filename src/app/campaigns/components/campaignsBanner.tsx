@@ -8,6 +8,11 @@ export default function Banner() {
   const { tokens, loading } = useTokens();
 
   const topThree = tokens.slice(0, 3);
+    if (!tokens) {
+    return (
+      <div className="text-center m-auto text-red-500 py-10">Campaign not found.</div>
+    );
+  }
 
   return (
     <section className="relative py-12 w-full h-30 sm:h-46 md:h-60 lg:h-[320px] mt-18 sm:mt-24 md:mt-36 rounded-[20px] flex flex-col items-center justify-center bg-pattern">

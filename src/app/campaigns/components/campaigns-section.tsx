@@ -51,6 +51,13 @@ export default function CampaignsSection() {
     default:
       break;
   }
+    if (!tokens) {
+      return (
+        <div className="text-center m-auto text-red-500 py-10">
+          Campaign not found.
+        </div>
+      );
+    }
 
   return (
     <section className="w-full py-10 flex flex-col gap-8">

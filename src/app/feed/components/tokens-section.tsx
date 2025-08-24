@@ -113,7 +113,7 @@ switch (activeTab) {
       {localLoading || loading ? (
         <TokensSkeleton />
       ) : sortedTokens.length === 0 ? (
-        <p className="text-center text-gray-400 col-span-full">
+        <p className="text-center text-gray-400 py-20 col-span-full">
           No tokens available.
         </p>
       ) : (
