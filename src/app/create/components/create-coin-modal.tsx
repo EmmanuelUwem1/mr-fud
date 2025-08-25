@@ -14,7 +14,7 @@ import { createCampaign } from "@/lib/api";
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const { payload, setPayload } = useTokenForm();
-  const {campaignPayload, setCampaignPayload} = useCampaignForm();
+  const {campaignPayload, } = useCampaignForm();
   const modalRef = useRef<HTMLDivElement>(null);
   const [bnbAmount, setBnbAmount] = useState("0");
   const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -73,6 +73,19 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           }`
         );
       }
+
+
+       const formData2 = new FormData();
+       formData2.append("file", file);
+
+       const imageTwoRes = await fetch("/api/upload", {
+         method: "POST",
+         body: formData,
+       });
+
+       const result2 = await imageTwoRes.json();
+       const image2 = result2.ipfsUrl;
+       setPayload({ image:image2 });
 
       const response2 = await createCampaign(campaignPayload);
       if (response2.success) {

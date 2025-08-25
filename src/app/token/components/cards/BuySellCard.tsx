@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useBNBPrice } from "@/app/hooks/useBNBPrice";
+import { generateFakeTxHash } from "@/lib/utils";
 
 interface BuySellCardProps {
   BNBbalance: number;
@@ -57,7 +58,6 @@ const estimatedValue =
 
   const handleTransaction = async () => {
     const action = isBuy ? onBuy : onSell;
-    toast.loading(`${isBuy ? "Buying" : "Selling"} ${tokenName}...`, { duration: 4000 });
     await action(amount);
   };
 
@@ -73,7 +73,7 @@ const estimatedValue =
     const valueInUSD = amountInBNB * bnbPriceUSD!;
 
     const data = {
-      txHash: "0xBUYMOCKTX",
+      txHash: generateFakeTxHash(),
       wallet: address as `0x${string}`,
       tokenAddress: tokenCa,
       amountInChainCurrency: amountInBNB,
@@ -121,7 +121,7 @@ const estimatedValue =
     const amountInBNB = tokenPrice > 0 ? amountInToken * tokenPrice : 0;
 
     const data = {
-      txHash: "0xSELLMOCKTX",
+      txHash: generateFakeTxHash(),
       wallet: address as `0x${string}`,
       tokenAddress: tokenCa,
       amountInChainCurrency: amountInBNB,

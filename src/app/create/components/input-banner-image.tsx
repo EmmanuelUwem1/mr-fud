@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useBannerImageContext } from "../context/BannerImageContext";
 
 const BannerUpload: React.FC = () => {
-  const { file, setFile } = useBannerImageContext();
+  const { bannerImage, setBannerImage } = useBannerImageContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const isImageFile = (file: File) => file.type.startsWith("image/");
@@ -12,7 +12,7 @@ const BannerUpload: React.FC = () => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const uploaded = e.target.files?.[0];
     if (uploaded && isImageFile(uploaded)) {
-      setFile(uploaded);
+      setBannerImage(uploaded);
       setPreviewUrl(URL.createObjectURL(uploaded));
     }
   };
@@ -21,7 +21,7 @@ const BannerUpload: React.FC = () => {
     e.preventDefault();
     const dropped = e.dataTransfer.files?.[0];
     if (dropped && isImageFile(dropped)) {
-      setFile(dropped);
+      setBannerImage(dropped);
       setPreviewUrl(URL.createObjectURL(dropped));
     }
   };
@@ -52,11 +52,11 @@ const BannerUpload: React.FC = () => {
           </label>
 
           {/* Preview (banner-style) */}
-          {file && previewUrl && (
+          {bannerImage && previewUrl && (
             <div className="mt-4 rounded-md overflow-hidden w-full max-w-[400px] h-32 border border-gray-300">
               <Image
                 src={previewUrl}
-                alt={file.name}
+                alt={bannerImage.name}
                 width={800}
                 height={200}
                 className="object-cover w-full h-full"
@@ -64,8 +64,8 @@ const BannerUpload: React.FC = () => {
             </div>
           )}
 
-          {file && (
-            <p className="mt-2 text-gray-600 text-sm">Selected: {file.name}</p>
+          {bannerImage && (
+            <p className="mt-2 text-gray-600 text-sm">Selected: {bannerImage.name}</p>
           )}
         </div>
       </div>

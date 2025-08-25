@@ -180,3 +180,12 @@ export function formatDateMMDDYYYY(dateInput: string | Date): string {
 
 
 
+export function generateFakeTxHash() {
+  const chars = "abcdef0123456789";
+  let hash = "0x";
+  for (let i = 0; i < 64; i++) {
+    hash += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return hash;
+}
+

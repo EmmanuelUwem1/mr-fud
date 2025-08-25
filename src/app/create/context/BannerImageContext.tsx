@@ -2,11 +2,11 @@
 import { createContext, useContext, useState } from "react";
 
 const BannerImageContext = createContext<{
-  file: File | null;
-  setFile: (file: File | null) => void;
+  bannerImage: File | null;
+  setBannerImage: (file: File | null) => void;
 }>({
-  file: null,
-  setFile: () => {},
+  bannerImage: null,
+  setBannerImage: () => {},
 });
 
 export const BannerImageProvider = ({
@@ -14,10 +14,10 @@ export const BannerImageProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [file, setFile] = useState<File | null>(null);
+  const [bannerImage, setBannerImage] = useState<File | null>(null);
 
   return (
-    <BannerImageContext.Provider value={{ file, setFile }}>
+    <BannerImageContext.Provider value={{ bannerImage, setBannerImage }}>
       {children}
     </BannerImageContext.Provider>
   );
