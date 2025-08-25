@@ -162,7 +162,7 @@ export default function OcicatTokenPage() {
                 tokenTicker={tokenData.ticker}
               />
               <div className="flex flex-col items-start justify-start gap-4 w-full">
-                <GraduatedCard />
+                <GraduatedCard/>
                 {/* <AntiFudCard antiFudEnabled={true} /> */}
                 <div className="lg:flex w-full items-center justify-center hidden">
                   <TopHoldersCard />

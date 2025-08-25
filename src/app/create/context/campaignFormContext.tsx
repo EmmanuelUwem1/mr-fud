@@ -17,13 +17,13 @@ export type CreateCampaignPayload = {
 
 // Context type
 type CampaignFormContextType = {
-  payload: CreateCampaignPayload;
-  setPayload: (updates: Partial<CreateCampaignPayload>) => void;
-  resetPayload: () => void;
+  campaignPayload: CreateCampaignPayload;
+  setCampaignPayload: (updates: Partial<CreateCampaignPayload>) => void;
+  resetCampaignPayload: () => void;
 };
 
 // Default values
-const defaultPayload: CreateCampaignPayload = {
+const defaultCampaignPayload: CreateCampaignPayload = {
   name: "",
   goal: 0,
   creatorWallet: "",
@@ -46,17 +46,19 @@ export const CampaignFormProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [payload, setPayloadState] =
-    useState<CreateCampaignPayload>(defaultPayload);
+  const [campaignPayload, setPayloadState] =
+    useState<CreateCampaignPayload>(defaultCampaignPayload);
 
-  const setPayload = (updates: Partial<CreateCampaignPayload>) => {
+  const setCampaignPayload = (updates: Partial<CreateCampaignPayload>) => {
     setPayloadState((prev) => ({ ...prev, ...updates }));
   };
 
-  const resetPayload = () => setPayloadState(defaultPayload);
+  const resetCampaignPayload = () => setPayloadState(defaultCampaignPayload);
 
   return (
-    <CampaignFormContext.Provider value={{ payload, setPayload, resetPayload }}>
+    <CampaignFormContext.Provider
+      value={{ campaignPayload, setCampaignPayload, resetCampaignPayload }}
+    >
       {children}
     </CampaignFormContext.Provider>
   );

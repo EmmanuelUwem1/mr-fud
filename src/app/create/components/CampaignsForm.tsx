@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CalendarIcon from "./calender-icon";
 
 function CampaignsForm() {
-  const { payload, setPayload } = useCampaignForm();
+  const { campaignPayload, setCampaignPayload } = useCampaignForm();
 
   return (
     <div className="max-w-4xl w-full mx-auto text-[#F8F8F8]">
@@ -18,8 +18,8 @@ function CampaignsForm() {
           </label>
           <input
             type="text"
-            value={payload.name}
-            onChange={(e) => setPayload({ ...payload, name: e.target.value })}
+            value={campaignPayload.name}
+            onChange={(e) => setCampaignPayload({ ...campaignPayload, name: e.target.value })}
             className="w-full border input-border rounded-md input-bg px-3 py-2 placeholder:text-[#87DDFF]"
             placeholder="Enter campaign title"
             title="campaign-title"
@@ -37,8 +37,8 @@ function CampaignsForm() {
             </label>
             <div className="relative flex items-center justify-between w-full border input-border rounded-md input-bg px-3 py-2">
               <DatePicker
-                selected={payload.startDate}
-                onChange={(date) => setPayload({ ...payload, startDate: date })}
+                selected={campaignPayload.startDate}
+                onChange={(date) => setCampaignPayload({ ...campaignPayload, startDate: date })}
                 className="w-full placeholder:text-[#87DDFF]"
                 placeholderText="Select start date"
               />
@@ -51,8 +51,8 @@ function CampaignsForm() {
             </label>
             <div className="relative flex items-center justify-between w-full border input-border rounded-md input-bg px-3 py-2">
               <DatePicker
-                selected={payload.endDate}
-                onChange={(date) => setPayload({ ...payload, endDate: date })}
+                selected={campaignPayload.endDate}
+                onChange={(date) => setCampaignPayload({ ...campaignPayload, endDate: date })}
                 className="w-full placeholder:text-[#87DDFF] "
                 placeholderText="Select end date"
               />

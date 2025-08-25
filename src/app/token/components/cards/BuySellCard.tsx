@@ -57,6 +57,7 @@ const estimatedValue =
 
   const handleTransaction = async () => {
     const action = isBuy ? onBuy : onSell;
+    toast.loading(`${isBuy ? "Buying" : "Selling"} ${tokenName}...`, { duration: 4000 });
     await action(amount);
   };
 

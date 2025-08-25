@@ -7,12 +7,14 @@ import Image from "next/image";
 import { createToken } from "@/lib/api";
 import { useImageContext } from "../context/ImageContext";
 import toast from "react-hot-toast";
-
+import { useCampaignForm } from "../context/campaignFormContext";
+import { createCampaign } from "@/lib/api";
 
         
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const { payload, setPayload } = useTokenForm();
+  const {campaignPayload, setCampaignPayload} = useCampaignForm();
   const modalRef = useRef<HTMLDivElement>(null);
   const [bnbAmount, setBnbAmount] = useState("0");
   const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -47,26 +49,40 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch("/api/upload", {
+      const imageOneRes = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
 
-      const result = await res.json();
+      const result = await imageOneRes.json();
       const image = result.ipfsUrl;
       setPayload({ image });
 
       //  toast.success("Image uploaded successfully!");
 
-      const finalResponse = await createToken(payload);
-      if (finalResponse.success) {
+      const response1 = await createToken(payload);
+      if (response1.success) {
         toast.success("Coin created successfully!");
         onClose();
       } else {
         toast.error(
           `An error occurred: ${
-            finalResponse.error.response?.data?.message ||
-            finalResponse.error.message ||
+            (response1.error && typeof response1.error === "object" && "response" in response1.error && (response1.error as { response?: { data?: { message?: string } } }).response?.data?.message) ||
+            (typeof response1.error === "object" && response1.error !== null && "message" in response1.error ? (response1.error as { message?: string }).message : undefined) ||
+            "Unknown error"
+          }`
+        );
+      }
+
+      const response2 = await createCampaign(campaignPayload);
+      if (response2.success) {
+        toast.success("Coin created successfully!");
+        onClose();
+      } else {
+        toast.error(
+          `An error occurred: ${
+            response2.error.response?.data?.message ||
+            response2.error.message ||
             "Unknown error"
           }`
         );

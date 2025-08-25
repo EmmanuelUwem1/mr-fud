@@ -2,6 +2,7 @@
 import Image from "next/image";
 import RatingBar from "@/app/feed/components/rating-bar";
 
+
 export default function GraduatedCard() {
   return (
     <div className="relative w-full max-w-96 rounded-lg overflow-hidden shadow-lg text-white p-4 border-[2px] border-[#923A07] bg-[#291403] flex flex-col items-center justify-center">
@@ -48,7 +49,7 @@ export default function GraduatedCard() {
             Graduated
           </span>
           <h3 className="text-xs font-normal">
-            This token is now on <span className="text-[#FF3C38]">DEX</span>{" "}
+           {" This token is now on"}  <span className="text-[#FF3C38]">DEX</span>{" "}
           </h3>
           <div className="text-sm font-bold text-[#E3E3E3]">
             Target: <span className="text-[#FF3C38]">120 BNB</span>

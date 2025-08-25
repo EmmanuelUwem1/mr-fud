@@ -3,6 +3,7 @@ import Footer from "@/components/footer";
 import { TokenFormProvider } from "./context/TokenFormContext";
 import { ImageProvider } from "./context/ImageContext";
 import { CampaignFormProvider } from "./context/campaignFormContext";
+import { BannerImageProvider } from "./context/BannerImageContext";
 
 
 
@@ -22,9 +23,9 @@ export default function RootLayout({
      <main className="px-4 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">
        <TokenFormProvider>
          <CampaignFormProvider>
-           <ImageProvider>
-           {children}
-           </ImageProvider>
+           <BannerImageProvider>
+             <ImageProvider>{children}</ImageProvider>
+           </BannerImageProvider>
          </CampaignFormProvider>
        </TokenFormProvider>
      </main>

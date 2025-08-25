@@ -36,10 +36,11 @@ export async function createToken(payload : CreateTokenPayload) {
         
       console.error("CreateToken error:", error.response?.data || error.message);
         //   throw new Error(error.response?.data?.message || "Error creating token");
-          return {success:false, error: error.response?.data || error.message};
+          return {success:false, error: (error as import("axios").AxiosError).response?.data || (error as Error).message};
     } else {
       console.error("CreateToken error:", (error as Error).message);
-      throw new Error((error as Error).message || "Error creating token");
+        throw new Error((error as Error).message || "Error creating token");
+        
     }
   }
 }
@@ -125,52 +126,49 @@ console.log("SellToken response:", response.data);
 
 
 export interface CampaignPayload {
-  coinName: string;
-  ticker: string;
-  description: string;
-  campaignTitle: string;
-  campaignBanner: string;
+  name: string;
+  goal: number;
+  creatorWallet: string;
   image: string;
-  startDate: string; // ISO format
-  endDate: string; // ISO format
-  twitter: string;
-  website: string;
-  telegram: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  twitter?: string;
+  website?: string;
+  telegram?: string;
 }
 
 export interface CampaignResponse {
-  id: string;
-  coinName: string;
-  ticker: string;
-  description: string;
-  campaignTitle: string;
-  campaignBanner: string;
+  _id: string;
+  name: string;
+  goal: number;
+  creatorWallet: string;
   image: string;
   startDate: string;
   endDate: string;
-  twitter: string;
-  website: string;
-  telegram: string;
+  twitter?: string;
+  website?: string;
+  telegram?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export async function createCampaign(
   campaignPayload: CampaignPayload
-): Promise<CampaignResponse> {
+ ){
   try {
     const response: AxiosResponse<CampaignResponse> = await axios.post(
       `${BACKEND_URL}/api/v1/campaigns`,
       campaignPayload
     );
-    console.log("✅ Campaign created:", response.data);
-    return response.data;
+    console.log("CreateCampaign response:", response.data);
+    const data = response.data;
+    return {success:true,data};
   } catch (error) {
-    console.error(
-      "❌ Failed to create campaign:",
-      // error.response?.data
-    );
-    throw error;
+    if (axios.isAxiosError(error)) {
+      console.error("CreateToken error:", error.response?.data || error.message);
+      return {success:false, error: error.response?.data || error.message};
+    }
+    return {success:false, error: (error as Error).message || "Error creating campaign"};
   }
 }
 
