@@ -7,7 +7,7 @@ export function useRipple() {
     // Create ripple element
     const ripple = document.createElement("span");
     ripple.className =
-      "absolute rounded-full bg-white/40 pointer-events-none transition-opacity duration-300 ease-out";
+      "absolute rounded-full bg-white/40 pointer-events-none transition-opacity duration-300 ease-out z-[20000]";
 
     // Size and position
     const rect = target.getBoundingClientRect();

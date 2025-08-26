@@ -6,7 +6,7 @@ import ContextProvider from "@/context/AppKitProvider";
 import { Toaster } from "react-hot-toast";
 import WalletAuthGuard from "@/auth/wallet-auth";
 import { TokensProvider } from "@/context/TokensContext";
-
+import { UserProvider } from "@/context/userContext";
 
 
 export const metadata: Metadata = {
@@ -72,7 +72,9 @@ export default async function RootLayout({
           />
           <Header />
           <WalletAuthGuard />
-          <TokensProvider>{children}</TokensProvider>
+          <UserProvider>
+            <TokensProvider>{children}</TokensProvider>
+          </UserProvider>
         </ContextProvider>
       </body>
     </html>

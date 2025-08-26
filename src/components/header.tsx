@@ -10,8 +10,9 @@ import Socials from "./socials";
 import CreateClubButton from "./buttons/create-club";
 import CustomConnectButton from "./buttons/customConnectButton";
 import { useEffect, useRef } from "react";
-import Avatar from "./avaters/avater-circle";
 import { useAccount } from "wagmi";
+import UserProfileAvatar from "./avaters/user-profile-avatar";
+
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
@@ -20,6 +21,7 @@ function Header() {
   const show = pathName !== "/";
   const prePage = pathName === "/";
   const isTokenPage = pathName.startsWith("/token");
+
 
  const navLinks = [
    { label: "FOMO Feed", path: "/feed" },
@@ -131,12 +133,9 @@ function Header() {
               <CustomConnectButton />
             </div>
             {address && isConnected && show && (
-              <Link
-                href="/profile"
-                className="hidden sm:flex relative cursor-pointer"
-              >
-                <Avatar borderColor="#FF3C38" border src="/Image holder.png" />
-              </Link>
+              <span className="max-sm:hidden relative right-4">
+                <UserProfileAvatar />
+              </span>
             )}
 
             {/* Mobile Hamburger */}
@@ -200,16 +199,9 @@ function Header() {
                   <div className="flex gap-8 items-center justify-between w-full pr-4">
                     <CreateClubButton />
                     {address && isConnected && show && (
-                      <Link
-                        href="/profile"
-                        className="flex sm:hidden relative cursor-pointer -right-4"
-                      >
-                        <Avatar
-                          borderColor="#FF3C38"
-                          border
-                          src="/Image holder.png"
-                        />
-                      </Link>
+                      <span className="sm:hidden">
+                        <UserProfileAvatar />
+                      </span>
                     )}
                   </div>
 

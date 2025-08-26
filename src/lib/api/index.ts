@@ -177,6 +177,21 @@ export async function createCampaign(
 
 
 
+export async function fetchCampaigns() {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/v1/campaigns`);
+    console.log("Fetched campaigns:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error fetching campaigns:",
+      (error as Error).message
+    );
+    throw new Error("Failed to fetch campaigns");
+  }
+}
+
+
 
 
 
@@ -216,10 +231,22 @@ export async function fetchOcicatTokenPrice() {
         )?.url || "",
     };
   } catch (error) {
-    console.error("Error fetching token price:", error);
-    throw new Error("Failed to fetch token price");
+     if (axios.isAxiosError(error)) {
+       console.error(
+         "Error fetching Ocicat token price:",
+         error.response?.data || error.message
+       );
+       return { success: false, error: error.response?.data || error.message };
+     }
+     return {
+       success: false,
+       error: (error as Error).message || "Error fetching Ocicat token price",
+     };
   }
 }
+
+
+
 
 export async function fetchComments(tokenAddress: string) {
   try {
@@ -228,11 +255,39 @@ export async function fetchComments(tokenAddress: string) {
     );
     return response.data; 
   } catch (error) {
-    console.error(
-      "Error fetching comments:",
-      (error as Error).message
+     if (axios.isAxiosError(error)) {
+       console.error(
+         "Error fetching comments:",
+         error.response?.data || error.message
+       );
+       return { success: false, error: error.response?.data || error.message };
+     }
+     return {
+       success: false,
+       error: (error as Error).message || "Error fetching comments",
+     };
+  }
+}
+
+export async function fetchUser(walletAddress: string) {
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/api/v1/profile/${walletAddress}`
     );
-    throw new Error("Failed to fetch comments");
+    console.log("fetched user data ", response.data)
+    return response.data; 
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(
+        "Error fetching user:",
+        error.response?.data || error.message
+      );
+      return { success: false, error: error.response?.data || error.message };
+    }
+    return {
+      success: false,
+      error: (error as Error).message || "Error fetching user",
+    };
   }
 }
 
