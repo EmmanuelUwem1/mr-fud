@@ -13,9 +13,9 @@ type TokenPriceProps = {
 const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress, tokenPrice, changePerDay, rating }) => {
 
 
-  const isPositive = changePerDay||0 >= 0;
+  const isPositive = !String(changePerDay).startsWith("-");
   const priceColor = isPositive ? "text-green-500" : "text-red-500";
-  const sign = isPositive ? "+" : "-";
+  const sign = isPositive ? "+" : "";
 
   return (
     <div className="flex flex-col items-start space-x-2">
@@ -29,7 +29,7 @@ const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress, tokenPrice, chang
         </span>
         <span className={`text-xs ${priceColor}`}>
           {sign}
-          {Math.abs(changePerDay || 0).toFixed(2)}%
+          {(changePerDay || 0).toFixed(2)}%
         </span>
       </div>
       {rating && (

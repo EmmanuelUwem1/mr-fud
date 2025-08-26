@@ -143,7 +143,7 @@ export default function TokenPage() {
                 tokenTicker={token.ticker}
               />
               <div className="flex flex-col items-start justify-start gap-4 w-full">
-                <GraduatedCard />
+                <GraduatedCard notPassedBondingCurve={false} />
                 <AntiFudCard antiFudEnabled={token.isAntiGeet} />
                 <div className="lg:flex w-full items-center justify-center hidden">
                   <TopHoldersCard />
@@ -178,7 +178,7 @@ export default function TokenPage() {
               tokenImage={token?.image}
               tokenTicker={token.ticker}
             />
-            <GraduatedCard />
+            <GraduatedCard notPassedBondingCurve={false} />
             <AntiFudCard antiFudEnabled={token.isAntiGeet} />
           </div>
 

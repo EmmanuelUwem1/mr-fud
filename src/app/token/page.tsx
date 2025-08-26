@@ -11,7 +11,6 @@ import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 import BackButton from "@/components/buttons/backButton";
 import GraduatedCard from "./components/cards/graduated";
-import AntiFudCard from "./components/cards/anti-fud-card";
 import TopHoldersCard from "./components/cards/topHoldersCard";
 import TestTradingViewWidget from "./components/testTradingViewWidget";
 import { fetchOcicatTokenPrice } from "@/lib/api";
@@ -33,6 +32,7 @@ export default function OcicatTokenPage() {
    name: "Ocicat coin",
    marketCap: 0,
    volume24h: 120000,
+   liquidity: 0,
    creatorReward: 5,
    referralReward: 2,
    contractAddress: "",
@@ -46,7 +46,7 @@ export default function OcicatTokenPage() {
    telegram: "https://t.me/ocicatcoin",
    currentPrice: 0,
    changePerDay: 0,
-   createdAt: "2022-03-05T00:00:00.000Z",
+   createdAt: "2023-01-20T16:40:40.443Z",
  });
 
  useEffect(() => {
@@ -110,7 +110,7 @@ export default function OcicatTokenPage() {
         // tokenId={token?._id || ""}
       />
       <TokenStatsCard
-        mCap={(tokenData.marketCap).toString()}
+        mCap={tokenData.marketCap.toString()}
         tokenName={tokenData?.name || ""}
         tokenTicker={tokenData?.ticker || ""}
         tokenImage={tokenData?.image || ""}
@@ -118,6 +118,7 @@ export default function OcicatTokenPage() {
         tokenCreatedDate={tokenData?.createdAt || ""}
         rating={3}
         gainPercent={tokenData.changePerDay}
+        liquidity={tokenData.liquidity.toString()}
         referalCode="sfsjsns"
         // tokenId={tokenData?._id || ""}
       />
@@ -135,7 +136,7 @@ export default function OcicatTokenPage() {
                   twitter={tokenData.twitter || ""}
                   telegram={tokenData.telegram || ""}
                   ca={tokenData?.contractAddress || ""}
-                    createdDate={tokenData?.createdAt || ""}
+                  createdDate={tokenData?.createdAt || ""}
                 />
 
                 {/* Comment Thread */}
@@ -143,7 +144,7 @@ export default function OcicatTokenPage() {
                   comments={comments}
                   isConnected={isConnected}
                   ca={tokenData?.contractAddress || ""}
-                    createdDate={tokenData?.createdAt || ""}
+                  createdDate={tokenData?.createdAt || ""}
                   tokenName={tokenData?.name || "token name"}
                 />
               </div>
@@ -162,7 +163,7 @@ export default function OcicatTokenPage() {
                 tokenTicker={tokenData.ticker}
               />
               <div className="flex flex-col items-start justify-start gap-4 w-full">
-                <GraduatedCard/>
+                <GraduatedCard notPassedBondingCurve={true} />
                 {/* <AntiFudCard antiFudEnabled={true} /> */}
                 <div className="lg:flex w-full items-center justify-center hidden">
                   <TopHoldersCard />
@@ -197,7 +198,7 @@ export default function OcicatTokenPage() {
               tokenImage={tokenData?.image}
               tokenTicker={tokenData.ticker}
             />
-            <GraduatedCard />
+            <GraduatedCard notPassedBondingCurve={true} />
             {/* <AntiFudCard antiFudEnabled={true} /> */}
           </div>
 
@@ -213,6 +214,8 @@ export default function OcicatTokenPage() {
       </div>
     </motion.div>
   ) : (
-    <div className={`flex items-center justify-center h-screen bg-[#0D0D0D]`}></div>
+    <div
+      className={`flex items-center justify-center h-screen bg-[#0D0D0D]`}
+    ></div>
   );
 }

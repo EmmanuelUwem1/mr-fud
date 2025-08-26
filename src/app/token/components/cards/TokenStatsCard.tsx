@@ -20,9 +20,10 @@ interface TokenStatsProps {
   creatorReward?: string;
   referalReward?: string;
   gainPercent?: number;
+  liquidity?: number | string;
 }
 
-export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreatedDate, tokenImage, tokenId, volumePerDay, rating, referalCode, creatorReward, referalReward, gainPercent }: TokenStatsProps) {
+export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreatedDate, tokenImage, tokenId, volumePerDay, rating, referalCode, creatorReward, referalReward, gainPercent, liquidity }: TokenStatsProps) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -35,6 +36,17 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
           label="24h vol"
           value={formatMarketCap(volumePerDay || 0)}
         />
+
+        {liquidity && (
+          <span className="hidden lg:flex items-center justify-around">
+            <BlackBar />
+            <LabelValuePair
+              label="Liquidity"
+              value={formatMarketCap(liquidity || 0)}
+            />
+          </span>
+        )}
+
         {creatorReward && referalReward && (
           <>
             {" "}

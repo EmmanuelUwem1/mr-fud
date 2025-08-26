@@ -195,6 +195,7 @@ export async function fetchOcicatTokenPrice() {
     }
 
     const pair = data.pair;
+    console.log(pair);
 
     return {
       price: parseFloat(pair.priceUsd),
@@ -202,6 +203,7 @@ export async function fetchOcicatTokenPrice() {
       marketCap: pair.marketCap,
       volume24h: pair.volume.h24,
       changePerDay: pair.priceChange.h24,
+      liquidity: pair.liquidity.usd,
       contractAddress: pair.baseToken.address,
       image: pair.info.imageUrl,
       twitter:
