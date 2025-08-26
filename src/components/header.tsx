@@ -77,8 +77,8 @@ function Header() {
         </Link>
 
         <div
-          className={`flex w-full justify-between items-center  ${
-            prePage ? "gap-28" : "gap-12 2xl:gap-24"
+          className={`flex w-full justify-end lg:justify-between items-center  ${
+            prePage ? "gap-16" : "gap-12 2xl:gap-24"
           }`}
         >
           {/* nav links (desktop only) */}
@@ -114,7 +114,7 @@ function Header() {
           </nav>
 
           {/* socials */}
-          <div className="max-sm:hidden w-fit">
+          <div className="max-sm:hidden mx-auto w-fit">
             <Socials theme="dark-red" />
           </div>
 
@@ -122,7 +122,7 @@ function Header() {
           <div className="flex max-sm:w-full items-center justify-end gap-4">
             <LaunchApp />
             {show && (
-              <div className="hidden lg:flex items-center w-fit justify-center relative max-sm:-right-4">
+              <div className="hidden lg:flex items-center w-fit justify-center relative max-sm:-right-8">
                 <CreateClubButton />
               </div>
             )}
@@ -213,7 +213,7 @@ function Header() {
                     )}
                   </div>
 
-                  <div className="sm:hidden flex w-full">
+                  <div className="sm:hidden flex w-full justify-center">
                     <Socials theme="dark-blue" />
                   </div>
                 </div>
