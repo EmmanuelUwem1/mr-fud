@@ -5,7 +5,7 @@ import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useBNBPrice } from "@/app/hooks/useBNBPrice";
+import { useBNBPrice } from "@/hooks/useBNBPrice";
 import { generateFakeTxHash } from "@/lib/utils";
 
 interface BuySellCardProps {

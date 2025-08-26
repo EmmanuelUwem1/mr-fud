@@ -1,5 +1,5 @@
 "use client";
-import useSocket from "@/app/hooks/use-socket";
+import useSocket from "@/hooks/use-socket";
 import { FormattedData } from "@/app/types";
 import {
   CandlestickSeries,

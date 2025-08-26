@@ -9,6 +9,7 @@ import { useState } from "react";
 import { formatTimeAgo } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useRipple } from "@/hooks/useRipple";
 
 type TokenCardProps = {
   ticker: string;
@@ -46,6 +47,7 @@ export default function TokenCard({
 
   const router = useRouter();
   
+const ripple = useRipple();  
 
   return (
     <AnimatePresence>
@@ -58,7 +60,10 @@ export default function TokenCard({
         // className="token-gradient-wrapper cursor-pointer"
         className="cursor-pointer"
       >
-        <div className="cardbg text-white border-[3px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full">
+        <div
+          className="bg-[#004A7C] text-white rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full relative overflow-hidden"
+          onClick={ripple}
+        >
           {/* Header */}
           <div className="flex w-full gap-3 items-center justify-start">
             {/* image */}
@@ -78,12 +83,12 @@ export default function TokenCard({
                   ${ticker}
                 </span>
 
-                <span className="text-xs overflow-ellipsis w-20 text-[#A0A0A0]">
+                <span className="text-xs overflow-ellipsis w-20 text-[#A2DAEC]">
                   {formatTimeAgo(createdTime)}
                 </span>
               </span>
-              <h2 className="text-base text-[#A0A0A0] font-semibold">{name}</h2>
-              <p className="text-base text-[#A0A0A0] cursor-pointer flex items-center font-medium justify-start gap-2">
+              <h2 className="text-base text-[#A2DAEC] font-semibold">{name}</h2>
+              <p className="text-base text-[#A2DAEC] cursor-pointer flex items-center font-medium justify-start gap-2">
                 CA:{" "}
                 <span className="font-normal text-[#E3E3E3]">
                   {formatWalletAddress(ca)}
@@ -97,7 +102,7 @@ export default function TokenCard({
                   }}
                 >
                   <Image
-                    src="/copy-red.png"
+                    src="/copy.png"
                     alt="copy"
                     layout="fill"
                     objectFit="contain"
@@ -106,18 +111,18 @@ export default function TokenCard({
                 </span>
               </p>
               <p className="text-sm w-full flex justify-between items-center">
-                <span className="font-normal text-[#FF3C38]">Market Cap:</span>{" "}
+                <span className="font-normal text-[#00C3FE]">Market Cap:</span>{" "}
                 {formatMarketCap(marketCap)}
               </p>
 
               <p className="text-sm w-full flex justify-between items-center">
-                <span className="font-medium text-[#FF3C38]">Created by:</span>{" "}
+                <span className="font-normal text-[#00C3FE]">Created by:</span>{" "}
                 {formatWalletAddress(createdBy)}
               </p>
             </div>
           </div>
 
-          <RatingBar rating={rating} />
+          <RatingBar rating={rating} theme={"green"} />
         </div>
       </motion.div>
     </AnimatePresence>

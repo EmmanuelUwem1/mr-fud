@@ -17,7 +17,7 @@ function Page() {
       </div>
 
       <Banner />
-      <FeaturedSection />
+      {/* <FeaturedSection /> */}
       <TokensSection />
     </motion.div>
   );

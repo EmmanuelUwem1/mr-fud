@@ -51,14 +51,15 @@ function Header() {
 
   return (
     <div
-      className={`relative w-full ${
+      className={`relative w-full py-4 px-4 ${
         isTokenPage ? "bg-[#0D0D0D]" : "bg-[#0077D3]"
-      }`}
+      }
+       ${prePage ? "md:px-12" : "md:px-8"}`}
     >
       <header
-        className={`flex w-full overflow-hidden justify-start gap-8 items-center px-4 py-4 lg:py-6 mb-8 ${
-          prePage ? "md:px-12" : "md:px-8"
-        }`}
+        className={`flex w-full overflow-hidden justify-between gap-8 items-center px-4 py-4 lg:py-6 rounded-[22px]  ${
+          isTokenPage ? "bg-[#212121]" : "bg-[#00416D]"
+        } $`}
         ref={menuRef}
       >
         {/* logo */}
@@ -76,13 +77,13 @@ function Header() {
         </Link>
 
         <div
-          className={`flex justify-between items-center  ${
+          className={`flex w-full justify-between items-center  ${
             prePage ? "gap-28" : "gap-12 2xl:gap-24"
           }`}
         >
           {/* nav links (desktop only) */}
           <nav
-            className={`xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8 2xl:gap-8 2xl:w-[540px] ${
+            className={`xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8 2xl:gap-8 ${
               prePage ? " " : "lg:gap-4"
             }`}
           >
@@ -114,25 +115,25 @@ function Header() {
 
           {/* socials */}
           <div className="max-sm:hidden w-fit">
-            <Socials theme="dark-blue" />
+            <Socials theme="dark-red" />
           </div>
 
           {/* buttons */}
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex max-sm:w-full items-center justify-end gap-4">
             <LaunchApp />
             {show && (
-              <div className="hidden lg:flex items-center w-fit justify-center relative -right-4">
+              <div className="hidden lg:flex items-center w-fit justify-center relative max-sm:-right-4">
                 <CreateClubButton />
               </div>
             )}
 
-            <div className="relative -right-4">
+            <div className="relative">
               <CustomConnectButton />
             </div>
             {address && isConnected && show && (
               <Link
                 href="/profile"
-                className="hidden sm:flex relative cursor-pointer -right-4"
+                className="hidden sm:flex relative cursor-pointer"
               >
                 <Avatar borderColor="#FF3C38" border src="/Image holder.png" />
               </Link>
@@ -162,7 +163,7 @@ function Header() {
             transition={{ duration: 0.3 }}
             className="absolute z-[20000] top-20 right-4"
           >
-            <div className="relative w-[320px] before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#F7E436]  before:to-[#05E02B] before:-z-10 p-0.5">
+            <div className="relative w-[300px] before:content-[''] before:absolute before:inset-0 before:rounded-[15px] before:bg-gradient-to-r before:from-[#F7E436]  before:to-[#05E02B] before:-z-10 p-0.5">
               <div className="bg-[#181818] rounded-[15px] px-6 py-8 flex flex-col gap-6 text-[#E3E3E3] font-medium shadow-md mobile-nav">
                 {navLinks.map(({ label, path }) => (
                   <Link

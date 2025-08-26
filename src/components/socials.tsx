@@ -17,9 +17,13 @@ export default function Socials({ theme = "dark-red" }: Props) {
   // ];
 
   const socials = [
-    { title: "Telegram", url: "/", icon: "/telegram-blue.png" },
+    {
+      title: "Telegram",
+      url: "https://t.me/ocicatcoin",
+      icon: "/telegram-blue.png",
+    },
     { title: "Github", url: "/", icon: "/githab-blue.png" },
-    { title: "X", url: "/", icon: "/x-blue.png" },
+    { title: "X", url: "https://twitter.com/ocicatcoin", icon: "/x-blue.png" },
   ];
 
   // const bgColor = theme === "dark-blue" ? "bg-[#081131]" : "bg-[#141414]"; // Dark-blue vs Dark-red

@@ -4,10 +4,10 @@ import { formatWalletAddress } from "@/lib/utils";
 import Image from "next/image";
 import RatingBar from '../rating-bar'
 import { copyToClipboard } from "@/lib/utils";
-import Link from "next/link";
 import { formatMarketCap } from "@/lib/utils";
 import { useState } from "react";
 import { formatTimeAgo } from "@/lib/utils";
+import { useRipple } from "@/hooks/useRipple";
 
 type BannerTokenCardProps = {
   ticker: string;
@@ -42,10 +42,13 @@ export default function BannerTokenCard({
    };
   
   const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
-  
+const ripple = useRipple();  
 
  return (
-   <div className="cardbg text-white border-[3px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 shadow-md flex flex-col justify-between h-96 gap-2 w-full">
+   <div
+     className="bg-[#004A7C] text-white border-[2px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 shadow-md flex flex-col justify-between h-96 gap-2 w-full overflow-hidden relative"
+     onClick={ripple}
+   >
      {/* Header */}
      <div className="flex flex-col w-full gap-3 items-center justify-start">
        {/* image */}
@@ -62,13 +65,13 @@ export default function BannerTokenCard({
        <div className="flex flex-col w-full items-start text-left justify-start gap-0.5">
          <span className="text-sm text-[#E3E3E3] font-normal  flex items-center w-full justify-between gap-2">
            <span className="GasoekOne-Regular"> ${ticker}</span>
-           <span className="text-xs overflow-ellipsis w-20 text-[#A0A0A0]">
+           <span className="text-xs overflow-ellipsis w-20 text-[#A2DAEC]">
              {formatTimeAgo(createdTime)}
            </span>
          </span>
          <div className="flex w-full items-center justify-between">
-           <h2 className="text-sm text-[#A0A0A0] font-semibold">{name}</h2>
-           <p className="text-xs text-[#A0A0A0] cursor-pointer flex items-center font-medium justify-start gap-2">
+           <h2 className="text-sm text-[#87DDFF] font-semibold">{name}</h2>
+           <p className="text-xs text-[#87DDFF] cursor-pointer flex items-center font-medium justify-start gap-2">
              CA:{" "}
              <span className="font-normal text-[#E3E3E3]">
                {formatWalletAddress(ca)}
@@ -82,7 +85,7 @@ export default function BannerTokenCard({
                }}
              >
                <Image
-                 src="/copy-red.png"
+                 src="/copy.png"
                  alt="copy"
                  layout="fill"
                  objectFit="contain"
@@ -92,18 +95,18 @@ export default function BannerTokenCard({
            </p>
          </div>
          <p className="text-sm w-full flex justify-between items-center">
-           <span className="font-normal text-[#FF3C38]">Market Cap:</span>{" "}
+           <span className="font-normal text-[#00C3FE]">Market Cap:</span>{" "}
            {formatMarketCap(marketCap)}
          </p>
 
          <p className="text-xs w-full flex justify-between items-center">
-           <span className="font-medium text-[#FF3C38]">Created by:</span>{" "}
+           <span className="font-normal text-[#00C3FE]">Created by:</span>{" "}
            {formatWalletAddress(createdBy)}
          </p>
        </div>
      </div>
 
-     <RatingBar rating={rating} />
+     <RatingBar rating={rating} theme={"green"} />
    </div>
  );
 

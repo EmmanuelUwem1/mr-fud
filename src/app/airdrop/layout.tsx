@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
  return (
    <>
-     <main className="px-4 flex flex-col justify-center items-center w-full sm:px-8 md:px-16 min-h-svh">
+     <main className="px-4 mt-8 flex flex-col justify-center items-center w-full sm:px-8 md:px-16 min-h-svh">
        {children}
      </main>
      <Footer />
