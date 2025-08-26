@@ -25,7 +25,7 @@ const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress, tokenPrice, chang
             maximumFractionDigits: 16,
           })}
         </span>
-        {formatChangePercent(changePerDay || 0)}
+        <span className="max-sm:text-xs">{formatChangePercent(changePerDay || 0)}</span>
       </div>
       {rating && (
         <div className="max-sm:flex hidden justify-start w-fit items-center">
