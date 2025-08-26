@@ -1,7 +1,7 @@
 // components/TokenPrice.tsx
 import React from "react";
 import RatingStars from "./rating-stars";
-import { formatSmallNumber } from "@/lib/utils";
+import { formatChangePercent } from "@/lib/utils";
 
 type TokenPriceProps = {
   tokenAddress: string;
@@ -13,9 +13,7 @@ type TokenPriceProps = {
 const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress, tokenPrice, changePerDay, rating }) => {
 
 
-  const isPositive = !String(changePerDay).startsWith("-");
-  const priceColor = isPositive ? "text-green-500" : "text-red-500";
-  const sign = isPositive ? "+" : "";
+  
 
   return (
     <div className="flex flex-col items-start space-x-2">
@@ -27,10 +25,7 @@ const TokenPrice: React.FC<TokenPriceProps> = ({ tokenAddress, tokenPrice, chang
             maximumFractionDigits: 16,
           })}
         </span>
-        <span className={`text-xs ${priceColor}`}>
-          {sign}
-          {(changePerDay || 0).toFixed(2)}%
-        </span>
+        {formatChangePercent(changePerDay || 0)}
       </div>
       {rating && (
         <div className="max-sm:flex hidden justify-start w-fit items-center">

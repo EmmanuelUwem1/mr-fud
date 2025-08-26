@@ -189,3 +189,23 @@ export function generateFakeTxHash() {
   return hash;
 }
 
+export function formatChangePercent(change: number | string): React.ReactElement {
+  let num: number;
+
+  if (typeof change === "number") {
+    num = change;
+  } else if (typeof change === "string") {
+    num = parseFloat(change);
+    if (isNaN(num)) num = 0;
+  } else {
+    num = 0;
+  }
+
+  const isPositive = num >= 0;
+  const priceColor = isPositive ? "text-green-500" : "text-red-500";
+  const sign = isPositive ? "+" : "";
+
+  return <span className={priceColor}>{`${sign}${num.toFixed(2)}%`}</span>;
+}
+
+

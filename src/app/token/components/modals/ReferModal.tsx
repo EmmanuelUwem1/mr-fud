@@ -6,6 +6,7 @@ import QRBox from "../QR-Code";
 import Image from "next/image";
 import { copyToClipboard } from "@/lib/utils";
 import { formatTimeAgo } from "@/lib/utils";
+import { formatChangePercent } from "@/lib/utils";
 
 
 interface ReferModalProps {
@@ -105,7 +106,7 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
                 </div>
 
                 <div className="text-green-300 font-extrabold text-2xl">
-                  +{gainPercent || 312}%
+                  {formatChangePercent(gainPercent || 0)}
                 </div>
                 <div className="flex items-center gap-2 justify-start">
                   <span className="relative h-3.5 w-4">
