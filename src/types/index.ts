@@ -43,3 +43,23 @@ export interface UserProfile {
     tradingRewards: number;
   achievements: unknown[]; 
 }
+
+export interface Campaign {
+  _id: string;
+  coinName: string;
+  ticker: string;
+  description: string;
+  campaignTitle: string;
+  campaignBanner: string;
+  image: string;
+  startDate: string;
+  endDate: string;
+  twitter: string;
+  website: string;
+  telegram: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+

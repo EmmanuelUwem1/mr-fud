@@ -246,6 +246,28 @@ export async function fetchOcicatTokenPrice() {
 }
 
 
+export interface CreateCommentPayload {
+  tokenAddress: string;
+  walletAddress: string;
+  content: string;
+  parentComment?: string; // Optional for replies
+}
+
+
+export async function createComment(
+  payload:CreateCommentPayload
+) {
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/api/v1/comments`,
+      payload
+    );
+    console.log("Comment created:", response.data);
+  } catch (error) {
+    console.error("Error creating comment:", (error as Error).message);
+    throw new Error("Failed to create comment");
+  }
+}
 
 
 export async function fetchComments(tokenAddress: string) {

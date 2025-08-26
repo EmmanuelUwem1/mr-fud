@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { UserProfile } from "../types/user";
+import { UserProfile } from "../types";
 import { fetchUser } from "@/lib/api";
 import { useAccount } from "wagmi";
 

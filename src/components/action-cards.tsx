@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useRipple } from "@/hooks/useRipple";
 
 // const bgColors = ["#A1120B", "#87322E", "#4B1613"];
 const bgColors = ["#0B5BA1", "#2E6887", "#13354B"];
@@ -30,7 +31,10 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, scale: 1 },
 };
 
+
 export default function ActionCards({ actions }: Props) {
+  const ripple = useRipple();
+
   return (
     <motion.div
       className="flex flex-col justify-start items-start gap-4 w-full"
@@ -43,7 +47,8 @@ export default function ActionCards({ actions }: Props) {
           key={index}
           variants={cardVariants}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="w-full"
+          className="w-full relative overflow-hidden"
+          onClick={ripple}
         >
           <Link
             href={action.href}

@@ -6,6 +6,8 @@ import TradesTable from "./tradesTable";
 import UserAvatar from "./userAvatar";
 import WalletAndDateFlex from "./walletAndDateFlex";
 import TopHoldersCard from "./cards/topHoldersCard";
+import { createComment } from "@/lib/api";
+import { useAccount } from "wagmi";
 
 type Comment = {
   id: string;
@@ -33,12 +35,29 @@ export default function CommentThread({
 const [isCollapsed, setIsCollapsed] = useState(false);
 const tabs = ["Comments", "Trades"];
 const mobileTabs = [...tabs, "Top Holders"];
+const {address} = useAccount();
   const handleReply = (id: string) => setReplyingTo(id);
 
-  const postComment = () => {
-    console.log("Post:", newComment);
-    setNewComment("");
+  const postComment = async () => {
+    if (!newComment.trim()) return;
+
+    try {
+      await createComment({
+        tokenAddress: ca,
+        walletAddress: address as `0x${string}`, 
+        content: newComment,
+        parentComment: replyingTo || undefined,
+      });
+
+      // console.log("Comment posted:", newComment);
+      setNewComment("");
+      setReplyingTo(null);
+      // Optionally trigger a refresh or callback to reload comments
+    } catch (error) {
+      console.error("Failed to post comment:", error);
+    }
   };
+
 
   return (
     <div className="w-full">
