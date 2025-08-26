@@ -56,7 +56,7 @@ function Header() {
       }`}
     >
       <header
-        className={`flex w-full overflow-hidden justify-between gap-4 items-center px-4 sm:px-8 py-4 lg:py-6 mb-8 ${
+        className={`flex w-full overflow-hidden justify-start gap-8 items-center px-4 py-4 lg:py-6 mb-8 ${
           prePage ? "md:px-12" : "md:px-8"
         }`}
         ref={menuRef}
@@ -76,13 +76,13 @@ function Header() {
         </Link>
 
         <div
-          className={`flex justify-between items-center ${
+          className={`flex justify-between items-center  ${
             prePage ? "gap-28" : "gap-12 2xl:gap-24"
           }`}
         >
           {/* nav links (desktop only) */}
           <nav
-            className={`xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8  2xl:gap-8 2xl:w-[540px] ${
+            className={`xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8 2xl:gap-8 2xl:w-[540px] ${
               prePage ? " " : "lg:gap-4"
             }`}
           >

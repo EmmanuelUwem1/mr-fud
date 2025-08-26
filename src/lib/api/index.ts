@@ -221,6 +221,21 @@ export async function fetchOcicatTokenPrice() {
   }
 }
 
+export async function fetchComments(tokenAddress: string) {
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/api/v1/comments/token/${tokenAddress}`
+    );
+    return response.data; 
+  } catch (error) {
+    console.error(
+      "Error fetching comments:",
+      (error as Error).message
+    );
+    throw new Error("Failed to fetch comments");
+  }
+}
+
 
 
 
