@@ -54,9 +54,9 @@ const CoinsTabs = () => {
               {holdings.map((holding) => (
                 <div
                   key={holding.tokenAddress}
-                  className="bg-[#1C1C1C] rounded-lg p-4 flex items-center gap-4 shadow-md"
+                  className="bg-[#013253] rounded-lg p-4 flex items-center gap-4 "
                 >
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                  <div className="relative w-20 h-20 aspect-square rounded-[10px] overflow-hidden">
                     <Image
                       src={holding.token.image}
                       alt={holding.token.name}
@@ -68,15 +68,16 @@ const CoinsTabs = () => {
                     <h3 className="text-lg font-semibold">
                       {holding.token.name} ({holding.token.ticker})
                     </h3>
-                    <p className="text-sm text-gray-400">
-                      Balance: {holding.balance.toLocaleString()}
+                    <p className="text-xs text-[#87DDFF]">
+                      {holding.balance.toLocaleString()} {holding.token.ticker}
+                      
                     </p>
-                    <p className="text-sm text-gray-400">
-                      Bought: {holding.totalBought.toLocaleString()}
-                    </p>
-                    <p className="text-sm text-gray-400">
+                    {/* <p className="text-xs text-[#87DDFF]">
+                      {holding.totalBought.toLocaleString()}
+                    </p> */}
+                    {/* <p className="text-xs text-[#87DDFF]">
                       Sold: {holding.totalSold.toLocaleString()}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               ))}

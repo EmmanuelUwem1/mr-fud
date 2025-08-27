@@ -30,7 +30,7 @@ export default function ProfileCard() {
 
   return (
     <>
-      <div className="cardthreebg p-6 my-8 rounded-[18px] shadow-lg w-full max-w-2xl overflow-hidden">
+      <div className="bg-[#004A7C] p-6 my-8 rounded-[18px] shadow-lg w-full max-w-2xl overflow-hidden">
         <h2 className="text-white text-xl md:text-2xl font-bold mb-4">
           User Profile
         </h2>

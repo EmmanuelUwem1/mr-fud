@@ -126,12 +126,14 @@ console.log("SellToken response:", response.data);
 
 
 export interface CampaignPayload {
-  name: string;
-  goal: number;
-  creatorWallet: string;
+  coinName: string;
+  ticker: string;
+  description: string;
+  campaignTitle: string;
+  campaignBanner: string;
   image: string;
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: string; // ISO date string
+  endDate: string;   // ISO date string
   twitter?: string;
   website?: string;
   telegram?: string;
@@ -139,17 +141,18 @@ export interface CampaignPayload {
 
 export interface CampaignResponse {
   _id: string;
-  name: string;
-  goal: number;
-  creatorWallet: string;
+  coinName: string;
+  ticker: string;
+  description: string;
+  campaignTitle: string;
+  campaignBanner: string;
   image: string;
   startDate: string;
   endDate: string;
-  twitter?: string;
-  website?: string;
-  telegram?: string;
-  createdAt: string;
-  updatedAt: string;
+  twitter: string;
+  website: string;
+  telegram: string;
+  isActive: boolean;
 }
 
 export async function createCampaign(
@@ -165,7 +168,7 @@ export async function createCampaign(
     return {success:true,data};
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error("CreateToken error:", error.response?.data || error.message);
+      console.error("CreateCampaign error:", error.response?.data || error.message);
       return {success:false, error: error.response?.data || error.message};
     }
     return {success:false, error: (error as Error).message || "Error creating campaign"};

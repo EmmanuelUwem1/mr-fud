@@ -2,39 +2,29 @@
 
 import { createContext, useContext, useState } from "react";
 
-// Updated payload type
-export type CreateCampaignPayload = {
-  name: string;
-  goal: number;
-  creatorWallet: string;
-  image: string;
-  startDate: Date | null;
-  endDate: Date | null;
-  twitter?: string;
-  website?: string;
-  telegram?: string;
-};
+import { CampaignPayload } from "@/lib/api/index";
 
 // Context type
 type CampaignFormContextType = {
-  campaignPayload: CreateCampaignPayload;
-  setCampaignPayload: (updates: Partial<CreateCampaignPayload>) => void;
+  campaignPayload: CampaignPayload;
+  setCampaignPayload: (updates: Partial<CampaignPayload>) => void;
   resetCampaignPayload: () => void;
 };
 
 // Default values
-const defaultCampaignPayload: CreateCampaignPayload = {
-  name: "",
-  goal: 0,
-  creatorWallet: "",
+const defaultCampaignPayload: CampaignPayload = {
+  coinName: "",
+  ticker: "",
+  description: "",
+  campaignTitle: "",
+  campaignBanner: "",
   image: "",
-  startDate: null,
-  endDate: null,
+  startDate: "", // ISO date string
+  endDate: "",   // ISO date string
   twitter: "",
   website: "",
   telegram: "",
 };
-
 // Create context
 const CampaignFormContext = createContext<CampaignFormContextType | undefined>(
   undefined
@@ -47,9 +37,9 @@ export const CampaignFormProvider = ({
   children: React.ReactNode;
 }) => {
   const [campaignPayload, setPayloadState] =
-    useState<CreateCampaignPayload>(defaultCampaignPayload);
+    useState<CampaignPayload>(defaultCampaignPayload);
 
-  const setCampaignPayload = (updates: Partial<CreateCampaignPayload>) => {
+  const setCampaignPayload = (updates: Partial<CampaignPayload>) => {
     setPayloadState((prev) => ({ ...prev, ...updates }));
   };
 

@@ -15,7 +15,7 @@ type TokenFormContextType = {
 const defaultPayload: CreateTokenPayload = {
   name: "",
   ticker: "",
-  isAntiGeet: false,
+  isAntiGeet: true,
   chain: "BSC",
   description: "",
   creatorWallet: "",

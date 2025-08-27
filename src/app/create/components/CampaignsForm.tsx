@@ -18,8 +18,8 @@ function CampaignsForm() {
           </label>
           <input
             type="text"
-            value={campaignPayload.name}
-            onChange={(e) => setCampaignPayload({ ...campaignPayload, name: e.target.value })}
+            value={campaignPayload.coinName}
+            onChange={(e) => setCampaignPayload({ ...campaignPayload, coinName: e.target.value })}
             className="w-full border input-border rounded-md input-bg px-3 py-2 placeholder:text-[#87DDFF]"
             placeholder="Enter campaign title"
             title="campaign-title"
@@ -37,8 +37,8 @@ function CampaignsForm() {
             </label>
             <div className="relative flex items-center justify-between w-full border input-border rounded-md input-bg px-3 py-2">
               <DatePicker
-                selected={campaignPayload.startDate}
-                onChange={(date) => setCampaignPayload({ ...campaignPayload, startDate: date })}
+                selected={campaignPayload.startDate ? new Date(campaignPayload.startDate) : null}
+                onChange={(date) => setCampaignPayload({ ...campaignPayload, startDate: date ? date.toISOString() : undefined })}
                 className="w-full placeholder:text-[#87DDFF]"
                 placeholderText="Select start date"
               />
@@ -51,8 +51,13 @@ function CampaignsForm() {
             </label>
             <div className="relative flex items-center justify-between w-full border input-border rounded-md input-bg px-3 py-2">
               <DatePicker
-                selected={campaignPayload.endDate}
-                onChange={(date) => setCampaignPayload({ ...campaignPayload, endDate: date })}
+                selected={campaignPayload.endDate ? new Date(campaignPayload.endDate) : null}
+                onChange={(date) =>
+                  setCampaignPayload({
+                    ...campaignPayload,
+                    endDate: date ? date.toISOString() : undefined,
+                  })
+                }
                 className="w-full placeholder:text-[#87DDFF] "
                 placeholderText="Select end date"
               />
