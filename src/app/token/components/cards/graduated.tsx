@@ -65,9 +65,9 @@ export default function GraduatedCard({isGraduated, notPassedBondingCurve}: Grad
         )}
         {notPassedBondingCurve && (
           <div className="flex w-1/2 flex-col">
-            <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
+            {/* <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
              100%
-            </span>
+            </span> */}
             <span className="GasoekOne-Regular font-normal text-xl">
               Not Passed Bonding Curve
             </span>

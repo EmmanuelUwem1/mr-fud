@@ -38,7 +38,7 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
         />
 
         {liquidity && (
-          <span className="hidden lg:flex items-center justify-around">
+          <span className="hidden md:flex items-center justify-around">
             <BlackBar />
             <LabelValuePair
               label="Liquidity"

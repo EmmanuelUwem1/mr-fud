@@ -1,87 +1,138 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import TradesTable from "./tradesTable";
 import UserAvatar from "./userAvatar";
 import WalletAndDateFlex from "./walletAndDateFlex";
 import TopHoldersCard from "./cards/topHoldersCard";
-import { createComment } from "@/lib/api";
 import { useAccount } from "wagmi";
+import { createComment, fetchComments } from "@/lib/api";
+import toast from "react-hot-toast";
 
 type Comment = {
-  id: string;
-  text: string;
-  replies: Comment[];
+  _id: string;
+  content: string;
+  tokenAddress: string;
+  walletAddress: string;
+  userProfile?: {
+    profilePicture?: string;
+    displayName?: string;
+  };
+  parentComment: string | null;
+  likes: number;
+  likedBy: string[];
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export default function CommentThread({
-  comments,
+  // comments: initialComments,
   isConnected,
   ca,
   createdDate,
   tokenName,
 }: {
-  comments: Comment[];
+  // comments: Comment[];
   isConnected: boolean;
   ca: string;
-    createdDate?: string;
-   tokenName: string;
-
+  createdDate?: string;
+  tokenName: string;
 }) {
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [newComment, setNewComment] = useState("");
   const [activeTab, setActiveTab] = useState("Comments");
-const [isCollapsed, setIsCollapsed] = useState(false);
-const tabs = ["Comments", "Trades"];
-const mobileTabs = [...tabs, "Top Holders"];
-const {address} = useAccount();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [loadedComments, setLoadedComments] =
+    useState<Comment[]>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { address } = useAccount();
+
+  const tabs = ["Comments", "Trades"];
+  const mobileTabs = [...tabs, "Top Holders"];
+
   const handleReply = (id: string) => setReplyingTo(id);
 
+  const loadComments = async () => {
+    try {
+      const data = await fetchComments(ca);
+      setLoadedComments(data);
+    } catch (error) {
+      console.error("Failed to fetch comments:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadComments();
+  }, [ca]);
+
   const postComment = async () => {
-    if (!newComment.trim()) return;
+    if (!newComment.trim()) {
+      toast.error("Comment cannot be empty");
+      return;
+    }
+
+    if (newComment.length > 100) {
+      toast.error("Comment cannot exceed 100 characters");
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       await createComment({
         tokenAddress: ca,
-        walletAddress: address as `0x${string}`, 
+        walletAddress: address as `0x${string}`,
         content: newComment,
-        parentComment: replyingTo || undefined,
+        parentComment: replyingTo || null,
       });
 
-      // console.log("Comment posted:", newComment);
+      toast.success("Comment posted!");
       setNewComment("");
       setReplyingTo(null);
-      // Optionally trigger a refresh or callback to reload comments
+      await loadComments();
     } catch (error) {
+      toast.error("Failed to post comment");
       console.error("Failed to post comment:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  const parentComments = (loadedComments ?? []).filter((c) => !c.parentComment);
+  const repliesMap = (loadedComments ?? []).reduce<Record<string, Comment[]>>(
+    (acc, comment) => {
+      if (comment.parentComment) {
+        if (!acc[comment.parentComment]) acc[comment.parentComment] = [];
+        acc[comment.parentComment].push(comment);
+      }
+      return acc;
+    },
+    {}
+  );
 
   return (
     <div className="w-full">
+      {/* <Toaster position="top-right" /> */}
       {/* Header Tabs & Wallet */}
       <div className="">
         {/* Desktop Tabs */}
         <div className="hidden border-b border-[#2A2A2A] lg:flex w-full justify-between items-center">
           <div className="flex gap-4 mb-2 w-fit text-xs font-semibold cursor-pointer">
-            <button
-              onClick={() => setActiveTab("Comments")}
-              className={`flex relative rounded-[6px] px-4 py-3 ${
-                activeTab === "Comments" ? "bg-[#520000] tab-underline" : "text-white"
-              }`}
-            >
-              Comments
-            </button>
-            <button
-              onClick={() => setActiveTab("Trades")}
-              className={`flex relative rounded-[6px] px-4 py-3 ${
-                activeTab === "Trades" ? "bg-[#520000] tab-underline" : "text-white"
-              }`}
-            >
-              Trades
-            </button>
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`flex relative rounded-[6px] px-4 py-3 ${
+                  activeTab === tab
+                    ? "bg-[#520000] tab-underline"
+                    : "text-white"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
           </div>
           <div className="w-full flex justify-end items-center gap-4">
             <WalletAndDateFlex ca={ca} createdDate={createdDate || ""} />
@@ -95,13 +146,14 @@ const {address} = useAccount();
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-3 py-2 rounded-[6px] ${
-                activeTab === tab ? "bg-[#520000] tab-underline text-white" : "text-gray-300"
+                activeTab === tab
+                  ? "bg-[#520000] tab-underline text-white"
+                  : "text-gray-300"
               }`}
             >
               {tab}
             </button>
           ))}
-          {/* collapse(close down ) icon */}
           <span
             className={`relative flex items-center justify-center h-5 w-5 justify-self-end cursor-pointer ml-auto transition-class ${
               isCollapsed ? "rotate-0" : "rotate-180"
@@ -139,32 +191,44 @@ const {address} = useAccount();
                   transition={{ duration: 0.25 }}
                   className="p-4 my-4 rounded-[10px] text-xs bg-[#1C1C1C] text-white"
                 >
-                  {comments.map((c) => (
+                  {parentComments.map((c) => (
                     <div
-                      key={c.id}
-                      className="mb-4 bg-[#212121] p-3 rounded-md w-full flex justify-between items-center gap-3"
+                      key={c._id}
+                      className="mb-4 bg-[#212121] p-3 rounded-md w-full flex flex-col gap-2"
                     >
-                      <div className="flex flex-col items-start">
-                        <div>
-                          <UserAvatar imageUrl="" username="" /> {c.text}
+                      <div className="flex justify-between items-center gap-3">
+                        <div className="flex flex-col items-start">
+                          <UserAvatar
+                            imageUrl={c.userProfile?.profilePicture || ""}
+                            username={c.userProfile?.displayName || ""}
+                          />
+                          <p>{c.content}</p>
                         </div>
-                        {c.replies.map((r) => (
-                          <div
-                            key={r.id}
-                            className="ml-4 text-sm text-gray-300"
+                        {isConnected && (
+                          <button
+                            className="bg-[#343434] rounded-[7px] px-4 py-2 font-bold"
+                            onClick={() => handleReply(c._id)}
                           >
-                            {r.text}
-                          </div>
-                        ))}
+                            Reply
+                          </button>
+                        )}
                       </div>
-                      {isConnected && (
-                        <button
-                          className="bg-[#343434] rounded-[7px] px-4 py-2 font-bold"
-                          onClick={() => handleReply(c.id)}
+
+                      {repliesMap[c._id]?.map((r) => (
+                        <motion.div
+                          key={r._id}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="ml-6 mt-2 p-2 bg-[#2A2A2A] rounded-md text-gray-300"
                         >
-                          Reply
-                        </button>
-                      )}
+                          <UserAvatar
+                            imageUrl={r.userProfile?.profilePicture || ""}
+                            username={r.userProfile?.displayName || ""}
+                          />
+                          <p>{r.content}</p>
+                        </motion.div>
+                      ))}
                     </div>
                   ))}
 
@@ -173,22 +237,40 @@ const {address} = useAccount();
                       <textarea
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="Write your comment here..."
+                        placeholder={
+                          replyingTo
+                            ? "Write your reply..."
+                            : "Write your comment here..."
+                        }
+                        maxLength={100}
                         className="flex-grow bg-[#2A2A2A] text-white px-4 py-2 rounded-md resize-none"
                       />
                       <button
                         title="send"
                         className="bg-[#FF3C38] py-4 px-4 flex items-center justify-center w-8 h-6 relative rounded-[7px]"
                         onClick={postComment}
+                        disabled={isSubmitting}
                       >
-                        <Image
-                          alt=""
-                          src={"/send.png"}
-                          layout="fill"
-                          objectPosition="center"
-                          objectFit="contain"
-                          className="p-1"
-                        />
+                        {isSubmitting ? (
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 1,
+                              ease: "linear",
+                            }}
+                            className="w-4 h-4 rounded-full border-2                          border-[#FF3C38]border-t-transparent"
+                          />
+                        ) : (
+                          <Image
+                            alt=""
+                            src={"/send.png"}
+                            layout="fill"
+                            objectPosition="center"
+                            objectFit="contain"
+                            className="p-1"
+                          />
+                        )}
                       </button>
                     </div>
                   ) : (
@@ -208,7 +290,6 @@ const {address} = useAccount();
                   <TradesTable token={tokenName} />
                 </motion.div>
               )}
-
               {activeTab === "Top Holders" && (
                 <motion.div
                   key="holders"

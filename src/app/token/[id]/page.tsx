@@ -55,17 +55,7 @@ export default function TokenPage() {
     title: token?.name || "Token Name",
   });
 
-  // Sample user balance and comments
-  const [comments, setComments] = useState([
-    {
-      id: "1",
-      text: "Promising token!",
-      replies: [
-        { id: "r1", text: "Absolutely!", replies: [] }
-      ],
-    },
-    { id: "2", text: "Can we use this for staking?", replies: [] },
-  ]);
+  
 
 
   
@@ -121,7 +111,7 @@ export default function TokenPage() {
 
                 {/* Comment Thread */}
                 <CommentThread
-                  comments={comments}
+                  // comments={comments}
                   isConnected={isConnected}
                   ca={token?.contractAddress || ""}
                   createdDate={token?.createdAt || ""}
@@ -184,7 +174,7 @@ export default function TokenPage() {
 
           {/* Comment Thread */}
           <CommentThread
-            comments={comments}
+            // comments={comments}
             isConnected={isConnected}
             ca={token?.contractAddress || ""}
             createdDate={token?.createdAt || ""}

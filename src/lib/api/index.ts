@@ -250,7 +250,7 @@ export interface CreateCommentPayload {
   tokenAddress: string;
   walletAddress: string;
   content: string;
-  parentComment?: string; // Optional for replies
+  parentComment: string | null; // Optional for replies
 }
 
 

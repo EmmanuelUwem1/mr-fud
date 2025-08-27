@@ -16,13 +16,14 @@ import TestTradingViewWidget from "./components/testTradingViewWidget";
 import { fetchOcicatTokenPrice } from "@/lib/api";
 import { toast } from "react-hot-toast";
 import { usePathname } from "next/navigation";
+import { CONSTANTS } from "@/web3/config/constants";
 
 
 export default function OcicatTokenPage() {
   const { address, isConnected } = useAccount();
   const pathName = usePathname();
   const isTokenPage = pathName.startsWith("/token");
-  
+  const tokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
 
 
 
@@ -79,15 +80,7 @@ export default function OcicatTokenPage() {
 
   const userBalance = balanceData?.formatted ?? "0";
 
-  // Sample user balance and comments
-  const [comments, setComments] = useState([
-    {
-      id: "1",
-      text: "Promising token!",
-      replies: [{ id: "r1", text: "Absolutely!", replies: [] }],
-    },
-    { id: "2", text: "Can we use this for staking?", replies: [] },
-  ]);
+ 
 
   return tokenData ? (
     <motion.div
@@ -100,7 +93,7 @@ export default function OcicatTokenPage() {
       <BackButton />
       {/* Stats + Price Chart */}
       <Token
-        address={tokenData?.contractAddress || ""}
+        address={tokenCa || ""}
         tokenName={tokenData.name || ""}
         tokenTicker={tokenData.ticker || ""}
         image={tokenData.image || ""}
@@ -135,15 +128,15 @@ export default function OcicatTokenPage() {
                   description={tokenData.description || ""}
                   twitter={tokenData.twitter || ""}
                   telegram={tokenData.telegram || ""}
-                  ca={tokenData?.contractAddress || ""}
+                  ca={tokenCa || ""}
                   createdDate={tokenData?.createdAt || ""}
                 />
 
                 {/* Comment Thread */}
                 <CommentThread
-                  comments={comments}
+                  // comments={comments}
                   isConnected={isConnected}
-                  ca={tokenData?.contractAddress || ""}
+                  ca={tokenCa || ""}
                   createdDate={tokenData?.createdAt || ""}
                   tokenName={tokenData?.name || "token name"}
                 />
@@ -158,7 +151,7 @@ export default function OcicatTokenPage() {
                 tokenName={tokenData?.name || ""}
                 tokenPrice={tokenData.price}
                 tokenChain={"BSC"}
-                tokenCa={tokenData?.contractAddress || ""}
+                tokenCa={tokenCa || ""}
                 tokenImage={tokenData?.image}
                 tokenTicker={tokenData.ticker}
               />
@@ -179,7 +172,7 @@ export default function OcicatTokenPage() {
         <div className="lg:hidden flex flex-col w-full items-start justify-start gap-4">
           {/* Token Description */}
           <TokenDescription
-            ca={tokenData?.contractAddress || ""}
+            ca={tokenCa || ""}
             createdDate={tokenData?.createdAt || ""}
             description={tokenData?.description || ""}
             twitter={tokenData.twitter}
@@ -194,7 +187,7 @@ export default function OcicatTokenPage() {
               tokenName={tokenData?.name || ""}
               tokenPrice={tokenData.price}
               tokenChain={"BSC"}
-              tokenCa={tokenData?.contractAddress || ""}
+              tokenCa={tokenCa || ""}
               tokenImage={tokenData?.image}
               tokenTicker={tokenData.ticker}
             />
@@ -204,9 +197,9 @@ export default function OcicatTokenPage() {
 
           {/* Comment Thread */}
           <CommentThread
-            comments={comments}
+            // comments={comments}
             isConnected={isConnected}
-            ca={tokenData?.contractAddress || ""}
+            ca={tokenCa || ""}
             createdDate={tokenData?.createdAt || ""}
             tokenName={tokenData.name || "token name"}
           />
