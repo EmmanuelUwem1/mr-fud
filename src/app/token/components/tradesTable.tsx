@@ -26,7 +26,7 @@ function TradesTable({token}:TradeTableProps) {
   return (
     <div className="w-full bg-[#1C1C1C] border border-black rounded-[18px] text-white">
       <div className="overflow-x-auto lg:max-h-[400px] lg:overflow-y-auto px-4 md:px-6 py-6">
-        <table className="min-w-[800px] w-full max-w-6xl table-auto border-collapse">
+        <table className="min-w-[600px] w-full max-w-6xl table-auto border-collapse">
           <thead>
             <tr className="text-xs font-semibold text-[#FFFFFF]">
               <th className="text-left min-w-[120px] px-3 pb-4">Trader</th>

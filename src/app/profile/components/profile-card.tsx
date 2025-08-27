@@ -1,27 +1,32 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import { copyToClipboard } from "@/lib/utils";
 import CoinsTabs from "./coins-tabs";
-import { useState } from "react";
 import EditProfileModal from "./modals/EditProfileModal";
-
+import { useUser } from "@/context/userContext";
 
 export default function ProfileCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [username, setUsername] = useState("87mK0"); // default username
+  const [username, setUsername] = useState("87mK0"); // fallback username
 
   const { isConnected, address } = useAccount();
   const router = useRouter();
+  const { user, loading } = useUser();
 
-  // Redirect if wallet is not connected
   useEffect(() => {
     if (!isConnected) {
-      router.replace("/connect"); // redirect to connect (authentication) page
+      router.replace("/connect");
     }
   }, [isConnected, router]);
+
+  useEffect(() => {
+    if (user) {
+      setUsername("");
+    }
+  }, [user]);
 
   return (
     <>
@@ -33,7 +38,8 @@ export default function ProfileCard() {
         <div className="flex items-center w-full flex-wrap sm:flex-nowrap gap-4 justify-start">
           <span className="relative flex items-center justify-center w-full h-full max-w-60 aspect-square rounded-[9px] bg-[#1a1a23]">
             <Image
-              alt=""
+              alt="Profile Picture"
+              // user?.userProfile?.profilePicture || 
               src={"/Image holder.png"}
               layout="fill"
               objectFit="contain"
@@ -42,8 +48,7 @@ export default function ProfileCard() {
           </span>
 
           <div className="flex flex-col items-start justify-center gap-5 w-full">
-            {/* first row (user name) */}
-
+            {/* Username */}
             <div className="flex w-full items-center justify-between">
               <div className="flex flex-col items-start justify-start">
                 <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
@@ -59,49 +64,48 @@ export default function ProfileCard() {
               </button>
             </div>
 
-            {/* second row (user address) */}
+            {/* Wallet Address */}
             <div className="flex flex-col items-start justify-start">
               <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                 Wallet Address
               </h2>
               <p className="text-xs font-bold overflow-x-auto whitespace-nowrap max-sm:max-w-60">
-                {address ? address : " "}
+                {address || " "}
               </p>
-
               <button
                 className="bg-[#1e1e1e94] p-2 rounded-[10px] font-medium text-xs cursor-pointer my-2"
-                onClick={() => {
-                  if (address) {
-                    copyToClipboard(address);
-                  }
-                }}
+                onClick={() => address && copyToClipboard(address)}
               >
                 copy wallet address
               </button>
             </div>
 
-            {/* third row volume and rewards */}
+            {/* Volume & Rewards */}
             <div className="flex items-center justify-start gap-8">
-              {/* volume */}
               <div className="flex flex-col justify-start items">
                 <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                   Volume
                 </h2>
-                <p className="text-lg md:text-xl font-bold">$0</p>
+                <p className="text-lg md:text-xl font-bold">
+                  ${user?.tradingStats?.totalVolume?.toLocaleString() || "0"}
+                </p>
               </div>
-              {/* reward */}
               <div className="flex flex-col justify-start items">
                 <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                   Reward
                 </h2>
-                <p className="text-lg md:text-xl font-bold">$0</p>
+                <p className="text-lg md:text-xl font-bold">
+                  ${user?.totalRewards?.toLocaleString() || "0"}
+                </p>
               </div>
             </div>
           </div>
         </div>
-        {/* coins tabs */}
+
+        {/* Coins Tabs */}
         <CoinsTabs />
       </div>
+
       <EditProfileModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

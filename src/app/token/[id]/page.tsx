@@ -18,13 +18,14 @@ import AntiFudCard from "../components/cards/anti-fud-card";
 import TopHoldersCard from "../components/cards/topHoldersCard";
 import TestTradingViewWidget from "../components/testTradingViewWidget";
 import { usePathname } from "next/navigation";
-
+import { useUser } from "@/context/userContext";
 
 
 export default function TokenPage() {
 
   const pathName = usePathname();
 
+ 
 
   const { tokens, loading } = useTokens();
   
@@ -33,7 +34,8 @@ export default function TokenPage() {
   const token = tokens.find((t) => t._id === id);
   const { address, isConnected } = useAccount();
 
-
+ const { user } = useUser();
+ const tokenBalance = user?.tokenHoldings?.find((holding) => holding.tokenAddress === id)?.balance || 0;
 
   const { data: balanceData } = useBalance({
     address,
@@ -124,7 +126,7 @@ export default function TokenPage() {
               {/* Buy/Sell Tabs */}
               <BuySellCard
                 BNBbalance={Number(userBalance)}
-                tokenBalance={0}
+                tokenBalance={tokenBalance}
                 tokenName={token?.name || ""}
                 tokenPrice={token?.currentPrice || 0}
                 tokenChain={"BSC"}
@@ -160,7 +162,7 @@ export default function TokenPage() {
             {/* Buy/Sell Tabs */}
             <BuySellCard
               BNBbalance={Number(userBalance)}
-              tokenBalance={0}
+              tokenBalance={tokenBalance}
               tokenName={token?.name || ""}
               tokenPrice={token?.currentPrice || 0}
               tokenChain={"BSC"}

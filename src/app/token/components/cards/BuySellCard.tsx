@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useBNBPrice } from "@/hooks/useBNBPrice";
 import { generateFakeTxHash } from "@/lib/utils";
+import { useUser } from "@/context/userContext";
 
 interface BuySellCardProps {
   BNBbalance: number;
@@ -37,7 +38,8 @@ export default function BuySellCard({
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selectedSlippage, setSelectedSlippage] = useState<string>("");
  const { price: bnbPriceUSD } = useBNBPrice();
-
+const { refreshUser } = useUser();
+  
  const isBuy = tab === "buy";
  const balance = isBuy ? BNBbalance : tokenBalance;
  const maxAmount = balance.toString();
@@ -94,7 +96,9 @@ const estimatedValue =
           duration: 4000,
         });
         setAmount("");
+            await refreshUser();
         setModalOpen(false);
+
       } else {
         toast.error("Failed to buy token.", {
           id: toastId,
@@ -142,6 +146,7 @@ const estimatedValue =
           duration: 4000,
         });
         setAmount("");
+            await refreshUser();
         setModalOpen(false);
       } else {
         toast.error("Failed to sell token.", {

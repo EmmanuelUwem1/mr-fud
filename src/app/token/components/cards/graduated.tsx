@@ -65,12 +65,12 @@ export default function GraduatedCard({isGraduated, notPassedBondingCurve}: Grad
         )}
         {notPassedBondingCurve && (
           <div className="flex w-1/2 flex-col">
-            {/* <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
-             100%
-            </span> */}
-            <span className="GasoekOne-Regular font-normal text-xl">
-              Not Passed Bonding Curve
+            <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
+              100% graduated to dex.
             </span>
+            {/* <span className="GasoekOne-Regular font-normal text-xl">
+              Not Passed Bonding Curve
+            </span> */}
             <h3 className="text-xs font-normal">
               {"This token did not graduate through the"}{" "}
               <span className="text-[#FF3C38]">bonding curve</span>{" "}
