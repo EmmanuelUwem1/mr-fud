@@ -9,7 +9,7 @@ import { useImageContext } from "../context/ImageContext";
 import toast from "react-hot-toast";
 import { useCampaignForm } from "../context/campaignFormContext";
 import { createCampaign } from "@/lib/api";
-
+import { generateFakeAddress } from "@/lib/utils";
         
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
@@ -58,7 +58,8 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
       const image = result.ipfsUrl;
       setPayload({ image });
 
-      //  toast.success("Image uploaded successfully!");
+      const tokenCa = generateFakeAddress();
+      setPayload({ contractAddress: tokenCa });
 
       const response1 = await createToken(payload);
       if (response1.success) {

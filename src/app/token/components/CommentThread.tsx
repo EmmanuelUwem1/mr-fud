@@ -118,7 +118,7 @@ export default function CommentThread({
       {/* Header Tabs & Wallet */}
       <div className="">
         {/* Desktop Tabs */}
-        <div className="hidden border-b border-[#2A2A2A] lg:flex w-full justify-between items-center">
+        <div className="hidden border-b border-[#2A2A2A] sm:flex w-full justify-between items-center">
           <div className="flex gap-4 mb-2 w-fit text-xs font-semibold cursor-pointer">
             {tabs.map((tab) => (
               <button
@@ -140,7 +140,7 @@ export default function CommentThread({
         </div>
 
         {/* Mobile Tabs */}
-        <div className="lg:hidden flex justify-start items-center border-b border-[#2A2A2A] sm:px-4 py-3 text-xs font-semibold w-full">
+        <div className="sm:hidden flex justify-start items-center border-b border-[#2A2A2A] sm:px-4 py-3 text-xs font-semibold w-full">
           {mobileTabs.map((tab) => (
             <button
               key={tab}

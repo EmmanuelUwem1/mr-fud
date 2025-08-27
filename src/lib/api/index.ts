@@ -319,3 +319,62 @@ export async function fetchUser(walletAddress: string) {
 
 
 
+
+
+
+
+
+
+// const fetchTrades = async () => {
+//   const response = await axios.post(
+//     "https://graphql.bitquery.io/",
+//     { query },
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+//         "X-API-KEY": "your_bitquery_api_key",
+//       },
+//     }
+//   );
+//   return response.data;
+// };
+
+
+
+
+
+
+
+
+const CHAINBASE_API_KEY = process.env.CHAINBASE_API_KEY;
+
+export async function fetchTopHoldersFromChainbase() {
+  try {
+    const response = await axios.get(
+      "https://api.chainbase.online/v1/token/top-holders",
+      {
+        headers: {
+          "x-api-key": "31sj71PqtOabZcqIeXfJmxFllSg",
+        },
+        params: {
+          chain_id: "56", // BNB Chain
+          contract_address: "0xe53d384cf33294c1882227ae4f90d64cf2a5db70", // Ocicat token
+          page: 1,
+          limit: 10,
+        },
+      }
+    );
+
+    if (response.data.code === 0) {
+      return response.data.data; // Array of holders
+    } else {
+      console.warn("Chainbase error:", response.data.message);
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching holders from Chainbase:", error);
+    return [];
+  }
+}
+
+

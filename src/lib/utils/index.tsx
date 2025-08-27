@@ -188,6 +188,14 @@ export function generateFakeTxHash() {
   }
   return hash;
 }
+export function generateFakeAddress() {
+  const chars = "abcdef0123456789";
+  let address = "0x";
+  for (let i = 0; i < 40; i++) {
+    address += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return address;
+}
 
 export function formatChangePercent(change: number | string): React.ReactElement {
   let num: number;
