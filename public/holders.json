@@ -1,0 +1,62 @@
+[
+  {
+    "rank": 1,
+    "wallet": "0x000000000000000000000000000000000000dead",
+    "quantity": "300,000,000,000,012.9",
+    "percentage": "30.4749%"
+  },
+  {
+    "rank": 2,
+    "wallet": "0x91234b6869d752eb04c5215afad2066bd46c1464",
+    "quantity": "123,184,285,714,285.7",
+    "percentage": "12.5134%"
+  },
+  {
+    "rank": 3,
+    "wallet": "0x3ac47c2079f2b7695320dcf177281f91bdff042f",
+    "quantity": "103,950,000,000,000",
+    "percentage": "10.5596%"
+  },
+  {
+    "rank": 4,
+    "wallet": "0x77dfd5f21c764616903a86fd201677a533a96592",
+    "quantity": "93,060,000,000,000",
+    "percentage": "9.4533%"
+  },
+  {
+    "rank": 5,
+    "wallet": "0xba86a0583ffab99fc49da80ae696fdcb8b5deb8a",
+    "quantity": "75,417,396,899,063.11",
+    "percentage": "7.6611%"
+  },
+  {
+    "rank": 6,
+    "wallet": "0x4466f0c65fab0dc67f1ab7fc3842fa90593c61a9",
+    "quantity": "26,730,000,000,000",
+    "percentage": "2.7153%"
+  },
+  {
+    "rank": 7,
+    "wallet": "0xf63f026760e28ac1585d2a7461b2b4463ba53e76",
+    "quantity": "13,114,925,285,239.26",
+    "percentage": "1.3323%"
+  },
+  {
+    "rank": 8,
+    "wallet": "0xe8d88301c27100b2d5c8d6adccfb36c5f3b45be8",
+    "quantity": "9,315,516,298,169",
+    "percentage": "0.9463%"
+  },
+  {
+    "rank": 9,
+    "wallet": "0xde7e74e9f962403df986b91093072e1d9f3c5673",
+    "quantity": "6,142,775,710,612.5",
+    "percentage": "0.6240%"
+  },
+  {
+    "rank": 10,
+    "wallet": "0x22f290570b33679bb286f6f60f6be7323af496df",
+    "quantity": "5,522,915,664,743.23",
+    "percentage": "0.5610%"
+  }
+]

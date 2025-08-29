@@ -299,7 +299,7 @@ export default function CommentThread({
                   transition={{ duration: 0.25 }}
                   className="p-4 mb-4"
                 >
-                  <TopHoldersCard />
+                  <TopHoldersCard tokenCa={ca} />
                 </motion.div>
               )}
             </AnimatePresence>

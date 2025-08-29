@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/scraper/ocicatDexScraper.ts"
-  ],
+, "scripts/fetchOcicatHolders.js"  ],
   "exclude": ["node_modules"]
 }

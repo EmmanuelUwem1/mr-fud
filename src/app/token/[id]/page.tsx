@@ -138,12 +138,12 @@ export default function TokenPage() {
                 <GraduatedCard notPassedBondingCurve={false} />
                 <AntiFudCard antiFudEnabled={token.isAntiGeet} />
                 <div className="lg:flex w-full items-center justify-center hidden">
-                  <TopHoldersCard />
+                  <TopHoldersCard tokenCa={token.contractAddress} />
                 </div>
               </div>
             </div>
             <div className="sm:flex lg:hidden w-full items-center justify-center hidden">
-              <TopHoldersCard />
+              <TopHoldersCard tokenCa={token.contractAddress} />
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const TOTAL_SUPPLY = 325_000_000_000_000; // 325 trillion
+const OCICAT_CA = "0xe53d384cf33294c1882227ae4f90d64cf2a5db70";
 
 type Holder = {
   rank: number;
@@ -12,7 +12,11 @@ type Holder = {
   value: string;
 };
 
-function TopHoldersCard() {
+type Props = {
+  tokenCa: string;
+};
+
+function TopHoldersCard({ tokenCa }: Props) {
   const [holders, setHolders] = useState<
     { address: string; percent: number; value: string }[]
   >([]);
@@ -21,24 +25,22 @@ function TopHoldersCard() {
   useEffect(() => {
     const loadHolders = async () => {
       try {
-        const res = await fetch("/api/scrape-ocicat");
-        const json = await res.json();
+        let data: Holder[];
 
-        if (!json.holders || json.holders.length === 0) {
-          setLoading(false);
-          return;
+        if (tokenCa.toLowerCase() === OCICAT_CA) {
+          const res = await fetch("/holders.json");
+          data = await res.json();
+        } else {
+          const res = await fetch(`/api/token-holders?ca=${tokenCa}`);
+          const json = await res.json();
+          data = json.holders;
         }
 
-        const formatted = json.holders.map((h: Holder) => {
-          const rawQuantity = parseFloat(h.quantity.replace(/,/g, ""));
-          const percent = (rawQuantity / TOTAL_SUPPLY) * 100;
-
-          return {
-            address: h.wallet.slice(0, 6) + "..." + h.wallet.slice(-4),
-            percent,
-            value: h.value,
-          };
-        });
+        const formatted = data.map((h) => ({
+          address: h.wallet.slice(0, 6) + "..." + h.wallet.slice(-4),
+          percent: parseFloat(h.percentage.replace("%", "")),
+          value: h.value,
+        }));
 
         setHolders(formatted);
       } catch (err) {
@@ -49,7 +51,7 @@ function TopHoldersCard() {
     };
 
     loadHolders();
-  }, []);
+  }, [tokenCa]);
 
   return (
     <div className="bg-[#1C1C1C] border border-black rounded-[18px] p-6 w-full text-white">

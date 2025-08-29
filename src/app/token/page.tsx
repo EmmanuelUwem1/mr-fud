@@ -159,12 +159,12 @@ export default function OcicatTokenPage() {
                 <GraduatedCard notPassedBondingCurve={true} />
                 {/* <AntiFudCard antiFudEnabled={true} /> */}
                 <div className="lg:flex w-full items-center justify-center hidden">
-                  <TopHoldersCard />
+                  <TopHoldersCard tokenCa={tokenCa} />
                 </div>
               </div>
             </div>
             <div className="sm:flex lg:hidden w-full items-center justify-center hidden">
-              <TopHoldersCard />
+              <TopHoldersCard tokenCa={tokenCa} />
             </div>
           </div>
         </div>
