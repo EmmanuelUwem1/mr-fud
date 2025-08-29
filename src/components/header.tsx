@@ -86,7 +86,7 @@ function Header() {
           {/* nav links (desktop only) */}
           <nav
             className={`xl:flex hidden justify-center items-center font-medium text-base 2xl:text-lg gap-8 2xl:gap-8 ${
-              prePage ? " " : "lg:gap-4"
+              prePage ? " " : "lg:gap-3"
             }`}
           >
             {navLinks.map(({ label, path }) => (
