@@ -1,39 +1,51 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { fetchTopHoldersFromChainbase } from "@/lib/api";
 
 const TOTAL_SUPPLY = 325_000_000_000_000; // 325 trillion
 
+type Holder = {
+  rank: number;
+  wallet: string;
+  quantity: string;
+  percentage: string;
+  value: string;
+};
+
 function TopHoldersCard() {
   const [holders, setHolders] = useState<
-    { address: string; percent: number }[]
+    { address: string; percent: number; value: string }[]
   >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadHolders = async () => {
-      const data = await fetchTopHoldersFromChainbase();
+      try {
+        const res = await fetch("/api/scrape-ocicat");
+        const json = await res.json();
 
-      if (!data || data.length === 0) {
+        if (!json.holders || json.holders.length === 0) {
+          setLoading(false);
+          return;
+        }
+
+        const formatted = json.holders.map((h: Holder) => {
+          const rawQuantity = parseFloat(h.quantity.replace(/,/g, ""));
+          const percent = (rawQuantity / TOTAL_SUPPLY) * 100;
+
+          return {
+            address: h.wallet.slice(0, 6) + "..." + h.wallet.slice(-4),
+            percent,
+            value: h.value,
+          };
+        });
+
+        setHolders(formatted);
+      } catch (err) {
+        console.error("Failed to load holders:", err);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      type HolderRaw = { wallet_address: string; amount: string };
-      const formatted = data.map((h: HolderRaw) => {
-        const quantity = parseFloat(h.amount);
-        const percent = (quantity / TOTAL_SUPPLY) * 100;
-
-        return {
-          address:
-            h.wallet_address.slice(0, 6) + "..." + h.wallet_address.slice(-4),
-          percent,
-        };
-      });
- 
-      setHolders(formatted);
-      setLoading(false);
     };
 
     loadHolders();
@@ -44,6 +56,8 @@ function TopHoldersCard() {
       <h3 className="text-lg font-semibold mb-6">Top Holders</h3>
       {loading ? (
         <p className="text-sm text-gray-400">Loading holders...</p>
+      ) : holders.length === 0 ? (
+        <p className="text-sm text-gray-400">No holder data available.</p>
       ) : (
         <div className="space-y-3 text-xs font-semibold w-full">
           {holders.map((holder, index) => (
@@ -51,8 +65,8 @@ function TopHoldersCard() {
               <div className="w-8 text-[#FFFFFF]">
                 {String(index + 1).padStart(2, "0")}
               </div>
-              <div className="flex font-mono truncat gap-2 items-center justify-start">
-                <span className="relative h-5 flex w-5 items-center justify-center">
+              <div className="flex font-mono gap-2 items-center justify-start">
+                <span className="relative h-5 w-5 flex items-center justify-center">
                   <Image
                     alt=""
                     src={"/Blue cat 2 1.png"}
@@ -60,7 +74,7 @@ function TopHoldersCard() {
                     objectFit="contain"
                     objectPosition="center"
                   />
-                </span>{" "}
+                </span>
                 {holder.address}
               </div>
               <div className="relative w-[70%] h-6 py-1 rounded-md overflow-hidden">

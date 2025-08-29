@@ -59,7 +59,7 @@ function Header() {
        ${prePage ? "md:px-12" : "md:px-8"}`}
     >
       <header
-        className={`flex w-full overflow-hidden justify-between gap-8 items-center px-4 py-4 lg:py-6 rounded-[22px]  ${
+        className={`flex w-full overflow-hidden justify-between gap-8 items-center px-4 sm:py-4 py-2 lg:py-6 rounded-[22px]  ${
           isTokenPage ? "bg-[#212121]" : "bg-[#00416D]"
         } $`}
         ref={menuRef}
