@@ -1,0 +1,33 @@
+name: Scrape Ocicat Holders
+
+on:
+  schedule:
+    - cron: '0 * * * *' # runs every hour
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run scraper
+        run: node scripts/scrapeOcicatHolders.js
+
+      - name: Commit updated holders.json
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add public/holders.json
+          git commit -m "Update holders.json [auto]"
+          git push
