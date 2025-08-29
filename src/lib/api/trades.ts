@@ -1,30 +1,113 @@
+"use server"
 import axios from "axios";
+
+
+const BITQUERY_API_URL = "https://graphql.bitquery.io";
+const BITQUERY_API_KEY = "eKTxoFw1UKUg2v42nP3zlfgFfU";
+
+type BitqueryResponse = {
+  data: {
+    EVM: {
+      DEXTradeByTokens: {
+        Block: {
+          Time: string;
+          Number: number;
+        };
+        Transaction: {
+          Hash: string;
+          From: string;
+        };
+        Trade: {
+          Buyer: string;
+          Seller: string;
+          Amount: number;
+          AmountInUSD: number;
+          Price: number;
+          PriceInUSD: number;
+          Dex: {
+            ProtocolName: string;
+            ProtocolFamily: string;
+            SmartContract: string;
+          };
+          Currency: {
+            Name: string;
+            Symbol: string;
+            SmartContract: string;
+          };
+          Side: {
+            Type: "buy" | "sell";
+            Amount: number;
+            AmountInUSD: number;
+            Currency: {
+              Name: string;
+              Symbol: string;
+              SmartContract: string;
+            };
+          };
+        };
+      }[];
+    };
+  };
+};
+
 
 const query = `
 {
-  ethereum(network: bsc) {
-    dexTrades(
-      baseCurrency: {is: "0xe53d384cf33294c1882227ae4f90d64cf2a5db70"}
-      quoteCurrency: {is: "0x0000000000000000000000000000000000000000"}
-      options: {desc: "block.timestamp.unixtime", limit: 20}
+  EVM(network: bsc) {
+    DEXTradeByTokens(
+      orderBy: {descending: Block_Time}
+      limit: {count: 100}
+      where: {
+        Trade: {
+          Currency: {
+            SmartContract: {
+              is: "0xE53D384Cf33294C1882227ae4f90D64cF2a5dB70"
+            }
+          }
+          Side: {
+            Currency: {
+              SmartContract: {
+                is: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+              }
+            }
+          }
+        }
+      }
     ) {
-      transaction {
-        hash
+      Block {
+        Time
+        Number
       }
-      tradeAmount(in: BNB)
-      buyAmount
-      sellAmount
-      buyCurrency {
-        symbol
+      Transaction {
+        Hash
+        From
       }
-      sellCurrency {
-        symbol
-      }
-      buyer
-      seller
-      block {
-        timestamp {
-          iso8601
+      Trade {
+        Buyer
+        Seller
+        Amount
+        AmountInUSD
+        Price
+        PriceInUSD
+        Dex {
+          ProtocolName
+          ProtocolFamily
+          SmartContract
+        }
+        Currency {
+          Name
+          Symbol
+          SmartContract
+        }
+        Side {
+          Type
+          Amount
+          AmountInUSD
+          Currency {
+            Name
+            Symbol
+            SmartContract
+          }
         }
       }
     }
@@ -32,12 +115,25 @@ const query = `
 }
 `;
 
-const BITQUERY_API_KEY = "your_api_key_here"; // Replace with your actual key
+export type OcicatTrade = {
+  hash: string;
+  time: string;
+  buyer: string;
+  seller: string;
+  initiator: string;
+  amount: number;
+  amountInUSD: number;
+  price: number;
+  priceInUSD: number;
+  action: "buy" | "sell";
+  bnbAmount: number;
+  bnbAmountInUSD: number;
+};
 
-export async function fetchTrades() {
+export async function fetchOcicatTrades(): Promise<OcicatTrade[]> {
   try {
     const response = await axios.post(
-      "https://graphql.bitquery.io/",
+      BITQUERY_API_URL,
       { query },
       {
         headers: {
@@ -47,9 +143,25 @@ export async function fetchTrades() {
       }
     );
 
-    return response.data.data.ethereum.dexTrades;
+    const trades = response.data?.data?.EVM?.DEXTradeByTokens || [];
+      console.log("The fetched trades data are : ", trades);
+return trades.map((entry: BitqueryResponse["data"]["EVM"]["DEXTradeByTokens"][number]): OcicatTrade => ({
+        hash: entry.Transaction?.Hash,
+        time: entry.Block?.Time,
+        buyer: entry.Trade?.Buyer,
+        seller: entry.Trade?.Seller,
+        initiator: entry.Transaction?.From,
+        amount: entry.Trade?.Amount,
+        amountInUSD: entry.Trade?.AmountInUSD,
+        price: entry.Trade?.Price,
+        priceInUSD: entry.Trade?.PriceInUSD,
+        action: entry.Trade?.Side?.Type,
+        bnbAmount: entry.Trade?.Side?.Amount,
+        bnbAmountInUSD: entry.Trade?.Side?.AmountInUSD,
+      })
+    );
   } catch (error) {
-    console.error("Error fetching trades:", error);
+    console.error(" Failed to fetch Ocicat trades:", error);
     return [];
   }
 }

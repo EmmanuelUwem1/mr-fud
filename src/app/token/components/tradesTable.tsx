@@ -1,28 +1,48 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
-interface TradeTableProps{
+import { fetchOcicatTrades } from "@/lib/api/trades";
+
+interface TradeTableProps {
   token: string;
 }
+type OcicatTrade = {
+  hash: string;
+  time: string;
+  buyer: string;
+  seller: string;
+  initiator: string;
+  amount: number;
+  amountInUSD: number;
+  price: number;
+  priceInUSD: number;
+  action: "buy" | "sell";
+  bnbAmount: number;
+  bnbAmountInUSD: number;
+};
 
-const sampleTrades = [
-  {
-    trader: "0x4FC...1818",
-    action: "Buy",
-    bnbAmount: 1.25,
-    tokenAmount: 42000,
-    date: "Jul 29 2025 15:48",
-    txHash: "0xabc123...",
-  },
-  {
-    trader: "0x928...cccc",
-    action: "Sell",
-    bnbAmount: 0.75,
-    tokenAmount: 31000,
-    date: "Jul 28 2025 12:33",
-    txHash: "0xdef456...",
-  },
-];
 
-function TradesTable({token}:TradeTableProps) {
+function formatAddress(address: string): string {
+  return address ? `${address.slice(0, 6)}...${address.slice(-4)}` : "—";
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function TradesTable({ token }: TradeTableProps) {
+  const [trades, setTrades] = useState<OcicatTrade[]>([]);
+
+  useEffect(() => {
+    fetchOcicatTrades().then(setTrades);
+  }, []);
+
   return (
     <div className="w-full bg-[#1C1C1C] border border-black rounded-[18px] text-white">
       <div className="overflow-x-auto lg:max-h-[400px] lg:overflow-y-auto px-4 md:px-6 py-6">
@@ -38,32 +58,40 @@ function TradesTable({token}:TradeTableProps) {
             </tr>
           </thead>
           <tbody>
-            {sampleTrades.map((trade, idx) => (
+            {trades.map((trade, idx) => (
               <tr
                 key={idx}
                 className="border-t border-t-[#2A2A2A] text-xs font-semibold transition-class"
               >
-                <td className="py-4 px-3 text-[#626262]">{trade.trader}</td>
+                <td className="py-4 px-3 text-[#626262]">
+                  {formatAddress(
+                    trade.buyer || trade.seller || trade.initiator
+                  )}
+                </td>
                 <td
                   className={`py-4 px-3 font-semibold ${
-                    trade.action === "Buy" ? "text-[#4ADE80]" : "text-[#D92C2A]"
+                    trade.action === "buy" ? "text-[#4ADE80]" : "text-[#D92C2A]"
                   }`}
                 >
-                  {trade.action}
+                  {trade.action === "buy" ? "Buy" : "Sell"}
                 </td>
-                <td className="py-4 px-3 text-right">{trade.bnbAmount}</td>
-                <td className="py-4 px-3 text-right">{trade.tokenAmount}</td>
-                <td className="py-4 px-3">{trade.date}</td>
+                <td className="py-4 px-3 text-right">
+                  {trade.bnbAmount.toFixed(4)}
+                </td>
+                <td className="py-4 px-3 text-right">
+                  {trade.amount.toLocaleString()}
+                </td>
+                <td className="py-4 px-3">{formatDate(trade.time)}</td>
                 <td className="py-4 px-3">
                   <a
-                    href={`https://bscscan.com/tx/${trade.txHash}`}
+                    href={`https://bscscan.com/tx/${trade.hash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="relative h-7 w-7 flex items-center justify-center cursor-pointer"
                   >
                     <Image
                       src="/Frame 75.png"
-                      alt=""
+                      alt="Tx"
                       layout="fill"
                       objectFit="contain"
                       objectPosition="center"
@@ -72,6 +100,13 @@ function TradesTable({token}:TradeTableProps) {
                 </td>
               </tr>
             ))}
+            {trades.length === 0 && (
+              <tr>
+                <td colSpan={6} className="py-6 text-center text-[#888]">
+                  No trades found for {token}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

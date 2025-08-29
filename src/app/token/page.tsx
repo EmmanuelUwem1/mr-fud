@@ -17,14 +17,16 @@ import { fetchOcicatTokenPrice } from "@/lib/api";
 import { toast } from "react-hot-toast";
 import { usePathname } from "next/navigation";
 import { CONSTANTS } from "@/web3/config/constants";
-
+import TradeNotification from "@/components/tradeNotification";
+import { useTradeStore } from "@/store/tradeStore";
 
 export default function OcicatTokenPage() {
   const { address, isConnected } = useAccount();
   const pathName = usePathname();
   const isTokenPage = pathName.startsWith("/token");
   const tokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
-
+  const trades = useTradeStore((state) => state.trades);
+  const latestTrade = trades.length > 0 ? trades[0] : null;
 
 
  const ocicatSupply = 687896090287856;
@@ -115,6 +117,7 @@ export default function OcicatTokenPage() {
         referalCode="sfsjsns"
         // tokenId={tokenData?._id || ""}
       />
+      <TradeNotification trade={latestTrade} />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <div className="flex flex-col items-start justify-start w-full gap-4">
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
