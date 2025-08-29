@@ -2,8 +2,9 @@
 import axios from "axios";
 
 
-const BITQUERY_API_URL = "https://graphql.bitquery.io";
-const BITQUERY_API_KEY = "eKTxoFw1UKUg2v42nP3zlfgFfU";
+const BITQUERY_API_URL = "https://streaming.bitquery.io/graphql";
+const BITQUERY_ACCESS_TOKEN =
+  "ory_at_LB4v0lvd2EC6PkjVx_XAu0CCFxcoAncCiS54KkkKfg8.jr6zyx677C2y55XeTHT1DtMVjzPdwVRYgfEF2HEM6Lk";
 
 type BitqueryResponse = {
   data: {
@@ -130,6 +131,10 @@ export type OcicatTrade = {
   bnbAmountInUSD: number;
 };
 
+
+
+// const BITQUERY_API_URL = "https://graphql.bitquery.io"; 
+
 export async function fetchOcicatTrades(): Promise<OcicatTrade[]> {
   try {
     const response = await axios.post(
@@ -138,14 +143,16 @@ export async function fetchOcicatTrades(): Promise<OcicatTrade[]> {
       {
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": BITQUERY_API_KEY,
+          Authorization: `Bearer ${BITQUERY_ACCESS_TOKEN}`,
         },
       }
     );
 
     const trades = response.data?.data?.EVM?.DEXTradeByTokens || [];
-      console.log("The fetched trades data are : ", trades);
-return trades.map((entry: BitqueryResponse["data"]["EVM"]["DEXTradeByTokens"][number]): OcicatTrade => ({
+    console.log(" Fetched trades:", trades);
+
+    return trades.map(
+      (entry: BitqueryResponse["data"]["EVM"]["DEXTradeByTokens"][number]) => ({
         hash: entry.Transaction?.Hash,
         time: entry.Block?.Time,
         buyer: entry.Trade?.Buyer,
@@ -160,8 +167,13 @@ return trades.map((entry: BitqueryResponse["data"]["EVM"]["DEXTradeByTokens"][nu
         bnbAmountInUSD: entry.Trade?.Side?.AmountInUSD,
       })
     );
-  } catch (error) {
-    console.error(" Failed to fetch Ocicat trades:", error);
-    return [];
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(" Axios error:", error.response?.data || error.message);
+      throw new Error("Failed to fetch Ocicat trades");
+    } else {
+      console.error(" Unexpected error:", error);
+      throw new Error("Unexpected error occurred");
+    }
   }
 }
