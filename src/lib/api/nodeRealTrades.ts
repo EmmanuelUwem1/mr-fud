@@ -1,3 +1,4 @@
+"use server"
 import axios from "axios";
 
 const NODE_REAL_GRAPHQL_URL =
@@ -56,6 +57,15 @@ export async function fetchOcicatTradesFromNodeReal(limit = 10) {
          ? "buy" // BNB in, Ocicat out
          : "buy"; // fallback
 
+         console.log("the fetched trades data are : ", {
+           hash: swap.id,
+           time: new Date(parseInt(swap.timestamp) * 1000).toISOString(),
+           buyer: swap.sender,
+           seller: swap.to,
+           amount: action === "buy" ? amount1Out : amount1In, // Ocicat amount
+           bnbAmount: action === "buy" ? amount0In : amount0Out, // BNB amount
+           action: action as "buy" | "sell",
+         });
      return {
        hash: swap.id,
        time: new Date(parseInt(swap.timestamp) * 1000).toISOString(),
