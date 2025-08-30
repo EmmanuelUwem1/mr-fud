@@ -37,7 +37,7 @@ function TopHoldersCard({ tokenCa }: Props) {
 
         const formatted = filtered.map((h) => ({
           address: h.wallet.slice(0, 6) + "..." + h.wallet.slice(-4),
-          percent: parseFloat(h.percentage.replace("%", "")) || 0,
+          percent: parseFloat(h.percentage) || 0,
           value: h.quantity ?? "—",
         }));
 
@@ -81,7 +81,7 @@ function TopHoldersCard({ tokenCa }: Props) {
               <div className="relative w-[70%] h-6 py-1 rounded-md overflow-hidden">
                 <div
                   className="absolute top-0 right-0 h-full bg-[#262626] rounded-md"
-                  style={{ width: `${holder.percent}000rem` }}
+                  style={{ width: `${holder.percent + .5}rem` }}
                 />
                 <span className="absolute right-2 text-xs font-semibold">
                   {holder.percent.toFixed(2)}%

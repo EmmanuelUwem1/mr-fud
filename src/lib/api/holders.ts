@@ -1,3 +1,4 @@
+"use server";
 import axios from "axios";
 
 const API_URL =
@@ -28,11 +29,11 @@ const holders = (items as CovalentHolder[])
       rank: index + 1,
       wallet: item.address,
       quantity: balance.toLocaleString("en-US", { maximumFractionDigits: 2 }),
-      percentage: `${percentage}%`,
+      percentage: `${percentage}`,
     };
   });
 
-
+    //   console.log("the Fetched holders data are ", holders);
     return holders;
   }  catch (error: unknown) {
   if (axios.isAxiosError(error)) {
