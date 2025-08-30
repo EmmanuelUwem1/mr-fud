@@ -2,14 +2,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import TradesTable from "./tradesTable";
 import UserAvatar from "./userAvatar";
 import WalletAndDateFlex from "./walletAndDateFlex";
 import TopHoldersCard from "./cards/topHoldersCard";
 import { useAccount } from "wagmi";
 import { createComment, fetchComments } from "@/lib/api";
 import toast from "react-hot-toast";
-
+import TradesTable from "./tradesTable";
 type Comment = {
   _id: string;
   content: string;

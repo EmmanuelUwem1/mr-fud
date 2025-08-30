@@ -1,16 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { fetchOcicatHolders } from "@/lib/api/holders";
+import { CONSTANTS } from "@/web3/config/constants";
+import { locked } from "@/web3/config/Locked";
+const OCICAT_CA = CONSTANTS.OCICAT_TOKEN_ADDRESS.toLowerCase();
 
-const OCICAT_CA = "0xe53d384cf33294c1882227ae4f90d64cf2a5db70";
 
-type Holder = {
-  rank: number;
-  wallet: string;
-  quantity: string;
-  percentage: string;
-  value: string;
-};
 
 type Props = {
   tokenCa: string;
@@ -24,22 +20,25 @@ function TopHoldersCard({ tokenCa }: Props) {
 
   useEffect(() => {
     const loadHolders = async () => {
+      if (tokenCa.toLowerCase() !== OCICAT_CA) {
+        setLoading(false);
+        return;
+      }
+
       try {
-        let data: Holder[];
+        const raw = await fetchOcicatHolders();
+        console.log("Raw holders:", raw);
 
-        if (tokenCa.toLowerCase() === OCICAT_CA) {
-          const res = await fetch("/holders.json");
-          data = await res.json();
-        } else {
-          const res = await fetch(`/api/token-holders?ca=${tokenCa}`);
-          const json = await res.json();
-          data = json.holders;
-        }
+        const filtered = raw
+          .filter((holder) => {
+            const wallet = holder.wallet?.toLowerCase();
+            return wallet && !locked.has(wallet);
+          });
 
-        const formatted = data.map((h) => ({
+        const formatted = filtered.map((h) => ({
           address: h.wallet.slice(0, 6) + "..." + h.wallet.slice(-4),
-          percent: parseFloat(h.percentage.replace("%", "")),
-          value: h.value,
+          percent: parseFloat(h.percentage.replace("%", "")) || 0,
+          value: h.quantity ?? "—",
         }));
 
         setHolders(formatted);
@@ -82,7 +81,7 @@ function TopHoldersCard({ tokenCa }: Props) {
               <div className="relative w-[70%] h-6 py-1 rounded-md overflow-hidden">
                 <div
                   className="absolute top-0 right-0 h-full bg-[#262626] rounded-md"
-                  style={{ width: `${holder.percent}%` }}
+                  style={{ width: `${holder.percent}000rem` }}
                 />
                 <span className="absolute right-2 text-xs font-semibold">
                   {holder.percent.toFixed(2)}%

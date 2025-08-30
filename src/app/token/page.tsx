@@ -20,12 +20,14 @@ import { CONSTANTS } from "@/web3/config/constants";
 import TradeNotification from "@/components/tradeNotification";
 import { useTradeStore } from "@/store/tradeStore";
 
+
 export default function OcicatTokenPage() {
   const { address, isConnected } = useAccount();
   const pathName = usePathname();
   const isTokenPage = pathName.startsWith("/token");
   const tokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
-  const trades = useTradeStore((state) => state.trades);
+const trades = useTradeStore((state) => state.trades);
+
   const latestTrade = trades.length > 0 ? trades[0] : null;
 
 
