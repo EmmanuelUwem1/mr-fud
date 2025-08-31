@@ -13,12 +13,15 @@ type OcicatTrade = {
 
 type TradeStore = {
   trades: OcicatTrade[];
+  loaded: boolean;
   setTrades: (trades: OcicatTrade[]) => void;
   addTrade: (trade: OcicatTrade) => void;
+  setLoaded: (loaded: boolean) => void;
 };
 
 export const useTradeStore = create<TradeStore>((set) => ({
   trades: [],
+  loaded: false,
   setTrades: (trades) => set({ trades }),
   addTrade: (trade) =>
     set((state) => {
@@ -28,4 +31,5 @@ export const useTradeStore = create<TradeStore>((set) => ({
       if (exists) return { trades: state.trades };
       return { trades: [trade, ...state.trades.slice(0, 99)] };
     }),
+  setLoaded: (loaded) => set({ loaded }),
 }));

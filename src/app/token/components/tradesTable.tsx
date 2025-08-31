@@ -4,6 +4,9 @@ import Image from "next/image";
 import { useTradeStore } from "@/store/tradeStore";
 import { AnimatePresence, motion } from "framer-motion";
 import { fetchOcicatTradesFromNodeReal } from "@/lib/api/nodeRealTrades";
+import { CONSTANTS } from "@/web3/config/constants";
+
+const OCICAT_CA = CONSTANTS.OCICAT_TOKEN_ADDRESS.toLowerCase();
 
 interface TradeTableProps {
   token: string;
@@ -28,20 +31,27 @@ function formatDate(dateString: string): string {
 
 function TradesTable({ token }: TradeTableProps) {
   const trades = useTradeStore((state) => state.trades);
+  const loaded = useTradeStore((state) => state.loaded);
   const setTrades = useTradeStore((state) => state.setTrades);
+  const setLoaded = useTradeStore((state) => state.setLoaded);
 
   useEffect(() => {
     const loadTrades = async () => {
+      if (token.toLowerCase() !== OCICAT_CA || loaded){
+        setLoaded(true);
+        return;}
+
       try {
         const trades = await fetchOcicatTradesFromNodeReal(20);
         setTrades(trades);
+        setLoaded(true);
       } catch (err) {
         console.error("Failed to load trades:", err);
       }
     };
 
     loadTrades();
-  }, []);
+  }, [token, loaded, setTrades, setLoaded]);
 
   return (
     <div className="w-full bg-[#1C1C1C] border border-black rounded-[18px] text-white h-[450px] flex flex-col">
@@ -120,9 +130,7 @@ function TradesTable({ token }: TradeTableProps) {
                 <td colSpan={6} className="py-6 text-center">
                   <div className="flex items-center justify-center">
                     <div className="h-6 w-6 border-4 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
-                    <span className="ml-3 text-sm text-[#888]">
-                      Loading trades...
-                    </span>
+                    
                   </div>
                 </td>
               </tr>

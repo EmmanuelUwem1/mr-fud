@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 import { CONSTANTS } from "@/web3/config/constants";
 import TradeNotification from "@/components/tradeNotification";
 import { useTradeStore } from "@/store/tradeStore";
+import { useOcicatBalance } from "@/web3/hooks/ocicat/useOcicatBalance";
 
 
 export default function OcicatTokenPage() {
@@ -27,7 +28,8 @@ export default function OcicatTokenPage() {
   const isTokenPage = pathName.startsWith("/token");
   const tokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
 const trades = useTradeStore((state) => state.trades);
-
+  const { balance } = useOcicatBalance();
+  const userOcicatBalance = balance ? Number(balance): 0;
   const latestTrade = trades.length > 0 ? trades[0] : null;
 
 
@@ -152,7 +154,7 @@ const trades = useTradeStore((state) => state.trades);
               {/* Buy/Sell Tabs */}
               <BuySellCard
                 BNBbalance={Number(userBalance)}
-                tokenBalance={0}
+                tokenBalance={userOcicatBalance}
                 tokenName={tokenData?.name || ""}
                 tokenPrice={tokenData.price}
                 tokenChain={"BSC"}
@@ -188,7 +190,7 @@ const trades = useTradeStore((state) => state.trades);
             {/* Buy/Sell Tabs */}
             <BuySellCard
               BNBbalance={Number(userBalance)}
-              tokenBalance={0}
+              tokenBalance={userOcicatBalance}
               tokenName={tokenData?.name || ""}
               tokenPrice={tokenData.price}
               tokenChain={"BSC"}
