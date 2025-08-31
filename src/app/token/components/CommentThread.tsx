@@ -286,7 +286,7 @@ export default function CommentThread({
                   exit={{ opacity: 0, x: -30 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <TradesTable token={tokenName} />
+                  <TradesTable token={tokenName} ca={ca} />
                 </motion.div>
               )}
               {activeTab === "Top Holders" && (

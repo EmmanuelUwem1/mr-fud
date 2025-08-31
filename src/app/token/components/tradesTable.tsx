@@ -10,6 +10,7 @@ const OCICAT_CA = CONSTANTS.OCICAT_TOKEN_ADDRESS.toLowerCase();
 
 interface TradeTableProps {
   token: string;
+  ca: string;
 }
 
 function formatAddress(address?: string): string {
@@ -29,7 +30,7 @@ function formatDate(dateString: string): string {
       });
 }
 
-function TradesTable({ token }: TradeTableProps) {
+function TradesTable({ token, ca }: TradeTableProps) {
   const trades = useTradeStore((state) => state.trades);
   const loaded = useTradeStore((state) => state.loaded);
   const setTrades = useTradeStore((state) => state.setTrades);
@@ -37,10 +38,8 @@ function TradesTable({ token }: TradeTableProps) {
 
   useEffect(() => {
     const loadTrades = async () => {
-      if (token.toLowerCase() !== OCICAT_CA || loaded){
-        setLoaded(true);
-        setTrades([]);
-        return;}
+      if (ca.toLowerCase() !== OCICAT_CA || loaded)
+        return;
 
       try {
         const trades = await fetchOcicatTradesFromNodeReal(20);
