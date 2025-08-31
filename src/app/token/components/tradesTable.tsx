@@ -39,6 +39,7 @@ function TradesTable({ token }: TradeTableProps) {
     const loadTrades = async () => {
       if (token.toLowerCase() !== OCICAT_CA || loaded){
         setLoaded(true);
+        setTrades([]);
         return;}
 
       try {
