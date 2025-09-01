@@ -58,7 +58,7 @@ function Header() {
         ref={menuRef}
         initial={false}
         animate={{ height: isOpen ? "auto" : "80px" }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.6 }}
         className="flex flex-col justify-start w-full border border-[#38B9FF] overflow-hidden px-4 rounded-[22px] bg-[#00416D]"
       >
         {/* Top bar */}
