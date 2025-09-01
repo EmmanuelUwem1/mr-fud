@@ -62,20 +62,31 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
       setPayload({ contractAddress: tokenCa });
 
       const response1 = await createToken(payload);
-      if (response1.success) {
-        toast.success("Coin created successfully!");
-        onClose();
-      } else {
-        toast.error(
-          `An error occurred: ${
-            (response1.error && typeof response1.error === "object" && "response" in response1.error && (response1.error as { response?: { data?: { message?: string } } }).response?.data?.message) ||
-            (typeof response1.error === "object" && response1.error !== null && "message" in response1.error ? (response1.error as { message?: string }).message : undefined) ||
-            "Unknown error"
-          }`
-        );
+      if(response1){
+        if (response1.success) {
+          toast.success("Coin created successfully!");
+          onClose();
+        } else {
+          toast.error(
+            `An error occurred: ${
+              (response1.error &&
+                typeof response1.error === "object" &&
+                "response" in response1.error &&
+                (
+                  response1.error as {
+                    response?: { data?: { message?: string } };
+                  }
+                ).response?.data?.message) ||
+              (typeof response1.error === "object" &&
+              response1.error !== null &&
+              "message" in response1.error
+                ? (response1.error as { message?: string }).message
+                : undefined) ||
+              "Unknown error"
+            }`
+          );
+        }
       }
-
-
        const formData2 = new FormData();
        formData2.append("file", file);
 
@@ -152,7 +163,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             damping: 20,
           }}
           ref={modalRef}
-          className="cardthreebg mx-4 p-6 rounded-lg w-full max-w-sm text-white overflow-hidden"
+          className="box-bg mx-4 p-6 rounded-lg w-full max-w-sm text-white overflow-hidden"
         >
           {/* Optional purchase message */}
           <p className="text-base text-white font-normal mb-2">
@@ -172,8 +183,8 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
               value={bnbAmount}
               onChange={(e) => setBnbAmount(e.target.value)}
               onWheel={(e) => e.currentTarget.blur()}
-              placeholder={`Amount in ${selectedCurrency}`}
-              className="w-full input-bg input-border text-white px-4 py-3 pr-[90px] rounded-[6px] border-[2px] placeholder-gray-500 appearance-none"
+              placeholder={`1.0000`}
+              className="w-full bg-[#013253] input-border text-white px-4 py-3 pr-[90px] rounded-[6px] border-[1px] placeholder-[#87DDFF] appearance-none"
             />
             {/* bg-[#1B1B1B] */}
             {/* border-[#626262] */}
@@ -182,7 +193,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="bg-[#525252] text-white px-3 py-1 rounded-[7px] text-sm cursor-pointer flex items-center justify-center gap-1"
+                className="bg-[#297DAB] text-white px-3 py-1 rounded-[7px] text-sm cursor-pointer flex items-center justify-center gap-1"
               >
                 {(() => {
                   const selected = currencies.find(
@@ -226,12 +237,12 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-1 space-y-1.5 rounded-[7px] shadow-lg overflow-hidden"
+                  className="absolute bg-[#013253] right-0 mt-1 space-y-1.5 p-1 rounded-[7px] shadow-lg overflow-hidden"
                 >
                   {currencies.map((currency) => (
                     <li
                       key={currency.name}
-                      className="px-4 gap-1 py-2 hover:bg-[#3a3a3a] text-sm flex items-center justify-center cursor-pointer bg-[#525252] rounded-full text-white"
+                      className="px-4 gap-1 py-2 hover:bg-[#297eabc6] text-sm flex items-center justify-center cursor-pointer bg-[#297DAB] rounded-full text-white"
                       onClick={() => {
                         setSelectedCurrency(currency.name);
                         setPayload({
@@ -258,7 +269,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Hardcap */}
-          <p className="text-sm font-bold text-white mb-2">
+          <p className="text-sm font-bold text-[#00C3FE] mb-2">
             Choose Hardcap
           </p>
 
@@ -277,10 +288,10 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
                     className={`text-xs px-2 py-2 rounded-md cursor-pointer
     ${
       isDisabled
-        ? "bg-[#444] text-gray-400 cursor-not-allowed"
+        ? "bg-[#52525254] text-gray-400 cursor-not-allowed"
         : isSelected
         ? "bg-white text-black"
-        : "bg-[#2A2A2A] hover:bg-[#3A3A3A] text-white"
+        : "bg-[#52525280] hover:bg-[#3A3A3A] text-white"
     }`}
                   >
                     {val} {selectedCurrency}
@@ -290,21 +301,6 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           </div>
 
           <p>You receive: 342810.12 ${payload.ticker}</p>
-          <div className="relative w-full h-18">
-            {/* Loader Layer */}
-            {!captchaVerified && (
-              <div className="absolute inset-0 flex items-center justify-center z-0">
-                {/* loader */}
-                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-[#38B9FF]" />
-              </div>
-            )}
-
-            {/* CAPTCHA Layer */}
-            <div className="relative z-10">
-              <Turnstile onSuccess={() => setCaptchaVerified(true)} />
-            </div>
-          </div>
-
           {/* Buttons */}
           <div className="flex w-full justify-end gap-2">
             <button
@@ -317,33 +313,27 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
               }`}
             >
               {isLoading ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="white"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="white"
-                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                    />
-                  </svg>
-                  Loading...
-                </>
+                <div className="flex justify-center items-center">
+                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-400" />
+                </div>
               ) : (
                 "Create Coin"
               )}
             </button>
+          </div>
+          <div className="relative w-full h-18 flex items-center justify-center mt-2">
+            {/* Loader Layer */}
+            {!captchaVerified && (
+              <div className="absolute inset-0 flex items-center justify-center z-0 mx-auto">
+                {/* loader */}
+                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-[#38B9FF]" />
+              </div>
+            )}
+
+            {/* CAPTCHA Layer */}
+            <div className="relative z-10">
+              <Turnstile onSuccess={() => setCaptchaVerified(true)} />
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>

@@ -133,8 +133,6 @@ export type OcicatTrade = {
 
 
 
-// const BITQUERY_API_URL = "https://graphql.bitquery.io"; 
-
 export async function fetchOcicatTrades(): Promise<OcicatTrade[]> {
   try {
     const response = await axios.post(

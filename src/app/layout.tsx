@@ -7,7 +7,9 @@ import { Toaster } from "react-hot-toast";
 import WalletAuthGuard from "@/auth/wallet-auth";
 import { TokensProvider } from "@/context/TokensContext";
 import { UserProvider } from "@/context/userContext";
-
+import NetworkStatusToast from "@/components/NetworkStatusToast";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import OcicatTradesFetcher from "./token/components/ocicatTradesFetcher";
 
 export const metadata: Metadata = {
   title: "FUDClub",
@@ -46,36 +48,41 @@ export default async function RootLayout({
       <body
         className={`antialiased overflow-x-hidden screen-minus-5rem flex-col flex w-full h-full items-start justify-start bg-[#0077D3]`}
       >
-        <ContextProvider cookies={cookies}>
-          <Toaster
-            position="top-right"
-            reverseOrder={false}
-            toastOptions={{
-              style: {
-                background: "#1f1f1f",
-                color: "#ffffff",
-                border: "1px solid #444",
-              },
-              success: {
-                iconTheme: {
-                  primary: "#00ffae",
-                  secondary: "#141414",
+        <ErrorBoundary>
+          <ContextProvider cookies={cookies}>
+            <NetworkStatusToast />
+            <Toaster
+              position="top-right"
+              reverseOrder={false}
+              toastOptions={{
+                style: {
+                  background: "#f0faff", 
+                  color: "#004e7c", 
+                  border: "1px solid #a0d8ef", 
                 },
-              },
-              error: {
-                iconTheme: {
-                  primary: "#ff4444",
-                  secondary: "#141414",
+                success: {
+                  iconTheme: {
+                    primary: "#00bfff", 
+                    secondary: "#e6f7ff", 
+                  },
                 },
-              },
-            }}
-          />
-          <Header />
-          <WalletAuthGuard />
-          <UserProvider>
-            <TokensProvider>{children}</TokensProvider>
-          </UserProvider>
-        </ContextProvider>
+                error: {
+                  iconTheme: {
+                    primary: "#ff6b6b", // soft red
+                    secondary: "#fff0f0", // light red background
+                  },
+                },
+              }}
+            />
+
+            <Header />
+            <OcicatTradesFetcher />
+            <WalletAuthGuard />
+            <UserProvider>
+              <TokensProvider>{children}</TokensProvider>
+            </UserProvider>
+          </ContextProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

@@ -217,3 +217,17 @@ export function formatChangePercent(change: number | string): React.ReactElement
 }
 
 
+export function formatNumberToLocaleString(num: number | string | undefined | null): string {
+  if (num === undefined || num === null || num === "") {
+    return "0";
+  } 
+  if (typeof num === "string") {
+    const numericValue = Number(num);
+    if (isNaN(numericValue)) {
+      return num.toString(); 
+    }
+    return numericValue.toLocaleString();
+  }
+  return num.toLocaleString();
+}
+

@@ -101,7 +101,7 @@ export default function Home() {
         <div className="text-center flex items-center justify-center px-8 font-normal text-base italic">
           Create fast. Purnish the FUD hard. Teleport to 100x.
         </div>
-        <Socials theme="dark-red" />
+        <Socials theme="dark-blue" />
       </footer>
     </>
   );

@@ -21,11 +21,14 @@ export class ErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div className="text-white p-8">
+        <div className="text-white p-8 m-auto">
           <h2 className="text-xl font-bold">Something went wrong.</h2>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-[#87DDFF]">
             Please try again or reload the page.
           </p>
+          <button className="rounded-full mx-auto my-2 bg-white py-2.5 px-3.5 font-semibold relative text-[#0077D3]" onClick={() => window.location.reload()}>
+            Refresh
+          </button>
         </div>
       );
     }

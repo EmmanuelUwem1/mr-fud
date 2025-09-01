@@ -18,7 +18,7 @@ export default function Footer() {
               width={1000}
               quality={100}
               priority
-              src={"/mrfud logo 1 1.png"}
+              src={"/mrfud logo 1 1.svg"}
             />
           </span>
         </Link>
@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="max-sm:mx-auto">
-          <Socials theme="dark-blue" />
+          <Socials theme="white" />
         </div>
       </div>
       <div className="mt-4 h-[1px] bg-white w-full"></div>

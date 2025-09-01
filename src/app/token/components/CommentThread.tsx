@@ -117,7 +117,7 @@ export default function CommentThread({
       {/* Header Tabs & Wallet */}
       <div className="">
         {/* Desktop Tabs */}
-        <div className="hidden border-b border-[#2A2A2A] sm:flex w-full justify-between items-center">
+        <div className="hidden border-b border-[#013253] sm:flex w-full justify-between items-center">
           <div className="flex gap-4 mb-2 w-fit text-xs font-semibold cursor-pointer">
             {tabs.map((tab) => (
               <button
@@ -125,7 +125,7 @@ export default function CommentThread({
                 onClick={() => setActiveTab(tab)}
                 className={`flex relative rounded-[6px] px-4 py-3 ${
                   activeTab === tab
-                    ? "bg-[#520000] tab-underline"
+                    ? "bg-[#00C3FE] tab-underline"
                     : "text-white"
                 }`}
               >
@@ -133,20 +133,20 @@ export default function CommentThread({
               </button>
             ))}
           </div>
-          <div className="w-full flex justify-end items-center gap-4">
+          <div className="w-full lg:flex justify-end items-center gap-4 hidden">
             <WalletAndDateFlex ca={ca} createdDate={createdDate || ""} />
           </div>
         </div>
 
         {/* Mobile Tabs */}
-        <div className="sm:hidden flex justify-start items-center border-b border-[#2A2A2A] sm:px-4 py-3 text-xs font-semibold w-full">
+        <div className="sm:hidden flex justify-start items-center border-b border-[#013253] sm:px-4 py-3 text-xs font-semibold w-full">
           {mobileTabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-3 py-2 rounded-[6px] ${
                 activeTab === tab
-                  ? "bg-[#520000] tab-underline text-white"
+                  ? "bg-[#00C3FE] tab-underline text-white"
                   : "text-gray-300"
               }`}
             >
@@ -161,7 +161,7 @@ export default function CommentThread({
           >
             <Image
               alt="collapse toggle"
-              src={"/Vector.png"}
+              src={"/Reveal arrow.png"}
               layout="fill"
               objectFit="contain"
               objectPosition="center"
@@ -188,12 +188,12 @@ export default function CommentThread({
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 30 }}
                   transition={{ duration: 0.25 }}
-                  className="p-4 my-4 rounded-[10px] text-xs bg-[#1C1C1C] text-white"
+                  className="p-4 my-4 rounded-[10px] text-xs bg-[#013253] text-white"
                 >
                   {parentComments.map((c) => (
                     <div
                       key={c._id}
-                      className="mb-4 bg-[#212121] p-3 rounded-md w-full flex flex-col gap-2"
+                      className="mb-4 box-bg p-3 rounded-md w-full flex flex-col gap-2"
                     >
                       <div className="flex justify-between items-center gap-3">
                         <div className="flex flex-col items-start">
@@ -205,7 +205,7 @@ export default function CommentThread({
                         </div>
                         {isConnected && (
                           <button
-                            className="bg-[#343434] rounded-[7px] px-4 py-2 font-bold"
+                            className="bg-[#2F6786] rounded-[7px] px-4 py-2 font-bold"
                             onClick={() => handleReply(c._id)}
                           >
                             Reply
@@ -239,10 +239,10 @@ export default function CommentThread({
                         placeholder={
                           replyingTo
                             ? "Write your reply..."
-                            : "Write your comment here..."
+                            : "Add a comment..."
                         }
                         maxLength={100}
-                        className="flex-grow bg-[#2A2A2A] text-white px-4 py-2 rounded-md resize-none"
+                        className="flex-grow border-b border-[#2F6786] text-white px-4 py-2 resize-none"
                       />
                       <button
                         title="send"

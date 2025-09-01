@@ -64,7 +64,7 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[1100] flex items-center justify-center bg-black h-full w-full border-[#923A07] rounded-[7px] bg-opacity-60"
+        className="fixed inset-0 z-[1100] flex items-center justify-center bg-[#0077D3] h-full w-full border-[#923A07] rounded-[7px] bg-opacity-60"
       >
         <motion.div
           ref={modalRef}
@@ -72,11 +72,11 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
           animate={{ y: 0, opacity: 1, scale: 1 }}
           exit={{ y: 50, opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className=" mx-4 rounded-xl p-6 w-full max-w-lg text-white shadow-lg"
+          className=" mx-4 rounded-xl p-6 w-full max-w-lg text-white"
         >
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-md w-full text-right text-[#FF3C38] text-xs font-medium hover:opacity-90"
+            className="px-4 py-2 rounded-md w-full text-right text-[#05E02B] text-xs font-medium hover:opacity-90"
           >
             Close
           </button>
@@ -156,17 +156,17 @@ export default function ReferModal({ onClose, tokenName,tokenCreatedDate, tokenI
             <button
               type="button"
               onClick={captureTradeCard}
-              className="px-4 py-2 rounded-md text-[#FF3C38] text-xs font-medium"
+              className="px-4 py-2 rounded-md text-[#05E02B] text-xs font-medium"
             >
               Download image
             </button>
           </div>
-          <div className="w-full items-center flex justify-between bg-[#212121] rounded-full p-1">
+          <div className="w-full items-center flex justify-between box-bg rounded-full p-1">
             <span className="px-4 font-normal text-xs w-[300px] overflow-hidden text-ellipsis whitespace-nowrap block">
               {tokenUrl}
             </span>
             <button
-              className="bg-[#FF3C38] text-xs font-medium py-2 px-3 rounded-full"
+              className="bg-[#00C3FE] text-xs font-medium py-2 px-3 rounded-full"
               onClick={() => copyToClipboard(tokenUrl)}
             >
               copy

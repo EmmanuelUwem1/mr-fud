@@ -7,7 +7,7 @@ export default function UserProfileAvatar() {
         href="/profile"
         className="inline-flex relative cursor-pointer -right-4"
       >
-        <Avatar borderColor="#05E02B" border src="/Image holder.png" />
+        <Avatar borderColor="#00C3FE" border src="/Image holder.png" />
       </Link>
     );
 }

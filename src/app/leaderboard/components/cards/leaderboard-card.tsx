@@ -14,7 +14,7 @@ const getGradientColor = (index: number): string => {
     case 2:
       return "#412100";
     default:
-      return "#1a1a23"; // fallback or generic color
+      return "#1a1a23"; 
   }
 };
 
@@ -42,7 +42,7 @@ const LeaderboardCard = ({
   const gradientColor = getGradientColor(index);
 
   return (
-    <div className="relative py-6 rounded-[14px] cardthreebg shadow-lg  text-white w-full md:max-w-sm mx-auto z-10 overflow-hidden">
+    <div className="relative py-6 rounded-[14px] bg-[#0A0A0A] shadow-lg  text-white w-full md:max-w-sm mx-auto z-10 overflow-hidden">
       {/* bg-[#0A0A0A] */}
       {/* background radial gradient */}
       <div

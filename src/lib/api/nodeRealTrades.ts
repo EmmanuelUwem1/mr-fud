@@ -71,6 +71,6 @@ export async function fetchOcicatTradesFromNodeReal(limit = 10) {
 
   } catch (error) {
     console.error("Failed to fetch Ocicat trades from NodeReal:", error);
-    throw new Error("NodeReal trade fetch failed");
+    
   }
 }

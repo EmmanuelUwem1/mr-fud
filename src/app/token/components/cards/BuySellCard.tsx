@@ -166,14 +166,19 @@ const estimatedValue =
 
   const inputSection = (
     <>
-      <div className="text-xs flex justify-between text-[#626262] font-semibold mb-2">
-        Quantity
-        <span>
-          Balance: {balance.toFixed(5)} {isBuy ? "BNB" : tokenTicker}
+      <div className="text-xs flex gap-4 justify-between text-[#87DDFF] font-semibold mb-2">
+        <span className="w-full">Quantity</span>
+
+        <span className="w-full">
+          Balance:
+          <span className="text-white">
+            {" "}
+            {balance.toFixed(5)} {isBuy ? "BNB" : tokenTicker}
+          </span>
         </span>
       </div>
 
-      <div className="w-full flex px-3 gap-3 justify-between bg-[#2A2A2A] items-center">
+      <div className="w-full flex px-3 gap-3 justify-between bg-[#2F6786] items-center">
         <input
           type="number"
           min="0"
@@ -185,9 +190,9 @@ const estimatedValue =
             if (val > balance) return;
             setAmount(e.target.value);
           }}
-          className="w-full h-16 text-white py-6 rounded-md placeholder-gray-500 mb-3"
+          className="w-full h-16 text-white py-6 rounded-md placeholder-[#87DDFF] mb-3"
         />
-        <div className="flex items-center justify-center gap-1 bg-[#454545] rounded-full py-2 px-3">
+        <div className="flex items-center justify-center gap-1 bg-[#489ECC] rounded-full py-2 px-3">
           <span className="relative flex items-center justify-center h-6 w-6 rounded-full overflow-hidden">
             <Image
               alt=""
@@ -207,7 +212,7 @@ const estimatedValue =
         <div className="flex justify-between text-xs space-x-2 font-medium pt-3">
           <button
             onClick={() => setAmount("0")}
-            className="bg-[#2A2A2A] text-gray-200 px-3 py-2 rounded-full"
+            className="bg-[#2F6786] text-gray-200 px-3 py-2 rounded-full"
           >
             Reset
           </button>
@@ -216,8 +221,8 @@ const estimatedValue =
             disabled={balance < 1}
             className={`px-3 py-2 rounded-full ${
               balance >= 1
-                ? "bg-[#2A2A2A] text-gray-200"
-                : "bg-[#0A0A0A] text-[#434343] cursor-not-allowed"
+                ? "bg-[#013253] text-gray-200"
+                : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
           >
             1 BNB
@@ -227,88 +232,85 @@ const estimatedValue =
             disabled={balance < 5}
             className={`px-3 py-2 rounded-full ${
               balance >= 5
-                ? "bg-[#2A2A2A] text-gray-200"
-                : "bg-[#0A0A0A] text-[#434343] cursor-not-allowed"
+                ? "bg-[#013253] text-gray-200"
+                : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
           >
             5 BNB
           </button>
           <button
             onClick={() => setAmount(maxAmount)}
-            className="px-3 py-2 bg-[#1F1F1F] rounded-full text-gray-200"
+            className="px-3 py-2 bg-[#2F6786] rounded-full text-gray-200"
           >
             Max
           </button>
         </div>
       )}
 
-      {amount &&
-        !isNaN(inputAmount) &&
-        tokenPrice > 0 &&
-        bnbPriceUSD &&(
-          <>
-            <div className="text-xs flex justify-between items-center text-[#626262] font-semibold mt-2">
-              <span>Min Received</span>
-              <span>
-                {estimatedValue.toFixed(4)} {isBuy ? tokenTicker : "BNB"}
-              </span>
-            </div>
+      {amount && !isNaN(inputAmount) && tokenPrice > 0 && bnbPriceUSD && (
+        <>
+          <div className="text-xs flex justify-between items-center text-[#87DDFF] font-semibold mt-2">
+            <span>Min Received</span>
+            <span>
+              {estimatedValue.toFixed(4)} {isBuy ? tokenTicker : "BNB"}
+            </span>
+          </div>
 
-            <div className="text-xs flex justify-between items-center text-[#626262] font-semibold mt-2">
-              <span>Advance settings</span>
-              <span
-                className={`relative flex items-center justify-center h-5 w-5 cursor-pointer ml-auto transition-class ${
-                  isCollapsed ? "rotate-0" : "rotate-180"
-                }`}
-                onClick={() => setIsCollapsed((prev) => !prev)}
+          <div className="text-xs flex justify-between items-center text-[#87DDFF] font-semibold mt-2">
+            <span>Advance settings</span>
+            <span
+              className={`relative flex items-center justify-center h-5 w-5 cursor-pointer ml-auto transition-class ${
+                isCollapsed ? "rotate-0" : "rotate-180"
+              }`}
+              onClick={() => setIsCollapsed((prev) => !prev)}
+            >
+              <Image
+                alt="collapse toggle"
+                src={"/Reveal arrow.png"}
+                layout="fill"
+                objectFit="contain"
+                objectPosition="center"
+              />
+            </span>
+          </div>
+
+          <AnimatePresence>
+            {!isCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="border border-[#38B9FF] rounded-md py-4 mt-2"
               >
-                <Image
-                  alt="collapse toggle"
-                  src={"/Vector.png"}
-                  layout="fill"
-                  objectFit="contain"
-                  objectPosition="center"
+                <div className="text-xs text-[#87DDFF] mb-3 px-4">
+                  Max Slippage
+                </div>
+                <input
+                  type="text"
+                  value={selectedSlippage}
+                  readOnly
+                  placeholder="Enter custom slippage"
+                  className="w-full h-14 bg-[#2F6786] text-white text-sm px-3 py-4 mb-3 outline-none"
                 />
-              </span>
-            </div>
-
-            <AnimatePresence>
-              {!isCollapsed && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="border border-gray-700 rounded-md py-4 mt-2"
-                >
-                  <div className="text-xs text-[#999999] mb-3 px-4">
-                    Max Slippage
-                  </div>
-                  <input
-                    type="text"
-                    value={selectedSlippage}
-                    readOnly
-                    placeholder="Enter custom slippage"
-                    className="w-full h-14 bg-[#2A2A2A] text-white text-sm px-3 py-4 mb-3 outline-none"
-                  />
-                  <div className="grid grid-cols-4 gap-2 px-2">
-                    {["1%", "2.5%", "5%", "Max"].map((label) => (
-                      <button
-                        key={label}
-                        className={`py-2 text-xs transition-colors bg-[#2A2A2A] text-gray-200 hover:opacity-80 px-3 rounded-full ${
-                          selectedSlippage === label ? "bg-[#434343]" : ""
-                        }`}
-                        onClick={() => handleSlippageSelect(label)}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </>
-        )}
+                <div className="grid grid-cols-4 gap-2 px-2">
+                  {["1%", "2.5%", "5%", "Max"].map((label) => (
+                    <button
+                      key={label}
+                      className={`py-2 text-xs transition-colors bg-[#013253] text-gray-200 hover:opacity-80 px-3 rounded-full ${
+                        selectedSlippage === label ? "bg-[#434343]" : ""
+                      }`}
+                      onClick={() => handleSlippageSelect(label)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      )}
 
       <button
         disabled={loading}
@@ -327,8 +329,8 @@ const estimatedValue =
   return (
     <>
       {/* Desktop View */}
-      <div className="hidden sm:block w-full max-w-96 p-4 rounded-md bg-[#141414] text-white space-y-4">
-        <div className="bg-[#2A2A2A] rounded-full flex items-center">
+      <div className="hidden sm:block w-full max-w-96 p-4 rounded-[18px] box-bg text-white space-y-4">
+        <div className="bg-[#013253] rounded-full flex items-center">
           <button
             onClick={() => setTab("buy")}
             className={`w-full text-xs py-3.5 font-semibold rounded-full ${
@@ -350,7 +352,7 @@ const estimatedValue =
       </div>
 
       {/* Mobile Tab Bar */}
-      <div className="sm:hidden z-[1000] fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] flex items-center justify-between bg-[#2A2A2A] rounded-full">
+      <div className="sm:hidden z-[1000] fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] flex items-center justify-between bg-[#013253] rounded-full">
         <button
           onClick={() => {
             setTab("buy");
@@ -375,7 +377,7 @@ const estimatedValue =
       <AnimatePresence>
         {modalOpen && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-80 z-[1100] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-[#0077D3] bg-opacity-80 z-[1100] flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -383,7 +385,7 @@ const estimatedValue =
           >
             <motion.div
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141414] w-full max-w-sm p-5 rounded-xl text-white"
+              className="box-bg w-full max-w-sm p-5 rounded-xl text-white"
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}

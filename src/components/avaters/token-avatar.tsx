@@ -14,7 +14,7 @@ const TokenAvatar = ({ index, imageUrl, ticker, name }: TokenAvatarProps) => {
   return (
     <div className="flex items-center space-x-3">
       {/* Index */}
-      <div className="text-lg font-normal text-[#777777] w-10 text-center geometric">
+      <div className="text-xl font-normal text-[#87DDFF] w-10 text-center geometric">
         {formattedIndex}
       </div>
 

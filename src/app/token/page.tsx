@@ -1,5 +1,5 @@
 "use client";
-import {  useState,useEffect } from "react";
+import {  useState,useEffect,useRef } from "react";
 import TokenStatsCard from "./components/cards/TokenStatsCard";
 // import TradingViewWidget from "./components/TradingViewWidget";
 import BuySellCard from "./components/cards/BuySellCard";
@@ -15,31 +15,26 @@ import TopHoldersCard from "./components/cards/topHoldersCard";
 import TestTradingViewWidget from "./components/testTradingViewWidget";
 import { fetchOcicatTokenPrice } from "@/lib/api";
 import { toast } from "react-hot-toast";
-import { usePathname } from "next/navigation";
 import { CONSTANTS } from "@/web3/config/constants";
-import TradeNotification from "@/components/tradeNotification";
 import { useTradeStore } from "@/store/tradeStore";
 import { useOcicatBalance } from "@/web3/hooks/ocicat/useOcicatBalance";
 
 
 export default function OcicatTokenPage() {
   const { address, isConnected } = useAccount();
-  const pathName = usePathname();
-  const isTokenPage = pathName.startsWith("/token");
+    const hasFetched = useRef(false);
   const tokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
 const trades = useTradeStore((state) => state.trades);
   const { balance } = useOcicatBalance();
   const userOcicatBalance = balance ? Number(balance): 0;
-  const latestTrade = trades.length > 0 ? trades[0] : null;
 
 
- const ocicatSupply = 687896090287856;
  const [tokenData, setTokenData] = useState({
    price: 0.00000005231,
    name: "Ocicat coin",
-   marketCap: 0,
-   volume24h: 120000,
-   liquidity: 0,
+   marketCap: 5114975,
+   volume24h: 45000,
+   liquidity: 140300.21,
    creatorReward: 5,
    referralReward: 2,
    contractAddress: "",
@@ -56,25 +51,28 @@ const trades = useTradeStore((state) => state.trades);
    createdAt: "2023-01-20T16:40:40.443Z",
  });
 
- useEffect(() => {
-   async function fetchPrice() {
-     await toast.promise(
-       fetchOcicatTokenPrice().then((data) => {
-         setTokenData((prev) => ({
-           ...prev,
-           ...data,
-         }));
-       }),
-       {
-         loading: "Updating",
-         success: "Updated  🐾",
-         error: "Failed to fetch Ocicat price.",
-       }
-     );
-   }
+useEffect(() => {
+  if (hasFetched.current) return;
+  hasFetched.current = true;
 
-   fetchPrice();
- }, []);
+  async function fetchPrice() {
+    await toast.promise(
+      fetchOcicatTokenPrice().then((data) => {
+        setTokenData((prev) => ({
+          ...prev,
+          ...data,
+        }));
+      }),
+      {
+        loading: "Updating",
+        success: "Updated 🐾",
+        error: "Failed to fetch Ocicat price.",
+      }
+    );
+  }
+
+  fetchPrice();
+}, []);
 
 
 
@@ -93,7 +91,7 @@ const trades = useTradeStore((state) => state.trades);
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 bg-[#0D0D0D]`}
+      className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18`}
     >
       {/* Back Button */}
       <BackButton />
@@ -121,7 +119,6 @@ const trades = useTradeStore((state) => state.trades);
         referalCode="sfsjsns"
         // tokenId={tokenData?._id || ""}
       />
-      <TradeNotification trade={latestTrade} />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">
         <div className="flex flex-col items-start justify-start w-full gap-4">
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">

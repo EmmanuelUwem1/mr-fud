@@ -21,10 +21,10 @@ const pathname = usePathname();
         ripple(e);
         modal.open();
       }}
-      className={`relative px-6 py-2 text-white rounded-full flex items-center gap-2 overflow-hidden group cursor-pointer ${
+      className={`relative px-6 py-2 text-white rounded-full flex items-center gap-2 overflow-hidden group cursor-pointer text-sm ${
         isConnected
-          ? "bg-[#1a1a1adb]"
-          : "bg-[#00C3FE] shadow-[0_0_10px_#7BE9FFD1]"
+          ? "box-bg"
+          : "bg-[#00C3FE]"
       }`}
     >
       {shortenedAddress}

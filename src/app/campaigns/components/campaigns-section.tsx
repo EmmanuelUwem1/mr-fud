@@ -1,15 +1,20 @@
 "use client";
-import { useState } from "react";
+import {  useState } from "react";
 import { useTokens } from "@/context/TokensContext";
 import SearchBar from "@/components/searchBar";
 import CampaignCard from "./cards/campaignCard";
+import Image from "next/image";
 
 
 const tabOptions = [
-  { text: "Live", image: "/Vector-fire.png" },
-  { text: "Upcoming", image: "/trend-up.png" },
-  { text: "Meme", image: "/trend-up.png" },
-  { text: "AI ", image: "/Vector-rocket.png" },
+  { text: "Live", image: "/Group.png", active: "/local_fire_department.png" },
+  {
+    text: "Upcoming",
+    image: "/Vector-rocket.png",
+    active: "/Vector-black.png",
+  },
+  { text: "Meme", image: "/pet-white.png", active: "/pet.png" },
+  { text: "AI ", image: "/magic-star.png", active: "/ai-black.png" },
 ];
 
 export default function CampaignsSection() {
@@ -53,7 +58,7 @@ export default function CampaignsSection() {
   }
     if (!tokens) {
       return (
-        <div className="text-center m-auto text-red-500 py-10">
+        <div className="text-center m-auto text-[#87DDFF] py-10">
           Campaign not found.
         </div>
       );
@@ -62,8 +67,8 @@ export default function CampaignsSection() {
   return (
     <section className="w-full py-10 flex flex-col gap-8">
       {/* Tabs Navigation */}
-      <div className="w-full overflow-x-auto">
-        <div className="flex mx-auto gap-2 md:gap-4 justify-center items-center w-full mb-4 border-[#F8F8F8] flex-wrap">
+      <div className="w-full flex justify-center lg:justify-between lg:flex-nowrap flex-wrap">
+        <div className="flex gap-2 md:gap-4 justify-start sm:justify-center items-center w-full mb-4 lg:mb-0 border-[#F8F8F8] flex-nowrap overflow-x-auto">
           {tabOptions.map((tab) => (
             <button
               key={tab.text}
@@ -74,18 +79,32 @@ export default function CampaignsSection() {
                   : " text-white hover:bg-white hover:text-black"
               }`}
             >
+              <span className="relative w-4 h-4 flex-shrink-0">
+                <Image
+                  src={activeTab === tab.text ? tab.active : tab.image}
+                  alt={`${tab.text} icon`}
+                  fill
+                  className="object-contain"
+                />
+              </span>
               {tab.text}
             </button>
           ))}
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          className="max-sm:rounded-[12px] rounded-full mx-auto my-auto"
+        />
       </div>
 
       {/* Campaign Cards Grid */}
       {localLoading || loading ? (
-        <p className="text-center text-gray-400">Loading campaigns...</p>
+        <div className="flex justify-center items-center h-20">
+          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-400" />
+        </div>
       ) : sortedTokens.length === 0 ? (
-        <p className="text-center text-gray-400 col-span-full">
+        <p className="text-center text-[#87DDFF] col-span-full">
           No campaigns available.
         </p>
       ) : (
@@ -101,7 +120,7 @@ export default function CampaignsSection() {
               creator={token.creatorWallet}
               endDate={token.createdAt}
               description={token.description}
-              twitter={ token.twitter}
+              twitter={token.twitter}
               website={token.website}
               telegram={token.telegram}
             />

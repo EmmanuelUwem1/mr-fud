@@ -12,7 +12,7 @@ type OcicatTrade = {
 };
 
 type TradeStore = {
-  trades: OcicatTrade[];
+  trades: OcicatTrade[]|[];
   loaded: boolean;
   setTrades: (trades: OcicatTrade[]) => void;
   addTrade: (trade: OcicatTrade) => void;

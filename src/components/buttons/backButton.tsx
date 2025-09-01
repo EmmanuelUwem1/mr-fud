@@ -9,7 +9,7 @@ export default function BackButton() {
     return (
       <div className="flex mb-4 w-full justify-start max-w-4xl items-center">
         <button
-          className={`${isTokenPage ? "text-[#D92C2A]" : "text-[#FFFFFF]"} cursor-pointer`}     
+          className={`"text-[#FFFFFF]"} cursor-pointer`}     
           onClick={() => router.back()}
         >
           Back

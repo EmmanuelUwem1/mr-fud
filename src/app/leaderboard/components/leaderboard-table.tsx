@@ -13,10 +13,10 @@ const LeaderboardTable = () => {
       const { tokens, loading } = useTokens();
   
   return (
-    <div className="w-full overflow-x-auto bg-[#141414] rounded-xl p-4">
+    <div className="w-full overflow-x-auto box-bg rounded-xl p-4">
       <div className="min-w-[600px]">
         {/* Header */}
-        <div className="grid grid-cols-3 text-[#777777] text-base font-medium pb-3 border-b border-[#221C28]">
+        <div className="grid grid-cols-3 text-[#87DDFF] text-base font-medium pb-3  border-[#38B9FF]">
           <div>Token</div>
           <div>Created By</div>
           <div>Market Cap</div>
@@ -24,10 +24,10 @@ const LeaderboardTable = () => {
 
         {/* Rows */}
         {tokens.map((token, i) => (
-          <Link 
+          <Link
             href={`/token/${token._id}`}
             key={i}
-            className="grid grid-cols-3 py-4 border-t border-[#221C28] items-center cursor-pointer hover:bg-[#1d1d1d] transition-class"
+            className="grid grid-cols-3 py-4 border-t border-[#38B9FF] items-center cursor-pointer hover:bg-[#1d1d1d33] transition-class"
           >
             <TokenAvatar
               index={i}

@@ -1,74 +1,79 @@
-import { motion, AnimatePresence } from "framer-motion";
+"use client";
 import { useEffect, useState } from "react";
-
-type Trade = {
-  hash: string;
-  time: string;
-  buyer: string;
-  seller: string;
-  initiator?: string;
-  amount: number;
-  bnbAmount: number;
-  action: "buy" | "sell";
-  symbol?: string; // optional for flexibility
-  price?: number; // optional for flexibility
+import { useTradeStore } from "@/store/tradeStore";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { formatWalletAddress } from "@/lib/utils";
+import { formatNumberToLocaleString } from "@/lib/utils";
+type Props = {
+  tokenImage?: string; 
+  tokenName?: string;
 };
 
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return isNaN(date.getTime())
-    ? "—"
-    : date.toLocaleString("en-US", {
-        month: "short",
-        day: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-}
-
-export default function TradeNotification({ trade }: { trade: Trade | null }) {
-  const [visible, setVisible] = useState(false);
+export default function TradeNotification({ tokenImage="/cat_bg.jpg" , tokenName="Ocicat"}: Props) {
+  const trades = useTradeStore((state) => state.trades);
+  const [currentTrade, setCurrentTrade] = useState(trades[0] || null);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (trade) {
-      setVisible(true);
-      const timer = setTimeout(() => setVisible(false), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [trade?.hash]);
+    if (trades.length === 0) return;
+
+    const interval = setInterval(() => {
+      const nextIndex = (index + 1) % trades.length;
+      setIndex(nextIndex);
+      setCurrentTrade(trades[nextIndex]);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [trades, index]);
+
+  if (!currentTrade) return null;
+
+  const isBuy = currentTrade.action === "buy";
+  const traderAddress = isBuy ? currentTrade.buyer : currentTrade.seller;
+
+
 
   return (
-    <AnimatePresence>
-      {visible && trade && (
+    <div className="w-full text-white text-[8px] sm:text-sm z-50 px-4 py-4 mb-2">
+      <AnimatePresence mode="wait">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          key={currentTrade.hash}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 40 }}
-          transition={{ duration: 0.4 }}
-          className="fixed bottom-6 right-6 bg-[#1C1C1C] text-white p-4 rounded-lg shadow-lg z-50 w-[300px] border border-[#333]"
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-center sm:space-x-4 space-x-2 font-medium"
         >
-          <p className="text-sm mb-1">
-            🐾 <strong>{trade.symbol ?? "Ocicat"}</strong> trade
-            {trade.price !== undefined && <> at ${trade.price.toFixed(4)}</>}
-          </p>
-          <p className="text-xs mb-1">
-            {trade.action === "buy" ? "Bought" : "Sold"} {trade.amount} tokens
-          </p>
-          <p className="text-xs mb-1">BNB: {trade.bnbAmount.toFixed(4)}</p>
-          <p className="text-[10px] text-gray-400 mb-2">
-            {formatDate(trade.time)}
-          </p>
-          <a
-            href={`https://bscscan.com/tx/${trade.hash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 underline text-xs"
+          {/* Token Image */}
+          <Image
+            src={tokenImage}
+            alt="Token"
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+
+          {/* Trade Info */}
+          <span
+            className={`font-medium ${
+              isBuy ? "text-[#67C94D]" : "text-[#FA3C39]"
+            }`}
           >
-            View on BscScan
-          </a>
+            {isBuy ? "BUY" : "SELL"}
+          </span>
+          <span className="font-medium">
+            {formatNumberToLocaleString(currentTrade.amount)} {tokenName}
+          </span>
+          <span className="text-[#87DDFF]">for</span>
+          <span>{currentTrade.bnbAmount.toFixed(4)} BNB</span>
+
+          {/* Trader Address Button */}
+          <span className="bg-[#67C94D] text-white p-1.5  sm:p-2.5 rounded-md sm:text-xs font-normal">
+            {formatWalletAddress(traderAddress)}
+          </span>
         </motion.div>
-      )}
-    </AnimatePresence>
+      </AnimatePresence>
+    </div>
   );
 }

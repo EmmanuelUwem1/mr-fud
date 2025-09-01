@@ -97,7 +97,7 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
           />
 
           {/* Top Overlay */}
-          <div className="absolute top-0 left-0 w-full flex justify-between lg:gap-4 md:gap-3 gap-2 items-center sm:px-3 px-2 py-2 md:py-3 lg:py-4 text-white text-[6px] lg:text-xs sm:text-[8px] md:text-[10px] font-medium">
+          <div className="absolute top-0 left-0 w-full flex justify-between lg:gap-4 md:gap-3 gap-2 items-center sm:px-3 px-1 py-1 md:py-3 lg:py-4 text-white text-[5px] lg:text-xs sm:text-[8px] md:text-[10px] font-medium">
             <span className="bg-[#FFFFFF] text-black px-1 sm:px-3 py-1 lg:px-4 lg:py-2 rounded-md">
               {formattedRange}
             </span>
@@ -114,7 +114,7 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
         </div>
 
         {/* Content */}
-        <div className="lg:py-4 sm:py-2 px-2 sm:px-4 md:px-2 sm:space-y-1 lg:space-y-2 text-[#F8F8F8]">
+        <div className="lg:py-4 sm:py-2 px-1 sm:px-4 md:px-2 sm:space-y-1 lg:space-y-2 text-[#F8F8F8]">
           <h3 className="md:text-lg text-[8px] sm:text-xs lg:text-xl font-bold text-[#000000]">
             {title}
           </h3>

@@ -1,10 +1,10 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTradeStore } from "@/store/tradeStore";
 import { AnimatePresence, motion } from "framer-motion";
-import { fetchOcicatTradesFromNodeReal } from "@/lib/api/nodeRealTrades";
 import { CONSTANTS } from "@/web3/config/constants";
+import { fetchOcicatTradesFromNodeReal } from "@/lib/api/nodeRealTrades";
 
 const OCICAT_CA = CONSTANTS.OCICAT_TOKEN_ADDRESS.toLowerCase();
 
@@ -31,35 +31,52 @@ function formatDate(dateString: string): string {
 }
 
 function TradesTable({ token, ca }: TradeTableProps) {
-  const trades = useTradeStore((state) => state.trades);
-  const loaded = useTradeStore((state) => state.loaded);
+  const isOcicat = ca.toLowerCase() === OCICAT_CA;
+
+  // Zustand store for Ocicat
+  const tradesStore = useTradeStore((state) => state.trades);
   const setTrades = useTradeStore((state) => state.setTrades);
   const setLoaded = useTradeStore((state) => state.setLoaded);
+  const loadedStore = useTradeStore((state) => state.loaded);
+
+  // Local state for other tokens
+  const [localTrades, setLocalTrades] = useState([]);
+  const [localLoaded, setLocalLoaded] = useState(false);
 
   useEffect(() => {
     const loadTrades = async () => {
-      if (ca.toLowerCase() !== OCICAT_CA || loaded)
-        return;
-
-      try {
-        const trades = await fetchOcicatTradesFromNodeReal(20);
-        setTrades(trades);
-        setLoaded(true);
-      } catch (err) {
-        console.error("Failed to load trades:", err);
+      if (isOcicat) {
+        try {
+          const trades = await fetchOcicatTradesFromNodeReal(20);
+          setTrades(trades ?? []);
+          setLoaded(true);
+        } catch (err) {
+          console.error("Failed to refetch Ocicat trades:", err);
+        }
+      } else {
+        try {
+          // const trades = await fetchLaunchpadTrades(ca, 20);
+          setLocalTrades([]);
+          setLocalLoaded(true);
+        } catch (err) {
+          console.error("Failed to load trades for token:", token, err);
+        }
       }
     };
 
     loadTrades();
-  }, [token, loaded, setTrades, setLoaded]);
+  }, [ca, token, isOcicat, setTrades, setLoaded]);
+
+  const trades = isOcicat ? tradesStore : localTrades;
+  const loaded = isOcicat ? loadedStore : localLoaded;
 
   return (
-    <div className="w-full bg-[#1C1C1C] border border-black rounded-[18px] text-white h-[450px] flex flex-col">
+    <div className="w-full box-bg rounded-[18px] text-white h-[450px] flex flex-col">
       <div className="flex-1 overflow-y-auto px-4 md:px-6 pb-6">
         <table className="min-w-[600px] w-full max-w-6xl table-auto border-collapse">
-          <thead className="sticky top-0 bg-[#1C1C1C] z-10">
+          <thead className="sticky top-0 box-bg z-10">
             <tr className="text-xs font-semibold text-[#FFFFFF]">
-              <th className="text-left min-w-[120px] px-3 pb-4 pt-6">Trader</th>
+              <th className="text-left min-w-[160px] px-3 pb-4 pt-6">Trader</th>
               <th className="text-left min-w-[100px] px-3 pb-4 pt-6">Action</th>
               <th className="text-left min-w-[80px] px-3 pb-4 pt-6">BNB</th>
               <th className="text-left min-w-[100px] px-3 pb-4 pt-6">
@@ -83,10 +100,21 @@ function TradesTable({ token, ca }: TradeTableProps) {
                     animate={idx === 0 ? { opacity: 1, y: 0 } : undefined}
                     exit={idx === 0 ? { opacity: 0, y: 10 } : undefined}
                     transition={idx === 0 ? { duration: 0.4 } : undefined}
-                    className="border-t border-t-[#2A2A2A] text-xs font-semibold transition-class"
+                    className="border-t border-t-[#38B9FF] text-xs font-semibold transition-class"
                   >
-                    <td className="py-4 px-3 text-[#626262]">
-                      {formatAddress(traderAddress)}
+                    <td className="py-4 px-3 text-[#87DDFF] font-normal">
+                      <div className="flex items-center justify-start gap-2">
+                        <span className="relative h-5 w-5 flex items-center justify-center">
+                          <Image
+                            alt=""
+                            src={"/Blue cat 2 1.png"}
+                            layout="fill"
+                            objectFit="contain"
+                            objectPosition="center"
+                          />
+                        </span>
+                        {formatAddress(traderAddress)}
+                      </div>
                     </td>
                     <td
                       className={`py-4 px-3 font-semibold ${
@@ -98,7 +126,7 @@ function TradesTable({ token, ca }: TradeTableProps) {
                       {trade.action === "buy" ? "Buy" : "Sell"}
                     </td>
                     <td className="py-4 px-3 text-left">
-                      {Number(trade.bnbAmount || 0).toFixed(4)}
+                      {Number(trade.bnbAmount || 0).toFixed(5)}
                     </td>
                     <td className="py-4 px-3 text-left">
                       {trade.amount.toLocaleString()}
@@ -125,12 +153,20 @@ function TradesTable({ token, ca }: TradeTableProps) {
               })}
             </AnimatePresence>
 
-            {trades.length === 0 && (
+            {!loaded && (
               <tr>
                 <td colSpan={6} className="py-6 text-center">
                   <div className="flex items-center justify-center">
                     <div className="h-6 w-6 border-4 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
-                    
+                  </div>
+                </td>
+              </tr>
+            )}
+            {loaded && trades.length === 0 && (
+              <tr>
+                <td colSpan={6} className="py-6 text-center">
+                  <div className="flex items-center justify-center">
+                    no trades found
                   </div>
                 </td>
               </tr>

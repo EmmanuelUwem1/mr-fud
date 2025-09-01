@@ -37,11 +37,7 @@ export async function createToken(payload : CreateTokenPayload) {
       console.error("CreateToken error:", error.response?.data || error.message);
         //   throw new Error(error.response?.data?.message || "Error creating token");
           return {success:false, error: (error as import("axios").AxiosError).response?.data || (error as Error).message};
-    } else {
-      console.error("CreateToken error:", (error as Error).message);
-        throw new Error((error as Error).message || "Error creating token");
-        
-    }
+    } 
   }
 }
 
@@ -55,7 +51,7 @@ export async function fetchTokens() {
       "Error fetching tokens:",
        (error as Error).message
     );
-    throw new Error("Failed to fetch tokens");
+   
   }
 };
 
@@ -190,7 +186,7 @@ export async function fetchCampaigns() {
       "Error fetching campaigns:",
       (error as Error).message
     );
-    throw new Error("Failed to fetch campaigns");
+   
   }
 }
 
@@ -253,7 +249,7 @@ export interface CreateCommentPayload {
   tokenAddress: string;
   walletAddress: string;
   content: string;
-  parentComment: string | null; // Optional for replies
+  parentComment: string | null; 
 }
 
 
@@ -268,7 +264,7 @@ export async function createComment(
     console.log("Comment created:", response.data);
   } catch (error) {
     console.error("Error creating comment:", (error as Error).message);
-    throw new Error("Failed to create comment");
+   
   }
 }
 
@@ -313,67 +309,6 @@ export async function fetchUser(walletAddress: string) {
       success: false,
       error: (error as Error).message || "Error fetching user",
     };
-  }
-}
-
-
-
-
-
-
-
-
-
-
-// const fetchTrades = async () => {
-//   const response = await axios.post(
-//     "https://graphql.bitquery.io/",
-//     { query },
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//         "X-API-KEY": "your_bitquery_api_key",
-//       },
-//     }
-//   );
-//   return response.data;
-// };
-
-
-
-
-
-
-
-
-const CHAINBASE_API_KEY = process.env.CHAINBASE_API_KEY;
-
-export async function fetchTopHoldersFromChainbase() {
-  try {
-    const response = await axios.get(
-      "https://api.chainbase.online/v1/token/top-holders",
-      {
-        headers: {
-          "x-api-key": "31sj71PqtOabZcqIeXfJmxFllSg",
-        },
-        params: {
-          chain_id: "56", // BNB Chain
-          contract_address: "0xe53d384cf33294c1882227ae4f90d64cf2a5db70", // Ocicat token
-          page: 1,
-          limit: 10,
-        },
-      }
-    );
-
-    if (response.data.code === 0) {
-      return response.data.data; // Array of holders
-    } else {
-      console.warn("Chainbase error:", response.data.message);
-      return [];
-    }
-  } catch (error) {
-    console.error("Error fetching holders from Chainbase:", error);
-    return [];
   }
 }
 

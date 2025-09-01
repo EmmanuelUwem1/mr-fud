@@ -19,14 +19,14 @@ export default function TokenDescription({
       <div className="w-full lg:hidden mt-4">
         <WalletAndDateFlex ca={ca} createdDate={createdDate || ""} />
       </div>
-      <div className="border border-[#000000] p-4 sm:p-6 rounded-[7px] bg-[#262626] sm:bg-[#141414] text-white w-full">
+      <div className="p-4 sm:p-6 rounded-[7px] box-bg text-white w-full">
         <div className="flex w-full items-center justify-between gap-3">
           <h2 className="text-base font-bold">Description</h2>
           <div className="flex items-center justify-between sm:justify-end gap-3 font-semibold text-xs">
             {telegram && (
               <Link
                 href={telegram}
-                className="text-xs relative flex items-center justify-center gap-2 bg-[#333333] sm:bg-[#2A2A2A] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
+                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
               >
                 <span className="relative h-3.5 w-4">
                   <Image
@@ -43,7 +43,7 @@ export default function TokenDescription({
             {twitter && (
               <Link
                 href={twitter}
-                className="text-xs relative flex items-center justify-center gap-2 bg-[#333333] sm:bg-[#2A2A2A] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
+                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
               >
                 <span className="relative h-3.5 w-3.5">
                   <Image

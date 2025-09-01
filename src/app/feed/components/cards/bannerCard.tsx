@@ -46,17 +46,17 @@ const ripple = useRipple();
 
  return (
    <div
-     className="bg-[#004A7C] text-white border-[2px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 shadow-md flex flex-col justify-between h-96 gap-2 w-full overflow-hidden relative"
+     className="bg-[#004A7C] text-white border-[2px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 shadow-md flex flex-col justify-between h-fit  gap-2 w-full overflow-hidden relative"
      onClick={ripple}
    >
      {/* Header */}
      <div className="flex flex-col w-full gap-3 items-center justify-start">
        {/* image */}
-       <div className="flex w-full h-60 rounded-[10px] bg-[#1a1a236f] relative overflow-hidden">
+       <div className="flex w-full h-40 rounded-[10px] bg-[#1a1a236f] relative overflow-hidden">
          <Image
            src={`${image}${cacheBuster}`}
            alt={""}
-           layout="fill"
+            layout="fill"
            objectFit="cover"
            objectPosition="top"
            onError={handleError}
@@ -72,14 +72,14 @@ const ripple = useRipple();
          <div className="flex w-full items-center justify-between">
            <h2 className="text-sm text-[#87DDFF] font-semibold">{name}</h2>
            <p className="text-xs text-[#87DDFF] cursor-pointer flex items-center font-medium justify-start gap-2">
-             CA:{" "}
+             ca:{" "}
              <span className="font-normal text-[#E3E3E3]">
                {formatWalletAddress(ca)}
              </span>
              <span
                className="relative h-4 w-4 flex items-center justify-center"
                onClick={(e) => {
-                 e.stopPropagation(); // Prevents navigation
+                 e.stopPropagation(); 
                  e.preventDefault();
                  copyToClipboard(ca);
                }}

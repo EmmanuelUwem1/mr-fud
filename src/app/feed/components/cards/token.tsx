@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useRipple } from "@/hooks/useRipple";
 
 type TokenCardProps = {
+  className?:string;
   ticker: string;
   name: string;
   ca: string;
@@ -32,7 +33,8 @@ export default function TokenCard({
   rating,
   image,
   id,
-  createdTime ,
+  createdTime,
+  className,
 }: TokenCardProps) {
      const [retryCount, setRetryCount] = useState(0);
    const handleError = () => {
@@ -58,7 +60,7 @@ const ripple = useRipple();
         transition={{ duration: 0.4 }}
         onClick={() => router.push(`/token/${id}`)}
         // className="token-gradient-wrapper cursor-pointer"
-        className="cursor-pointer"
+        className={`cursor-pointer ${className}`}
       >
         <div
           className="bg-[#004A7C] text-white rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 sm:pr-6 shadow-md flex flex-col justify-between gap-2 w-full h-full relative overflow-hidden"
@@ -89,8 +91,8 @@ const ripple = useRipple();
               </span>
               <h2 className="text-base text-[#A2DAEC] font-semibold">{name}</h2>
               <p className="text-base text-[#A2DAEC] cursor-pointer flex items-center font-medium justify-start gap-2">
-                CA:{" "}
-                <span className="font-normal text-[#E3E3E3]">
+                ca:{" "}
+                <span className="font-normal text-[#E3E3E3] text-sm">
                   {formatWalletAddress(ca)}
                 </span>
                 <span

@@ -10,13 +10,13 @@ import { useTokens } from "@/context/TokensContext";
 
 const Leaderboard = () => {
   const [activeTab, setActiveTab] = useState<
-    "tokens" | "referrals" | "socials"
-  >("tokens");
+    "Marketcap" | "referrals" | "socials"
+  >("Marketcap");
 
     const { tokens, loading } = useTokens();
   
 
-  const tabs = ["tokens", "referrals", "socials"];
+  const tabs = ["Marketcap", "referrals", "socials"];
 
   return (
     <>
@@ -28,10 +28,10 @@ const Leaderboard = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab as typeof activeTab)}
-              className={`capitalize px-4 py-2 text-sm rounded-full transition-class cursor-pointer font-medium ${
+              className={`capitalize px-4 py-2 text-sm rounded-full transition-class cursor-pointer ${
                 activeTab === tab
-                  ? "bg-[#1414144b] text-white"
-                  : "text-white/60 hover:text-white"
+                  ? "bg-[#00C3FE] text-white font-medium"
+                  : "text-[#FFFFFF] font-normal hover:text-white"
               }`}
             >
               {tab}
@@ -40,7 +40,7 @@ const Leaderboard = () => {
         </div>
       </div>
       {/* Top 3 Leaderboard Cards */}
-      {activeTab === "tokens" && (
+      {activeTab === "Marketcap" && (
         <div className="flex items-center justify-center lg:flex-nowrap flex-wrap py-4 gap-4 w-full">
           {tokens.slice(0, 3).map((token, index) => (
             <LeaderboardCard
@@ -59,16 +59,16 @@ const Leaderboard = () => {
       )}
       {/* Leaderboard Table or Tab-specific content */}
       {/* bg-[#141414] */}
-      <section className="cardthreebg p-6 rounded-xl space-y-10 flex-col w-full">
-        {activeTab === "tokens" && <LeaderboardTable />}
+      <section className="cardthreebg rounded-xl space-y-10 flex-col w-full">
+        {activeTab === "Marketcap" && <LeaderboardTable />}
         {activeTab === "referrals" && (
-          <div className="text-white text-center">
-            Referral rankings coming soon 🚀
+          <div className="text-white text-center py-4">
+            Referral rankings coming soon
           </div>
         )}
         {activeTab === "socials" && (
-          <div className="text-white text-center">
-            Social engagement leaderboard loading... 🔗
+          <div className="text-white text-center py-4">
+            Social engagement leaderboard loading...
           </div>
         )}
       </section>

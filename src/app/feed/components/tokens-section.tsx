@@ -4,13 +4,26 @@ import TokensSkeleton from "./loaders/TokensSkeleton";
 import { useState } from "react";
 import { useTokens } from "@/context/TokensContext";
 import SearchBar from "@/components/searchBar";
+import Image from "next/image";
 
 const tabOptions = [
-  { text: "Trending", image: "/Vector-fire.png" },
-  { text: "Market Cap", image: "/trend-up.png" },
-  { text: "Newly Launched", image: "/trend-up.png" },
-  { text: "Graduated", image: "/Vector-rocket.png" },
-  { text: "About to Graduate", image: "/Vector-rocket.png" },
+  { text: "Trending", image: "/Group.png", active: "/Vector-fire.png" },
+  { text: "Market Cap", image: "/trend-up.png", active: "/trend-up-black.png" },
+  {
+    text: "Newly Launched",
+    image: "/trend-up.png",
+    active: "/trend-up-black.png",
+  },
+  {
+    text: "Graduated",
+    image: "/Vector-rocket.png",
+    active: "/Vector-black.png",
+  },
+  {
+    text: "About to Graduate",
+    image: "/Vector-rocket.png",
+    active: "/Vector-black.png",
+  },
 ];
 
 export default function TokensSection() {
@@ -80,10 +93,10 @@ switch (activeTab) {
 
 
   return (
-    <section className="w-full py-10 flex flex-col gap-8">
+    <section className="w-full py-10 flex flex-col items-center gap-8">
       {/* Tabs Navigation */}
-      <div className="w-full overflow-x-auto">
-        <div className="flex mx-auto gap-2 md:gap-4 justify-center items-center w-full mb-4 flex-wrap">
+      <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-4 max-w-7xl">
+        <div className="flex overflow-x-auto gap-2 md:gap-4 justify-start items-center w-full max-md:mb-4 flex-nowrap">
           {tabOptions.map((tab) => (
             // tabs-gradient-wrapper
             <button
@@ -95,25 +108,29 @@ switch (activeTab) {
                   : "text-white hover:bg-white hover:text-black"
               }`}
             >
-              {/* <span className="relative w-4 h-4 flex-shrink-0">
+              <span className="relative w-4 h-4 flex-shrink-0">
                 <Image
-                  src={tab.image}
+                  src={activeTab === tab.text ? tab.active : tab.image}
                   alt={`${tab.text} icon`}
                   fill
                   className="object-contain"
                 />
-              </span> */}
+              </span>
               {tab.text}
             </button>
           ))}
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          className="rounded-full mx-auto my-auto"
+        />
       </div>
 
       {localLoading || loading ? (
         <TokensSkeleton />
       ) : sortedTokens.length === 0 ? (
-        <p className="text-center text-gray-400 py-20 col-span-full">
+        <p className="text-center text-[#87DDFF] py-20 col-span-full">
           No tokens available.
         </p>
       ) : (

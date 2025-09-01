@@ -27,7 +27,7 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="card px-3 sm:px-4 md:px-6 flex w-full justify-center items-center md:justify-between rounded-[18px] gap-3 py-3 bg-[#212121] sm:bg-[#1C1C1C] text-white border border-black flex-nowrap">
+    <div className="card px-3 sm:px-4 md:px-6 flex w-full justify-center items-center md:justify-between rounded-[18px] gap-3 py-3 box-bg text-white border border-[#38B9FF] flex-nowrap">
       {/* Stats */}
       <div className="flex h-full flex-nowrap items-center gap-0 sm:gap-4 w-full sm:w-[80%] justify-around">
         <LabelValuePair label="Mcap" value={formatMarketCap(mCap)} />

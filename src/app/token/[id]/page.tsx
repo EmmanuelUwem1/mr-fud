@@ -23,13 +23,11 @@ import { useUser } from "@/context/userContext";
 
 export default function TokenPage() {
 
-  const pathName = usePathname();
 
  
 
   const { tokens, loading } = useTokens();
   
-  const router = useRouter();
   const { id } = useParams();
   const token = tokens.find((t) => t._id === id);
   const { address, isConnected } = useAccount();
@@ -66,7 +64,7 @@ export default function TokenPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18 bg-[#0D0D0D]
+      className={`max-w-7xl w-full mx-auto space-y-6 px-4 sm:px-8 md:px-16 py-8 pb-18
       }`}
     >
       {/* Back Button */}
@@ -176,7 +174,6 @@ export default function TokenPage() {
 
           {/* Comment Thread */}
           <CommentThread
-            // comments={comments}
             isConnected={isConnected}
             ca={token?.contractAddress || ""}
             createdDate={token?.createdAt || ""}
