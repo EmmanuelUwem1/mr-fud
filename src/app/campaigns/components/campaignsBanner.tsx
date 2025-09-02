@@ -2,10 +2,13 @@
 import { useTokens } from "@/context/TokensContext";
 import Link from "next/link";
 import BannerCampaignCard from "./cards/bannerCampaignCard";
+import { useRouter } from "next/navigation";
 
 
 export default function Banner() {
   const { tokens, loading } = useTokens();
+
+  const router = useRouter();
 
   const topThree = tokens.slice(0, 3);
     if (!tokens) {
@@ -26,8 +29,8 @@ export default function Banner() {
         <>
           <div className="z-20 gap-2 sm:gap-4 flex justify-center items-start w-full px-6 lg:gap-8 sm:px-10">
             {/* Left card (index 0) */}
-            <Link
-              href={`/campaigns/${topThree[1]._id}`}
+            <div
+              onClick={() => router.push(`/campaigns/${topThree[1]._id}`)}
               className="w-full max-w-[20rem] relative transition-transform -translate-y-6 md:-translate-y-10 lg:-translate-y-16"
             >
               <BannerCampaignCard
@@ -43,11 +46,11 @@ export default function Banner() {
                 website={topThree[1].website}
                 description={topThree[1].description}
               />
-            </Link>
+            </div>
 
             {/* Center card (index 1) */}
-            <Link
-              href={`/campaigns/${topThree[0]._id}`}
+            <div
+              onClick={() => router.push(`/campaigns/${topThree[0]._id}`)}
               className="w-full max-w-[20rem] relative transition-transform -translate-y-12 md:-translate-y-18 lg:-translate-y-28 z-10"
             >
               <BannerCampaignCard
@@ -63,11 +66,11 @@ export default function Banner() {
                 website={topThree[0].website}
                 description={topThree[0].description}
               />
-            </Link>
+            </div>
 
             {/* Right card (index 2) */}
-            <Link
-              href={`/campaigns/${topThree[2]._id}`}
+            <div
+              onClick={() => router.push(`/campaigns/${topThree[2]._id}`)}
               className="w-full max-w-[20rem] relative transition-transform -translate-y-6 md:-translate-y-10 lg:-translate-y-16"
             >
               <BannerCampaignCard
@@ -83,7 +86,7 @@ export default function Banner() {
                 website={topThree[2].website}
                 description={topThree[2].description}
               />
-            </Link>
+            </div>
           </div>
         </>
       )}

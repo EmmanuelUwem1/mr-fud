@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Socials from "./socials";
-import CreateClubButton from "./buttons/create-club";
+import CreateButton from "./buttons/create";
 import CustomConnectButton from "./buttons/customConnectButton";
 import { useAccount } from "wagmi";
 import UserProfileAvatar from "./avaters/user-profile-avatar";
@@ -19,6 +19,7 @@ function Header() {
   const { address, isConnected } = useAccount();
   const show = pathName !== "/";
   const prePage = pathName === "/";
+  const connectPage = pathName === "/connect";
   const menuRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
@@ -51,7 +52,7 @@ function Header() {
         prePage ? "md:px-12" : "md:px-8"
       }`}
     >
-      <div className={`${prePage ? "hidden" : "hidden sm:block"} `}>
+      <div className={`${prePage  || connectPage ? "hidden" : "hidden sm:block"} `}>
         <TradeNotification />
       </div>
       <motion.header
@@ -59,8 +60,7 @@ function Header() {
         initial={false}
         animate={{ height: isOpen ? "auto" : "80px" }}
         transition={{ duration: 0.3 }}
-        className="flex flex-col justify-start w-full border border-[#38B9FF] overflow-hidden px-4 rounded-[22px] bg-[#00416D]"
-      >
+        className="flex flex-col justify-start w-full border border-[#38B9FF] overflow-hidden px-4 rounded-[22px] bg-[#00416D]">
         {/* Top bar */}
         <div className="flex justify-between items-center gap-8 my-auto py-2 relative">
           {/* Logo */}
@@ -126,7 +126,7 @@ function Header() {
               <LaunchApp />
               {show && (
                 <div className="hidden lg:flex items-center w-fit justify-center relative max-sm:-right-8">
-                  <CreateClubButton />
+                  <CreateButton/>
                 </div>
               )}
               <div className="relative max-sm:-right-6">
@@ -192,7 +192,7 @@ function Header() {
 
                 <div className="flex flex-col justify-start items-start gap-4 pt-2">
                   <div className="flex gap-8 items-center justify-between w-full pr-4">
-                    <CreateClubButton />
+                    <CreateButton />
                     {address && isConnected && show && (
                       <span className="sm:hidden">
                         <UserProfileAvatar />

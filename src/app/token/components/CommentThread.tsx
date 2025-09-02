@@ -219,7 +219,7 @@ export default function CommentThread({
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="ml-6 mt-2 p-2 bg-[#2A2A2A] rounded-md text-gray-300"
+                          className="ml-6 mt-2 p-2 bg-[#2F6786] rounded-md text-gray-300"
                         >
                           <UserAvatar
                             imageUrl={r.userProfile?.profilePicture || ""}
@@ -296,7 +296,7 @@ export default function CommentThread({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.25 }}
-                  className="p-4 mb-4"
+                  className="py-4"
                 >
                   <TopHoldersCard tokenCa={ca} />
                 </motion.div>

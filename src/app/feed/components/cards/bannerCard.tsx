@@ -57,7 +57,7 @@ const ripple = useRipple();
            src={`${image}${cacheBuster}`}
            alt={""}
             layout="fill"
-           objectFit="cover"
+           objectFit="contain"
            objectPosition="top"
            onError={handleError}
          />

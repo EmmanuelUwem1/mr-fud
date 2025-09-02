@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { formatDaysAgo } from "@/lib/utils";
 import { formatWalletAddress } from "@/lib/utils";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import SocialLinks from "../socialLinks";
 import { useRipple } from "@/hooks/useRipple";
 type CampaignCardProps = {
@@ -48,11 +48,16 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
   });
 
   const formattedRange = `${formattedStart} – ${formattedEnd}`;
-const ripple = useRipple();
+  const ripple = useRipple();
+  const router = useRouter();
+  function handleClick(e: React.MouseEvent<HTMLDivElement>) {
+    ripple(e);
+    router.push(`/campaigns/${id}`);
+  }
   return (
-    <Link
-      href={`/campaigns/${id}`}
-      className="group relative cardonebg border mx-auto border-[#05E02B] rounded-[12px] h-full overflow-hidden shadow-md w-full max-w-96 pb-3" onClick={ripple}
+    <div
+      className="group cursor-pointer relative cardonebg border mx-auto border-[#05E02B] rounded-[12px] h-full overflow-hidden shadow-md w-full max-w-96 pb-3"
+      onClick={handleClick}
     >
       {/* Hover Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] text-white p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
@@ -109,7 +114,7 @@ const ripple = useRipple();
           <span>By: {formatWalletAddress(creator)}</span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

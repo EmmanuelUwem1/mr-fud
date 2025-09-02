@@ -86,8 +86,8 @@ function TopHoldersCard({ tokenCa }: Props) {
   return (
     <div className="box-bg rounded-[18px] p-6 w-full text-white">
       <div className="flex items-center justify-between mb-6 gap-3">
-        <h3 className="text-lg font-semibold">Top Holders</h3>
-        <span className="text-[#00C3FE] font-medium text-xs bg-[#013253] rounded-[6px] p-2.5">
+        <h3 className="text-base sm:text-lg font-semibold">Top Holders</h3>
+        <span className="text-[#00C3FE] font-medium text-xs bg-[#013253] rounded-[6px] text-[10px] p-1.5 sm:p-2.5">
           generate bubble map
         </span>
       </div>

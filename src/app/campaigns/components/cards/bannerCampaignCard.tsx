@@ -50,7 +50,7 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
   const formattedRange = `${formattedStart} – ${formattedEnd}`;
   const ripple = useRipple();
   return (
-    <div className="relative w-full max-w-[420px] h-full flex flex-col items-center group" onClick={ripple}>
+    <div className="relative cursor-pointer w-full max-w-[420px] h-full flex flex-col items-center group" onClick={ripple}>
       {/* Badge */}
       <div className="z-30 absolute -top-6 sm:-top-8 md:-top-10 lg:-top-14 aspect-[98/82] h-8 w-10 sm:h-12 sm:w-14 md:h-14 md:w-16 lg:h-20 lg:w-24 flex items-center justify-center">
         <Image

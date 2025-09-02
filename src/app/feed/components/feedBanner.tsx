@@ -41,7 +41,7 @@ export default function Banner() {
                 className="bg-[#00C3FE] w-[80%] rounded-full text-center py-3.5 text-xs font-semibold text-white relative overflow-hidden"
                 onClick={ripple}
             >
-              Create a club
+              Launch a token
             </Link>
           </div>
           {/*  for mobile */}
