@@ -2,11 +2,15 @@
 import React, { useState, DragEvent, ChangeEvent } from "react";
 import Image from "next/image";
 import { useImageContext } from "../context/ImageContext";
+import { usePathname } from "next/navigation";
 
 
 
 
 const MediaUpload: React.FC = () => {
+  const pathName = usePathname();
+  const show = pathName === "/create/campaign";
+
 const { file, setFile } = useImageContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -33,7 +37,7 @@ const { file, setFile } = useImageContext();
 
   return (
     <div className="w-full">
-      <p className="text-left mb-2 font-medium text-sm">Project image</p>
+      {show && (<p className="text-left mb-2 font-medium text-sm">Project image</p>)}
     {/* // sm:bg-[#141414] bg-[#212121] */}
   
     <div className=" p-2.5 cardthreebg rounded-[13px] flex flex-col w-full h-full items-center justify-center">

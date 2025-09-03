@@ -15,14 +15,14 @@ const AntiGeetToggle: React.FC = () => {
           setSelected("green");
           setPayload({ isAntiGeet: true });
         }}
-        className={`cursor-pointer p-4 rounded-xl w-full h-32 flex items-center justify-start text-white font-extralight text-sm transition-all
+        className={`cursor-pointer p-4 rounded-xl w-full h-32 flex gap-6 items-center justify-start text-white font-extralight text-sm transition-all
           ${
             selected === "green"
               ? "border bg-[#021302] border-[#0FBF38]"
               : "border bg-[#020213] border-transparent"
           }`}
       >
-        <span className="relative flex items-center h-20 w-full justify-center">
+        <span className="relative flex items-center h-20 w-20 aspect-square  justify-center">
           <Image
             alt=""
             src={"/cat 2 1.png"}
@@ -44,14 +44,14 @@ const AntiGeetToggle: React.FC = () => {
           setSelected("black");
           setPayload({ isAntiGeet: false });
         }}
-        className={`cursor-pointer p-4 rounded-xl w-full h-32 flex items-center justify-start text-white font-extralight transition-all
+        className={`cursor-pointer text-sm p-4 rounded-xl w-full h-32 flex gap-6 items-center justify-start text-white font-extralight transition-all
           ${
             selected === "black"
               ? "border bg-[#130202] border-[#FF3C38]"
               : "border bg-[#020213] border-transparent"
           }`}
       >
-        <span className="relative flex items-center h-full w-full justify-center">
+        <span className="relative flex items-center h-20 w-20 aspect-square justify-center">
           <Image
             alt=""
             src={"/cat 3 1.png"}
