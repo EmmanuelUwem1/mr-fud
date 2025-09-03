@@ -62,7 +62,7 @@ function Form() {
           ></textarea>
         </div>
 
-        {/* <AntiGeetToggle /> */}
+        <AntiGeetToggle />
       </div>
     </div>
   );

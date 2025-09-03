@@ -52,7 +52,9 @@ function Header() {
         prePage ? "md:px-12" : "md:px-8"
       }`}
     >
-      <div className={`${prePage  || connectPage ? "hidden" : "hidden sm:block"} `}>
+      <div
+        className={`${prePage || connectPage ? "hidden" : "hidden sm:block"} `}
+      >
         <TradeNotification />
       </div>
       <motion.header
@@ -127,7 +129,7 @@ function Header() {
               <LaunchApp />
               {show && (
                 <div className="hidden lg:flex items-center w-fit justify-center relative max-sm:-right-8">
-                  <CreateButton/>
+                  <CreateButton />
                 </div>
               )}
               <div className="relative max-sm:-right-6">
@@ -167,6 +169,7 @@ function Header() {
                   <Link
                     key={path}
                     href={path}
+                    onClick={() => setOpen(false)}
                     className={`${
                       pathName === path
                         ? "font-bold bg-gradient-to-r from-[#F7E436] to-[#05E02B] bg-clip-text text-transparent"
@@ -176,8 +179,10 @@ function Header() {
                     {label}
                   </Link>
                 ))}
+
                 <Link
                   href="/airdrop"
+                  onClick={() => setOpen(false)}
                   className="relative font-bold bg-gradient-to-r from-[#70B0FF] to-[#FF01BF] bg-clip-text text-transparent w-16"
                 >
                   Airdrop
@@ -191,7 +196,10 @@ function Header() {
                   </span>
                 </Link>
 
-                <div className="flex flex-col justify-start items-start gap-4 pt-2">
+                <div
+                  className="flex flex-col justify-start items-start gap-4 pt-2"
+                  onClick={() => setOpen(false)}
+                >
                   <div className="flex gap-8 items-center justify-between w-full pr-4">
                     <CreateButton />
                     {address && isConnected && show && (

@@ -98,10 +98,12 @@ export default function Home() {
       </main>
 
       <footer className="flex-col justify-self-end flex items-center justify-center gap-8 w-full px-4 relative go-up pb-4 sm:pt-4 lg:pt-8 xl:pt-16 2xl:pt-24 lg:pb-10 lg:mt-auto">
-        <div className="text-center flex items-center justify-center px-8 font-normal text-base italic">
+        <div className="text-center md:text-left flex items-center justify-center px-8 font-normal text-base italic">
           Create fast. Purnish the FUD hard. Teleport to 100x.
         </div>
-        <Socials theme="dark-blue" />
+        <span className="sm:hidden">
+          <Socials theme="dark-blue" />
+        </span>
       </footer>
     </>
   );

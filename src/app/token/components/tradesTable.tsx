@@ -111,6 +111,7 @@ function TradesTable({ token, ca }: TradeTableProps) {
                             layout="fill"
                             objectFit="contain"
                             objectPosition="center"
+                            priority
                           />
                         </span>
                         {formatAddress(traderAddress)}
@@ -145,6 +146,7 @@ function TradesTable({ token, ca }: TradeTableProps) {
                           layout="fill"
                           objectFit="contain"
                           objectPosition="center"
+                          priority
                         />
                       </a>
                     </td>

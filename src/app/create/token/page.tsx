@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import CreateCoinModal from "../components/create-coin-modal";
 import { useTokenForm } from "../context/TokenFormContext";
 import BackButton from "@/components/buttons/backButton";
-import CampaignsForm from "../components/CampaignsForm";
 
 
 export default function Page() {
@@ -39,7 +38,7 @@ const {setPayload} = useTokenForm();
           <div className="w-full">
             {/* Heading */}
             <h1 className="text-xl font-semibold bg-clip-text text-transparent w-full text-left sm:text-center bg-gradient-to-r  from-[#F7E436] transition-class to-[#05E02B] ">
-              Create a countdown
+              Create new coin
             </h1>
 
             {/* Subheading */}
@@ -53,8 +52,6 @@ const {setPayload} = useTokenForm();
           </span>
         </div>
         <Form />
-       
-          <CampaignsForm />
 
         <div className="flex w-full items-start justify-center md:flex-nowrap flex-wrap gap-4 max-w-4xl">
           <MediaUpload /> <SocialsInput />
