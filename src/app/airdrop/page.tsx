@@ -8,7 +8,7 @@ function Page() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="relative flex w-full items-center justify-center h-full"
+      className="relative flex w-full items-center mt-44 mb-4 md:my-16 justify-center"
     >
       {/*  Cat Image */}
       <div className="absolute md:static md:mr-[-60px] md:z-20 w-64 md:w-80 lg:w-96 -top-60 md:top-auto md:-left-10">
@@ -21,7 +21,7 @@ function Page() {
         />
       </div>
 
-      <div className="relative z-10 my-auto w-fit overflow-hidden max-w-2xl p-[1px] rounded-[18px] card-gradient-wrapper-thin md:ml-0 ml-auto mr-auto">
+      <div className="relative z-10 my-auto w-fit overflow-hidden max-w-2xl p-[1px] rounded-[18px] card-gradient-wrapper-thin md:ml-0  ml-auto mr-auto">
         {/*  Blurred gradients */}
         <div className="absolute -top-32 sm:-top-20 -right-32 sm:-right-20 w-72 h-72 rounded-full bg-[#297A37] opacity-60 blur-2xl pointer-events-none z-0" />
         <div className="absolute -left-32 -bottom-32 sm:-bottom-20 sm:-left-20 w-72 h-72 rounded-full bg-[#297A37] opacity-60 blur-2xl pointer-events-none z-0" />

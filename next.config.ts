@@ -3,6 +3,16 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
 
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/feed",
+        permanent: true, // or false if it's temporary
+      },
+    ];
+  },
+
   images: {
     remotePatterns: [
       {
@@ -11,7 +21,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
 };
 
 export default nextConfig;

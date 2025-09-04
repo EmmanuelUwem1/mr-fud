@@ -52,12 +52,12 @@ const ripple = useRipple();
      {/* Header */}
      <div className="flex flex-col w-full gap-3 items-center justify-start">
        {/* image */}
-       <div className="flex w-full h-40 rounded-[10px] bg-[#1a1a236f] relative overflow-hidden">
+       <div className="flex w-full h-52 rounded-[10px] bg-[#1a1a236f] relative overflow-hidden">
          <Image
            src={`${image}${cacheBuster}`}
            alt={""}
             layout="fill"
-           objectFit="contain"
+           objectFit="cover"
            objectPosition="top"
            onError={handleError}
          />
