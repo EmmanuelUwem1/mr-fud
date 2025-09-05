@@ -63,3 +63,21 @@ export interface Campaign {
   __v: number;
 }
 
+
+export interface TokenComment {
+  _id: string;
+  content: string;
+  tokenAddress: string;
+  walletAddress: string;
+  userProfile?: {
+    profilePicture?: string;
+    displayName?: string;
+  };
+  parentComment: string | null;
+  likes: number;
+  likedBy: string[];
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+

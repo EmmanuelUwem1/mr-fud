@@ -61,57 +61,34 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
       const tokenCa = generateFakeAddress();
       setPayload({ contractAddress: tokenCa });
 
-      const response1 = await createToken(payload);
-      if(response1){
-        if (response1.success) {
+      const response = await createToken(payload);
+      if(response){
+        if (response.success) {
           toast.success("Coin created successfully!");
           onClose();
         } else {
           toast.error(
             `An error occurred: ${
-              (response1.error &&
-                typeof response1.error === "object" &&
-                "response" in response1.error &&
+              (response.error &&
+                typeof response.error === "object" &&
+                "response" in response.error &&
                 (
-                  response1.error as {
+                  response.error as {
                     response?: { data?: { message?: string } };
                   }
                 ).response?.data?.message) ||
-              (typeof response1.error === "object" &&
-              response1.error !== null &&
-              "message" in response1.error
-                ? (response1.error as { message?: string }).message
+              (typeof response.error === "object" &&
+              response.error !== null &&
+              "message" in response.error
+                ? (response.error as { message?: string }).message
                 : undefined) ||
               "Unknown error"
             }`
           );
         }
       }
-       const formData2 = new FormData();
-       formData2.append("file", file);
-
-       const imageTwoRes = await fetch("/api/upload", {
-         method: "POST",
-         body: formData,
-       });
-
-       const result2 = await imageTwoRes.json();
-       const image2 = result2.ipfsUrl;
-       setPayload({ image:image2 });
-
-      const response2 = await createCampaign(campaignPayload);
-      if (response2.success) {
-        toast.success("Coin created successfully!");
-        onClose();
-      } else {
-        toast.error(
-          `An error occurred: ${
-            response2.error.response?.data?.message ||
-            response2.error.message ||
-            "Unknown error"
-          }`
-        );
-      }
+      
+      
     } catch (error) {
       toast.error(
         `Unexpected error: 
@@ -314,7 +291,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
             >
               {isLoading ? (
                 <div className="flex justify-center items-center">
-                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-400" />
+                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
                 </div>
               ) : (
                 "Create Coin"

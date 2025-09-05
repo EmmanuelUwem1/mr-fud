@@ -40,7 +40,8 @@ export default function BuySellCard({
  const { price: bnbPriceUSD } = useBNBPrice();
 const { refreshUser } = useUser();
   
- const isBuy = tab === "buy";
+  const isBuy = tab === "buy";
+  const isSell = tab === "sell";
  const balance = isBuy ? BNBbalance : tokenBalance;
  const maxAmount = balance.toString();
  const inputAmount = parseFloat(amount);
@@ -217,26 +218,64 @@ const estimatedValue =
             Reset
           </button>
           <button
-            onClick={() => setAmount("1")}
-            disabled={balance < 1}
+            onClick={() => setAmount(`${balance / 4}`)}
+            
             className={`px-3 py-2 rounded-full ${
               balance >= 1
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
           >
-            1 BNB
+            25%
           </button>
           <button
-            onClick={() => setAmount("5")}
-            disabled={balance < 5}
+            onClick={() => setAmount(`${balance / 2}`)}
+            
             className={`px-3 py-2 rounded-full ${
               balance >= 5
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
           >
-            5 BNB
+            50%
+          </button>
+          <button
+            onClick={() => setAmount(maxAmount)}
+            className="px-3 py-2 bg-[#2F6786] rounded-full text-gray-200"
+          >
+            Max
+          </button>
+        </div>
+      )}
+      {isSell && (
+        <div className="flex justify-between text-xs space-x-2 font-medium pt-3">
+          <button
+            onClick={() => setAmount("0")}
+            className="bg-[#2F6786] text-gray-200 px-3 py-2 rounded-full"
+          >
+            Reset
+          </button>
+          <button
+            onClick={() => setAmount(`${balance / 4}`)}
+            disabled={balance < 0}
+            className={`px-3 py-2 rounded-full ${
+              balance >= 1
+                ? "bg-[#013253] text-gray-200"
+                : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
+            }`}
+          >
+            25%
+          </button>
+          <button
+            onClick={() => setAmount(`${balance / 2}`)}
+            disabled={balance < 0}
+            className={`px-3 py-2 rounded-full ${
+              balance >= 5
+                ? "bg-[#013253] text-gray-200"
+                : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
+            }`}
+          >
+            50%
           </button>
           <button
             onClick={() => setAmount(maxAmount)}
@@ -329,10 +368,13 @@ const estimatedValue =
   return (
     <>
       {/* Desktop View */}
-      <div className="hidden sm:block w-full max-w-96 p-4 rounded-[18px] box-bg text-white space-y-4">
+      <div className="hidden sm:block w-full max-w-96 p-4 rounded-[18px] box-bg text-white space-y-4 transition-class">
         <div className="bg-[#013253] rounded-full flex items-center">
           <button
-            onClick={() => setTab("buy")}
+            onClick={() => {
+              setTab("buy");
+              setAmount("");
+            }}
             className={`w-full text-xs py-3.5 font-semibold rounded-full ${
               tab === "buy" ? "bg-[#06D57B]" : ""
             }`}
@@ -340,7 +382,10 @@ const estimatedValue =
             Buy
           </button>
           <button
-            onClick={() => setTab("sell")}
+            onClick={() => {
+              setTab("sell");
+              setAmount("");
+            }}
             className={`w-full text-xs py-3.5 font-semibold rounded-full ${
               tab === "sell" ? "bg-[#fe3c3cf4]" : ""
             }`}
@@ -377,7 +422,7 @@ const estimatedValue =
       <AnimatePresence>
         {modalOpen && (
           <motion.div
-            className="fixed inset-0 bg-[#0077D3] bg-opacity-80 z-[1100] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-[#0077D3] bg-opacity-80 z-[1100] flex items-center justify-center p-4 transition-class"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -394,7 +439,10 @@ const estimatedValue =
               <div className="text-center mb-4">
                 <div className="w-full flex items-center justify-center mb-2">
                   <button
-                    onClick={() => setTab("buy")}
+                    onClick={() => {
+                      setTab("buy");
+                      setAmount("");
+                    }}
                     className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
                       tab === "buy" ? "bg-[#06D57B]" : ""
                     }`}
@@ -402,7 +450,10 @@ const estimatedValue =
                     Buy
                   </button>
                   <button
-                    onClick={() => setTab("sell")}
+                    onClick={() => {
+                      setTab("sell");
+                      setAmount("");
+                    }}
                     className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
                       tab === "sell" ? "bg-[#fe3c3cf4]" : ""
                     }`}

@@ -77,7 +77,7 @@ export default function TokenPage() {
         image={token?.image || ""}
         tokenCreatedDate={token?.createdAt || ""}
         tokenId={token?._id || ""}
-        referalCode="jhaddhw3"
+        referalCode={address && address}
         rating={2}
       />
       <TokenStatsCard
@@ -87,7 +87,7 @@ export default function TokenPage() {
         tokenImage={token?.image || ""}
         tokenCreatedDate={token?.createdAt || ""}
         tokenId={token?._id || ""}
-        referalCode="jhaddhw3"
+        referalCode={address && address}
         referalReward="2BNB"
         creatorReward="2bnb"
         rating={2}
