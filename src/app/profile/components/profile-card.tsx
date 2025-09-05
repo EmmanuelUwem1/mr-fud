@@ -2,25 +2,25 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAccount } from "wagmi";
-import { useRouter } from "next/navigation";
 import { copyToClipboard } from "@/lib/utils";
 import CoinsTabs from "./coins-tabs";
 import EditProfileModal from "./modals/EditProfileModal";
 import { useUser } from "@/context/userContext";
+import { modal } from "@/context/AppKitProvider";
 
 export default function ProfileCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [username, setUsername] = useState("87mK0"); // fallback username
 
   const { isConnected, address } = useAccount();
-  const router = useRouter();
   const { user, loading } = useUser();
 
   useEffect(() => {
     if (!isConnected) {
-      router.replace("/connect");
+      modal.open();
+      return;
     }
-  }, [isConnected, router]);
+  }, [isConnected]);
 
   useEffect(() => {
     if (user) {

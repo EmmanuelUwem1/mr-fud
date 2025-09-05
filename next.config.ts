@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
       {
         source: "/",
         destination: "/feed",
-        permanent: true, // or false if it's temporary
+        permanent: true,
+        
       },
     ];
   },

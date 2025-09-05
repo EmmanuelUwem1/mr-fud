@@ -247,7 +247,7 @@ const estimatedValue =
         </div>
       )}
 
-      {amount && !isNaN(inputAmount) && tokenPrice > 0 && bnbPriceUSD && (
+      {amount && !isNaN(inputAmount) && (
         <>
           <div className="text-xs flex justify-between items-center text-[#87DDFF] font-semibold mt-2">
             <span>Min Received</span>

@@ -135,7 +135,7 @@ function Header() {
               <div className="relative max-sm:-right-6">
                 <CustomConnectButton />
               </div>
-              {address && isConnected && show && (
+              { show && (
                 <span className="max-sm:hidden relative right-4">
                   <UserProfileAvatar />
                 </span>
@@ -202,7 +202,7 @@ function Header() {
                 >
                   <div className="flex gap-8 items-center justify-between w-full pr-4">
                     <CreateButton />
-                    {address && isConnected && show && (
+                    { show && (
                       <span className="sm:hidden">
                         <UserProfileAvatar />
                       </span>

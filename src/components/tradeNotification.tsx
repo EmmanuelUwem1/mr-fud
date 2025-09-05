@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useTradeStore } from "@/store/tradeStore";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { formatWalletAddress } from "@/lib/utils";
-import { formatNumberToLocaleString } from "@/lib/utils";
+import { formatWalletAddress, formatNumberToLocaleString, formatNumber } from "@/lib/utils";
+
 type Props = {
   tokenImage?: string; 
   tokenName?: string;
@@ -63,10 +63,10 @@ export default function TradeNotification({ tokenImage="/cat_bg.jpg" , tokenName
             {isBuy ? "BUY" : "SELL"}
           </span>
           <span className="font-medium">
-            {formatNumberToLocaleString(currentTrade.amount)} {tokenName}
+            {formatNumberToLocaleString(formatNumber(currentTrade.amount))} {tokenName}
           </span>
           <span className="text-[#87DDFF]">for</span>
-          <span>{currentTrade.bnbAmount.toFixed(4)} BNB</span>
+          <span>{formatNumber(currentTrade.bnbAmount)} BNB</span>
 
           {/* Trader Address Button */}
           <span className="bg-[#67C94D] text-white p-1.5  sm:p-2.5 rounded-md sm:text-xs font-normal">

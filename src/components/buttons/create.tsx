@@ -9,7 +9,6 @@ export default function CreateButton() {
   const { isConnected, address } = useAccount();
     const pathName = usePathname();
 const ripple = useRipple();
-  if (!isConnected || !address) return null;
   const isCampaignPage = pathName.startsWith("/campaigns");
 
 // text-[#FF3C38]

@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
  * @param decimals - Defaults to 18
  * @returns string
  */
-export function fromWei(value: string | bigint, decimals: number = 18): string {
+export function fromWei(value: string | bigint | number, decimals: number = 18): string {
   return formatUnits(value, decimals);
 }
 
@@ -229,5 +229,30 @@ export function formatNumberToLocaleString(num: number | string | undefined | nu
     return numericValue.toLocaleString();
   }
   return num.toLocaleString();
+}
+
+export function formatNumber(num :number, precision = 5) {
+  if (num === 0) return "0";
+
+  const absNum = Math.abs(num);
+  let formatted;
+
+  if (absNum < 1e-3) {
+    // For very small numbers, use exponential then convert to fixed
+    formatted = num.toExponential(precision - 1);
+    const [mantissa, exponent] = formatted.split("e");
+    formatted = (
+      parseFloat(mantissa) * Math.pow(10, parseInt(exponent))
+    ).toFixed(precision);
+  } else {
+    // For regular numbers, round to precision digits total
+    const digitsBeforeDecimal = Math.floor(Math.log10(absNum)) + 1;
+    const decimalPlaces = Math.max(precision - digitsBeforeDecimal, 0);
+    formatted = num.toFixed(decimalPlaces);
+  }
+
+  // Remove trailing zeros and unnecessary decimal point
+  const numString = parseFloat(formatted).toString();
+  return parseFloat(numString);
 }
 

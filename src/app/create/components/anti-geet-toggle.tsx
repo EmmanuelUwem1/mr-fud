@@ -15,7 +15,7 @@ const AntiGeetToggle: React.FC = () => {
           setSelected("green");
           setPayload({ isAntiGeet: true });
         }}
-        className={`cursor-pointer p-4 rounded-xl w-full h-32 flex gap-6 items-center justify-start text-white font-extralight text-sm transition-all
+        className={`cursor-pointer p-4 rounded-xl w-full h-32 flex gap-6 items-center justify-start text-white font-extralight sm:text-sm text-xs transition-all
           ${
             selected === "green"
               ? "border bg-[#021302] border-[#0FBF38]"
@@ -44,7 +44,7 @@ const AntiGeetToggle: React.FC = () => {
           setSelected("black");
           setPayload({ isAntiGeet: false });
         }}
-        className={`cursor-pointer text-sm p-4 rounded-xl w-full h-32 flex gap-6 items-center justify-start text-white font-extralight transition-all
+        className={`cursor-pointer text-xs sm:text-sm p-4 rounded-xl w-full h-32 flex gap-6 items-center justify-start text-white font-extralight transition-all
           ${
             selected === "black"
               ? "border bg-[#130202] border-[#FF3C38]"

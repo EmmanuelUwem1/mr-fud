@@ -45,6 +45,7 @@ export default function Socials({ theme = "dark-blue" }: Props) {
             alt={`${social.title} icon`}
             width={20}
             height={20}
+            priority
           />
         </a>
       ))}

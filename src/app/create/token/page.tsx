@@ -6,25 +6,32 @@ import SocialsInput from "../components/input-socials";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { useRouter } from "next/navigation";
 import CreateCoinModal from "../components/create-coin-modal";
 import { useTokenForm } from "../context/TokenFormContext";
 import BackButton from "@/components/buttons/backButton";
+import { modal } from "@/context/AppKitProvider";
 
 
 export default function Page() {
   const { isConnected, address } = useAccount();
-  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 const {setPayload} = useTokenForm();
   useEffect(() => {
-    if (!isConnected) {
-      router.replace("/connect");
-    }
-    else if (address) {
+    if (address) {
       setPayload({ creatorWallet: address });
     }
-  }, [isConnected, router]);
+  }, [isConnected, address]);
+  
+  function HandleNextClick() {
+    if (!isConnected) {
+      modal.open();
+      return;
+    }
+    if (address) {
+      setPayload({ creatorWallet: address });
+      setShowModal(true);
+    }
+  }
 
   return (
     <>
@@ -72,7 +79,7 @@ const {setPayload} = useTokenForm();
         </div>
 
         <div
-          onClick={() => setShowModal(true)}
+          onClick={HandleNextClick }
           className="bg-[#00C3FE] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3 cursor-pointer transition-class hover:opacity-90"
         >
           Next

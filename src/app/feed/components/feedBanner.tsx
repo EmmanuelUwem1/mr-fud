@@ -37,7 +37,7 @@ export default function Banner() {
         <>
           <div className="sm:hidden flex w-full items-center justify-center  my-3">
             <Link
-              href={"/create"}
+              href={"/create/token"}
                 className="bg-[#00C3FE] w-[80%] rounded-full text-center py-3.5 text-xs font-semibold text-white relative overflow-hidden"
                 onClick={ripple}
             >

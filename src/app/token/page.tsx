@@ -18,6 +18,7 @@ import { toast } from "react-hot-toast";
 import { CONSTANTS } from "@/web3/config/constants";
 import { useTradeStore } from "@/store/tradeStore";
 import { useOcicatBalance } from "@/web3/hooks/ocicat/useOcicatBalance";
+import { fromWei } from "@/lib/utils";
 
 
 export default function OcicatTokenPage() {
@@ -26,7 +27,7 @@ export default function OcicatTokenPage() {
   const tokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
 const trades = useTradeStore((state) => state.trades);
   const { balance } = useOcicatBalance();
-  const userOcicatBalance = balance ? Number(balance): 0;
+  const userOcicatBalance = balance ? Number(fromWei(Number(balance),9)): 0;
 
 
  const [tokenData, setTokenData] = useState({

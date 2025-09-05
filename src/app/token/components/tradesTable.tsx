@@ -5,6 +5,7 @@ import { useTradeStore } from "@/store/tradeStore";
 import { AnimatePresence, motion } from "framer-motion";
 import { CONSTANTS } from "@/web3/config/constants";
 import { fetchOcicatTradesFromNodeReal } from "@/lib/api/nodeRealTrades";
+import { formatNumber } from "@/lib/utils";
 
 const OCICAT_CA = CONSTANTS.OCICAT_TOKEN_ADDRESS.toLowerCase();
 
@@ -73,7 +74,7 @@ function TradesTable({ token, ca }: TradeTableProps) {
   return (
     <div className="w-full box-bg rounded-[18px] text-white h-[450px] flex flex-col">
       <div className="flex-1 overflow-y-auto px-4 md:px-6 pb-6">
-        <table className="min-w-[600px] w-full max-w-6xl table-auto border-collapse">
+        <table className="min-w-[600px] w-full table-auto border-collapse">
           <thead className="sticky top-0 box-bg z-10">
             <tr className="text-xs font-semibold text-[#FFFFFF]">
               <th className="text-left min-w-[160px] px-3 pb-4 pt-6">Trader</th>
@@ -127,7 +128,7 @@ function TradesTable({ token, ca }: TradeTableProps) {
                       {trade.action === "buy" ? "Buy" : "Sell"}
                     </td>
                     <td className="py-4 px-3 text-left">
-                      {Number(trade.bnbAmount || 0).toFixed(5)}
+                      {formatNumber(trade.bnbAmount || 0)}
                     </td>
                     <td className="py-4 px-3 text-left">
                       {trade.amount.toLocaleString()}
