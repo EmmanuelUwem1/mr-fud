@@ -1,60 +1,43 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { createChart, CandlestickData, Time } from "lightweight-charts";
+import { Line } from "react-chartjs-2";
 import DexScreenerEmbed from "./dex-screener-embed";
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-// Dummy data for launchpad token chart
-const dummyCandleData: CandlestickData[] = [
-  { time: 1694016000 as Time, open: 0.05, high: 0.07, low: 0.04, close: 0.06 },
-  { time: 1694023200 as Time, open: 0.06, high: 0.08, low: 0.05, close: 0.07 },
-  { time: 1694030400 as Time, open: 0.07, high: 0.09, low: 0.06, close: 0.08 },
-];
+ChartJS.register(
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+);
 
-export default function TestTradingViewWidget({ symbol }: { symbol?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-    const chartRef = useRef<ReturnType<typeof createChart> | null>(null);
+const chartData = {
+  labels: ["12:00", "12:15", "12:30"],
+  datasets: [
+    {
+      label: "Token Price",
+      data: [0.06, 0.07, 0.08],
+      borderColor: "#00C3FE",
+      backgroundColor: "rgba(0,195,254,0.2)",
+      tension: 0.4,
+    },
+  ],
+};
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const chart = createChart(containerRef.current, {
-      width: containerRef.current.clientWidth,
-      height: 500,
-      layout: {
-        background: { color: "#0f172a" },
-        textColor: "#ffffff",
-      },
-      grid: {
-        vertLines: { color: "#334155" },
-        horzLines: { color: "#334155" },
-      },
-      timeScale: {
-        timeVisible: true,
-        secondsVisible: true,
-      },
-    });
-
-     chartRef.current = chart;
-
-
-    const candleSeries = chart.addCandlestickSeries();
-    candleSeries.setData(dummyCandleData);
-
-    const handleResize = () => {
-      chart.applyOptions({ width: containerRef.current!.clientWidth });
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      chart.remove();
-    };
-  }, [symbol]);
-
+export default function TokenChart({ symbol }: { symbol?: string }) {
   return (
-    <div className="bg-[#212121] sm:bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full overflow-hidden h-[500px] sm:h-[600px]">
+    <div className="bg-[#141414] rounded-[18px] border border-[#000000] p-3 w-full h-[500px]">
       {symbol ? (
-        <div ref={containerRef} className="w-full h-full" />
+        <Line data={chartData} options={{ responsive: true }} />
       ) : (
         <DexScreenerEmbed />
       )}
