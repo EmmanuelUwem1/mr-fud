@@ -11,7 +11,8 @@ const DexScreenerEmbed = () => {
       frameBorder="0"
       allow="clipboard-write"
       allowFullScreen
-    ></iframe>
+    >
+    </iframe>
 
   );
 };
