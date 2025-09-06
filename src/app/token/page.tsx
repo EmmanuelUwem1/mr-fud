@@ -1,18 +1,16 @@
 "use client";
 import {  useState,useEffect,useRef } from "react";
 import TokenStatsCard from "./components/cards/TokenStatsCard";
-// import TradingViewWidget from "./components/TradingViewWidget";
 import BuySellCard from "./components/cards/BuySellCard";
 import TokenDescription from "./components/TokenDescription";
 import CommentThread from "./components/CommentThread";
-// import { Mocktokens } from "@/lib/data/mock-tokens";
 import Token from "./components/token";
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
 import BackButton from "@/components/buttons/backButton";
 import GraduatedCard from "./components/cards/graduated";
 import TopHoldersCard from "./components/cards/topHoldersCard";
-import TestTradingViewWidget from "./components/testTradingViewWidget";
+import DexScreenerEmbed from "./components/dex-screener-embed";
 import { fetchOcicatTokenPrice } from "@/lib/api";
 import { toast } from "react-hot-toast";
 import { CONSTANTS } from "@/web3/config/constants";
@@ -126,7 +124,7 @@ useEffect(() => {
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
             <div className="flex flex-col items-start justify-start gap-4 w-full">
               {/* <TradingViewWidget pairAddress={token.contractAddress} /> */}
-              <TestTradingViewWidget />
+              <DexScreenerEmbed />
 
               <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
                 {/* Token Description */}

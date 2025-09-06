@@ -1,13 +1,10 @@
 "use client";
-import { useRouter } from "next/navigation";
 import {  useState } from "react";
 import TokenStatsCard from "../components/cards/TokenStatsCard";
-import TradingViewWidget from "../components/TradingViewWidget";
 import BuySellCard from "../components/cards/BuySellCard";
 import TokenDescription from "../components/TokenDescription";
 import CommentThread from "../components/CommentThread";
 import { useParams } from "next/navigation";
-// import { Mocktokens } from "@/lib/data/mock-tokens";
 import Token from "../components/token";
 import { motion } from "framer-motion";
 import { useAccount, useBalance } from "wagmi";
@@ -17,14 +14,13 @@ import GraduatedCard from "../components/cards/graduated";
 import AntiFudCard from "../components/cards/anti-fud-card";
 import TopHoldersCard from "../components/cards/topHoldersCard";
 import TestTradingViewWidget from "../components/testTradingViewWidget";
-import { usePathname } from "next/navigation";
 import { useUser } from "@/context/userContext";
 
 
 export default function TokenPage() {
 
 
- 
+
 
   const { tokens, loading } = useTokens();
   
@@ -97,7 +93,7 @@ export default function TokenPage() {
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
             <div className="flex flex-col items-start justify-start gap-4 w-full">
               {/* <TradingViewWidget pairAddress={token.contractAddress} /> */}
-              <TestTradingViewWidget symbol={`${tokenData.symbol}`} />
+              <TestTradingViewWidget pairAddress={token.contractAddress} />
 
               <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
                 {/* Token Description */}
