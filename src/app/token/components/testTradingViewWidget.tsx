@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { createChart, CandlestickData, Time } from "lightweight-charts";
+import DexScreenerEmbed from "./dex-screener-embed";
 
 // Dummy data for launchpad token chart
 const dummyCandleData: CandlestickData[] = [
@@ -55,15 +56,7 @@ export default function TestTradingViewWidget({ symbol }: { symbol?: string }) {
   return (
     <div className="bg-[#212121] sm:bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full overflow-hidden h-[500px] sm:h-[600px]">
       {symbol ? (
-        <iframe
-          className="w-full h-full"
-          id="dexscreener-embed"
-          title="DEX Screener Embed"
-          src={`https://dexscreener.com/bsc/${symbol}?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15`}
-          frameBorder="0"
-          allow="clipboard-write"
-          allowFullScreen
-        ></iframe>
+        <DexScreenerEmbed />
       ) : (
         <div ref={containerRef} className="w-full h-full" />
       )}
