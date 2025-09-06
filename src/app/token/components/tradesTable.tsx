@@ -56,7 +56,7 @@ function TradesTable({ token, ca }: TradeTableProps) {
         }
       } else {
         try {
-          // const trades = await fetchLaunchpadTrades(ca, 20);
+          // const trades = await fetchLaunchpadTrades(ca, 50);
           setLocalTrades([]);
           setLocalLoaded(true);
         } catch (err) {
