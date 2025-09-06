@@ -126,7 +126,7 @@ useEffect(() => {
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
             <div className="flex flex-col items-start justify-start gap-4 w-full">
               {/* <TradingViewWidget pairAddress={token.contractAddress} /> */}
-              <TestTradingViewWidget symbol={tokenData.ticker} />
+              <TestTradingViewWidget />
 
               <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
                 {/* Token Description */}
