@@ -12,16 +12,13 @@ const dummyCandleData: CandlestickData[] = [
 
 export default function TestTradingViewWidget({ symbol }: { symbol?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const chartRef = useRef<ReturnType<typeof createChart> | null>(null);
+    const chartRef = useRef<ReturnType<typeof createChart> | null>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container || symbol) return;
+    if (!containerRef.current) return;
 
-    container.innerHTML = "";
-
-    const chart = createChart(container, {
-      width: container.clientWidth,
+    const chart = createChart(containerRef.current, {
+      width: containerRef.current.clientWidth,
       height: 500,
       layout: {
         background: { color: "#0f172a" },
@@ -37,13 +34,14 @@ export default function TestTradingViewWidget({ symbol }: { symbol?: string }) {
       },
     });
 
-    chartRef.current = chart;
+     chartRef.current = chart;
+
 
     const candleSeries = chart.addCandlestickSeries();
     candleSeries.setData(dummyCandleData);
 
     const handleResize = () => {
-      chart.applyOptions({ width: container.clientWidth });
+      chart.applyOptions({ width: containerRef.current!.clientWidth });
     };
     window.addEventListener("resize", handleResize);
 
@@ -56,9 +54,9 @@ export default function TestTradingViewWidget({ symbol }: { symbol?: string }) {
   return (
     <div className="bg-[#212121] sm:bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full overflow-hidden h-[500px] sm:h-[600px]">
       {symbol ? (
-        <DexScreenerEmbed />
-      ) : (
         <div ref={containerRef} className="w-full h-full" />
+      ) : (
+        <DexScreenerEmbed />
       )}
     </div>
   );
