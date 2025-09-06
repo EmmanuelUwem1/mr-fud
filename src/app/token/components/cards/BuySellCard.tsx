@@ -210,7 +210,7 @@ const estimatedValue =
       </div>
 
       {isBuy && (
-        <div className="flex justify-between text-xs space-x-2 font-medium pt-3">
+        <div className="flex justify-between text-[10px] sm:text-xs space-x-2 font-medium pt-3">
           <button
             onClick={() => setAmount("0")}
             className="bg-[#2F6786] text-gray-200 px-3 py-2 rounded-full"
