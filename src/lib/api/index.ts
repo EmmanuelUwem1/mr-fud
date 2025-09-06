@@ -289,6 +289,45 @@ export async function fetchComments(tokenAddress: string) {
      };
   }
 }
+export async function updateComment(
+  id: string,
+  wallet: string,
+  content: string
+) {
+  try {
+    const response = await axios.put(
+      `${BACKEND_URL}/api/v1/comments/${id}?wallet=${wallet}`,
+      { content }
+    );
+    console.log("Comment updated:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating comment:", (error as Error).message);
+    return {
+      success: false,
+      error: (error as Error).message || "Error updating comment",
+    };
+  }
+}
+
+
+export async function deleteComment(id: string, wallet: string) {
+  try {
+    const response = await axios.delete(
+      `${BACKEND_URL}/api/v1/comments/${id}?wallet=${wallet}`
+    );
+    const data = response.data;
+    console.log("Comment deleted:", response.data);
+    return {data, success:true};
+  } catch (error) {
+    console.error("Error deleting comment:", (error as Error).message);
+    return {
+      success: false,
+      error: (error as Error).message || "Error deleting comment",
+    };
+  }
+}
+
 
 export async function fetchUser(walletAddress: string) {
   try {

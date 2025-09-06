@@ -1,15 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAccount } from "wagmi";
-import { useUser } from "@/context/userContext";
 import TabsHeader from "./comment/TabsHeader";
 import CommentSection from "./comment/CommentSection";
 import TradesTable from "./tradesTable";
 import TopHoldersCard from "./cards/topHoldersCard";
 import useComments from "@/hooks/useComments";
 import { TokenComment } from "@/types";
-
 
 export default function CommentThread({
   isConnected,
@@ -22,30 +20,35 @@ export default function CommentThread({
   createdDate?: string;
   tokenName: string;
 }) {
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
-  const [newComment, setNewComment] = useState("");
   const [activeTab, setActiveTab] = useState("Comments");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { address } = useAccount();
-  const { user } = useUser();
 
-  const tabs = ["Comments", "Trades"];
-  const mobileTabs = [...tabs, "Top Holders"];
+  const {
+    comments,
+    postComment,
+    editComment,
+    removeComment,
+    reloadComments,
+    isSubmitting,
+  } = useComments(ca);
 
-  const { comments, postComment, isSubmitting, reloadComments } = useComments(ca);
-const parentComments = comments.filter((c: TokenComment) => !c.parentComment);
+  const { parentComments, repliesMap } = useMemo(() => {
+    const parents: TokenComment[] = [];
+    const replies: Record<string, TokenComment[]> = {};
 
-const repliesMap = comments.reduce<Record<string, TokenComment[]>>(
-  (acc, comment: TokenComment) => {
-    if (comment.parentComment) {
-      if (!acc[comment.parentComment]) acc[comment.parentComment] = [];
-      acc[comment.parentComment].push(comment);
+    for (const comment of comments) {
+      if (comment.parentComment) {
+        if (!replies[comment.parentComment])
+          replies[comment.parentComment] = [];
+        replies[comment.parentComment].push(comment);
+      } else {
+        parents.push(comment);
+      }
     }
-    return acc;
-  },
-  {}
-);
 
+    return { parentComments: parents, repliesMap: replies };
+  }, [comments]);
 
   return (
     <div className="w-full">
@@ -54,8 +57,8 @@ const repliesMap = comments.reduce<Record<string, TokenComment[]>>(
         setActiveTab={setActiveTab}
         isCollapsed={isCollapsed}
         setIsCollapsed={setIsCollapsed}
-        tabs={tabs}
-        mobileTabs={mobileTabs}
+        tabs={["Comments", "Trades"]}
+        mobileTabs={["Comments", "Trades", "Top Holders"]}
         ca={ca}
         createdDate={createdDate || ""}
       />
@@ -81,6 +84,9 @@ const repliesMap = comments.reduce<Record<string, TokenComment[]>>(
                   repliesMap={repliesMap}
                   isConnected={isConnected}
                   postComment={postComment}
+                  editComment={editComment}
+                  removeComment={removeComment}
+                  reloadComments={reloadComments}
                   address={String(address)}
                   isSubmitting={isSubmitting}
                 />

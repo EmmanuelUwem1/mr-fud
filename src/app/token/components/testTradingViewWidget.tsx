@@ -1,40 +1,71 @@
 "use client";
-"use client";
 import { useEffect, useRef } from "react";
-import DexScreenerEmbed from "./dex-screener-embed";
+import { createChart, CandlestickData, Time } from "lightweight-charts";
+
+// Dummy data for launchpad token chart
+const dummyCandleData: CandlestickData[] = [
+  { time: 1694016000 as Time, open: 0.05, high: 0.07, low: 0.04, close: 0.06 },
+  { time: 1694023200 as Time, open: 0.06, high: 0.08, low: 0.05, close: 0.07 },
+  { time: 1694030400 as Time, open: 0.07, high: 0.09, low: 0.06, close: 0.08 },
+];
 
 export default function TestTradingViewWidget({ symbol }: { symbol?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const chartRef = useRef<ReturnType<typeof createChart> | null>(null);
+
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      symbol,
-      theme: "dark",
-      locale: "en",
-      width: "100%",
+    const container = containerRef.current;
+    if (!container || symbol) return;
+
+    container.innerHTML = "";
+
+    const chart = createChart(container, {
+      width: container.clientWidth,
       height: 500,
-      autosize: true,
+      layout: {
+        background: { color: "#0f172a" },
+        textColor: "#ffffff",
+      },
+      grid: {
+        vertLines: { color: "#334155" },
+        horzLines: { color: "#334155" },
+      },
+      timeScale: {
+        timeVisible: true,
+        secondsVisible: true,
+      },
     });
-    containerRef.current?.appendChild(script);
+
+    chartRef.current = chart;
+
+    const candleSeries = chart.addCandlestickSeries();
+    candleSeries.setData(dummyCandleData);
+
+    const handleResize = () => {
+      chart.applyOptions({ width: container.clientWidth });
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      chart.remove();
+    };
   }, [symbol]);
+
   return (
     <div className="bg-[#212121] sm:bg-[#141414] rounded-[18px] border border-[#000000] p-3 relative flex-col items-center justify-start w-full overflow-hidden h-[500px] sm:h-[600px]">
       {symbol ? (
-        <div className="tradingview-widget-container" ref={containerRef}></div>
+        <iframe
+          className="w-full h-full"
+          id="dexscreener-embed"
+          title="DEX Screener Embed"
+          src={`https://dexscreener.com/bsc/${symbol}?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15`}
+          frameBorder="0"
+          allow="clipboard-write"
+          allowFullScreen
+        ></iframe>
       ) : (
-        // <iframe
-        //   className="w-full h-full"
-        //   id="geckoterminal-embed"
-        //   title="GeckoTerminal Embed"
-        //   src="https://www.geckoterminal.com/bsc/pools/0x1df65d3a75aecd000a9c17c97e99993af01dbcd1?embed=1&info=0&swaps=0&grayscale=0&light_chart=0&chart_type=price&resolution=15m"
-        //   frameBorder="0"
-        //   allow="clipboard-write"
-        //   allowFullScreen
-          // ></iframe>
-          <DexScreenerEmbed />
+        <div ref={containerRef} className="w-full h-full" />
       )}
     </div>
   );

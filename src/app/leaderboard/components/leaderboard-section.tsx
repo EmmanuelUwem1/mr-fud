@@ -16,7 +16,7 @@ const Leaderboard = () => {
     const { tokens, loading } = useTokens();
   
 
-  const tabs = ["Marketcap", "referrals", "socials"];
+  const tabs = ["Marketcap", "referrals", "Creators"];
 
   return (
     <>
@@ -68,7 +68,7 @@ const Leaderboard = () => {
         )}
         {activeTab === "socials" && (
           <div className="text-white text-center py-4">
-            Social engagement leaderboard loading...
+            Creators leaderboard loading...
           </div>
         )}
       </section>

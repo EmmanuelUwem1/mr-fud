@@ -27,7 +27,7 @@ export default function OcicatTokenPage() {
   const tokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
 const trades = useTradeStore((state) => state.trades);
   const { balance } = useOcicatBalance();
-  const userOcicatBalance = balance ? Number(fromWei(Number(balance),9)): 0;
+  const userOcicatBalance = balance ? Number(fromWei(Number(balance),6)): 0;
 
 
  const [tokenData, setTokenData] = useState({
@@ -47,6 +47,7 @@ const trades = useTradeStore((state) => state.trades);
      "Ocicat is a unique deflationary token that powers the DREAMERS CLUB through the instrumentality of the DAO governance. Ocicat has created the platform that empowers systems through the DAO, NFT and MrFUD bonding curve token launches",
    twitter: "https://twitter.com/ocicatcoin",
    telegram: "https://t.me/ocicatcoin",
+   website:"https://www.ocicat.club",
    currentPrice: 0,
    changePerDay: 0,
    createdAt: "2023-01-20T16:40:40.443Z",
@@ -125,7 +126,7 @@ useEffect(() => {
           <div className="flex w-full lg:flex-nowrap flex-wrap items-start justify-start gap-4">
             <div className="flex flex-col items-start justify-start gap-4 w-full">
               {/* <TradingViewWidget pairAddress={token.contractAddress} /> */}
-              <TestTradingViewWidget />
+              <TestTradingViewWidget symbol={tokenData.ticker} />
 
               <div className="hidden lg:flex lg:flex-col w-full items-start justify-start gap-4">
                 {/* Token Description */}
@@ -134,6 +135,7 @@ useEffect(() => {
                   twitter={tokenData.twitter || ""}
                   telegram={tokenData.telegram || ""}
                   ca={tokenCa || ""}
+                  website={tokenData.website}
                   createdDate={tokenData?.createdAt || ""}
                 />
 
@@ -182,6 +184,7 @@ useEffect(() => {
             description={tokenData?.description || ""}
             twitter={tokenData.twitter}
             telegram={tokenData.telegram}
+            website={tokenData.website}
           />
 
           <div className="max-sm:flex hidden w-full flex-wrap sm:flex-col gap-4 items-start justify-start">

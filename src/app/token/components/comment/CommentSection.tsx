@@ -2,13 +2,15 @@
 import { TokenComment } from "@/types";
 import CommentItem from "./CommentItem";
 import CommentForm from "./CommentForm";
-import { useState } from "react";
 
 export default function CommentSection({
   parentComments,
   repliesMap,
   isConnected,
   postComment,
+  editComment,
+  removeComment,
+  reloadComments,
   isSubmitting,
   address,
 }: {
@@ -20,32 +22,35 @@ export default function CommentSection({
     isReply: boolean,
     address: string,
     parentId?: string | null
-  ) => void;
+  ) => Promise<void>;
+  editComment: (id: string, wallet: string, content: string) => Promise<void>;
+  removeComment: (id: string, wallet: string) => Promise<void>;
+  reloadComments: () => Promise<void>;
   isSubmitting: boolean;
   address: string;
 }) {
-  const [replyTo, setReplyTo] = useState<string | null>(null);
-
   return (
     <div className="p-4 my-4 rounded-[10px] text-xs bg-[#013253] text-white">
-      {parentComments.map((c) => (
-          <CommentItem
-            connectedAddress={address}
-          key={c._id}
-          comment={c}
-          replies={repliesMap[c._id] || []}
+      {parentComments.map((comment) => (
+        <CommentItem
+          key={comment._id}
+          comment={comment}
+          replies={repliesMap[comment._id] || []}
           isConnected={isConnected}
-          handleReply={setReplyTo} 
+          connectedAddress={address}
+          editComment={editComment}
+          removeComment={removeComment}
+          postReply={postComment}
+          reloadComments={reloadComments}
+          isSubmitting={isSubmitting}
         />
       ))}
 
       {isConnected ? (
         <CommentForm
-          postComment={postComment}
+          mode="add"
+          onSubmit={(content) => postComment(content, false, address)}
           isSubmitting={isSubmitting}
-          address={address}
-          replyTo={replyTo}
-          setReplyTo={setReplyTo}
         />
       ) : (
         <p>Please connect your wallet to comment or reply.</p>

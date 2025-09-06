@@ -107,6 +107,7 @@ export default function TokenPage() {
                   telegram={token.telegram || ""}
                   ca={token?.contractAddress || ""}
                   createdDate={token?.createdAt || ""}
+                  website={token.website || ""}
                 />
 
                 {/* Comment Thread */}
@@ -154,6 +155,7 @@ export default function TokenPage() {
             description={token?.description || ""}
             twitter={token.twitter}
             telegram={token.telegram}
+            website={token.website || ""}
           />
 
           <div className="max-sm:flex hidden w-full flex-wrap sm:flex-col gap-4 items-start justify-start">

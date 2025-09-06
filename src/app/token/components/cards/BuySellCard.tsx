@@ -197,14 +197,14 @@ const estimatedValue =
           <span className="relative flex items-center justify-center h-6 w-6 rounded-full overflow-hidden">
             <Image
               alt=""
-              src={tokenImage}
+              src={isSell ? tokenImage : "/bnb-logo.svg"}
               layout="fill"
               objectFit="contain"
               objectPosition="center"
             />
           </span>
           <span className="text-white text-xs font-semibold">
-            {tokenTicker}
+            {isSell ? tokenTicker : "BNB"}
           </span>
         </div>
       </div>
@@ -218,26 +218,37 @@ const estimatedValue =
             Reset
           </button>
           <button
-            onClick={() => setAmount(`${balance / 4}`)}
-            
+            onClick={() => setAmount(`0.1`)}
             className={`px-3 py-2 rounded-full ${
               balance >= 1
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
+            disabled={balance < 0.1}
           >
-            25%
+            0.1 BNB
           </button>
           <button
-            onClick={() => setAmount(`${balance / 2}`)}
-            
+            onClick={() => setAmount(`0.5`)}
             className={`px-3 py-2 rounded-full ${
               balance >= 5
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
+            disabled={balance < 0.5}
           >
-            50%
+            0.5 BNB
+          </button>
+          <button
+            onClick={() => setAmount(`1`)}
+            className={`px-3 py-2 rounded-full ${
+              balance >= 5
+                ? "bg-[#013253] text-gray-200"
+                : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
+            }`}
+            disabled={balance < 1}
+          >
+            1 BNB
           </button>
           <button
             onClick={() => setAmount(maxAmount)}
@@ -278,6 +289,17 @@ const estimatedValue =
             50%
           </button>
           <button
+            onClick={() => setAmount(`${(balance * 3) / 4}`)}
+            disabled={balance < 0}
+            className={`px-3 py-2 rounded-full ${
+              balance >= 5
+                ? "bg-[#013253] text-gray-200"
+                : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
+            }`}
+          >
+            75%
+          </button>
+          <button
             onClick={() => setAmount(maxAmount)}
             className="px-3 py-2 bg-[#2F6786] rounded-full text-gray-200"
           >
@@ -286,12 +308,14 @@ const estimatedValue =
         </div>
       )}
 
-      {amount && !isNaN(inputAmount) && (
+      {
         <>
           <div className="text-xs flex justify-between items-center text-[#87DDFF] font-semibold mt-2">
             <span>Min Received</span>
             <span>
-              {estimatedValue.toFixed(4)} {isBuy ? tokenTicker : "BNB"}
+              {!isNaN(estimatedValue)
+                ? `${estimatedValue.toFixed(4)} ${isBuy ? tokenTicker : "BNB"}`
+                : "--"}
             </span>
           </div>
 
@@ -349,7 +373,7 @@ const estimatedValue =
             )}
           </AnimatePresence>
         </>
-      )}
+      }
 
       <button
         disabled={loading}

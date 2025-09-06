@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import useComments from "@/hooks/useComments";
 import { motion, AnimatePresence } from "framer-motion";
 import UserAvatar from "../userAvatar";
 import { TokenComment } from "@/types";
@@ -9,70 +10,88 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
+import CommentForm from "./CommentForm";
 
 export default function CommentItem({
   comment,
   replies,
   isConnected,
-  handleReply,
   connectedAddress,
+  editComment,
+  removeComment,
+  postReply,
+  reloadComments,
+  isSubmitting,
+  isReply=false,
 }: {
   comment: TokenComment;
   replies: TokenComment[];
   isConnected: boolean;
-  handleReply: (id: string) => void;
   connectedAddress: string;
+  editComment: (id: string, wallet: string, content: string) => Promise<void>;
+  removeComment: (id: string, wallet: string) => Promise<void>;
+  postReply: (
+    content: string,
+    isReply: boolean,
+    address: string,
+    parentId?: string | null
+  ) => Promise<void>;
+  reloadComments: () => Promise<void>;
+    isSubmitting: boolean;
+    isReply?: boolean;
 }) {
-  const [showOptions, setShowOptions] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
-  const pressTimer = useRef<NodeJS.Timeout | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isReplying, setIsReplying] = useState(false);
+  const [showActions, setShowActions] = useState(false);
+
+  const itemRef = useRef<HTMLDivElement>(null);
 
   const isOwner =
     connectedAddress?.toLowerCase() === comment.walletAddress?.toLowerCase();
 
+  const { postComment } = useComments(
+    comment.tokenAddress
+  );
+
+
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (itemRef.current && !itemRef.current.contains(event.target as Node)) {
+        setShowActions(false);
+      }
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  const handleMouseDown = () => {
-    if (isMobile && isOwner) {
-      pressTimer.current = setTimeout(() => {
-        setShowOptions(true);
-      }, 3000);
-    }
+  const handleEditSubmit = async (content: string) => {
+    await editComment(comment._id, connectedAddress, content);
+    setIsEditing(false);
   };
 
-  const handleMouseUp = () => {
-    if (pressTimer.current) {
-      clearTimeout(pressTimer.current);
-      pressTimer.current = null;
-    }
+  const handleReplySubmit = async (content: string) => {
+    await postComment(content, true, connectedAddress, comment._id);
+    setIsReplying(false);
+    setShowReplies(true);
   };
 
-  const toggleReplies = () => {
-    if (replies.length > 0) {
-      setShowReplies((prev) => !prev);
-    }
+  const handleDelete = async () => {
+    await removeComment(comment._id, connectedAddress);
   };
 
   return (
     <motion.div
+      ref={itemRef}
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.3 }}
-      className="mb-4 box-bg p-3 rounded-md w-full flex flex-col gap-2"
-      onMouseEnter={() => !isMobile && isOwner && setShowOptions(true)}
-      onMouseLeave={() => !isMobile && setShowOptions(false)}
-      onTouchStart={handleMouseDown}
-      onTouchEnd={handleMouseUp}
+      className={`${
+        isReply ? "bg-[#2F6786] mb-2" : "mb-4 box-bg"
+      } p-3 rounded-md w-full flex flex-col gap-2`}
+      onClick={() => setShowActions(true)}
     >
       <div className="flex justify-between items-center gap-3 relative">
         <div className="flex flex-col items-start">
@@ -80,13 +99,23 @@ export default function CommentItem({
             imageUrl={comment.userProfile?.profilePicture || ""}
             username={comment.userProfile?.displayName || ""}
           />
-          <p className="mt-2">{comment.content}</p>
+          {isEditing ? (
+            <CommentForm
+              mode="edit"
+              initialContent={comment.content}
+              onSubmit={handleEditSubmit}
+              isSubmitting={isSubmitting}
+              onClose={() => setIsEditing(false)}
+            />
+          ) : (
+            <p className="mt-2">{comment.content}</p>
+          )}
         </div>
 
         <div className="flex items-center gap-2">
           {replies.length > 0 && (
             <button
-              onClick={toggleReplies}
+              onClick={() => setShowReplies((prev) => !prev)}
               className="text-gray-200 text-[10px] flex items-center gap-1 opacity-80"
             >
               {showReplies ? (
@@ -102,30 +131,30 @@ export default function CommentItem({
             </button>
           )}
 
-          {isConnected && (
+          {isConnected && !isEditing && !isReply && (
             <button
               className="bg-[#2F6786] rounded-[7px] px-4 py-2 font-bold"
-              onClick={() => handleReply(comment._id)}
+              onClick={() => setIsReplying(true)}
             >
               Reply
             </button>
           )}
         </div>
 
-        {/* ✨ Animated Edit/Delete Options */}
         <AnimatePresence>
-          {showOptions && isOwner && (
+          {showActions && isOwner && !isEditing && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -5 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -5 }}
+              layout
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-0 right-0 flex gap-4 bg-[#013253] p-2 rounded-md shadow-lg z-10"
+              className="absolute top-0 left-1/2 mx-auto flex gap-4 bg-[#013253] p-2 rounded-md shadow-lg z-10"
             >
-              <button title="Edit">
+              <button title="Edit" onClick={() => setIsEditing(true)}>
                 <PencilSquareIcon className="w-4 h-4 text-[#00C3FE] hover:scale-105 transition-transform" />
               </button>
-              <button title="Delete">
+              <button title="Delete" onClick={handleDelete}>
                 <TrashIcon className="w-4 h-4 text-[#FF3C38] hover:scale-105 transition-transform" />
               </button>
             </motion.div>
@@ -133,32 +162,43 @@ export default function CommentItem({
         </AnimatePresence>
       </div>
 
-      {/*Animated Replies */}
       <AnimatePresence>
         {showReplies && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="ml-6 mt-2 flex flex-col gap-2 overflow-hidden"
+            className=""
           >
             {replies.map((r) => (
-              <motion.div
+              <CommentItem
                 key={r._id}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2 }}
-                className="p-2 bg-[#2F6786] rounded-md text-gray-300"
-              >
-                <UserAvatar
-                  imageUrl={r.userProfile?.profilePicture || ""}
-                  username={r.userProfile?.displayName || ""}
-                />
-                <p>{r.content}</p>
-              </motion.div>
+                comment={r}
+                replies={[]}
+                isConnected={isConnected}
+                connectedAddress={connectedAddress}
+                editComment={editComment}
+                removeComment={removeComment}
+                postReply={postReply}
+                reloadComments={reloadComments}
+                isSubmitting={isSubmitting}
+                isReply={true}
+              />
             ))}
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isReplying && (
+          <CommentForm
+            mode="reply"
+            onSubmit={handleReplySubmit}
+            isSubmitting={isSubmitting}
+            onClose={() => setIsReplying(false)}
+          />
         )}
       </AnimatePresence>
     </motion.div>
