@@ -451,9 +451,13 @@ export default function BuySellCard({
           tab === "buy" ? "bg-[#06D57B]" : "bg-[#fe3c3cf4]"
         } ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
       >
-        {loading
-          ? "Loading..."
-          : `${tab === "buy" ? "Buy" : "Sell"} ${tokenName}`}
+        {loading ? (
+          <div className="flex mx-auto justify-center items-center">
+            <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
+          </div>
+        ) : (
+          `${tab === "buy" ? "Buy" : "Sell"} ${tokenName}`
+        )}
       </button>
     </>
   );
