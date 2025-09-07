@@ -18,7 +18,7 @@ export default function TestTradingViewWidget({ pairAddress }: { pairAddress: st
 
   // const { emitEvent, subscribeToEvent } = useSocket();
 
-  // 🧪 Mock candlestick data
+  // Mock candlestick data
 
  const mockData: {
    time: Time;
@@ -132,7 +132,7 @@ export default function TestTradingViewWidget({ pairAddress }: { pairAddress: st
   }, [pairAddress]);
 
   return (
-    <div className="aspect-[16/9] w-full bg-[#1C1C1C] overflow-hidden rounded-[18px] p-4">
+    <div className="aspect-[859/1050] sm:aspect-[859/531] w-full bg-[#1C1C1C] overflow-hidden rounded-[18px] p-4">
       <div
         ref={chartRef}
         className="flex h-full items-center justify-center bg-[#000000] text-gray-400 rounded-[18px]"
