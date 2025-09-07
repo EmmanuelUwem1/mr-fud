@@ -81,7 +81,7 @@ export default function ProfileCard() {
             </div>
 
             {/* Volume & Rewards */}
-            <div className="flex items-center justify-start gap-8">
+            <div className="flex items-start justify-start gap-8">
               <div className="flex flex-col justify-start items">
                 <h2 className="text-[#b6b6b6] font-medium md:text-sm text-xs">
                   Volume
@@ -98,6 +98,7 @@ export default function ProfileCard() {
                   ${user?.totalRewards?.toLocaleString() || "0"}
                 </p>
               </div>
+              <div className="text-[#b6b6b6] font-medium md:text-sm text-xs">Claim</div>
             </div>
           </div>
         </div>

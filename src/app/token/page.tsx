@@ -116,7 +116,7 @@ useEffect(() => {
         rating={3}
         gainPercent={tokenData.changePerDay}
         liquidity={tokenData.liquidity.toString()}
-        referalCode={address && address}
+        // referalCode={address && address}
         // tokenId={tokenData?._id || ""}
       />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">

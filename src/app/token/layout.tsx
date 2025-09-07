@@ -8,7 +8,7 @@ export default function RootLayout({
 
  return (
    <>
-     <main className="flex pt-8 flex-col justify-start items-start w-full min-h-screen">
+     <main className="flex pt-4 flex-col justify-start items-start w-full min-h-screen">
        {children}
      </main>
    </>

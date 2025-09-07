@@ -2,13 +2,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useTokenForm } from "../context/TokenFormContext";
+import { usePathname } from "next/navigation";
 
 const AntiGeetToggle: React.FC = () => {
   const [selected, setSelected] = useState<"green" | "black" | null>("green");
   const { setPayload } = useTokenForm();
+  const pathName = usePathname();
+  const isCampaign = pathName === "/create/campaign";
 
   return (
-    <div className="flex gap-4 w-full flex-wrap md:flex-nowrap">
+    <div className={`${isCampaign ? "hidden" : "flex"} gap-4 w-full flex-wrap md:flex-nowrap `}>
       {/* Green Card */}
       <div
         onClick={() => {
@@ -32,9 +35,7 @@ const AntiGeetToggle: React.FC = () => {
           />
         </span>
         <p>
-          <b className="font-semibold">Anti - FUD ON:</b> Users will be
-          penalized 25% by selling before graduation. 50% of this penalty will
-          be added to liquidity.
+          <b className="font-semibold">Anti - FUD ON:</b> Users will be penalized 30% for selling before graduation. 50% of this penalty will go to the creator and 50% added to liquidity.
         </p>
       </div>
 

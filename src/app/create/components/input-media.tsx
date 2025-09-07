@@ -59,7 +59,7 @@ const { file, setFile } = useImageContext();
           />
         </label>
 
-        {/* Preview (images only) */}
+        {/* Preview (images) */}
         {file && previewUrl && (
           <div className="mt-4 rounded-full overflow-hidden h-24 w-24">
             <Image

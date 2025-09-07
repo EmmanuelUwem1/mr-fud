@@ -10,11 +10,12 @@ import toast from "react-hot-toast";
 import { useCampaignForm } from "../context/campaignFormContext";
 import { createCampaign } from "@/lib/api";
 import { generateFakeAddress } from "@/lib/utils";
+import { usePathname } from "next/navigation";
         
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const { payload, setPayload } = useTokenForm();
-  const {campaignPayload, } = useCampaignForm();
+  const {campaignPayload, setCampaignPayload } = useCampaignForm();
   const modalRef = useRef<HTMLDivElement>(null);
   const [bnbAmount, setBnbAmount] = useState("0");
   const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -28,17 +29,6 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
 
   const { file } = useImageContext();
 
-  // animation props
-  const bounceModal = {
-    initial: { scale: 0.8, opacity: 0 },
-    animate: { scale: 1, opacity: 1 },
-    exit: { scale: 0.8, opacity: 0 },
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 20,
-    },
-  };
 
   const handleSubmit = async () => {
     if (!file) return;
@@ -64,7 +54,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
       const response = await createToken(payload);
       if(response){
         if (response.success) {
-          toast.success("Coin created successfully!");
+          toast.success("Coin created successfully");
           onClose();
         } else {
           toast.error(

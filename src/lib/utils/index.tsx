@@ -18,8 +18,8 @@ export function fromWei(value: string | bigint | number, decimals: number = 18):
  * @param decimals - Defaults to 18
  * @returns string
  */
-export function toWei(value: string, decimals: number = 18): string {
-  return parseUnits(value, decimals).toString();
+export function toWei(value: string, decimals: number = 18) {
+  return parseUnits(value, decimals);
 }
 
 export function formatWalletAddress(address: string) {

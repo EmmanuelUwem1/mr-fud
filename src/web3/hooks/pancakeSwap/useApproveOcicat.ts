@@ -29,8 +29,8 @@ export const useApproveOcicat = () => {
         args: [spender, amount],
       }),
       {
-        loading: "Approving Ocicat token...",
-        success: "Approved! ✅",
+        loading: "Approving.",
+        success: "Approved",
         error: "Approval failed.",
       }
     );

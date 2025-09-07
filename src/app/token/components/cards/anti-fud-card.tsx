@@ -19,10 +19,10 @@ export default function AntiFudCard({ antiFudEnabled }: AntiFudCardProps) {
               objectPosition="center"
             />
           </span>
-          <p className="-left-3 relative max-sm:text-xs">
+          <p className="-left-3 relative text-xs">
             <b className="font-semibold">Anti - FUD ON:</b> Users will be
-            penalized 30% for selling before graduation. 50% of this penalty will
-            be shared to top ten holders.
+            penalized 30% for selling before graduation. 50% of this penalty
+            will go to the creator and 50% added to liquidity.
           </p>
         </div>
       ) : (

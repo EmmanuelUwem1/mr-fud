@@ -19,11 +19,11 @@ function Form() {
               type="text"
               value={payload.name}
               onChange={(e) => setPayload({ ...payload, name: e.target.value })}
-              className="w-full border input-border input-bg rounded-md px-3 py-2"
+              className="w-full border input-border input-bg rounded-md px-3 py-2 placeholder:text-[#38B9FF] placeholder:text-xs placeholder:font-normal"
               placeholder="name your coin"
               title="name"
               // border-[#777777]
-              // sm:border-[#2A2A2A] 
+              // sm:border-[#2A2A2A]
             />
           </div>
           <div className="flex-1">
@@ -36,7 +36,7 @@ function Form() {
               onChange={(e) =>
                 setPayload({ ...payload, ticker: e.target.value })
               }
-              className="w-full border input-border rounded-md input-bg px-3 py-2"
+              className="w-full border input-border rounded-md input-bg px-3 py-2 placeholder:text-[#38B9FF] placeholder:text-xs placeholder:font-normal"
               title="ticker"
               placeholder="add a coin ticker (e.g. Pepe)"
               // border-[#777777] sm:border-[#2A2A2A]

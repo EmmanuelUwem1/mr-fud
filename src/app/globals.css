@@ -21,9 +21,11 @@
 }
 .input-border{
   border-color: #38B9FF;
+
 }
 .input-bg{
-  background-color: #2F6786;
+  /* background-color: #2F6786; */
+  background-color:#013253;
 }
 .button-bg{ 
   background-color:#00C3FE;

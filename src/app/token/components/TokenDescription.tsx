@@ -28,7 +28,7 @@ export default function TokenDescription({
             {website && (
               <Link
                 href={website}
-                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
+                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] sm:bg-[#489ECC] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
               >
                 <span className="relative h-3.5 w-4">
                   <Image
@@ -45,7 +45,7 @@ export default function TokenDescription({
             {telegram && (
               <Link
                 href={telegram}
-                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
+                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] sm:bg-[#489ECC] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
               >
                 <span className="relative h-3.5 w-4">
                   <Image
@@ -62,7 +62,7 @@ export default function TokenDescription({
             {twitter && (
               <Link
                 href={twitter}
-                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
+                className="text-xs relative flex items-center justify-center gap-2 bg-[#013253] sm:bg-[#489ECC] rounded-full sm:rounded-[5px] px-3 sm:py-2 py-3"
               >
                 <span className="relative h-3.5 w-3.5">
                   <Image

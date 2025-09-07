@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+  import { ethers } from "ethers";
 import { buyToken, sellToken } from "@/lib/api";
 import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
@@ -8,6 +9,13 @@ import Image from "next/image";
 import { useBNBPrice } from "@/hooks/useBNBPrice";
 import { generateFakeTxHash } from "@/lib/utils";
 import { useUser } from "@/context/userContext";
+import { CONSTANTS } from "@/web3/config/constants";
+import { useSwapOcicatForBNB } from "@/web3/hooks/pancakeSwap/useSwapOcicatForBNB";
+import { useSwapBNBForOcicat } from "@/web3/hooks/pancakeSwap/useSwapBNBForOcicat";
+import { useApproveOcicat } from "@/web3/hooks/pancakeSwap/useApproveOcicat";
+import { toWei } from "@/lib/utils";
+
+
 
 interface BuySellCardProps {
   BNBbalance: number;
@@ -37,31 +45,91 @@ export default function BuySellCard({
   const [loading, setLoading] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selectedSlippage, setSelectedSlippage] = useState<string>("");
- const { price: bnbPriceUSD } = useBNBPrice();
-const { refreshUser } = useUser();
-  
+  const { price: bnbPriceUSD } = useBNBPrice();
+  const { refreshUser } = useUser();
+  const OcicatTokenCa = CONSTANTS.OCICAT_TOKEN_ADDRESS;
   const isBuy = tab === "buy";
   const isSell = tab === "sell";
- const balance = isBuy ? BNBbalance : tokenBalance;
- const maxAmount = balance.toString();
- const inputAmount = parseFloat(amount);
-
-const estimatedValue =
-  (tokenPrice > 0 && bnbPriceUSD)
-    ? isBuy
-      ? (inputAmount *bnbPriceUSD)  / tokenPrice 
-      : (inputAmount * tokenPrice )/ bnbPriceUSD
-    : 0;
+  const balance = isBuy ? BNBbalance : tokenBalance;
+  const maxAmount = balance.toString();
+  const inputAmount = parseFloat(amount);
+  const { approve } = useApproveOcicat();
+  const { swap: swapBNBForOcicat } = useSwapBNBForOcicat();
+  const { swap: swapOcicatForBNB } = useSwapOcicatForBNB();
 
 
+
+  const WBNB_ADDRESS = CONSTANTS.WBNB_CONTRACT_ADDRESS as `0x${string}`;
+  const OCICAT_ADDRESS = CONSTANTS.OCICAT_TOKEN_ADDRESS as `0x${string}`;
+
+
+
+  const estimatedValue =
+    tokenPrice > 0 && bnbPriceUSD
+      ? isBuy
+        ? (inputAmount * bnbPriceUSD) / tokenPrice
+        : (inputAmount * tokenPrice) / bnbPriceUSD
+      : 0;
 
   const handleSlippageSelect = (value: string) => {
     setSelectedSlippage(value);
   };
 
   const handleTransaction = async () => {
-    const action = isBuy ? onBuy : onSell;
-    await action(amount);
+    if (tokenCa === OcicatTokenCa) {
+        try {
+          setLoading(true);
+
+          const amountIn = isBuy ? toWei(amount, 6) : toWei(amount, 18);
+          const minAmountOut = (amountIn * BigInt(95)) / BigInt(100); // 5% slippage
+          const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+
+          const path = isBuy
+            ? [WBNB_ADDRESS, OCICAT_ADDRESS]
+            : [OCICAT_ADDRESS, WBNB_ADDRESS];
+
+          let swapPromise;
+
+          if (isBuy) {
+            swapPromise = swapBNBForOcicat({
+              amountInWei: amountIn,
+              minAmountOut,
+              path,
+              deadline,
+            });
+          } else {
+            await approve({ amount: amountIn });//  Required before selling
+            swapPromise = swapOcicatForBNB({
+              amountIn,
+              minAmountOut,
+              path,
+              deadline,
+            });
+          }
+
+          await toast.promise(
+            swapPromise,
+            {
+              loading: isBuy ? "Buying Ocicat..." : "Selling Ocicat...",
+              success: "Swap successful!",
+              error: "Swap failed.",
+            },
+            { duration: 4000 }
+          );
+
+          setAmount("");
+          await refreshUser();
+          setModalOpen(false);
+        } catch (err) {
+          console.error("Swap error:", err);
+        } finally {
+          setLoading(false);
+        }
+
+    } else {
+      const action = isBuy ? onBuy : onSell;
+      await action(amount);
+    }
   };
 
   async function onBuy(amount: string) {
@@ -72,7 +140,9 @@ const estimatedValue =
 
     const amountInBNB = parseFloat(amount);
     const amountInToken =
-      (tokenPrice > 0 && bnbPriceUSD) ? (inputAmount * bnbPriceUSD) / tokenPrice : 0;
+      tokenPrice > 0 && bnbPriceUSD
+        ? (inputAmount * bnbPriceUSD) / tokenPrice
+        : 0;
     const valueInUSD = amountInBNB * bnbPriceUSD!;
 
     const data = {
@@ -97,9 +167,8 @@ const estimatedValue =
           duration: 4000,
         });
         setAmount("");
-            await refreshUser();
+        await refreshUser();
         setModalOpen(false);
-
       } else {
         toast.error("Failed to buy token.", {
           id: toastId,
@@ -147,7 +216,7 @@ const estimatedValue =
           duration: 4000,
         });
         setAmount("");
-            await refreshUser();
+        await refreshUser();
         setModalOpen(false);
       } else {
         toast.error("Failed to sell token.", {
@@ -213,13 +282,13 @@ const estimatedValue =
         <div className="flex justify-between text-[10px] sm:text-xs space-x-2 font-medium pt-3">
           <button
             onClick={() => setAmount("0")}
-            className="bg-[#2F6786] text-gray-200 px-3 py-2 rounded-full"
+            className="bg-[#2F6786] text-gray-200 px-2 py-2 rounded-full"
           >
             Reset
           </button>
           <button
             onClick={() => setAmount(`0.1`)}
-            className={`px-3 py-2 rounded-full ${
+            className={`px-2 py-2 rounded-full ${
               balance >= 1
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
@@ -230,7 +299,7 @@ const estimatedValue =
           </button>
           <button
             onClick={() => setAmount(`0.5`)}
-            className={`px-3 py-2 rounded-full ${
+            className={`px-2 py-2 rounded-full ${
               balance >= 5
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
@@ -241,7 +310,7 @@ const estimatedValue =
           </button>
           <button
             onClick={() => setAmount(`1`)}
-            className={`px-3 py-2 rounded-full ${
+            className={`px-2 py-2 rounded-full ${
               balance >= 5
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
@@ -252,7 +321,7 @@ const estimatedValue =
           </button>
           <button
             onClick={() => setAmount(maxAmount)}
-            className="px-3 py-2 bg-[#2F6786] rounded-full text-gray-200"
+            className="px-2 py-2 bg-[#2F6786] rounded-full text-gray-200"
           >
             Max
           </button>

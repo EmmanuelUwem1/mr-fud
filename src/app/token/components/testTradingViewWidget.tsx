@@ -15,6 +15,7 @@ export default function TestTradingViewWidget({ pairAddress }: { pairAddress: st
   const chartRef = useRef<HTMLDivElement>(null);
   const chart = useRef<IChartApi | null>(null);
   const candleSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
+  
 
   // const { emitEvent, subscribeToEvent } = useSocket();
 

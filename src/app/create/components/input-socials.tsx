@@ -118,7 +118,7 @@ const InputGroup = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={`${label.toLowerCase()} url`}
-      className="w-full px-3 py-2 cardthreebg input-border input-bg border  rounded-md text-white placeholder-[#87DDFF]"
+      className="w-full px-3 py-2 cardthreebg input-border input-bg border  rounded-md text-white placeholder:text-[#87DDFF] placeholder:font-normal placeholder:text-xs"
       // border-[#2A2A2A]
     />
   </div>
