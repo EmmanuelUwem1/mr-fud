@@ -107,15 +107,7 @@ export default function BuySellCard({
             });
           }
 
-          await toast.promise(
-            swapPromise,
-            {
-              loading: isBuy ? "Buying Ocicat..." : "Selling Ocicat...",
-              success: "Swap successful!",
-              error: "Swap failed.",
-            },
-            { duration: 4000 }
-          );
+         
 
           setAmount("");
           await refreshUser();

@@ -7,7 +7,7 @@ import { CONSTANTS } from "@/web3/config/constants";
 export const useSwapBNBForOcicat = () => {
   const routerAddress =
     CONSTANTS.PANCAKE_SWAP_BSC_V2_ROUTER_ADDRESS as `0x${string}`;
-  const { writeContractAsync } = useWriteContract();
+  const { writeContract } = useWriteContract();
   const { address, isConnected } = useAccount();
 
   const swap = async ({
@@ -26,20 +26,36 @@ export const useSwapBNBForOcicat = () => {
       return;
     }
 
-    return toast.promise(
-      writeContractAsync({
-        address: routerAddress,
-        abi: routerAbi,
-        functionName: "swapExactETHForTokens",
-        args: [minAmountOut, path, address, deadline],
-        value: amountInWei,
-      }),
-      {
-        loading: "Swapping BNB for Ocicat...",
-        success: "Swap successful! 🎉",
-        error: "Swap failed. Please try again.",
-      }
-    );
+    const toastId = toast.loading("Swapping BNB for Ocicat...");
+
+    return new Promise((resolve, reject) => {
+      writeContract(
+        {
+          address: routerAddress,
+          abi: routerAbi,
+          functionName: "swapExactETHForTokens",
+          args: [minAmountOut, path, address, deadline],
+          value: amountInWei,
+        },
+        {
+          onSuccess: (txHash: `0x${string}`) => {
+            toast.success("Swap successful! 🎉", {
+              id: toastId,
+              duration: 4000,
+            });
+            resolve(txHash);
+          },
+          onError: (error) => {
+            toast.error(`${(error as Error)?.message || "Swap failed."}`, {
+              id: toastId,
+              icon: "❌",
+              duration: 4000,
+            });
+            reject(error);
+          },
+        }
+      );
+    });
   };
 
   return { swap };
