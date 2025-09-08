@@ -151,7 +151,7 @@ useEffect(() => {
   const loaded = isOcicat ? loadedStore : localLoaded;
 
   return (
-    <div className="w-full box-bg rounded-[18px] text-white h-[calc(100vh-6rem)] flex flex-col">
+    <div className="w-full box-bg rounded-[18px] text-white h-fit max-h-[calc(100vh-6rem)] flex flex-col">
       <div
         ref={scrollRef}
         className={`flex-1 overflow-y-auto px-4 md:px-6 pb-6 ${
