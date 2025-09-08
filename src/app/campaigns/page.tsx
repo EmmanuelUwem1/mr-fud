@@ -2,13 +2,11 @@
 import Banner from "./components/campaignsBanner";
 import { motion } from "framer-motion";
 import CampaignsSection from "./components/campaigns-section";
-import { CampaignProvider } from "@/context/campaignsContext";
 
 
 
 function Page() {
   return (
-    <CampaignProvider>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -18,7 +16,6 @@ function Page() {
         <Banner />
         <CampaignsSection />
       </motion.div>
-    </CampaignProvider>
   );
 }
 

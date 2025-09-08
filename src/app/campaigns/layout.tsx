@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
+import { CampaignProvider } from "@/context/campaignsContext";
+
 
 export const metadata: Metadata = {
   title: "FUDClub || Campaigns",
@@ -13,12 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
  return (
-   <>
+   <CampaignProvider>
      <main className="px-4 mt-8 flex flex-col justify-start items-start w-full sm:px-8 md:px-16">
        {children}
      </main>
      <Footer />
-   </>
+   </CampaignProvider>
  );
 
 }

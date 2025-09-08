@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useTokens } from "@/context/TokensContext";
+import { useCampaigns } from "@/context/campaignsContext";
 import Image from "next/image";
 import { formatWalletAddress } from "@/lib/utils";
 import BackButton from "@/components/buttons/backButton";
@@ -10,9 +10,9 @@ import Avatar from "@/components/avaters/avater-circle";
 
 export default function CampaignDetailPage() {
   const { id } = useParams();
-  const { tokens, loading } = useTokens();
+  const { campaigns, loading } = useCampaigns();
 
-  const campaign = tokens.find((token) => token._id === id);
+  const campaign = campaigns.find((token) => token._id === id);
 
   if (loading) {
     return (
@@ -48,7 +48,7 @@ export default function CampaignDetailPage() {
           <div className="absolute bg-[#00000094] top-0 left-0 w-full lg:h-80 h-64  overflow-hidden shadow-lg">
             <Image
               src={campaign.image}
-              alt={`${campaign.name} banner`}
+              alt={`${campaign.coinName} banner`}
               layout="fill"
               objectFit="cover"
               priority
@@ -58,8 +58,8 @@ export default function CampaignDetailPage() {
           <div className="w-full px-4 md:px-8 lg:px-10 relative mt-42 lg:mt-60">
             <ProjectStatsCard
               tokenImage={campaign.image}
-              tokenName={campaign.name}
-              mCap={campaign.marketCap}
+              tokenName={campaign.coinName}
+              // mCap={campaign.marketCap}
               tokenCreatedDate={campaign.createdAt}
               creatorReward="2.5bnb"
               referalReward="2.5bnb"
@@ -92,7 +92,7 @@ export default function CampaignDetailPage() {
             <div className="space-y-2 py-4 font-normal text-sm">
               <h1 className="font-semibold text-lg">Campaign title</h1>
               <div className="text-white">
-                <span className="font-semibold">{campaign.name}</span>{" "}
+                <span className="font-semibold">{campaign.coinName}</span>{" "}
                 {campaign.description}
               </div>
             </div>

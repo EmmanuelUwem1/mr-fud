@@ -3,11 +3,10 @@ import { LabelValuePair } from "../labelValuePair";
 import Bar from "../bar";
 import { formatMarketCap } from "@/lib/utils";
 import ProjectProfileCard from "./project-card";
-import Image from "next/image";
 import { formatDateMMDDYYYY } from "@/lib/utils";
 import SocialLinks from "../socialLinks";
 interface TokenStatsProps {
-  mCap: number | string;
+  mCap?: number | string;
   tokenName: string;
   tokenCreatedDate: string;
   tokenImage: string;
@@ -29,7 +28,9 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
       {/* Stats */}
       <div className="flex sm:px-3 items-center justify-center lg:justify-start w-full flex-wrap-reverse">
         <div className="flex h-full flex-nowrap items-center gap-3 sm:gap-4 w-full justify-center lg:justify-start">
-          <LabelValuePair label="Mcap" value={formatMarketCap(mCap)} />
+          {mCap && (
+            <LabelValuePair label="Mcap" value={formatMarketCap(mCap)} />
+          )}
 
           {creatorReward && referalReward && (
             <>
@@ -61,7 +62,7 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
           {formatDateMMDDYYYY(tokenCreatedDate)} -{" "}
           {formatDateMMDDYYYY(tokenCreatedDate)}
         </div>
-              <SocialLinks twitter={twitter} website={website} telegram={telegram} />
+        <SocialLinks twitter={twitter} website={website} telegram={telegram} />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+"use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Campaign } from "@/types";
 import { fetchCampaigns } from "../lib/api";
