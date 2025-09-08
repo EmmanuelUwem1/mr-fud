@@ -83,6 +83,7 @@ useEffect(() => {
   let startY = 0;
   let isPulled = false;
 
+  // Desktop drag
   const onMouseDown = (e: MouseEvent) => {
     if (el.scrollTop === 0) {
       startY = e.clientY;
@@ -105,16 +106,44 @@ useEffect(() => {
     setIsDragging(false);
   };
 
+  // Mobile swipe
+  const onTouchStart = (e: TouchEvent) => {
+    if (el.scrollTop === 0) {
+      startY = e.touches[0].clientY;
+      isPulled = true;
+    }
+  };
+
+  const onTouchMove = (e: TouchEvent) => {
+    if (!isPulled) return;
+    const diff = e.touches[0].clientY - startY;
+    if (diff > 60) {
+      refetchTrades();
+      isPulled = false;
+    }
+  };
+
+  const onTouchEnd = () => {
+    isPulled = false;
+  };
+
   el.addEventListener("mousedown", onMouseDown);
   el.addEventListener("mousemove", onMouseMove);
   el.addEventListener("mouseup", onMouseUp);
+  el.addEventListener("touchstart", onTouchStart);
+  el.addEventListener("touchmove", onTouchMove);
+  el.addEventListener("touchend", onTouchEnd);
 
   return () => {
     el.removeEventListener("mousedown", onMouseDown);
     el.removeEventListener("mousemove", onMouseMove);
     el.removeEventListener("mouseup", onMouseUp);
+    el.removeEventListener("touchstart", onTouchStart);
+    el.removeEventListener("touchmove", onTouchMove);
+    el.removeEventListener("touchend", onTouchEnd);
   };
 }, []);
+
 
 
 
@@ -122,23 +151,26 @@ useEffect(() => {
   const loaded = isOcicat ? loadedStore : localLoaded;
 
   return (
-    <div className="w-full box-bg rounded-[18px] text-white h-[450px] flex flex-col">
+    <div className="w-full box-bg rounded-[18px] text-white h-[calc(100vh-6rem)] flex flex-col">
       <div
         ref={scrollRef}
         className={`flex-1 overflow-y-auto px-4 md:px-6 pb-6 ${
           isDragging ? "cursor-grabbing" : "cursor-grab"
         }`}
       >
-        {isRefreshing && (
-          <div className="flex justify-center items-center py-2">
-            <motion.div
-              initial={{ rotate: 0 }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity }}
-              className="h-5 w-5 border-4 border-blue-400 border-t-transparent rounded-full"
-            />
-          </div>
-        )}
+         {isRefreshing && (
+  <motion.div
+    initial={{ y: -20, opacity: 0 }}
+    animate={{ y: 0, opacity: 1 }}
+    exit={{ y: -20, opacity: 0 }}
+    transition={{ duration: 0.3 }}
+    className="flex justify-center items-center py-2"
+  >
+    <div className="h-5 w-5 border-4 border-blue-400 border-t-transparent rounded-full animate-spin" />
+  </motion.div>
+)}
+
+
         <div className="flex-1 overflow-y-auto px-4 md:px-6 pb-6">
           <table className="min-w-[600px] w-full table-auto border-collapse">
             <thead className="sticky top-0 box-bg z-10">
