@@ -1,6 +1,6 @@
 "use client";
 import {  useState } from "react";
-import { useTokens } from "@/context/TokensContext";
+import { useCampaigns } from "@/context/campaignsContext";
 import SearchBar from "@/components/searchBar";
 import CampaignCard from "./cards/campaignCard";
 import Image from "next/image";
@@ -19,7 +19,7 @@ const tabOptions = [
 
 export default function CampaignsSection() {
   const [activeTab, setActiveTab] = useState("Live");
-  const { tokens, loading } = useTokens();
+  const { campaigns, loading } = useCampaigns();
   const [searchTerm, setSearchTerm] = useState("");
   const [localLoading, setLocalLoading] = useState(false);
 
@@ -31,24 +31,24 @@ export default function CampaignsSection() {
     }, 500);
   };
 
-  const filteredTokens = tokens.filter((token) =>
-    `${token.name} ${token.contractAddress}`
+  const filteredCampaigns = campaigns.filter((campaign) =>
+    `${campaign.name} ${campaign.contractAddress}`
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
   );
 
-  const sortedTokens = [...filteredTokens];
+  const sortedCampaigns = [...filteredCampaigns];
 
   switch (activeTab) {
     case "Trending":
     case "Market Cap":
-      sortedTokens.sort(
+      sortedCampaigns.sort(
         (a, b) =>
           b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
       );
       break;
     case "Newly Launched":
-      sortedTokens.sort(
+      sortedCampaigns.sort(
         (a, b) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
@@ -56,7 +56,7 @@ export default function CampaignsSection() {
     default:
       break;
   }
-    if (!tokens) {
+    if (!campaigns) {
       return (
         <div className="text-center m-auto text-[#87DDFF] py-10">
           Campaign not found.
@@ -103,26 +103,26 @@ export default function CampaignsSection() {
         <div className="flex justify-center items-center h-20">
           <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-400" />
         </div>
-      ) : sortedTokens.length === 0 ? (
+      ) : sortedCampaigns.length === 0 ? (
         <p className="text-center text-[#87DDFF] col-span-full">
           No campaigns available.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center place-items-center gap-6 w-full">
-          {sortedTokens.map((token) => (
+          {sortedCampaigns.map((campaign) => (
             <CampaignCard
-              id={token._id}
-              key={token._id}
-              title={token.name}
-              bannerUrl={token.image}
-              startDate={token.createdAt}
-              createdDate={token.createdAt}
-              creator={token.creatorWallet}
-              endDate={token.createdAt}
-              description={token.description}
-              twitter={token.twitter}
-              website={token.website}
-              telegram={token.telegram}
+              id={campaign._id}
+              key={campaign._id}
+              title={campaign.name}
+              bannerUrl={campaign.image}
+              startDate={campaign.createdAt}
+              createdDate={campaign.createdAt}
+              creator={campaign.creatorWallet}
+              endDate={campaign.createdAt}
+              description={campaign.description}
+              twitter={campaign.twitter}
+              website={campaign.website}
+              telegram={campaign.telegram}
             />
           ))}
         </div>

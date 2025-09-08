@@ -13,11 +13,12 @@ import { generateFakeAddress } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useBannerImageContext } from "../context/BannerImageContext";
 import { CampaignPayload } from "@/lib/api";
+import { useRouter } from "next/navigation";
         
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const { payload, setPayload } = useTokenForm();
-  const {campaignPayload, setCampaignPayload } = useCampaignForm();
+  const {campaignPayload } = useCampaignForm();
   const modalRef = useRef<HTMLDivElement>(null);
   const [bnbAmount, setBnbAmount] = useState("0");
   const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -28,6 +29,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
     selectedCurrency === "BNB" ? 10 : 0.01
   );
   const pathName = usePathname();
+  const router = useRouter();
   const isCampaign = pathName === "/create/campaign";
 
 
@@ -71,6 +73,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           if (response.success) {
             toast.success("Coin created successfully");
             onClose();
+            router.push('/feed');
           } else {
             toast.error(
               `An error occurred: ${
@@ -154,6 +157,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
         if (response?.success) {
           toast.success("Campaign created successfully");
           onClose();
+          router.push('/campaigns')
         } else {
           const errorMessage =
             (response?.error &&

@@ -3,8 +3,7 @@
 import axios from "axios";
 import { AxiosResponse } from "axios";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
-const OCICAT_TOKEN_ADDRESS = "0xE53D384Cf33294C1882227ae4f90D64cF2a5dB70";
+const BACKEND_URL = process.env.BACKEND_URL
 
 
 export interface CreateTokenPayload {

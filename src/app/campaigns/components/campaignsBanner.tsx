@@ -1,17 +1,16 @@
 "use client";
-import { useTokens } from "@/context/TokensContext";
-import Link from "next/link";
+import { useCampaigns } from "@/context/campaignsContext";
 import BannerCampaignCard from "./cards/bannerCampaignCard";
 import { useRouter } from "next/navigation";
 
 
 export default function Banner() {
-  const { tokens, loading } = useTokens();
+  const { campaigns, loading } = useCampaigns();
 
   const router = useRouter();
 
-  const topThree = tokens.slice(0, 3);
-    if (!tokens) {
+  const topThree = campaigns.slice(0, 3);
+    if (!campaigns) {
     return (
       <p className="text-center text-[#87DDFF] py-20 col-span-full">
         No campaigns available.
@@ -34,12 +33,12 @@ export default function Banner() {
               className="w-full max-w-[20rem] relative transition-transform -translate-y-6 md:-translate-y-10 lg:-translate-y-16"
             >
               <BannerCampaignCard
-                title={topThree[1].name}
+                title={topThree[1].coinName}
                 bannerUrl={topThree[1].image}
                 startDate={topThree[1].createdAt}
                 endDate={topThree[1].createdAt}
                 createdDate={topThree[1].createdAt}
-                creator={topThree[1].creatorWallet}
+                creator={topThree[1].creatorWallet || ""}
                 position={2}
                 twitter={topThree[1].twitter}
                 telegram={topThree[1].telegram}
@@ -54,12 +53,12 @@ export default function Banner() {
               className="w-full max-w-[20rem] relative transition-transform -translate-y-12 md:-translate-y-18 lg:-translate-y-28 z-10"
             >
               <BannerCampaignCard
-                title={topThree[0].name}
+                title={topThree[0].coinName}
                 bannerUrl={topThree[0].image}
                 startDate={topThree[0].createdAt}
                 endDate={topThree[0].createdAt}
                 createdDate={topThree[0].createdAt}
-                creator={topThree[0].creatorWallet}
+                creator={topThree[0].creatorWallet || ""}
                 position={1}
                 twitter={topThree[0].twitter}
                 telegram={topThree[0].telegram}
@@ -74,12 +73,12 @@ export default function Banner() {
               className="w-full max-w-[20rem] relative transition-transform -translate-y-6 md:-translate-y-10 lg:-translate-y-16"
             >
               <BannerCampaignCard
-                title={topThree[2].name}
+                title={topThree[2].coinName}
                 bannerUrl={topThree[2].image}
                 startDate={topThree[2].createdAt}
                 endDate={topThree[2].createdAt}
                 createdDate={topThree[2].createdAt}
-                creator={topThree[2].creatorWallet}
+                creator={topThree[2].creatorWallet as string || ""}
                 position={3}
                 twitter={topThree[2].twitter}
                 telegram={topThree[2].telegram}

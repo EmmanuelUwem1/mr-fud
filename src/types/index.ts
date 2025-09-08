@@ -60,6 +60,7 @@ export interface Campaign {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  creatorWallet: string;
   __v: number;
 }
 

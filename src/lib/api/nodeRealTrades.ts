@@ -17,7 +17,7 @@ type RawSwap = {
   timestamp: string;
 };
 
-export async function fetchOcicatTradesFromNodeReal(limit = 10) {
+export async function fetchOcicatTradesFromNodeReal(limit = 30) {
   const query = `
     {
       swaps(

@@ -53,7 +53,7 @@ function TradesTable({ token, ca }: TradeTableProps) {
      setIsRefreshing(true);
      if (isOcicat) {
        try {
-         const trades = await fetchOcicatTradesFromNodeReal(20);
+         const trades = await fetchOcicatTradesFromNodeReal(40);
          setTrades(trades ?? []);
          setLoaded(true);
        } catch (err) {
