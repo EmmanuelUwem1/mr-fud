@@ -32,7 +32,7 @@ export default function CampaignsSection() {
   };
 
   const filteredCampaigns = campaigns.filter((campaign) =>
-    `${campaign.name} ${campaign.contractAddress}`
+    `${campaign.coinName} `
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
   );
@@ -42,11 +42,11 @@ export default function CampaignsSection() {
   switch (activeTab) {
     case "Trending":
     case "Market Cap":
-      sortedCampaigns.sort(
-        (a, b) =>
-          b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-      );
-      break;
+      // sortedCampaigns.sort(
+      //   (a, b) =>
+      //     b.createdAt * b.totalSupply - a.currentPrice * a.totalSupply
+      // );
+      // break;
     case "Newly Launched":
       sortedCampaigns.sort(
         (a, b) =>
@@ -113,7 +113,7 @@ export default function CampaignsSection() {
             <CampaignCard
               id={campaign._id}
               key={campaign._id}
-              title={campaign.name}
+              title={campaign.coinName}
               bannerUrl={campaign.image}
               startDate={campaign.createdAt}
               createdDate={campaign.createdAt}

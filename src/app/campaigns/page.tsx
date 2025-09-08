@@ -3,6 +3,7 @@ import Banner from "./components/campaignsBanner";
 import { motion } from "framer-motion";
 import CampaignsSection from "./components/campaigns-section";
 
+
 function Page() {
   return (
     <motion.div
