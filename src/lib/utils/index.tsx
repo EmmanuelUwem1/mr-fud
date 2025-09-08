@@ -23,6 +23,9 @@ export function toWei(value: string, decimals: number = 18) {
 }
 
 export function formatWalletAddress(address: string) {
+  if (!address) {
+    return
+  }
   return `${address.slice(0, 5)}...${address.slice(-4)}`;
 }
 
