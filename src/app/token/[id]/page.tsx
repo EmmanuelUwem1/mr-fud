@@ -29,7 +29,7 @@ export default function TokenPage() {
   const { address, isConnected } = useAccount();
 
  const { user } = useUser();
- const tokenBalance = user?.tokenHoldings?.find((holding) => holding.tokenAddress === id)?.balance || 0;
+ const tokenBalance = user?.tokenHoldings?.find((holding) => holding.tokenAddress === token?.contractAddress)?.balance || 0;
 
   const { data: balanceData } = useBalance({
     address,

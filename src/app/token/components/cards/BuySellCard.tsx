@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-  import { ethers } from "ethers";
+import { useState, useEffect } from "react";
 import { buyToken, sellToken } from "@/lib/api";
 import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
@@ -14,6 +13,7 @@ import { useSwapOcicatForBNB } from "@/web3/hooks/pancakeSwap/useSwapOcicatForBN
 import { useSwapBNBForOcicat } from "@/web3/hooks/pancakeSwap/useSwapBNBForOcicat";
 import { useApproveOcicat } from "@/web3/hooks/pancakeSwap/useApproveOcicat";
 import { toWei } from "@/lib/utils";
+import { useExpectedAmountOut } from "@/web3/hooks/pancakeSwap/useExpectedAmountOut";
 
 
 
@@ -56,11 +56,46 @@ export default function BuySellCard({
   const { approve } = useApproveOcicat();
   const { swap: swapBNBForOcicat } = useSwapBNBForOcicat();
   const { swap: swapOcicatForBNB } = useSwapOcicatForBNB();
+const { expectedAmountOut, fetchExpectedAmountOut, loading:loadingAmount } =useExpectedAmountOut();
+  const [minRecieved, setMinRecieved] = useState<bigint | number>()
+
 
 
 
   const WBNB_ADDRESS = CONSTANTS.WBNB_CONTRACT_ADDRESS as `0x${string}`;
   const OCICAT_ADDRESS = CONSTANTS.OCICAT_TOKEN_ADDRESS as `0x${string}`;
+
+
+
+
+
+useEffect(() => {
+  if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) return;
+    
+
+    const timeout = setTimeout(() => {
+      const fetch = async () => {
+        try {
+          const path = isBuy
+            ? [WBNB_ADDRESS, OCICAT_ADDRESS]
+            : [OCICAT_ADDRESS, WBNB_ADDRESS];
+
+          await fetchExpectedAmountOut({
+            amountIn: toWei(amount, isBuy ? 18 : 6),
+            path,
+          });
+        } catch (err) {
+          console.error("Error fetching expected amount out:", err);
+        }
+      };
+
+      fetch();
+    }, 2000);
+// 2-second debounce
+
+  return () => clearTimeout(timeout); // cleanup on re-render
+}, [amount, isBuy]);
+
 
 
 
@@ -75,44 +110,83 @@ export default function BuySellCard({
     setSelectedSlippage(value);
   };
 
+  const calculateMinAmountOut = (
+    expectedAmountOut: bigint,
+    slippage: string
+  ): bigint => {
+    if (slippage.toLowerCase() === "max") {
+      // No minimum enforced — accept any output
+return BigInt(0);
+    }
+
+    let numericValue = parseInt(slippage?.replace("%", "") || "");
+
+    if (isNaN(numericValue) || numericValue < 0 || numericValue > 100) {
+      numericValue = 10; // Default to 10% if invalid or not provided
+    }
+
+    const slippageFactor = BigInt(100 - numericValue);
+return (expectedAmountOut * slippageFactor) / BigInt(100);
+  };
+
+
   const handleTransaction = async () => {
     if (tokenCa === OcicatTokenCa) {
-        try {
-          setLoading(true);
+      try {
+        const path = isBuy
+          ? [WBNB_ADDRESS, OCICAT_ADDRESS]
+          : [OCICAT_ADDRESS, WBNB_ADDRESS];
 
-          const amountIn = isBuy ? toWei(amount, 6) : toWei(amount, 18);
-          const minAmountOut = (amountIn * BigInt(95)) / BigInt(100); // 5% slippage
-          const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+        setLoading(true);
+        const inputDecimals = isBuy ? 18 : 6; // buying = input is BNB, selling = input is Ocicat
+        fetchExpectedAmountOut({
+          amountIn: toWei(amount, inputDecimals),
+          path,
+        });
 
-          const path = isBuy
-            ? [WBNB_ADDRESS, OCICAT_ADDRESS]
-            : [OCICAT_ADDRESS, WBNB_ADDRESS];
+        if (expectedAmountOut) {
+          const minAmountOut = calculateMinAmountOut(
+            expectedAmountOut,
+            selectedSlippage
+          );
+          setMinRecieved(minAmountOut);
+        }
 
-          let swapPromise;
+        const amountIn = toWei(amount, inputDecimals);
 
-          if (isBuy) {
-            swapPromise = swapBNBForOcicat({
-              amountInWei: amountIn,
-              minAmountOut,
-              path,
-              deadline,
-            });
-          } else {
-            await approve({ amount: amountIn });//  Required before selling
-            swapPromise = swapOcicatForBNB({
-              amountIn,
-              minAmountOut,
-              path,
-              deadline,
-            });
-          }
+        const minAmountOut = calculateMinAmountOut(
+          typeof minRecieved === "bigint"
+            ? minRecieved
+            : BigInt(minRecieved || 0),
+          selectedSlippage
+        );
 
-         
+        const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
 
-          setAmount("");
-          await refreshUser();
-          setModalOpen(false);
-        } catch (err) {
+        let swapPromise;
+
+        if (isBuy) {
+          swapPromise = swapBNBForOcicat({
+            amountInWei: amountIn,
+            minAmountOut,
+            path,
+            deadline,
+          });
+        } else {
+          await approve({ amount: amountIn });
+          //  Required before selling
+          swapPromise = swapOcicatForBNB({
+            amountIn,
+            minAmountOut,
+            path,
+            deadline,
+          });
+        }
+
+        setAmount("");
+        await refreshUser();
+        setModalOpen(false);
+      } catch (err) {
           console.error("Swap error:", err);
         } finally {
           setLoading(false);
@@ -373,11 +447,21 @@ export default function BuySellCard({
         <>
           <div className="text-xs flex justify-between items-center text-[#87DDFF] font-semibold mt-2">
             <span>Min Received</span>
-            <span>
-              {!isNaN(estimatedValue)
-                ? `${estimatedValue.toFixed(4)} ${isBuy ? tokenTicker : "BNB"}`
-                : "--"}
-            </span>
+            {loadingAmount ? (
+              <div className="flex ml-auto justify-end items-center">
+                <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white" />
+              </div>
+            ) : (
+              <span>
+                {estimatedValue &&
+                !isNaN(Number(estimatedValue)) &&
+                estimatedValue !== 0
+                  ? `${Number(estimatedValue).toFixed(4)} ${
+                      isBuy ? tokenTicker : "BNB"
+                    }`
+                  : "--"}
+              </span>
+            )}
           </div>
 
           <div className="text-xs flex justify-between items-center text-[#87DDFF] font-semibold mt-2">
@@ -422,7 +506,7 @@ export default function BuySellCard({
                     <button
                       key={label}
                       className={`py-2 text-xs transition-colors bg-[#013253] text-gray-200 hover:opacity-80 px-3 rounded-full ${
-                        selectedSlippage === label ? "bg-[#434343]" : ""
+                        selectedSlippage === label ? "bg-[#2F6786]" : ""
                       }`}
                       onClick={() => handleSlippageSelect(label)}
                     >

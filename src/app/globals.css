@@ -33,6 +33,13 @@
 .box-bg{
   background-color: #004A7C;
 }
+.cursor-grab {
+  cursor: grab;
+}
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
 
 @theme inline {
   --color-background: var(--background);
