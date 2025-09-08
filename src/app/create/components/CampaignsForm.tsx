@@ -18,9 +18,9 @@ function CampaignsForm() {
           </label>
           <input
             type="text"
-            value={campaignPayload.coinName}
-            onChange={(e) => setCampaignPayload({ ...campaignPayload, coinName: e.target.value })}
-            className="w-full border input-border rounded-md input-bg px-3 py-2 placeholder:text-[#87DDFF]"
+            value={campaignPayload.campaignTitle}
+            onChange={(e) => setCampaignPayload({ ...campaignPayload, campaignTitle: e.target.value })}
+            className="w-full border input-border rounded-md input-bg px-3 py-2 placeholder:text-[#87DDFF] placeholder:text-xs"
             placeholder="Enter campaign title"
             title="campaign-title"
           />
@@ -39,7 +39,7 @@ function CampaignsForm() {
               <DatePicker
                 selected={campaignPayload.startDate ? new Date(campaignPayload.startDate) : null}
                 onChange={(date) => setCampaignPayload({ ...campaignPayload, startDate: date ? date.toISOString() : undefined })}
-                className="w-full placeholder:text-[#87DDFF]"
+                className="w-full placeholder:text-[#87DDFF] placeholder:text-xs"
                 placeholderText="Select start date"
               />
               <CalendarIcon />
@@ -58,7 +58,7 @@ function CampaignsForm() {
                     endDate: date ? date.toISOString() : undefined,
                   })
                 }
-                className="w-full placeholder:text-[#87DDFF] "
+                className="w-full placeholder:text-[#87DDFF] placeholder:text-xs "
                 placeholderText="Select end date"
               />
               <CalendarIcon />

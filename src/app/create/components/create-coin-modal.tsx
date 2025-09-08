@@ -11,6 +11,8 @@ import { useCampaignForm } from "../context/campaignFormContext";
 import { createCampaign } from "@/lib/api";
 import { generateFakeAddress } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useBannerImageContext } from "../context/BannerImageContext";
+import { CampaignPayload } from "@/lib/api";
         
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
@@ -25,70 +27,164 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const [selectedHardCap, setSelectedHardCap] = useState(
     selectedCurrency === "BNB" ? 10 : 0.01
   );
+  const pathName = usePathname();
+  const isCampaign = pathName === "/create/campaign";
 
 
   const { file } = useImageContext();
+  const { bannerImage } = useBannerImageContext();
 
 
-  const handleSubmit = async () => {
-    if (!file) return;
+    const handleCreateToken = async () => {
+      if (!file) return;
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
 
-      const imageOneRes = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+        const imageOneRes = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
 
-      const result = await imageOneRes.json();
-      const image = result.ipfsUrl;
-      setPayload({ image });
+        const result = await imageOneRes.json();
+        const image = result.ipfsUrl;
+        setPayload({ image });
+        setPayload({ initialPrice: 2 });
+        setPayload({ totalSupply: 200000 });
 
-      const tokenCa = generateFakeAddress();
-      setPayload({ contractAddress: tokenCa });
+        const tokenCa = generateFakeAddress();
+        setPayload({ contractAddress: tokenCa });
 
-      const response = await createToken(payload);
-      if(response){
-        if (response.success) {
-          toast.success("Coin created successfully");
-          onClose();
-        } else {
-          toast.error(
-            `An error occurred: ${
-              (response.error &&
-                typeof response.error === "object" &&
-                "response" in response.error &&
-                (
-                  response.error as {
-                    response?: { data?: { message?: string } };
-                  }
-                ).response?.data?.message) ||
-              (typeof response.error === "object" &&
-              response.error !== null &&
-              "message" in response.error
-                ? (response.error as { message?: string }).message
-                : undefined) ||
-              "Unknown error"
-            }`
-          );
+        const finalCreateTokenPayload = {
+          ...payload,
+          image,
+          contractAddress: tokenCa,
+          initialPrice: 2,
+          totalSupply: 200000,
+        };
+
+        const response = await createToken(finalCreateTokenPayload);
+        if (response) {
+          if (response.success) {
+            toast.success("Coin created successfully");
+            onClose();
+          } else {
+            toast.error(
+              `An error occurred: ${
+                (response.error &&
+                  typeof response.error === "object" &&
+                  "response" in response.error &&
+                  (
+                    response.error as {
+                      response?: { data?: { message?: string } };
+                    }
+                  ).response?.data?.message) ||
+                (typeof response.error === "object" &&
+                response.error !== null &&
+                "message" in response.error
+                  ? (response.error as { message?: string }).message
+                  : undefined) ||
+                "Unknown error"
+              }`
+            );
+          }
         }
-      }
-      
-      
-    } catch (error) {
-      toast.error(
-        `Unexpected error: 
+      } catch (error) {
+        toast.error(
+          `Unexpected error: 
          Something went wrong
        `
-      );
-    } finally {
-      setIsLoading(false);
-    }
+        );
+      } finally {
+        setIsLoading(false);
+      }
   };
+  
+
+    const handleCreateCampaign = async () => {
+      if (!file || !bannerImage) return;
+
+      setIsLoading(true);
+
+      try {
+        // Upload banner image
+        const bannerFormData = new FormData();
+        bannerFormData.append("file", bannerImage);
+
+        const bannerRes = await fetch("/api/upload", {
+          method: "POST",
+          body: bannerFormData,
+        });
+
+        const bannerResult = await bannerRes.json();
+        const campaignBanner = bannerResult.ipfsUrl;
+
+        // Upload project image
+        const imageFormData = new FormData();
+        imageFormData.append("file", file);
+
+        const imageRes = await fetch("/api/upload", {
+          method: "POST",
+          body: imageFormData,
+        });
+
+        const imageResult = await imageRes.json();
+        const image = imageResult.ipfsUrl;
+
+        // Build final campaign payload
+        const finalCampaignPayload: CampaignPayload = {
+          coinName: payload.name,
+          ticker: payload.ticker,
+          description: payload.description,
+          campaignTitle: campaignPayload.campaignTitle,
+          campaignBanner,
+          image,
+          startDate: campaignPayload.startDate,
+          endDate: campaignPayload.endDate,
+          twitter: payload.twitter,
+          website: payload.website,
+          telegram: payload.telegram,
+        };
+
+        const response = await createCampaign(finalCampaignPayload);
+
+        if (response?.success) {
+          toast.success("Campaign created successfully");
+          onClose();
+        } else {
+          const errorMessage =
+            (response?.error &&
+              typeof response.error === "object" &&
+              "response" in response.error &&
+              (
+                response.error as {
+                  response?: { data?: { message?: string } };
+                }
+              ).response?.data?.message) ||
+            (typeof response.error === "object" &&
+            response.error !== null &&
+            "message" in response.error
+              ? (response.error as { message?: string }).message
+              : undefined) ||
+            "Unknown error";
+
+          toast.error(`An error occurred: ${errorMessage}`);
+        }
+      } catch (error) {
+        toast.error("Unexpected error: Something went wrong");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+
+  const handleSubmit = isCampaign ? handleCreateCampaign : handleCreateToken;
+
+
+
 
   const currencies = [
     {
@@ -252,13 +348,13 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
                     key={val}
                     onClick={() => !isDisabled && setSelectedHardCap(val)}
                     disabled={isDisabled}
-                    className={`text-xs px-2 py-2 rounded-md cursor-pointer
+                    className={`text-xs transition-class px-2 py-2 rounded-full cursor-pointer
     ${
       isDisabled
         ? "bg-[#52525254] text-gray-400 cursor-not-allowed"
         : isSelected
         ? "bg-white text-black"
-        : "bg-[#52525280] hover:bg-[#3A3A3A] text-white"
+        : "bg-[#52525280] hover:bg-white text-white hover:text-black"
     }`}
                   >
                     {val} {selectedCurrency}

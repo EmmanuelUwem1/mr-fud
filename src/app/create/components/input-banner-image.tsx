@@ -36,7 +36,7 @@ const BannerUpload: React.FC = () => {
         <div
           onDrop={handleDrop}
           onDragOver={handleDragOver}
-          className="w-full h-full border border-dashed border-gray-300 rounded-[12px] flex flex-col items-center justify-center py-10 px-6 gap-2"
+          className="w-full h-full border border-dashed border-gray-300 rounded-[12px] flex flex-col items-center justify-center py-10 px-3 sm:px-6 gap-2"
         >
           <p className="text-white font-bold text-lg">Upoad your project banner</p>
           <p className="text-sm text-[#87DDFF]">or drag and drop it here</p>
