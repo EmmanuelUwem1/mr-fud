@@ -14,6 +14,7 @@ import { useSwapBNBForOcicat } from "@/web3/hooks/pancakeSwap/useSwapBNBForOcica
 import { useApproveOcicat } from "@/web3/hooks/pancakeSwap/useApproveOcicat";
 import { toWei } from "@/lib/utils";
 import { useExpectedAmountOut } from "@/web3/hooks/pancakeSwap/useExpectedAmountOut";
+import { formatNumber } from "@/lib/utils";
 
 
 
@@ -163,29 +164,27 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
 
         const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
 
-        let swapPromise;
 
-        if (isBuy) {
-          swapPromise = swapBNBForOcicat({
-            amountInWei: amountIn,
-            minAmountOut,
-            path,
-            deadline,
-          });
-        } else {
-          await approve({ amount: amountIn });
-          //  Required before selling
-          swapPromise = swapOcicatForBNB({
-            amountIn,
-            minAmountOut,
-            path,
-            deadline,
-          });
-        }
+       if (isBuy) {
+         await swapBNBForOcicat({
+           amountInWei: amountIn,
+           minAmountOut,
+           path,
+           deadline,
+         });
+       } else {
+         await approve({ amount: amountIn }); // Must await approval
+         await swapOcicatForBNB({
+           amountIn,
+           minAmountOut,
+           path,
+           deadline,
+         });
+       }
 
-        setAmount("");
-        await refreshUser();
-        setModalOpen(false);
+       setAmount("");
+       await refreshUser();
+       setModalOpen(false);
       } catch (err) {
           console.error("Swap error:", err);
         } finally {
@@ -228,7 +227,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
     try {
       const res = await buyToken(data);
       if (res?.success) {
-        toast.success(`Bought ${amountInToken.toFixed(4)} ${tokenName}`, {
+        toast.success(`Bought ${formatNumber(amountInToken)} ${tokenName}`, {
           id: toastId,
           duration: 4000,
         });
@@ -355,7 +354,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
           <button
             onClick={() => setAmount(`0.1`)}
             className={`px-2 py-2 rounded-full ${
-              balance >= 1
+              balance >= 0.1
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
@@ -366,7 +365,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
           <button
             onClick={() => setAmount(`0.5`)}
             className={`px-2 py-2 rounded-full ${
-              balance >= 5
+              balance >= 0.5
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
@@ -377,7 +376,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
           <button
             onClick={() => setAmount(`1`)}
             className={`px-2 py-2 rounded-full ${
-              balance >= 5
+              balance >= 1
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
@@ -456,7 +455,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
                 {estimatedValue &&
                 !isNaN(Number(estimatedValue)) &&
                 estimatedValue !== 0
-                  ? `${Number(estimatedValue).toFixed(4)} ${
+                  ? `${formatNumber(Number(estimatedValue))} ${
                       isBuy ? tokenTicker : "BNB"
                     }`
                   : "--"}

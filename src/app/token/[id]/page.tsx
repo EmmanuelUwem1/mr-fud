@@ -40,7 +40,7 @@ export default function TokenPage() {
   const userBalance = balanceData?.formatted ?? "0";
 
   // Simulated token data — replace with actual API or contract data
-  const [tokenData, setTokenData] = useState({
+  const [tokenData] = useState({
     price: 0.5231,
     marketCap: ((token?.currentPrice ?? 0) * (token?.totalSupply ?? 0)),
     volume24h: 120000,
