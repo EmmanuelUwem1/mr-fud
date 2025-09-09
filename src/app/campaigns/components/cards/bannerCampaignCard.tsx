@@ -84,7 +84,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
       {/* Card */}
       <div className="cardonebg border md:border-[3px] border-[#05E02B] rounded-[4px] sm:rounded-[12px] overflow-hidden shadow-md w-full pb-2 relative">
         {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
+        <div className="absolute max-sm:hidden inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
           <div className="absolute inset-1 cardbg text-white p-4 rounded-[12px] flex flex-col justify-center items-center text-center">
             <h3 className="text-xl font-bold mb-2">{title}</h3>
             <p className="text-sm mb-4">{title}</p>

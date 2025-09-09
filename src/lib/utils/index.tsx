@@ -19,7 +19,13 @@ export function fromWei(value: string | bigint | number, decimals: number = 18):
  * @returns string
  */
 export function toWei(value: string, decimals: number = 18) {
-  return parseUnits(value, decimals);
+  // Trim excess decimals safely
+  const [whole, fraction = ""] = value.split(".");
+
+  const trimmedFraction = fraction.slice(0, decimals);
+  const safeValue = fraction.length > 0 ? `${whole}.${trimmedFraction}` : whole;
+
+  return parseUnits(safeValue, decimals);
 }
 
 export function formatWalletAddress(address: string) {

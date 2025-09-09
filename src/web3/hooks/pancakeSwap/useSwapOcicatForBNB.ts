@@ -33,7 +33,7 @@ export const useSwapOcicatForBNB = () => {
         {
           address: routerAddress,
           abi: routerAbi,
-          functionName: "swapExactTokensForETH",
+          functionName: "swapExactTokensForETHSupportingFeeOnTransferTokens",
           args: [amountIn, minAmountOut, path, address, deadline],
         },
         {

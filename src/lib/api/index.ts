@@ -1,7 +1,6 @@
 "use server";
 
 import axios from "axios";
-import { AxiosResponse } from "axios";
 
 const BACKEND_URL = process.env.BACKEND_URL
 

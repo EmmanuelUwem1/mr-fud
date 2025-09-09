@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { buyToken, sellToken } from "@/lib/api";
 import { useAccount } from "wagmi";
+import { waitForTransactionReceipt } from "@wagmi/core";
+import { config } from "@/context/wagmi.config";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -15,6 +17,7 @@ import { useApproveOcicat } from "@/web3/hooks/pancakeSwap/useApproveOcicat";
 import { toWei } from "@/lib/utils";
 import { useExpectedAmountOut } from "@/web3/hooks/pancakeSwap/useExpectedAmountOut";
 import { formatNumber } from "@/lib/utils";
+import { oasisTestnet } from "viem/chains";
 
 
 
@@ -173,14 +176,39 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
            deadline,
          });
        } else {
-         await approve({ amount: amountIn }); // Must await approval
-         await swapOcicatForBNB({
-           amountIn,
-           minAmountOut,
-           path,
-           deadline,
-         });
+         try {
+           // Step 1: Approve token transfer
+           const approvalTxHash = await approve({ amount: amountIn });
+
+           if (!approvalTxHash) {
+             toast.error("Approval transaction failed — no hash returned.");
+             return
+           }
+           // Step 2: Wait for approval to be mined
+           await waitForTransactionReceipt(config, {
+             hash: approvalTxHash,
+             confirmations: 1,
+           });
+           toast.success(`amount in : ${amountIn}`)
+
+           // Step 3: Execute the swap
+           await swapOcicatForBNB({
+             amountIn,
+             minAmountOut,
+             path,
+             deadline,
+           });
+         } catch (error) {
+           toast.error(
+             `Sell failed: ${(error as Error)?.message || "Unknown error"}`,
+             {
+               icon: "❌",
+               duration: 4000,
+             }
+           );
+         }
        }
+
 
        setAmount("");
        await refreshUser();
@@ -522,7 +550,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
       <button
         disabled={loading}
         onClick={handleTransaction}
-        className={`mt-4 w-full px-3 py-3.5 rounded-full text-xs font-semibold ${
+        className={`mt-4 w-full px-3 py-4 rounded-full text-xs font-semibold ${
           tab === "buy" ? "bg-[#06D57B]" : "bg-[#fe3c3cf4]"
         } ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
       >
@@ -547,7 +575,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
               setTab("buy");
               setAmount("");
             }}
-            className={`w-full text-xs py-3.5 font-semibold rounded-full ${
+            className={`w-full text-xs py-4 font-semibold rounded-full ${
               tab === "buy" ? "bg-[#06D57B]" : ""
             }`}
           >
@@ -558,7 +586,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
               setTab("sell");
               setAmount("");
             }}
-            className={`w-full text-xs py-3.5 font-semibold rounded-full ${
+            className={`w-full text-xs py-4 font-semibold rounded-full ${
               tab === "sell" ? "bg-[#fe3c3cf4]" : ""
             }`}
           >
@@ -615,7 +643,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
                       setTab("buy");
                       setAmount("");
                     }}
-                    className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
+                    className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-4 rounded-full ${
                       tab === "buy" ? "bg-[#06D57B]" : ""
                     }`}
                   >
@@ -626,7 +654,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
                       setTab("sell");
                       setAmount("");
                     }}
-                    className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-3 rounded-full ${
+                    className={`text-xs text-white font-semibold flex w-full items-center justify-center px-5 py-4 rounded-full ${
                       tab === "sell" ? "bg-[#fe3c3cf4]" : ""
                     }`}
                   >

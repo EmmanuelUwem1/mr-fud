@@ -124,6 +124,26 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
      setIsLoading(true);
 
      try {
+       // Convert startDate to bigint (Unix timestamp)
+       const startTimeBigInt = BigInt(
+         Math.floor(new Date(campaignPayload.startDate).getTime() / 1000)
+       );
+
+       // Create on-chain campaign
+
+       const tx = await createCountdown({
+         title: payload.name,
+         description: payload.description,
+         startTime: startTimeBigInt,
+         payableAmount: fromWei(String(advertFee), 18), // string in ETH
+         account: payload.creatorWallet as `0x${string}`,
+       });
+
+       if (!tx) {
+         toast.error("Failed to initiate transaction");
+         return;
+       }
+
        // Upload banner image
        const bannerFormData = new FormData();
        bannerFormData.append("file", bannerImage);
@@ -147,27 +167,6 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
 
        const imageResult = await imageRes.json();
        const image = imageResult.ipfsUrl;
-
-       // Convert startDate to bigint (Unix timestamp)
-       const startTimeBigInt = BigInt(
-         Math.floor(new Date(campaignPayload.startDate).getTime() / 1000)
-       );
-
-       // Create on-chain campaign
-
-       const tx = await createCountdown({
-         title: payload.name,
-         description: payload.description,
-         startTime: startTimeBigInt,
-         payableAmount: fromWei(String(advertFee),18), // string in ETH
-         account:payload.creatorWallet as `0x${string}`,
-       });
-
-       if (!tx) {
-         toast.error("Failed to initiate transaction");
-         return;
-       }
-
 
        // Build backend payload
        const finalCampaignPayload: CampaignPayload = {

@@ -74,7 +74,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
       onClick={handleClick}
     >
       {/* Hover Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] text-white p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
+      <div className="absolute max-sm:hidden inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] text-white p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
         <div className="absolute inset-1 cardbg text-white p-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex rounded-[12px] flex-col justify-center items-center text-center">
           <h3 className="text-xl font-bold mb-2">{title}</h3>
           <p className="text-sm mb-4">{title}</p>
