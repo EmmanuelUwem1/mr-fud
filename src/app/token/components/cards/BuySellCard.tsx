@@ -548,11 +548,11 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
       }
 
       <button
-        disabled={loading}
+        disabled={loading || !estimatedValue}
         onClick={handleTransaction}
         className={`mt-4 w-full px-3 py-4 rounded-full text-xs font-semibold ${
           tab === "buy" ? "bg-[#06D57B]" : "bg-[#fe3c3cf4]"
-        } ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
+        } ${loading || !estimatedValue ? "opacity-60 cursor-not-allowed" : ""}`}
       >
         {loading ? (
           <div className="flex mx-auto justify-center items-center">
