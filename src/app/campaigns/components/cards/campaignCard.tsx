@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { formatDaysAgo } from "@/lib/utils";
+import { formatTimeAgo } from "@/lib/utils";
 import { formatWalletAddress } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import SocialLinks from "../socialLinks";
@@ -125,7 +125,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
       <div className="px-4 pt-3 space-y-2 text-[#F8F8F8] z-10">
         <h3 className="text-lg md:text-xl font-bold text-[#000000]">{title}</h3>
         <div className="flex justify-between text-sm">
-          <span>{formatDaysAgo(createdDate)}</span>
+          <span>{formatTimeAgo(createdDate)}</span>
           <span>By: {formatWalletAddress(creator)}</span>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import Turnstile from "@/components/Turnstile";
 import { useTokenForm } from "../context/TokenFormContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { fromWei, toWei } from "@/lib/utils";
+import { BaseError } from "viem";
 import Image from "next/image";
 import { createToken } from "@/lib/api";
 import { useImageContext } from "../context/ImageContext";
@@ -15,6 +17,8 @@ import { useBannerImageContext } from "../context/BannerImageContext";
 import { CampaignPayload } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useTokens } from "@/context/TokensContext";
+import { useCreateCountdown } from "@/web3/hooks/mr-fud/useCreateCountdown";
+import { useAdvertFee } from "@/web3/hooks/mr-fud/useReadAdvertFee";
         
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
@@ -35,6 +39,8 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const { file } = useImageContext();
   const { bannerImage } = useBannerImageContext();
   const { refetchTokens } = useTokens();
+  const { advertFee } = useAdvertFee();
+  const { createCountdown } = useCreateCountdown();
 
 
     const handleCreateToken = async () => {
@@ -108,83 +114,115 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   };
   
 
-    const handleCreateCampaign = async () => {
-      if (!file || !bannerImage) return;
 
-      setIsLoading(true);
 
-      try {
-        // Upload banner image
-        const bannerFormData = new FormData();
-        bannerFormData.append("file", bannerImage);
+ 
 
-        const bannerRes = await fetch("/api/upload", {
-          method: "POST",
-          body: bannerFormData,
-        });
+   const handleCreateCampaign = async () => {
+     if (!file || !bannerImage) return;
 
-        const bannerResult = await bannerRes.json();
-        const campaignBanner = bannerResult.ipfsUrl;
+     setIsLoading(true);
 
-        // Upload project image
-        const imageFormData = new FormData();
-        imageFormData.append("file", file);
+     try {
+       // Upload banner image
+       const bannerFormData = new FormData();
+       bannerFormData.append("file", bannerImage);
 
-        const imageRes = await fetch("/api/upload", {
-          method: "POST",
-          body: imageFormData,
-        });
+       const bannerRes = await fetch("/api/upload", {
+         method: "POST",
+         body: bannerFormData,
+       });
 
-        const imageResult = await imageRes.json();
-        const image = imageResult.ipfsUrl;
+       const bannerResult = await bannerRes.json();
+       const campaignBanner = bannerResult.ipfsUrl;
 
-        // Build final campaign payload
-        const finalCampaignPayload: CampaignPayload = {
-          coinName: payload.name,
-          ticker: payload.ticker,
-          description: payload.description,
-          campaignTitle: campaignPayload.campaignTitle,
-          campaignBanner,
-          image,
-          creatorWallet: payload.creatorWallet,
-          startDate: campaignPayload.startDate,
-          endDate: campaignPayload.endDate,
-          twitter: payload.twitter,
-          website: payload.website,
-          telegram: payload.telegram,
-        };
+       // Upload project image
+       const imageFormData = new FormData();
+       imageFormData.append("file", file);
 
-        const response = await createCampaign(finalCampaignPayload);
+       const imageRes = await fetch("/api/upload", {
+         method: "POST",
+         body: imageFormData,
+       });
 
-        if (response?.success) {
-          toast.success("Campaign created successfully");
-          onClose();
-          router.push('/campaigns')
-        } else {
-          const errorMessage =
-            (response?.error &&
-              typeof response.error === "object" &&
-              "response" in response.error &&
-              (
-                response.error as {
-                  response?: { data?: { message?: string } };
-                }
-              ).response?.data?.message) ||
-            (typeof response.error === "object" &&
-            response.error !== null &&
-            "message" in response.error
-              ? (response.error as { message?: string }).message
-              : undefined) ||
-            "Unknown error";
+       const imageResult = await imageRes.json();
+       const image = imageResult.ipfsUrl;
 
-          toast.error(`An error occurred: ${errorMessage}`);
-        }
-      } catch (error) {
-        toast.error(`Unexpected error: Something went wrong ${error}`);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+       // Convert startDate to bigint (Unix timestamp)
+       const startTimeBigInt = BigInt(
+         Math.floor(new Date(campaignPayload.startDate).getTime() / 1000)
+       );
+
+       // Create on-chain campaign
+
+       const tx = await createCountdown({
+         title: payload.name,
+         description: payload.description,
+         startTime: startTimeBigInt,
+         payableAmount: fromWei(String(advertFee),18), // string in ETH
+         account:payload.creatorWallet as `0x${string}`,
+       });
+
+       if (!tx) {
+         toast.error("Failed to initiate transaction");
+         return;
+       }
+
+
+       // Build backend payload
+       const finalCampaignPayload: CampaignPayload = {
+         coinName: payload.name,
+         ticker: payload.ticker,
+         description: payload.description,
+         campaignTitle: campaignPayload.campaignTitle,
+         campaignBanner,
+         image,
+         creatorWallet: payload.creatorWallet,
+         startDate: campaignPayload.startDate,
+         endDate: campaignPayload.endDate,
+         twitter: payload.twitter,
+         website: payload.website,
+         telegram: payload.telegram,
+       };
+
+       // Create campaign in backend
+       const response = await createCampaign(finalCampaignPayload);
+
+       if (response?.success) {
+         toast.success("Campaign created successfully");
+         onClose();
+         router.push("/campaigns");
+       } else {
+         const errorMessage =
+           (response?.error &&
+             typeof response.error === "object" &&
+             "response" in response.error &&
+             (
+               response.error as {
+                 response?: { data?: { message?: string } };
+               }
+             ).response?.data?.message) ||
+           (typeof response.error === "object" &&
+           response.error !== null &&
+           "message" in response.error
+             ? (response.error as { message?: string }).message
+             : undefined) ||
+           "Unknown error";
+
+         toast.error(`Backend error: ${errorMessage}`);
+       }
+     } catch (error) {
+       const message =
+         error instanceof BaseError && error.cause instanceof Error
+           ? error.cause.message
+           : "Unexpected error occurred";
+
+       toast.error(`Error: ${message}`);
+     } finally {
+       setIsLoading(false);
+     }
+   };
+
 
 
   const handleSubmit = isCampaign ? handleCreateCampaign : handleCreateToken;
@@ -369,6 +407,11 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           </div>
 
           <p>You receive: 342810.12 ${payload.ticker}</p>
+          {Number(advertFee) && isCampaign && (
+            <p className="text-xs text-[#00C3FE] font-semibold">
+              Advert fee: {fromWei(Number(advertFee),18)} BNB
+            </p>
+          )}
           {/* Buttons */}
           <div className="flex w-full justify-end gap-2">
             <button

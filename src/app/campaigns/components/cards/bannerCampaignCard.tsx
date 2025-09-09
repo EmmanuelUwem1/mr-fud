@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { formatDaysAgo } from "@/lib/utils";
+import { formatTimeAgo } from "@/lib/utils";
 import { formatWalletAddress } from "@/lib/utils";
 import SocialLinks from "../socialLinks";
 import { useRipple } from "@/hooks/useRipple";
@@ -138,7 +138,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
           </h3>
           <div className="flex w-full sm:gap-1 items-center justify-between text-[5px] sm:text-[8px] md:text-[10px] lg:text-sm">
             <span className="lg:w-24 w-10 sm:w-full">
-              {formatDaysAgo(createdDate)}
+              {formatTimeAgo(createdDate)}
             </span>
             <span className="lg:w-28 w-10 sm:w-full">
               By: {formatWalletAddress(creator)}
