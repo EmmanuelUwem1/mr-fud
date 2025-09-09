@@ -24,7 +24,7 @@ const CreatedBy = ({
 
       {/* Wallet + Time */}
       <div className="flex flex-col items-start">
-        <span className="font-medium">{formatWalletAddress(wallet)}</span>
+        <span className="font-medium">{formatWalletAddress(wallet)|| ""}</span>
         <span className="text-white/60 text-xs">
           {formatDaysAgo(createdAt)}
         </span>

@@ -37,7 +37,7 @@ const LeaderboardTable = () => {
             />
             <UserAvatar
               // imageUrl={token.createdBy}
-              username={formatWalletAddress(token.creatorWallet)}
+              username={formatWalletAddress(token.creatorWallet) || ""}
               subtitle={formatDaysAgo(token.createdAt)}
             />
             <MarketCap
