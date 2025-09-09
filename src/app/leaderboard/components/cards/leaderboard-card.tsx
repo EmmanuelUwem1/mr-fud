@@ -76,7 +76,7 @@ const LeaderboardCard = ({
         </div>
 
         {/* right section (image placeholder) */}
-        <div className="flex aspect-square w-full rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
+        <div className="flex aspect-square w-[90%] rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
           <Image
             alt=""
             src={imageUrl}
@@ -90,7 +90,7 @@ const LeaderboardCard = ({
         <CreatedBy wallet={creator} createdAt={createdDate} />
         <Link
           href={`/token/${id}`}
-          className="w-fit bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-4 rounded-full transition-class"
+          className="w-fit bg-[#2C9A54] hover:opacity-80 text-white font-semibold text-xs py-2 px-4 rounded-full transition-class"
         >
           Buy
         </Link>
