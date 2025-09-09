@@ -98,7 +98,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
       } catch (error) {
         toast.error(
           `Unexpected error: 
-         Something went wrong
+         Something went wrong ${error}
        `
         );
       } finally {
@@ -145,6 +145,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           campaignTitle: campaignPayload.campaignTitle,
           campaignBanner,
           image,
+          creatorWallet: payload.creatorWallet,
           startDate: campaignPayload.startDate,
           endDate: campaignPayload.endDate,
           twitter: payload.twitter,
@@ -178,7 +179,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           toast.error(`An error occurred: ${errorMessage}`);
         }
       } catch (error) {
-        toast.error("Unexpected error: Something went wrong");
+        toast.error(`Unexpected error: Something went wrong ${error}`);
       } finally {
         setIsLoading(false);
       }

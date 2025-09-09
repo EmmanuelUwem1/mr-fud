@@ -126,6 +126,7 @@ export interface CampaignPayload {
   description: string;
   campaignTitle: string;
   campaignBanner: string;
+  creatorWallet: string;
   image: string;
   startDate: string; // ISO date string
   endDate: string;   // ISO date string

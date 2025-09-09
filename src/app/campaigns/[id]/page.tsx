@@ -16,7 +16,11 @@ export default function CampaignDetailPage() {
 
   if (loading) {
     return (
-      <div className="text-center m-auto text-white py-10">Loading campaign...</div>
+      <div className="text-center m-auto text-white py-40">
+        <div className="flex justify-center items-center h-20">
+          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
+        </div>
+      </div>
     );
   }
 

@@ -4,6 +4,7 @@ import { formatDaysAgo } from "@/lib/utils";
 import { formatWalletAddress } from "@/lib/utils";
 import SocialLinks from "../socialLinks";
 import { useRipple } from "@/hooks/useRipple";
+import { useState } from "react";
 
 type BannerCampaignCardProps = {
   title: string;
@@ -32,6 +33,21 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
   telegram,
   description = "No description provided.",
 }) => {
+const [retryCount, setRetryCount] = useState(0);
+
+const handleBannerError = () => {
+  if (retryCount < 5) {
+    const delay = 1000 * Math.pow(2, retryCount); // 1s, 2s, 4s, 8s, 16s
+    setTimeout(() => {
+      setRetryCount((prev) => prev + 1);
+    }, delay);
+  }
+};
+
+
+const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
+  const bannerSrc = `${bannerUrl}${cacheBuster}`;
+
   const now = new Date();
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -61,6 +77,7 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
           objectPosition="center"
           quality={100}
           className="drop-shadow-lg"
+          priority
         />
       </div>
 
@@ -88,13 +105,14 @@ const BannerCampaignCard: React.FC<BannerCampaignCardProps> = ({
         {/* Banner Image */}
         <div className="aspect-[315/199] w-full relative bg-[#00000094]">
           <Image
-            src={bannerUrl}
-            alt={`${title} banner`}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="top"
-            className="rounded-t-[15px]"
-          />
+                   src={bannerSrc}
+                   alt={`${title} banner`}
+                   layout="fill"
+                   objectFit="cover"
+                   objectPosition="top"
+                   className="rounded-t-[15px]"
+                   onError={handleBannerError}
+                 />
 
           {/* Top Overlay */}
           <div className="absolute top-0 left-0 w-full flex justify-between lg:gap-4 md:gap-3 gap-2 items-center sm:px-3 px-1 py-1 md:py-3 lg:py-4 text-white text-[5px] lg:text-xs sm:text-[8px] md:text-[10px] font-medium">

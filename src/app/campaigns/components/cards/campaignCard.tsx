@@ -5,6 +5,7 @@ import { formatWalletAddress } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import SocialLinks from "../socialLinks";
 import { useRipple } from "@/hooks/useRipple";
+import { useState } from "react";
 type CampaignCardProps = {
   title: string;
   bannerUrl: string;
@@ -32,6 +33,19 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
   telegram,
   description = "",
 }) => {
+  const [retryCount, setRetryCount] = useState(0);
+
+const handleBannerError = () => {
+  if (retryCount < 5) {
+    setTimeout(() => {
+      setRetryCount((prev) => prev + 1);
+    }, 1000); // Retry after 1 second
+  }
+};
+
+const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
+  const bannerSrc = `${bannerUrl}${cacheBuster}`;
+  
   const now = new Date();
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -81,12 +95,13 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
       {/* Banner Image */}
       <div className="aspect-[315/199] w-full relative bg-[#00000094] z-10">
         <Image
-          src={bannerUrl}
+          src={bannerSrc}
           alt={`${title} banner`}
           layout="fill"
           objectFit="cover"
           objectPosition="top"
           className="rounded-t-[15px]"
+          onError={handleBannerError}
         />
 
         {/* Top Overlay */}
