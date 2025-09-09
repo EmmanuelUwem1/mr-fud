@@ -21,6 +21,7 @@ const defaultPayload: CreateTokenPayload = {
   creatorWallet: "",
   totalSupply: 0,
   initialPrice: 0,
+  hardcap:400000,
   image: "",
   contractAddress: "0x928848acf420028944accaaaaccccc",
   twitter: "",

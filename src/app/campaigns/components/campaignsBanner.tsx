@@ -35,8 +35,8 @@ export default function Banner() {
               <BannerCampaignCard
                 title={topThree[1].coinName}
                 bannerUrl={topThree[1].image}
-                startDate={topThree[1].createdAt}
-                endDate={topThree[1].createdAt}
+                startDate={topThree[1].startDate}
+                endDate={topThree[1].endDate}
                 createdDate={topThree[1].createdAt}
                 creator={topThree[1].creatorWallet || ""}
                 position={2}
@@ -55,8 +55,8 @@ export default function Banner() {
               <BannerCampaignCard
                 title={topThree[0].coinName}
                 bannerUrl={topThree[0].image}
-                startDate={topThree[0].createdAt}
-                endDate={topThree[0].createdAt}
+                startDate={topThree[0].startDate}
+                endDate={topThree[0].endDate}
                 createdDate={topThree[0].createdAt}
                 creator={topThree[0].creatorWallet || ""}
                 position={1}
@@ -75,8 +75,8 @@ export default function Banner() {
               <BannerCampaignCard
                 title={topThree[2].coinName}
                 bannerUrl={topThree[2].image}
-                startDate={topThree[2].createdAt}
-                endDate={topThree[2].createdAt}
+                startDate={topThree[2].startDate}
+                endDate={topThree[2].endDate}
                 createdDate={topThree[2].createdAt}
                 creator={topThree[2].creatorWallet as string || ""}
                 position={3}

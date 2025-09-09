@@ -15,6 +15,7 @@ export interface CreateTokenPayload {
   creatorWallet: string;
   totalSupply: number;
   initialPrice: number;
+  hardcap: number;
   image: string;
   contractAddress: string;
   twitter?: string;

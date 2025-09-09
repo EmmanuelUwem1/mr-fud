@@ -51,7 +51,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
   const now = new Date();
   const start = new Date(startDate);
   const end = new Date(endDate);
-  const isLive = now >= start;
+  const isLive = now >= end;
 
   const formattedStart = start.toLocaleDateString(undefined, {
     month: "short",

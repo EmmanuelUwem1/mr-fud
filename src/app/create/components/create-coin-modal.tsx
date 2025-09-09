@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import { useBannerImageContext } from "../context/BannerImageContext";
 import { CampaignPayload } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { useTokens } from "@/context/TokensContext";
         
 
 export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
@@ -31,10 +32,9 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
   const pathName = usePathname();
   const router = useRouter();
   const isCampaign = pathName === "/create/campaign";
-
-
   const { file } = useImageContext();
   const { bannerImage } = useBannerImageContext();
+  const { refetchTokens } = useTokens();
 
 
     const handleCreateToken = async () => {
@@ -73,6 +73,7 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           if (response.success) {
             toast.success("Coin created successfully");
             onClose();
+            refetchTokens();
             router.push('/feed');
           } else {
             toast.error(

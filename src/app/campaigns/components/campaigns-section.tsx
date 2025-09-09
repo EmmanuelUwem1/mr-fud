@@ -100,8 +100,8 @@ export default function CampaignsSection() {
 
       {/* Campaign Cards Grid */}
       {localLoading || loading ? (
-        <div className="flex justify-center items-center h-20">
-          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-400" />
+        <div className="flex justify-center items-center h-40">
+          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
         </div>
       ) : sortedCampaigns.length === 0 ? (
         <p className="text-center text-[#87DDFF] col-span-full">
@@ -115,10 +115,10 @@ export default function CampaignsSection() {
               key={campaign._id}
               title={campaign.coinName}
               bannerUrl={campaign.image}
-              startDate={campaign.createdAt}
+              startDate={campaign.startDate}
               createdDate={campaign.createdAt}
               creator={campaign.creatorWallet}
-              endDate={campaign.createdAt}
+              endDate={campaign.endDate}
               description={campaign.description}
               twitter={campaign.twitter}
               website={campaign.website}
