@@ -190,7 +190,6 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
 
 
 
-
   const currencies = [
     {
       name: "BNB",

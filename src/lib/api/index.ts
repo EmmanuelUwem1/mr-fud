@@ -135,27 +135,13 @@ export interface CampaignPayload {
   telegram?: string;
 }
 
-export interface CampaignResponse {
-  _id: string;
-  coinName: string;
-  ticker: string;
-  description: string;
-  campaignTitle: string;
-  campaignBanner: string;
-  image: string;
-  startDate: string;
-  endDate: string;
-  twitter: string;
-  website: string;
-  telegram: string;
-  isActive: boolean;
-}
+
 
 export async function createCampaign(
   campaignPayload: CampaignPayload
  ){
   try {
-    const response: AxiosResponse<CampaignResponse> = await axios.post(
+    const response = await axios.post(
       `${BACKEND_URL}/api/v1/campaigns`,
       campaignPayload
     );

@@ -18,6 +18,7 @@ const defaultCampaignPayload: CampaignPayload = {
   description: "",
   campaignTitle: "",
   campaignBanner: "",
+  creatorWallet: "",
   image: "",
   startDate: "", // ISO date string
   endDate: "",   // ISO date string
