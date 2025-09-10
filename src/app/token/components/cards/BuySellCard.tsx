@@ -189,7 +189,6 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
              hash: approvalTxHash,
              confirmations: 1,
            });
-           toast.success(`amount in : ${amountIn}`)
 
            // Step 3: Execute the swap
            await swapOcicatForBNB({

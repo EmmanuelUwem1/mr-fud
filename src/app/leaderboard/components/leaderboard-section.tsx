@@ -10,7 +10,7 @@ import { useTokens } from "@/context/TokensContext";
 
 const Leaderboard = () => {
   const [activeTab, setActiveTab] = useState<
-    "Marketcap" | "referrals" | "socials"
+    "Marketcap" | "referrals" | "Creators"
   >("Marketcap");
 
     const { tokens, loading } = useTokens();
@@ -20,6 +20,11 @@ const Leaderboard = () => {
 
   return (
     <>
+      {loading && (
+        <div className="flex justify-center items-center h-40">
+          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
+        </div>)
+}
       {/* Tabs */}
       <div className="flex w-full items-center justify-start py-4">
         <div className="flex p-2 rounded-full cardthreebg">
@@ -66,10 +71,8 @@ const Leaderboard = () => {
             Referral rankings coming soon
           </div>
         )}
-        {activeTab === "socials" && (
-          <div className="text-white text-center py-4">
-            Creators leaderboard loading...
-          </div>
+        {activeTab === "Creators" && (
+          <div className="text-white text-center py-4">coming soon</div>
         )}
       </section>
     </>

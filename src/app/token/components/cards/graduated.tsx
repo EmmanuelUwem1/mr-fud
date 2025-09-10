@@ -59,7 +59,7 @@ export default function GraduatedCard({isGraduated, notPassedBondingCurve}: Grad
               <span className="text-[#FF3C38]">DEX</span>{" "}
             </h3>
             <div className="text-sm font-bold text-[#E3E3E3]">
-              Target: <span className="text-[#FF3C38]">120 BNB</span>
+              Target: <span className="text-[#FF3C38]">20 BNB</span>
             </div>
           </div>
         )}

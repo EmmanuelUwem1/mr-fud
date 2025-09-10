@@ -52,9 +52,9 @@ const sortedTokens = [...filteredTokens];
 
 switch (activeTab) {
   case "Trending":
-    sortedTokens.sort(
-      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-    );
+   sortedTokens.sort(
+     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+   );
     break;
 
   case "Market Cap":

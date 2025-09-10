@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-
+import { useState } from "react";
 type TokenAvatarProps = {
   index: number;
   imageUrl: string;
@@ -9,6 +9,16 @@ type TokenAvatarProps = {
 };
 
 const TokenAvatar = ({ index, imageUrl, ticker, name }: TokenAvatarProps) => {
+   const [retryCount, setRetryCount] = useState(0);
+     const handleError = () => {
+       if (retryCount < 5) {
+         setTimeout(() => {
+           setRetryCount((prev) => prev + 1);
+         }, 1000); // Retry after 1 second
+       }
+     };
+    
+    const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
   const formattedIndex = String(index + 1).padStart(3, "0");
 
   return (
@@ -33,10 +43,11 @@ const TokenAvatar = ({ index, imageUrl, ticker, name }: TokenAvatarProps) => {
             <div className="relative w-8 h-8 rounded-full overflow-hidden bg-black">
               <Image
                 alt={`${name} image`}
-                src={imageUrl}
+                src={`${imageUrl}${cacheBuster}`}
                 layout="fill"
                 objectFit="cover"
                 objectPosition="center"
+                onError={handleError}
               />
             </div>
           </div>

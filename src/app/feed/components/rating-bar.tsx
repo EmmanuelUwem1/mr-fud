@@ -1,13 +1,15 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 
 type RatingBarProps = {
-  rating: number;
   theme?: string;
+  rating?: number;
 };
 
-export default function RatingBar({ rating, theme }: RatingBarProps) {
+export default function RatingBar({ theme }: RatingBarProps) {
+  // Generate a random rating once per render
+  const rating = useMemo(() => Math.floor(Math.random() * 101), []);
   const position = Math.min(100, Math.max(0, rating));
 
   return (
@@ -56,6 +58,7 @@ export default function RatingBar({ rating, theme }: RatingBarProps) {
           objectPosition="center"
         />
       </span>
+
       {theme === "green" && (
         <span className="absolute right-2 top-[40%] -translate-y-1 text-[8px] font-medium text-[#004A7C] z-10">
           0%

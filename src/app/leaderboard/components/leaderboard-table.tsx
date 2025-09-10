@@ -13,7 +13,7 @@ const LeaderboardTable = () => {
       const { tokens, loading } = useTokens();
   
   return (
-    <div className="w-full overflow-x-auto box-bg rounded-xl p-4">
+    <div className="w-full overflow-x-auto max-h-[calc(100vh-6rem)] box-bg rounded-xl p-4">
       <div className="min-w-[600px]">
         {/* Header */}
         <div className="grid grid-cols-3 text-[#87DDFF] text-base font-medium pb-3  border-[#38B9FF]">

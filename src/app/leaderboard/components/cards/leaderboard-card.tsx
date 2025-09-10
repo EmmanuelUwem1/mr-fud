@@ -3,6 +3,10 @@ import CreatedBy from "../created-by";
 import { formatMarketCap } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+
+
+
 
 // Helper to determine background color based on index
 const getGradientColor = (index: number): string => {
@@ -40,6 +44,18 @@ const LeaderboardCard = ({
   const formattedIndex = String(index + 1).padStart(3, "0");
   const formattedCap = formatMarketCap(Number(marketCap));
   const gradientColor = getGradientColor(index);
+
+
+   const [retryCount, setRetryCount] = useState(0);
+     const handleError = () => {
+       if (retryCount < 5) {
+         setTimeout(() => {
+           setRetryCount((prev) => prev + 1);
+         }, 1000); // Retry after 1 second
+       }
+     };
+    
+    const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
 
   return (
     <div className="relative py-6 rounded-[14px] bg-[#0A0A0A] shadow-lg  text-white w-full md:max-w-sm mx-auto z-10 overflow-hidden">
@@ -79,10 +95,11 @@ const LeaderboardCard = ({
         <div className="flex aspect-square w-[90%] rounded-[10px] bg-[#1a1a23] relative overflow-hidden">
           <Image
             alt=""
-            src={imageUrl}
+            src={`${imageUrl}${cacheBuster}`}
             layout="fill"
             objectPosition="center"
             objectFit="cover"
+            onError={handleError}
           />
         </div>
       </div>
