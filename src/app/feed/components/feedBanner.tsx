@@ -16,7 +16,7 @@ export default function Banner() {
     <section className="relative max-sm:p-3 sm:py-12 w-full md:h-[373px] sm:mt-36 rounded-[20px] flex flex-col items-center justify-center bg-pattern">
       {loading ? (
         <div className="flex justify-center items-center h-20">
-          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-400" />
+          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
         </div>
       ) : (
         <>
