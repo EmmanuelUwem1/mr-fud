@@ -13,7 +13,7 @@ export default function ProfileCard() {
   const [username, setUsername] = useState("87mK0"); // fallback username
 
   const { isConnected, address } = useAccount();
-  const { user, loading } = useUser();
+  const { user} = useUser();
 
   useEffect(() => {
     if (!isConnected) {

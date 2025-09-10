@@ -53,7 +53,9 @@ const CoinsTabs = () => {
       {/* Content */}
       <div className="mt-4 text-white">
         {loading ? (
-          <p className="text-sm text-gray-400">Loading tokens...</p>
+          <div className="flex mx-auto justify-center items-center h-20">
+            <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
+          </div>
         ) : (
           <AnimatePresence mode="wait">
             {activeTab === "held" ? (
@@ -65,7 +67,7 @@ const CoinsTabs = () => {
                   exit="exit"
                   variants={cardVariants}
                   transition={{ duration: 0.4 }}
-                  className="flex flex-col gap-4"
+                  className="flex flex-col gap-4 max-h-96 overflow-y-auto"
                 >
                   {holdings.map((holding) => (
                     <motion.div
@@ -118,7 +120,7 @@ const CoinsTabs = () => {
                 exit="exit"
                 variants={cardVariants}
                 transition={{ duration: 0.4 }}
-                className="flex flex-col gap-4"
+                className="flex flex-col gap-4 max-h-96 overflow-y-auto"
               >
                 {created.map((token) => (
                   <motion.div
