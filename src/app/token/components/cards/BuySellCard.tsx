@@ -442,7 +442,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
             onClick={() => setAmount(`${balance / 2}`)}
             disabled={balance < 0}
             className={`px-3 py-2 rounded-full ${
-              balance >= 5
+              balance >= 1
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
@@ -453,7 +453,7 @@ return (expectedAmountOut * slippageFactor) / BigInt(100);
             onClick={() => setAmount(`${(balance * 3) / 4}`)}
             disabled={balance < 0}
             className={`px-3 py-2 rounded-full ${
-              balance >= 5
+              balance >= 1
                 ? "bg-[#013253] text-gray-200"
                 : "bg-[#0a0a0a53] text-[#868686] cursor-not-allowed"
             }`}
