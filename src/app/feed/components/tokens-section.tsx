@@ -32,8 +32,7 @@ export default function TokensSection() {
   const [searchTerm, setSearchTerm] = useState("");
   const [localLoading, setLocalLoading] = useState(false);
 
-
-  const handleTabClick = (tabText:string) => {
+  const handleTabClick = (tabText: string) => {
     setLocalLoading(true);
     setActiveTab(tabText);
     setTimeout(() => {
@@ -41,47 +40,61 @@ export default function TokensSection() {
     }, 500); // half second delay
   };
 
-
-    const filteredTokens = tokens.filter((token) =>
-      `${token.name} ${token.contractAddress}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+  const filteredTokens = tokens.filter((token) =>
+    `${token.name} ${token.contractAddress}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
   );
-  
-let sortedTokens: typeof filteredTokens = [];
 
-switch (activeTab) {
-  case "Trending":
-    sortedTokens = [...filteredTokens].sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-    break;
+  let sortedTokens: typeof filteredTokens = [];
 
-  case "Market Cap":
-    sortedTokens = [...filteredTokens].sort(
-      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-    );
-    break;
+  switch (activeTab) {
+    case "Trending":
+      sortedTokens = [...filteredTokens].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      break;
 
-  case "Newly Launched":
-    sortedTokens = [...filteredTokens].sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-    break;
+    case "Market Cap":
+      sortedTokens = [...filteredTokens].sort(
+        (a, b) =>
+          b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
+      );
+      break;
 
-  case "Graduated":
-  case "About to Graduate":
-    sortedTokens = []; // Show none
-    break;
+    case "Newly Launched":
+      sortedTokens = [...filteredTokens].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      break;
 
-  default:
-    sortedTokens = [...filteredTokens];
-    break;
-}
+    case "Graduated":
+    case "About to Graduate":
+      sortedTokens = []; // Show none
+      break;
 
+    default:
+      sortedTokens = [...filteredTokens];
+      break;
+  }
 
+const seenContracts = new Set<string>();
+const seenNames = new Set<string>();
+
+const uniqueSortedTokens = sortedTokens.filter((token) => {
+  const ca = token.contractAddress.toLowerCase();
+  const name = token.name.toLowerCase();
+
+  if (seenContracts.has(ca) || seenNames.has(name)) {
+    return false; // Skip duplicates
+  }
+
+  seenContracts.add(ca);
+  seenNames.add(name);
+  return true;
+});
 
 
   return (
@@ -127,7 +140,7 @@ switch (activeTab) {
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {sortedTokens.map((token) => (
+          {uniqueSortedTokens.map((token) => (
             <TokenCard
               key={token._id}
               ticker={token.ticker}
@@ -135,7 +148,6 @@ switch (activeTab) {
               ca={token.contractAddress}
               marketCap={token.currentPrice * token.totalSupply}
               createdBy={token.creatorWallet}
-              
               image={token.image}
               id={token._id}
               createdTime={token.createdAt}

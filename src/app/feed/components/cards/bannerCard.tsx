@@ -68,7 +68,7 @@ export default function BannerTokenCard({
 
       {/* Card Content */}
       <div className="flex flex-col w-full gap-3 items-center justify-start">
-        <div className="flex w-full h-52 rounded-[10px] bg-[#1a1a236f] relative overflow-hidden">
+        <div className="flex w-full h-56 rounded-[10px] bg-[#1a1a236f] relative overflow-hidden aspect-square">
           <Image
             src={`${image}${cacheBuster}`}
             alt=""

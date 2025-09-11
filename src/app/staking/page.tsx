@@ -7,11 +7,11 @@ function Page() {
          initial={{ opacity: 0 }}
          animate={{ opacity: 1 }}
          transition={{ duration: 0.5 }}
-         className="flex w-full items-center flex-col justify-center min-h-screen"
+         className="flex w-full items-center flex-col justify-center py-40"
        >
-         {/* <div className="bg-[#141414] flex items-center justify-center w-full p-6 rounded-xl">
-           DAO Staking loading... 🔗
-         </div> */}
+         <div className="cardthreebg flex items-center justify-center w-full p-6 rounded-xl">
+           Coming soon
+         </div>
        </motion.div>
      );
 }

@@ -20,7 +20,7 @@ const ripple = useRipple();
       // aria-label="Create a Club"
       // title="Create a Club"
     >
-       {isCampaignPage ? "Schedule launch" : "Launch a token"}
+      {isCampaignPage ? "Create Countdown" : "Launch a token"}
     </Link>
   );
 }

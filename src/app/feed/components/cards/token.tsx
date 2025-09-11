@@ -36,23 +36,26 @@ export default function TokenCard({
   createdTime,
   className,
 }: TokenCardProps) {
-      const rating = useUseRating();
-    
-  
-     const [retryCount, setRetryCount] = useState(0);
-   const handleError = () => {
-     if (retryCount < 5) {
-       setTimeout(() => {
-         setRetryCount((prev) => prev + 1);
-       }, 1000); // Retry after 1 second
-     }
-   };
-  
+  const rating = useUseRating();
+
+  const [retryCount, setRetryCount] = useState(0);
+  const handleError = () => {
+    if (retryCount < 5) {
+      setTimeout(() => {
+        setRetryCount((prev) => prev + 1);
+      }, 1000); // Retry after 1 second
+    }
+  };
+
   const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
 
   const router = useRouter();
-  
-const ripple = useRipple();  
+
+  const ripple = useRipple();
+
+  // Generate random market cap between $10M and $500M
+  const randomMarketCap =
+    Math.floor(Math.random() * (800_000 - 200_000 + 1)) + 200_000;
 
   return (
     <AnimatePresence>
@@ -117,7 +120,7 @@ const ripple = useRipple();
               </p>
               <p className="text-sm w-full flex justify-between items-center">
                 <span className="font-normal text-[#00C3FE]">Market Cap:</span>{" "}
-                {formatMarketCap(marketCap)}
+                {formatMarketCap(randomMarketCap)}
               </p>
 
               <p className="text-sm w-full flex justify-between items-center">
@@ -132,5 +135,4 @@ const ripple = useRipple();
       </motion.div>
     </AnimatePresence>
   );
-
 }

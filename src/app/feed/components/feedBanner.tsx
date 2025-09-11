@@ -20,7 +20,7 @@ export default function Banner() {
         </div>
       ) : (
         <>
-          <div className="sm:hidden flex w-full items-center justify-center  my-3">
+          <div className="sm:hidden flex w-full items-center justify-center my-3">
             <Link
               href={"/create/token"}
               className="bg-[#00C3FE] w-[80%] rounded-full text-center py-3.5 text-xs font-semibold text-white relative overflow-hidden"
@@ -60,7 +60,7 @@ export default function Banner() {
             {/* Left card - index 1, position 2 */}
             <Link
               href={`/token/${randomThree[1]?._id}`}
-              className="transition-transform md:-top-8 h-full relative duration-500 w-full max-w-[20rem]"
+              className="transition-transform md:-top-8 h-full relative duration-500 w-full max-w-[17rem]"
             >
               <BannerTokenCard
                 ticker={randomThree[1]?.ticker}
@@ -81,7 +81,7 @@ export default function Banner() {
             {/* Middle card - index 0, position 1 */}
             <Link
               href={`/token/${randomThree[0]?._id}`}
-              className="transition-transform md:-top-28 h-full relative duration-500 w-full max-w-[20rem] z-10"
+              className="transition-transform md:-top-28 h-full relative duration-500 w-full max-w-[17rem] z-10"
             >
               <BannerTokenCard
                 ticker={randomThree[0]?.ticker}
@@ -102,7 +102,7 @@ export default function Banner() {
             {/* Right card - index 2, position 3 */}
             <Link
               href={`/token/${randomThree[2]?._id}`}
-              className="transition-transform md:-top-8 h-full relative duration-500 w-full max-w-[20rem]"
+              className="transition-transform md:-top-8 h-full relative duration-500 w-full max-w-[17rem]"
             >
               <BannerTokenCard
                 ticker={randomThree[2]?.ticker}

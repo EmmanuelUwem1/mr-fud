@@ -1,6 +1,5 @@
 "use client"
 import Banner from "./components/feedBanner";
-import FeaturedSection from "./components/featured-section";
 import TokensSection from "./components/tokens-section";
 import { motion } from "framer-motion";
 
