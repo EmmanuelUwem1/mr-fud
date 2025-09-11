@@ -51,9 +51,9 @@ export default function TokenStatsCard({mCap,tokenName, tokenTicker, tokenCreate
           <>
             {" "}
             <BlackBar />
-            <LabelValuePair label="Creator reward" value="2.5 BNB" />
+            <LabelValuePair label="Creator reward" value="0 BNB" />
             <BlackBar />
-            <LabelValuePair label="Referral" value="2.98 BNB" />
+            <LabelValuePair label="Referral" value="0 BNB" />
           </>
         )}
       </div>

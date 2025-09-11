@@ -7,7 +7,7 @@ import SearchBar from "@/components/searchBar";
 import Image from "next/image";
 
 const tabOptions = [
-  { text: "Trending", image: "/Group.png", active: "/Vector-fire.png" },
+  { text: "All", image: "/Group.png", active: "/Vector-fire.png" },
   { text: "Market Cap", image: "/trend-up.png", active: "/trend-up-black.png" },
   {
     text: "Newly Launched",
@@ -27,7 +27,7 @@ const tabOptions = [
 ];
 
 export default function TokensSection() {
-  const [activeTab, setActiveTab] = useState("Trending");
+  const [activeTab, setActiveTab] = useState("All");
   const { tokens, loading } = useTokens();
   const [searchTerm, setSearchTerm] = useState("");
   const [localLoading, setLocalLoading] = useState(false);
@@ -49,12 +49,12 @@ export default function TokensSection() {
   let sortedTokens: typeof filteredTokens = [];
 
   switch (activeTab) {
-    case "Trending":
-      sortedTokens = [...filteredTokens].sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      break;
+    // case "Trending":
+    //   sortedTokens = [...filteredTokens].sort(
+    //     (a, b) =>
+    //       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    //   );
+    //   break;
 
     case "Market Cap":
       sortedTokens = [...filteredTokens].sort(
@@ -80,14 +80,15 @@ export default function TokensSection() {
       break;
   }
 
-const seenContracts = new Set<string>();
-const seenNames = new Set<string>();
+  const seenContracts = new Set<string>();
+  const seenNames = new Set<string>();
 
-const uniqueSortedTokens = sortedTokens.filter((token) => {
-  const ca = token.contractAddress.toLowerCase();
-  const name = token.name.toLowerCase();
+  const uniqueSortedTokens = sortedTokens.filter((token) => {
+    const ca = token.contractAddress.toLowerCase();
+    const name = token.name.toLowerCase();
+    const imageUrl = token.image;
 
-  if (seenContracts.has(ca) || seenNames.has(name)) {
+    if (seenContracts.has(ca) || seenNames.has(name) || seenNames.has(imageUrl)) {
     return false; // Skip duplicates
   }
 

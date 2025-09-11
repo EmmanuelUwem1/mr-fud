@@ -42,11 +42,13 @@ export default function TokenPage() {
   });
 
   const userBalance = balanceData?.formatted ?? "0";
+    const randomMarketCap =
+      Math.floor(Math.random() * (500_000 - 200_000 + 1)) + 1_000;
 
   // Simulated token data — replace with actual API or contract data
   const [tokenData] = useState({
     price: 0.5231,
-    marketCap: (token?.currentPrice ?? 0) * (token?.totalSupply ?? 0),
+    marketCap: randomMarketCap,
     volume24h: 120000,
     creatorReward: 5,
     referralReward: 2,
@@ -84,8 +86,8 @@ export default function TokenPage() {
         tokenCreatedDate={token?.createdAt || ""}
         tokenId={token?._id || ""}
         referalCode={address && address}
-        referalReward="2BNB"
-        creatorReward="2bnb"
+        referalReward="0"
+        creatorReward="0"
         rating={2}
       />
       <div className="flex items-start justify-start gap-4 w-full flex-wrap lg:flex-nowrap">

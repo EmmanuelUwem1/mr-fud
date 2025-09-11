@@ -55,7 +55,7 @@ export default function TokenCard({
 
   // Generate random market cap between $10M and $500M
   const randomMarketCap =
-    Math.floor(Math.random() * (800_000 - 200_000 + 1)) + 200_000;
+    Math.floor(Math.random() * (500_000 - 200_000 + 1)) + 1_000;
 
   return (
     <AnimatePresence>

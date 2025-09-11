@@ -36,7 +36,7 @@ export default function RatingBar({ theme, rating }: RatingBarProps) {
       )}
 
       {/* Rating text */}
-      <span className="absolute left-2 top-[40%] -translate-y-1 text-[8px] font-medium text-white z-10">
+      <span className={`absolute left-2 top-[40%] -translate-y-1 text-[8px] font-medium ${theme ==="green" ? "text-[#004A7C]" : ""} z-10`}>
         {rating}%
       </span>
 
