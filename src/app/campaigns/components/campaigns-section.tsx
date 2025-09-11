@@ -113,7 +113,7 @@ const sortedCampaigns = filteredCampaigns.filter((campaign) => {
             <CampaignCard
               id={campaign._id}
               key={campaign._id}
-              title={campaign.coinName}
+              title={campaign.campaignTitle}
               bannerUrl={campaign.image}
               startDate={campaign.startDate}
               createdDate={campaign.createdAt}
