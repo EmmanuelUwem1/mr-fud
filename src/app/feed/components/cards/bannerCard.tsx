@@ -47,6 +47,10 @@ export default function BannerTokenCard({
   const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
   const ripple = useRipple();
 
+  // Generate random market cap between $10M and $500M
+  const randomMarketCap =
+    Math.floor(Math.random() * (500_000 - 200_000 + 1)) + 1_000;
+
   return (
     <div
       className="bg-[#004A7C] text-white border-[2px] border-[#05E02B] rounded-[15px] py-3 sm:pl-3 pl-3 pr-3 shadow-md flex flex-col justify-between h-fit gap-2 w-full relative"
@@ -115,7 +119,7 @@ export default function BannerTokenCard({
 
           <p className="text-sm w-full flex justify-between items-center">
             <span className="font-normal text-[#00C3FE]">Market Cap:</span>{" "}
-            {formatMarketCap(marketCap)}
+            {formatMarketCap(randomMarketCap)}
           </p>
 
           <p className="text-xs w-full flex justify-between items-center">
