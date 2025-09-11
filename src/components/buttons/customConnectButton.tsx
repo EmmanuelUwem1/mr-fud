@@ -24,7 +24,7 @@ const pathname = usePathname();
       className={`relative px-6 py-2 text-white rounded-full flex items-center gap-2 overflow-hidden group cursor-pointer text-sm ${
         isConnected
           ? "box-bg"
-          : "bg-[#00C3FE]"
+          : "bg-[#00c3feca]"
       }`}
     >
       {shortenedAddress}

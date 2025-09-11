@@ -10,6 +10,7 @@ import { formatTimeAgo } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useRipple } from "@/hooks/useRipple";
+import useUseRating from "@/lib/data/rating";
 
 type TokenCardProps = {
   className?:string;
@@ -18,7 +19,7 @@ type TokenCardProps = {
   ca: string;
   marketCap: number;
   createdBy: string;
-  rating: number;
+  rating?: number;
   image: string;
   id: string;
   createdTime: string;
@@ -30,12 +31,14 @@ export default function TokenCard({
   ca,
   marketCap,
   createdBy,
-  rating,
   image,
   id,
   createdTime,
   className,
 }: TokenCardProps) {
+      const rating = useUseRating();
+    
+  
      const [retryCount, setRetryCount] = useState(0);
    const handleError = () => {
      if (retryCount < 5) {

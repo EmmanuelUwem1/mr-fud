@@ -1,4 +1,5 @@
 "use client";
+import React, { useMemo } from "react";
 import {  useState } from "react";
 import TokenStatsCard from "../components/cards/TokenStatsCard";
 import BuySellCard from "../components/cards/BuySellCard";
@@ -15,21 +16,24 @@ import AntiFudCard from "../components/cards/anti-fud-card";
 import TopHoldersCard from "../components/cards/topHoldersCard";
 import TestTradingViewWidget from "../components/testTradingViewWidget";
 import { useUser } from "@/context/userContext";
+import useUseRating from "@/lib/data/rating";
 
 
 export default function TokenPage() {
-
-
-
+  // Generate a random rating once per render
+  const rating = useUseRating();
 
   const { tokens, loading } = useTokens();
-  
+
   const { id } = useParams();
   const token = tokens.find((t) => t._id === id);
   const { address, isConnected } = useAccount();
 
- const { user } = useUser();
- const tokenBalance = user?.tokenHoldings?.find((holding) => holding.tokenAddress === token?.contractAddress)?.balance || 0;
+  const { user } = useUser();
+  const tokenBalance =
+    user?.tokenHoldings?.find(
+      (holding) => holding.tokenAddress === token?.contractAddress
+    )?.balance || 0;
 
   const { data: balanceData } = useBalance({
     address,
@@ -42,19 +46,15 @@ export default function TokenPage() {
   // Simulated token data — replace with actual API or contract data
   const [tokenData] = useState({
     price: 0.5231,
-    marketCap: ((token?.currentPrice ?? 0) * (token?.totalSupply ?? 0)),
+    marketCap: (token?.currentPrice ?? 0) * (token?.totalSupply ?? 0),
     volume24h: 120000,
     creatorReward: 5,
     referralReward: 2,
- 
+
     symbol: token?.ticker || "TKN",
     title: token?.name || "Token Name",
   });
 
-  
-
-
-  
   return token ? (
     <motion.div
       initial={{ opacity: 0 }}
@@ -130,7 +130,7 @@ export default function TokenPage() {
                 tokenTicker={token.ticker}
               />
               <div className="flex flex-col items-start justify-start gap-4 w-full">
-                <GraduatedCard notPassedBondingCurve={false} />
+                <GraduatedCard notPassedBondingCurve={false} rating={rating} />
                 <AntiFudCard antiFudEnabled={token.isAntiGeet} />
                 <div className="lg:flex w-full items-center justify-center hidden">
                   <TopHoldersCard tokenCa={token.contractAddress} />
@@ -166,7 +166,7 @@ export default function TokenPage() {
               tokenImage={token?.image}
               tokenTicker={token.ticker}
             />
-            <GraduatedCard notPassedBondingCurve={false} />
+            <GraduatedCard rating={rating} notPassedBondingCurve={false} />
             <AntiFudCard antiFudEnabled={token.isAntiGeet} />
           </div>
 

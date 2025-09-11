@@ -4,12 +4,10 @@ import Image from "next/image";
 
 type RatingBarProps = {
   theme?: string;
-  rating?: number;
+  rating: number;
 };
 
-export default function RatingBar({ theme }: RatingBarProps) {
-  // Generate a random rating once per render
-  const rating = useMemo(() => Math.floor(Math.random() * 101), []);
+export default function RatingBar({ theme, rating }: RatingBarProps) {
   const position = Math.min(100, Math.max(0, rating));
 
   return (

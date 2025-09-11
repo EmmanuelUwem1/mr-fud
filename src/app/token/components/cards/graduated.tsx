@@ -4,11 +4,11 @@ import RatingBar from "@/app/feed/components/rating-bar";
 
 interface GraduatedCardProps {
   targetAmount?: number | string;
-  percent?: number | string;
+ rating: number | string;
   isGraduated?: boolean;
   notPassedBondingCurve?: boolean;
 }
-export default function GraduatedCard({isGraduated, notPassedBondingCurve}: GraduatedCardProps) {
+export default function GraduatedCard({isGraduated, rating, notPassedBondingCurve}: GraduatedCardProps) {
   return (
     <div className="relative w-full max-w-96 rounded-lg overflow-hidden shadow-lg text-white p-4 border-[2px] border-[#923A07] bg-[#291403] flex flex-col items-center justify-center">
       {/*  Background Image */}
@@ -49,15 +49,30 @@ export default function GraduatedCard({isGraduated, notPassedBondingCurve}: Grad
         {!notPassedBondingCurve && (
           <div className="flex w-1/2 flex-col">
             <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
-              100%
+              {rating}%
             </span>
-            <span className="GasoekOne-Regular font-normal text-xl">
-              Graduated
-            </span>
-            <h3 className="text-xs font-normal">
-              {" This token is now on"}{" "}
-              <span className="text-[#FF3C38]">DEX</span>{" "}
-            </h3>
+            { Number(rating) === 100 ?
+              (<>
+                {" "}
+                <span className="GasoekOne-Regular font-normal text-xl">
+                  Graduated
+                </span>
+                <h3 className="text-xs font-normal">
+                  {" This token is now on"}{" "}
+                  <span className="text-[#FF3C38]">DEX</span>{" "}
+                </h3>
+              </>) : 
+        (<>
+                {" "}
+                <span className="GasoekOne-Regular font-normal text-xl">
+                  Not graduated
+                </span>
+                <h3 className="text-xs font-normal">
+                  {" This token is not yet on"}{" "}
+                  <span className="text-[#FF3C38]">DEX</span>{" "}
+                </h3>
+              </>)
+            }
             <div className="text-sm font-bold text-[#E3E3E3]">
               Target: <span className="text-[#FF3C38]">20 BNB</span>
             </div>
@@ -65,21 +80,22 @@ export default function GraduatedCard({isGraduated, notPassedBondingCurve}: Grad
         )}
         {notPassedBondingCurve && (
           <div className="flex w-1/2 flex-col">
-            <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
-              100% graduated to dex.
-            </span>
-            {/* <span className="GasoekOne-Regular font-normal text-xl">
+            
+              <span className="text-[#FFFFFF] font-extralight text-3xl geometric">
+                100% graduated to dex.
+              </span>
+              {/* <span className="GasoekOne-Regular font-normal text-xl">
               Not Passed Bonding Curve
             </span> */}
-            <h3 className="text-xs font-normal">
-              {"This token did not graduate through the"}{" "}
-              <span className="text-[#FF3C38]">bonding curve</span>{" "}
-            </h3>
-            {/* <div className="text-sm font-bold text-[#E3E3E3]">
+              <h3 className="text-xs font-normal">
+                {"This token did not graduate through the"}{" "}
+                <span className="text-[#FF3C38]">bonding curve</span>{" "}
+              </h3>
+              {/* <div className="text-sm font-bold text-[#E3E3E3]">
               Target: <span className="text-[#FF3C38]">120 BNB</span>
             </div> */}
-          </div>
-        )}
+            </div>
+          )}
 
         {/* Right Image */}
         <div className="w-24 h-24 relative rounded-md overflow-hidden flex-shrink-0">
@@ -93,7 +109,7 @@ export default function GraduatedCard({isGraduated, notPassedBondingCurve}: Grad
       </div>
       {/*  Rating Bar */}
       <div className="w-full mt-2 pr-4">
-        <RatingBar rating={100} />
+        <RatingBar rating={Number(rating)} />
       </div>
     </div>
   );

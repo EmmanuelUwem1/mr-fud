@@ -161,7 +161,7 @@ useEffect(() => {
                 tokenTicker={tokenData.ticker}
               />
               <div className="flex flex-col items-start justify-start gap-4 w-full">
-                <GraduatedCard notPassedBondingCurve={true} />
+                <GraduatedCard rating={100} notPassedBondingCurve={true} />
                 {/* <AntiFudCard antiFudEnabled={true} /> */}
                 <div className="lg:flex w-full items-center justify-center hidden">
                   <TopHoldersCard tokenCa={tokenCa} />
@@ -197,7 +197,7 @@ useEffect(() => {
               tokenImage={tokenData?.image}
               tokenTicker={tokenData.ticker}
             />
-            <GraduatedCard notPassedBondingCurve={true} />
+            <GraduatedCard rating={100} notPassedBondingCurve={true} />
             {/* <AntiFudCard antiFudEnabled={true} /> */}
           </div>
 

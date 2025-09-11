@@ -18,7 +18,7 @@ const tabOptions = [
 ];
 
 export default function CampaignsSection() {
-  const [activeTab, setActiveTab] = useState("Live");
+  const [activeTab, setActiveTab] = useState("Upcoming");
   const { campaigns, loading } = useCampaigns();
   const [searchTerm, setSearchTerm] = useState("");
   const [localLoading, setLocalLoading] = useState(false);
@@ -37,25 +37,25 @@ export default function CampaignsSection() {
       .includes(searchTerm.toLowerCase())
   );
 
-  const sortedCampaigns = [...filteredCampaigns];
+const today = new Date();
+
+const sortedCampaigns = filteredCampaigns.filter((campaign) => {
+  const endDate = new Date(campaign.endDate);
 
   switch (activeTab) {
-    case "Trending":
-    case "Market Cap":
-      // sortedCampaigns.sort(
-      //   (a, b) =>
-      //     b.createdAt * b.totalSupply - a.currentPrice * a.totalSupply
-      // );
-      // break;
-    case "Newly Launched":
-      sortedCampaigns.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      break;
+    case "Live":
+      return endDate < today; // Campaigns that have ended
+    case "Upcoming":
+      return endDate >= today; // Campaigns still ongoing or in future
+    case "Meme":
+      return true; // Show all campaigns
+    case "AI ":
+      return false; // Show none
     default:
-      break;
+      return true;
   }
+});
+
     if (!campaigns) {
       return (
         <div className="text-center m-auto text-[#87DDFF] py-10">
@@ -104,7 +104,7 @@ export default function CampaignsSection() {
           <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
         </div>
       ) : sortedCampaigns.length === 0 ? (
-        <p className="text-center text-[#87DDFF] col-span-full">
+        <p className="text-center text-[#87DDFF] col-span-full py-20">
           No campaigns available.
         </p>
       ) : (

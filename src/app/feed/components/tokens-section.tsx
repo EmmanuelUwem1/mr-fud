@@ -48,47 +48,39 @@ export default function TokensSection() {
         .includes(searchTerm.toLowerCase())
   );
   
-const sortedTokens = [...filteredTokens]; 
+let sortedTokens: typeof filteredTokens = [];
 
 switch (activeTab) {
   case "Trending":
-   sortedTokens.sort(
-     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-   );
-    break;
-
-  case "Market Cap":
-    sortedTokens.sort(
-      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-    );
-    break;
-
-  case "Newly Launched":
-    sortedTokens.sort(
+    sortedTokens = [...filteredTokens].sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
     break;
 
-  // case "Graduated":
-  //   sortedTokens.sort((a, b) => {
-  //     if (a.isGraduated === b.isGraduated) return 0;
-  //     return a.isGraduated ? -1 : 1;
-  //   });
-  //   break;
+  case "Market Cap":
+    sortedTokens = [...filteredTokens].sort(
+      (a, b) => b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
+    );
+    break;
 
-  // case "About to Graduate":
-    // sortedTokens
-    //   .filter((token) => !token.isGraduated)
-    //   .sort(
-    //     (a, b) =>
-    //       b.currentPrice * b.totalSupply - a.currentPrice * a.totalSupply
-    //   );
-    // break;
+  case "Newly Launched":
+    sortedTokens = [...filteredTokens].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    break;
+
+  case "Graduated":
+  case "About to Graduate":
+    sortedTokens = []; // Show none
+    break;
 
   default:
+    sortedTokens = [...filteredTokens];
     break;
 }
+
 
 
 
@@ -143,7 +135,7 @@ switch (activeTab) {
               ca={token.contractAddress}
               marketCap={token.currentPrice * token.totalSupply}
               createdBy={token.creatorWallet}
-              rating={80}
+              
               image={token.image}
               id={token._id}
               createdTime={token.createdAt}
