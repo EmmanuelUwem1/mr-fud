@@ -45,7 +45,7 @@ const Leaderboard = () => {
         </div>
       </div>
       {/* Top 3 Leaderboard Cards */}
-      {activeTab === "Marketcap" && (
+      { (
         <div className="flex items-center justify-center lg:flex-nowrap flex-wrap py-4 gap-4 w-full">
           {tokens.slice(0, 3).map((token, index) => (
             <LeaderboardCard

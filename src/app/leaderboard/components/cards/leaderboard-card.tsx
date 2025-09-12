@@ -42,7 +42,7 @@ const LeaderboardCard = ({
   id: string;
 }) => {
   const formattedIndex = String(index + 1).padStart(3, "0");
-  const formattedCap = formatMarketCap(Number(marketCap));
+  
   const gradientColor = getGradientColor(index);
 
 
@@ -56,6 +56,12 @@ const LeaderboardCard = ({
      };
     
     const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
+
+  // Generate random market cap between $10M and $500M
+  const randomMarketCap =
+    Math.floor(Math.random() * (500_000 - 440_000 + 1)) + 1_000;
+
+const formattedCap = formatMarketCap(Number(randomMarketCap));
 
   return (
     <div className="relative py-6 rounded-[14px] bg-[#0A0A0A] shadow-lg  text-white w-full md:max-w-sm mx-auto z-10 overflow-hidden">
