@@ -8,7 +8,8 @@ import SocialLinks from "../socialLinks";
 interface TokenStatsProps {
   mCap?: number | string;
   tokenName: string;
-  tokenCreatedDate: string;
+  startDate: string;
+  endDate: string;
   tokenImage: string;
   tokenId?: string;
   creatorReward?: string;
@@ -20,7 +21,7 @@ interface TokenStatsProps {
     
 }
 
-export default function ProjectStatsCard({mCap, creatorReward, referalReward, tokenImage, tokenName, isCompleted, twitter, website, telegram, tokenCreatedDate }: TokenStatsProps) {
+export default function ProjectStatsCard({mCap, creatorReward, referalReward, tokenImage, tokenName, isCompleted, twitter, website, telegram, startDate, endDate }: TokenStatsProps) {
 
   return (
     <div className="sm:px-3 flex w-full justify-center lg:justify-start items-end gap-3 text-white flex-wrap lg:flex-nowrap">
@@ -36,9 +37,9 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
             <>
               {" "}
               <Bar />
-              <LabelValuePair label="Creator reward" value="2.5 BNB" />
+              <LabelValuePair label="Creator reward" value="0 BNB" />
               <Bar />
-              <LabelValuePair label="Referral" value="2.98 BNB" />
+              <LabelValuePair label="Referral" value="0 BNB" />
             </>
           )}
         </div>
@@ -59,8 +60,8 @@ export default function ProjectStatsCard({mCap, creatorReward, referalReward, to
 
       <div className="flex justify-self-end gap-4 justify-center lg:justify-start flex-wrap">
         <div className="bg-[#004A7C] font-normal  w-52 text-xs rounded-[7px] p-2.5 text-center">
-          {formatDateMMDDYYYY(tokenCreatedDate)} -{" "}
-          {formatDateMMDDYYYY(tokenCreatedDate)}
+          {formatDateMMDDYYYY(startDate)} -{" "}
+          {formatDateMMDDYYYY(endDate)}
         </div>
         <SocialLinks twitter={twitter} website={website} telegram={telegram} />
       </div>

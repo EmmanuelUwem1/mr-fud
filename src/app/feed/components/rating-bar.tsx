@@ -59,7 +59,7 @@ export default function RatingBar({ theme, rating }: RatingBarProps) {
 
       {theme === "green" && (
         <span className="absolute right-2 top-[40%] -translate-y-1 text-[8px] font-medium text-[#004A7C] z-10">
-          0%
+         {100 - position}%
         </span>
       )}
     </div>

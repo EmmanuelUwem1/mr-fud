@@ -7,10 +7,21 @@ import BackButton from "@/components/buttons/backButton";
 import { motion } from "framer-motion";
 import ProjectStatsCard from "../components/cards/project-stats-card";
 import Avatar from "@/components/avaters/avater-circle";
+import { useState } from "react";
 
 export default function CampaignDetailPage() {
   const { id } = useParams();
   const { campaigns, loading } = useCampaigns();
+  
+    const [retryCount, setRetryCount] = useState(0);
+    const handleError = () => {
+      if (retryCount < 5) {
+        setTimeout(() => {
+          setRetryCount((prev) => prev + 1);
+        }, 1000); // Retry after 1 second
+      }
+  };
+    const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
 
   const campaign = campaigns.find((token) => token._id === id);
 
@@ -31,9 +42,9 @@ export default function CampaignDetailPage() {
   }
 
   const now = new Date();
-  const start = new Date(campaign.createdAt);
-  const end = new Date(campaign.createdAt);
-  const isLive = now >= start;
+  // const start = new Date(campaign.createdAt);
+  const end = new Date(campaign.endDate);
+  const isLive = now >= end;
 
 
     return (
@@ -51,11 +62,12 @@ export default function CampaignDetailPage() {
           {/* Banner */}
           <div className="absolute bg-[#00000094] top-0 left-0 w-full lg:h-80 h-64  overflow-hidden shadow-lg">
             <Image
-              src={campaign.image}
+              src={`${campaign.campaignBanner}${cacheBuster}`}
               alt={`${campaign.coinName} banner`}
               layout="fill"
               objectFit="cover"
               priority
+              onError={handleError}
             />
           </div>
 
@@ -64,7 +76,8 @@ export default function CampaignDetailPage() {
               tokenImage={campaign.image}
               tokenName={campaign.coinName}
               // mCap={campaign.marketCap}
-              tokenCreatedDate={campaign.createdAt}
+              startDate={campaign.startDate}
+              endDate={campaign.endDate}
               creatorReward="2.5bnb"
               referalReward="2.5bnb"
               isCompleted={isLive}
