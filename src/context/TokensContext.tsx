@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { fetchTokens } from "@/lib/api";
 
-interface Token {
+export interface Token {
   _id: string;
   name: string;
   ticker: string;
