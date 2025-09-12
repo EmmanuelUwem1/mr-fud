@@ -70,7 +70,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
   }
   return (
     <div
-      className="group cursor-pointer relative cardonebg border mx-auto border-[#05E02B] rounded-[12px] h-full overflow-hidden shadow-md w-full max-w-96"
+      className="group cursor-pointer relative cardonebg border mx-auto border-[#05E02B] rounded-[12px] h-full overflow-hidden shadow-md w-full max-w-96 pb-3"
       onClick={handleClick}
     >
       {/* Hover Overlay */}
@@ -93,7 +93,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
       </div>
 
       {/* Banner Image */}
-      <div className="aspect-square w-full relative bg-[#00000094] z-10">
+      <div className="aspect-[315/199] w-full relative bg-[#00000094] z-10">
         <Image
           src={bannerSrc}
           alt={`${title} banner`}
@@ -122,8 +122,8 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
       </div>
 
       {/* Content */}
-      <div className="px-4 absolute bg-[#6abeffe5] h-fit top-50 pt-3 space-y-2 text-[#F8F8F8] z-10 pb-8">
-        <h3 className="text-lg md:text-xl font-bold text-[#000000] h-full w-[260px] overflow-hidden text-ellipsis whitespace-nowrap block">{title}</h3>
+      <div className="px-4 pt-3 space-y-2 text-[#F8F8F8] z-10">
+        <h3 className="text-lg md:text-xl font-bold text-[#000000]">{title}</h3>
         <div className="flex justify-between text-sm">
           <span>{formatTimeAgo(createdDate)}</span>
           <span>By: {formatWalletAddress(creator)}</span>

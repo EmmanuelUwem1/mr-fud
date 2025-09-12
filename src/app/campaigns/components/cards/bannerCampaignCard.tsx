@@ -66,10 +66,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
   const formattedRange = `${formattedStart} – ${formattedEnd}`;
   const ripple = useRipple();
   return (
-    <div
-      className="relative cursor-pointer w-full max-w-[420px] h-full flex flex-col items-center group"
-      onClick={ripple}
-    >
+    <div className="relative cursor-pointer w-full max-w-[420px] h-full flex flex-col items-center group" onClick={ripple}>
       {/* Badge */}
       <div className="z-30 absolute -top-6 sm:-top-8 md:-top-10 lg:-top-14 aspect-[98/82] h-8 w-10 sm:h-12 sm:w-14 md:h-14 md:w-16 lg:h-20 lg:w-24 flex items-center justify-center">
         <Image
@@ -85,7 +82,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
       </div>
 
       {/* Card */}
-      <div className="cardonebg border md:border-[3px] border-[#05E02B] rounded-[4px] sm:rounded-[12px] overflow-hidden shadow-md w-full relative">
+      <div className="cardonebg border md:border-[3px] border-[#05E02B] rounded-[4px] sm:rounded-[12px] overflow-hidden shadow-md w-full pb-2 relative">
         {/* Hover Overlay */}
         <div className="absolute max-sm:hidden inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
           <div className="absolute inset-1 cardbg text-white p-4 rounded-[12px] flex flex-col justify-center items-center text-center">
@@ -106,16 +103,16 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
         </div>
 
         {/* Banner Image */}
-        <div className="aspect-square w-full relative bg-[#00000094]">
+        <div className="aspect-[315/199] w-full relative bg-[#00000094]">
           <Image
-            src={bannerSrc}
-            alt={`${title} banner`}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="top"
-            className="rounded-t-[15px]"
-            onError={handleBannerError}
-          />
+                   src={bannerSrc}
+                   alt={`${title} banner`}
+                   layout="fill"
+                   objectFit="cover"
+                   objectPosition="top"
+                   className="rounded-t-[15px]"
+                   onError={handleBannerError}
+                 />
 
           {/* Top Overlay */}
           <div className="absolute top-0 left-0 w-full flex justify-between lg:gap-4 md:gap-3 gap-2 items-center sm:px-3 px-1 py-1 md:py-3 lg:py-4 text-white text-[5px] lg:text-xs sm:text-[8px] md:text-[10px] font-medium">
@@ -135,11 +132,11 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
         </div>
 
         {/* Content */}
-        <div className="lg:py-4 absolute bg-[#6abeffe5] h-fit bottom-0 sm:py-2 px-1 w-full sm:px-4 md:px-2 sm:space-y-1 lg:space-y-2 text-[#F8F8F8]">
-          <h3 className="md:text-lg text-[8px] sm:text-xs lg:text-xl font-bold text-[#000000] h-full w-[260px] overflow-hidden text-ellipsis whitespace-nowrap block">
+        <div className="lg:py-4 sm:py-2 px-1 sm:px-4 md:px-2 sm:space-y-1 lg:space-y-2 text-[#F8F8F8]">
+          <h3 className="md:text-lg text-[8px] sm:text-xs lg:text-xl font-bold text-[#000000]">
             {title}
           </h3>
-          <div className="flex w-full sm:gap-1 items-center justify-between text-[5px] sm:text-[8px] md:text-[10px] lg:text-sm ">
+          <div className="flex w-full sm:gap-1 items-center justify-between text-[5px] sm:text-[8px] md:text-[10px] lg:text-sm">
             <span className="lg:w-24 w-10 sm:w-full">
               {formatTimeAgo(createdDate)}
             </span>
