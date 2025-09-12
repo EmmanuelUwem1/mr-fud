@@ -55,6 +55,24 @@ const sortedCampaigns = filteredCampaigns.filter((campaign) => {
       return true;
   }
 });
+    const seenNames = new Set<string>();
+    const seenImages = new Set<string>();
+
+    const uniqueCampaigns = sortedCampaigns.filter((token) => {
+      const name = token.campaignTitle.toLocaleLowerCase();
+      const imageUrl = token.image;
+
+      if (
+        seenNames.has(name) ||
+        seenImages.has(imageUrl)
+      ) {
+        return false; // Skip duplicates
+      }
+
+      seenNames.add(name);
+      seenImages.add(imageUrl);
+      return true;
+    });
 
     if (!campaigns) {
       return (
@@ -103,13 +121,13 @@ const sortedCampaigns = filteredCampaigns.filter((campaign) => {
         <div className="flex justify-center items-center h-40">
           <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-white" />
         </div>
-      ) : sortedCampaigns.length === 0 ? (
+      ) : uniqueCampaigns.length === 0 ? (
         <p className="text-center text-[#87DDFF] col-span-full py-20">
           No campaigns available.
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center place-items-center gap-6 w-full">
-          {sortedCampaigns.map((campaign) => (
+          {uniqueCampaigns.map((campaign) => (
             <CampaignCard
               id={campaign._id}
               key={campaign._id}

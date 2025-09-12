@@ -42,8 +42,8 @@ export default function TokenPage() {
   });
 
   const userBalance = balanceData?.formatted ?? "0";
-    const randomMarketCap =
-      Math.floor(Math.random() * (500_000 - 200_000 + 1)) + 1_000;
+  const randomMarketCap =
+    Math.floor(Math.random() * (500_000 - 440_000 + 1)) + 1_000;
 
   // Simulated token data — replace with actual API or contract data
   const [tokenData] = useState({

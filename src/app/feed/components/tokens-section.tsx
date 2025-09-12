@@ -82,18 +82,20 @@ export default function TokensSection() {
 
   const seenContracts = new Set<string>();
   const seenNames = new Set<string>();
+  const seenImages = new Set<string>();
 
   const uniqueSortedTokens = sortedTokens.filter((token) => {
     const ca = token.contractAddress.toLowerCase();
     const name = token.name.toLowerCase();
     const imageUrl = token.image;
 
-    if (seenContracts.has(ca) || seenNames.has(name) || seenNames.has(imageUrl)) {
+    if (seenContracts.has(ca) || seenNames.has(name) || seenImages.has(imageUrl)) {
     return false; // Skip duplicates
   }
 
   seenContracts.add(ca);
-  seenNames.add(name);
+    seenNames.add(name);
+    seenImages.add(imageUrl)
   return true;
 });
 
