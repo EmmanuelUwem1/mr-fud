@@ -36,7 +36,7 @@ const handleBannerError = () => {
                  alt={` banner`}
                  layout="fill"
                  objectFit="cover"
-                 objectPosition="top"
+                 objectPosition="center"
                  className="rounded-t-[15px]"
                  onError={handleBannerError}
                />
