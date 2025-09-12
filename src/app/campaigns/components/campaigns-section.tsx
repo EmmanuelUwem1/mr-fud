@@ -132,7 +132,7 @@ const sortedCampaigns = filteredCampaigns.filter((campaign) => {
               id={campaign._id}
               key={campaign._id}
               title={campaign.campaignTitle}
-              bannerUrl={campaign.image}
+              bannerUrl={campaign.campaignBanner}
               startDate={campaign.startDate}
               createdDate={campaign.createdAt}
               creator={campaign.creatorWallet}

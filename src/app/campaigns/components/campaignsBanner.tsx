@@ -34,7 +34,7 @@ export default function Banner() {
             >
               <BannerCampaignCard
                 title={topThree[1].coinName}
-                bannerUrl={topThree[1].image}
+                bannerUrl={topThree[1].campaignBanner}
                 startDate={topThree[1].startDate}
                 endDate={topThree[1].endDate}
                 createdDate={topThree[1].createdAt}
@@ -54,7 +54,7 @@ export default function Banner() {
             >
               <BannerCampaignCard
                 title={topThree[0].coinName}
-                bannerUrl={topThree[0].image}
+                bannerUrl={topThree[0].campaignBanner}
                 startDate={topThree[0].startDate}
                 endDate={topThree[0].endDate}
                 createdDate={topThree[0].createdAt}
@@ -74,7 +74,7 @@ export default function Banner() {
             >
               <BannerCampaignCard
                 title={topThree[2].coinName}
-                bannerUrl={topThree[2].image}
+                bannerUrl={topThree[2].campaignBanner}
                 startDate={topThree[2].startDate}
                 endDate={topThree[2].endDate}
                 createdDate={topThree[2].createdAt}

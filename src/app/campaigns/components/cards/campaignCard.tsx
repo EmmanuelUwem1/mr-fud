@@ -99,7 +99,7 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
           alt={`${title} banner`}
           layout="fill"
           objectFit="cover"
-          objectPosition="center"
+          objectPosition="top"
           className="rounded-t-[15px]"
           onError={handleBannerError}
         />
