@@ -24,7 +24,7 @@ function Header() {
 
   const navLinks = [
     { label: "FOMO Feed", path: "/feed" },
-    { label: "Staking", path: "/staking" },
+    { label: "Pools", path: "/staking" },
     { label: "Countdown", path: "/campaigns" },
     { label: "Leaderboard", path: "/leaderboard" },
     { label: "Ocicat", path: "/token" },
