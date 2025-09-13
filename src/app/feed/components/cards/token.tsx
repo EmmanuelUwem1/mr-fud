@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useRipple } from "@/hooks/useRipple";
 import useUseRating from "@/lib/data/rating";
+import { useTokens } from "@/context/TokensContext";
 
 type TokenCardProps = {
   className?:string;
@@ -37,7 +38,7 @@ export default function TokenCard({
   className,
 }: TokenCardProps) {
   const rating = useUseRating();
-
+  const { tokens } = useTokens();
   const [retryCount, setRetryCount] = useState(0);
   const handleError = () => {
     if (retryCount < 5) {
@@ -48,14 +49,19 @@ export default function TokenCard({
   };
 
   const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
+  const lastThreeIds = tokens.slice(-3).map((token) => token._id);
+  const isTopThree = lastThreeIds.includes(id);
+  const displayRating = isTopThree ? 100 : rating;
+
 
   const router = useRouter();
 
   const ripple = useRipple();
 
-  // Generate random market cap between $10M and $500M
-  const randomMarketCap =
-    Math.floor(Math.random() * (500_000 - 440_000 + 1)) + 1_000;
+  //market cap between $1k and $60k
+  const notGraduated = Math.floor(Math.random() * (500_000 - 440_000 + 1)) + 1_000;
+  const graduated = Math.floor(Math.random() * (200_000 - 100_000 + 1)) + 60_000;
+  const randomMarketCap = isTopThree ? graduated : notGraduated;
 
   return (
     <AnimatePresence>
@@ -130,7 +136,7 @@ export default function TokenCard({
             </div>
           </div>
 
-          <RatingBar rating={rating} theme={"green"} />
+          <RatingBar rating={displayRating} theme={"green"} />
         </div>
       </motion.div>
     </AnimatePresence>

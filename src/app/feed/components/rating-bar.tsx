@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React from "react";
 import Image from "next/image";
 
 type RatingBarProps = {
@@ -9,6 +9,7 @@ type RatingBarProps = {
 
 export default function RatingBar({ theme, rating }: RatingBarProps) {
   const position = Math.min(100, Math.max(0, rating));
+
 
   return (
     <div className="relative w-full h-4 bg-[#FFFFFF] rounded-full">
@@ -42,9 +43,9 @@ export default function RatingBar({ theme, rating }: RatingBarProps) {
 
       {/* Floating image */}
       <span
-        className="absolute top-0 -translate-y-2 w-8 h-8"
+        className="absolute z-50 top-0 -translate-y-2 w-8 h-8"
         style={{
-          left: `calc(${position}% - 10px)`,
+          left: `calc(${position}% - 20px)`,
           transition: "left 0.5s ease-in-out",
         }}
       >
@@ -54,6 +55,7 @@ export default function RatingBar({ theme, rating }: RatingBarProps) {
           layout="fill"
           objectFit="contain"
           objectPosition="center"
+        
         />
       </span>
 

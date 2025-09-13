@@ -2,20 +2,23 @@
 import React, { useState, DragEvent, ChangeEvent } from "react";
 import Image from "next/image";
 import { useBannerImageContext } from "../context/BannerImageContext";
-import { useImageCompressor } from "@/hooks/useImageCompressor"; // 👈 Import the hook
+import { useImageCompressor } from "@/hooks/useImageCompressor";
 
 const BannerUpload: React.FC = () => {
   const { bannerImage, setBannerImage } = useBannerImageContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const { compressImage, error, loading } = useImageCompressor(); // 👈 Use the hook
+  const { compressImage, error, loading } = useImageCompressor();
 
   const isImageFile = (file: File) => file.type.startsWith("image/");
 
   const processFile = async (file: File) => {
     if (!isImageFile(file)) return;
 
-    const compressed = await compressImage(file);
+    const compressed = await compressImage(file, {
+      targetRatio: 39 / 23,
+      label: "39:23",
+    });
     if (compressed) {
       setBannerImage(compressed);
       setPreviewUrl(URL.createObjectURL(compressed));
@@ -60,7 +63,7 @@ const BannerUpload: React.FC = () => {
 
           {/* Error Message */}
           {error && (
-            <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+            <p className="text-[#ff5e5e] text-sm mt-2 text-center">{error}</p>
           )}
 
           {/* Preview */}

@@ -42,6 +42,9 @@ const {setPayload} = useTokenForm();
         className="flex w-full items-center flex-col justify-start sm:py-6 pb-8"
       >
         <div className="flex sm:items-center sm:justify-center gap-6 justify-start items-start w-full max-w-4xl">
+          <span className="hidden sm:inline">
+            <BackButton />
+          </span>
           <div className="w-full">
             {/* Heading */}
             <h1 className="text-xl font-semibold bg-clip-text text-transparent w-full text-left sm:text-center bg-gradient-to-r  from-[#F7E436] transition-class to-[#05E02B] ">
@@ -59,8 +62,8 @@ const {setPayload} = useTokenForm();
           </span>
         </div>
         <Form />
-       
-          <CampaignsForm />
+
+        <CampaignsForm />
 
         <div className="flex w-full items-start justify-center md:flex-nowrap flex-wrap gap-4 max-w-4xl">
           <MediaUpload /> <SocialsInput />

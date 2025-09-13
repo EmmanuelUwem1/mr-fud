@@ -24,8 +24,18 @@ export default function TokenPage() {
   const rating = useUseRating();
 
   const { tokens, loading } = useTokens();
-
   const { id } = useParams();
+
+  const lastThreeIds = tokens.slice(-3).map((token) => token._id);
+  const isTopThree = typeof id === "string" && lastThreeIds.includes(id);
+  const displayRating = isTopThree ? 100 : rating;
+  //market cap between $1k and $60k
+  const notGraduated =
+    Math.floor(Math.random() * (500_000 - 440_000 + 1)) + 1_000;
+  const graduated =
+    Math.floor(Math.random() * (200_000 - 100_000 + 1)) + 60_000;
+  const randomMarketCap = isTopThree ? graduated : notGraduated;
+
   const token = tokens.find((t) => t._id === id);
   const { address, isConnected } = useAccount();
 
@@ -42,8 +52,7 @@ export default function TokenPage() {
   });
 
   const userBalance = balanceData?.formatted ?? "0";
-  const randomMarketCap =
-    Math.floor(Math.random() * (500_000 - 440_000 + 1)) + 1_000;
+
 
   // Simulated token data — replace with actual API or contract data
   const [tokenData] = useState({
@@ -132,7 +141,10 @@ export default function TokenPage() {
                 tokenTicker={token.ticker}
               />
               <div className="flex flex-col items-start justify-start gap-4 w-full">
-                <GraduatedCard notPassedBondingCurve={false} rating={rating} />
+                <GraduatedCard
+                  notPassedBondingCurve={false}
+                  rating={displayRating}
+                />
                 <AntiFudCard antiFudEnabled={token.isAntiGeet} />
                 <div className="lg:flex w-full items-center justify-center hidden">
                   <TopHoldersCard tokenCa={token.contractAddress} />

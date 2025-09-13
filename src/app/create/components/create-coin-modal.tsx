@@ -270,127 +270,138 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
           ref={modalRef}
           className="box-bg mx-4 p-6 rounded-lg w-full max-w-sm text-white overflow-hidden"
         >
-          {/* Optional purchase message */}
-          <p className="text-base text-white font-normal mb-2">
-            Choose how many [DES] you want to buy (optional){" "}
-          </p>
-          <p className="text-sm font-normal text-[#FFFFFF] mb-4">
-            Tip: It’s optional, but buying a small amount of coins helps protect
-            your coin from snipers.
-          </p>
+          {!isCampaign && (
+            <>
+              {" "}
+              {/* Optional purchase message */}
+              <p className="text-base text-white font-normal mb-2">
+                Choose how many [DES] you want to buy (optional){" "}
+              </p>
+              <p className="text-sm font-normal text-[#FFFFFF] mb-4">
+                Tip: It’s optional, but buying a small amount of coins helps
+                protect your coin from snipers.
+              </p>
+              <div className="relative w-full mb-4">
+                {/* Input Field */}
+                <input
+                  type="number"
+                  min="0"
+                  step="0.0001"
+                  value={bnbAmount}
+                  onChange={(e) => setBnbAmount(e.target.value)}
+                  onWheel={(e) => e.currentTarget.blur()}
+                  placeholder={`1.0000`}
+                  className="w-full bg-[#013253] input-border text-white px-4 py-3 pr-[90px] rounded-[6px] border-[1px] placeholder-[#87DDFF] appearance-none"
+                />
+                {/* bg-[#1B1B1B] */}
+                {/* border-[#626262] */}
 
-          <div className="relative w-full mb-4">
-            {/* Input Field */}
-            <input
-              type="number"
-              min="0"
-              step="0.0001"
-              value={bnbAmount}
-              onChange={(e) => setBnbAmount(e.target.value)}
-              onWheel={(e) => e.currentTarget.blur()}
-              placeholder={`1.0000`}
-              className="w-full bg-[#013253] input-border text-white px-4 py-3 pr-[90px] rounded-[6px] border-[1px] placeholder-[#87DDFF] appearance-none"
-            />
-            {/* bg-[#1B1B1B] */}
-            {/* border-[#626262] */}
-
-            {/* Custom Dropdown */}
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10">
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="bg-[#297DAB] text-white px-3 py-1 rounded-[7px] text-sm cursor-pointer flex items-center justify-center gap-1"
-              >
-                {(() => {
-                  const selected = currencies.find(
-                    (value) => value.name === selectedCurrency
-                  );
-                  return selected ? (
-                    <>
-                      <span className="mr-1">{selected.chain}</span>
-                      <span className="relative flex items-center justify-center h-4 w-4">
-                        <Image
-                          alt=""
-                          src={selected.image}
-                          layout="fill"
-                          objectFit="contain"
-                          objectPosition="center"
-                        />
-                      </span>
-                    </>
-                  ) : (
-                    ""
-                  );
-                })()}
-                <span
-                  className={`relative mx-1 h-6 w-6 flex items-center justify-center transition-all duration-300 ${
-                    dropdownOpen ? "rotate-0" : "rotate-180"
-                  }`}
-                >
-                  <Image
-                    alt=""
-                    src="/arrow-down.png"
-                    layout="fill"
-                    objectFit="contain"
-                    objectPosition="center"
-                  />
-                </span>
-              </button>
-
-              {dropdownOpen && (
-                <motion.ul
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute bg-[#013253] right-0 mt-1 space-y-1.5 p-1 rounded-[7px] shadow-lg overflow-hidden"
-                >
-                  {currencies.map((currency) => (
-                    <li
-                      key={currency.name}
-                      className="px-4 gap-1 py-2 hover:bg-[#297eabc6] text-sm flex items-center justify-center cursor-pointer bg-[#297DAB] rounded-full text-white"
-                      onClick={() => {
-                        setSelectedCurrency(currency.name);
-                        setPayload({
-                          chain: currency.chain as "BSC" | "ETH" | undefined,
-                        });
-                        setDropdownOpen(false);
-                      }}
+                {/* Custom Dropdown */}
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10">
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="bg-[#297DAB] text-white px-3 py-1 rounded-[7px] text-sm cursor-pointer flex items-center justify-center gap-1"
+                  >
+                    {(() => {
+                      const selected = currencies.find(
+                        (value) => value.name === selectedCurrency
+                      );
+                      return selected ? (
+                        <>
+                          <span className="mr-1">{selected.chain}</span>
+                          <span className="relative flex items-center justify-center h-4 w-4">
+                            <Image
+                              alt=""
+                              src={selected.image}
+                              layout="fill"
+                              objectFit="contain"
+                              objectPosition="center"
+                            />
+                          </span>
+                        </>
+                      ) : (
+                        ""
+                      );
+                    })()}
+                    <span
+                      className={`relative mx-1 h-6 w-6 flex items-center justify-center transition-all duration-300 ${
+                        dropdownOpen ? "rotate-0" : "rotate-180"
+                      }`}
                     >
-                      {currency.name}{" "}
-                      <span className="relative flex items-center justify-center h-4 w-4">
-                        <Image
-                          alt=""
-                          src={currency.image}
-                          layout="fill"
-                          objectFit="contain"
-                          objectPosition="center"
-                        />
-                      </span>
-                    </li>
-                  ))}
-                </motion.ul>
-              )}
-            </div>
-          </div>
+                      <Image
+                        alt=""
+                        src="/arrow-down.png"
+                        layout="fill"
+                        objectFit="contain"
+                        objectPosition="center"
+                      />
+                    </span>
+                  </button>
+
+                  {dropdownOpen && (
+                    <motion.ul
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute bg-[#013253] right-0 mt-1 space-y-1.5 p-1 rounded-[7px] shadow-lg overflow-hidden"
+                    >
+                      {currencies.map((currency) => (
+                        <li
+                          key={currency.name}
+                          className="px-4 gap-1 py-2 hover:bg-[#297eabc6] text-sm flex items-center justify-center cursor-pointer bg-[#297DAB] rounded-full text-white"
+                          onClick={() => {
+                            setSelectedCurrency(currency.name);
+                            setPayload({
+                              chain: currency.chain as
+                                | "BSC"
+                                | "ETH"
+                                | undefined,
+                            });
+                            setDropdownOpen(false);
+                          }}
+                        >
+                          {currency.name}{" "}
+                          <span className="relative flex items-center justify-center h-4 w-4">
+                            <Image
+                              alt=""
+                              src={currency.image}
+                              layout="fill"
+                              objectFit="contain"
+                              objectPosition="center"
+                            />
+                          </span>
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
 
           {/* Hardcap */}
           <p className="text-sm font-bold text-[#00C3FE] mb-2">
-            Choose Hardcap
+            {isCampaign
+              ? ` Advert fee: ${fromWei(Number(advertFee), 18)} BNB`
+              : `Choose Hardcap`}
           </p>
 
-          <div className="flex gap-2 mb-4">
-            {currencies
-              .find((value) => value.name === selectedCurrency)
-              ?.hardCap.map((val, index, arr) => {
-                const isDisabled = index >= arr.length - 2; // Disable last two
-                const isSelected = selectedHardCap === val;
+          { !isCampaign &&
+            <>
+              <div className="flex gap-2 mb-4">
+                {currencies
+                  .find((value) => value.name === selectedCurrency)
+                  ?.hardCap.map((val, index, arr) => {
+                    const isDisabled = index >= arr.length - 2; // Disable last two
+                    const isSelected = selectedHardCap === val;
 
-                return (
-                  <button
-                    key={val}
-                    onClick={() => !isDisabled && setSelectedHardCap(val)}
-                    disabled={isDisabled}
-                    className={`text-xs transition-class px-2 py-2 rounded-full cursor-pointer
+                    return (
+                      <button
+                        key={val}
+                        onClick={() => !isDisabled && setSelectedHardCap(val)}
+                        disabled={isDisabled}
+                        className={`text-xs transition-class px-2 py-2 rounded-full cursor-pointer
     ${
       isDisabled
         ? "bg-[#52525254] text-gray-400 cursor-not-allowed"
@@ -398,19 +409,21 @@ export default function CreateCoinModal({ onClose }: { onClose: () => void }) {
         ? "bg-white text-black"
         : "bg-[#52525280] hover:bg-white text-white hover:text-black"
     }`}
-                  >
-                    {val} {selectedCurrency}
-                  </button>
-                );
-              })}
-          </div>
+                      >
+                        {val} {selectedCurrency}
+                      </button>
+                    );
+                  })}
+              </div>
 
-          <p>You receive: 342810.12 ${payload.ticker}</p>
-          {Number(advertFee) && isCampaign && (
+              <p>You receive: 342810.12 ${payload.ticker}</p>
+            </>
+          }
+          {/* {Number(advertFee) && isCampaign && (
             <p className="text-xs text-[#00C3FE] font-semibold">
-              Advert fee: {fromWei(Number(advertFee),18)} BNB
+             
             </p>
-          )}
+          )} */}
           {/* Buttons */}
           <div className="flex w-full justify-end gap-2">
             <button

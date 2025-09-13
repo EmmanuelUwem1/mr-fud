@@ -66,7 +66,7 @@ export default function CampaignDetailPage() {
               alt={`${campaign.coinName} banner`}
               layout="fill"
               objectFit="cover"
-              objectPosition="top"
+              objectPosition="top-left"
               priority
               onError={handleError}
             />

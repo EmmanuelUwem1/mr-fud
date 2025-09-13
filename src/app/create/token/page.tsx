@@ -42,6 +42,9 @@ const {setPayload} = useTokenForm();
         className="flex w-full items-center flex-col justify-start sm:py-6 pb-8"
       >
         <div className="flex sm:items-center sm:justify-center gap-6 justify-start items-start w-full max-w-4xl">
+          <span className="hidden sm:inline">
+            <BackButton />
+          </span>
           <div className="w-full">
             {/* Heading */}
             <h1 className="text-xl font-semibold bg-clip-text text-transparent w-full text-left sm:text-center bg-gradient-to-r  from-[#F7E436] transition-class to-[#05E02B] ">
@@ -79,7 +82,7 @@ const {setPayload} = useTokenForm();
         </div>
 
         <div
-          onClick={HandleNextClick }
+          onClick={HandleNextClick}
           className="bg-[#00C3FE] text-white w-full rounded-[4px] font-medium text-base max-w-4xl my-3 flex items-center justify-center py-3 cursor-pointer transition-class hover:opacity-90"
         >
           Next

@@ -74,12 +74,12 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
       onClick={handleClick}
     >
       {/* Hover Overlay */}
-      <div className="absolute max-sm:hidden inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] text-white p-[6px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
-        <div className="absolute inset-1 cardbg text-white p-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex rounded-[12px] flex-col justify-center items-center text-center">
+      <div className="absolute max-sm:hidden inset-0 bg-gradient-to-r from-[#F7E436] to-[#05E02B] text-white p-[4px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center">
+        <div className="absolute inset-[2px] cardbg text-white p-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex rounded-[12px] flex-col justify-center items-center text-center">
           <h3 className="text-xl font-bold mb-2">{title}</h3>
           <p className="text-sm mb-4">{title}</p>
           <div className="text-xs space-y-1">
-            <p>{description || " no description provided"}</p>
+            <p>{description || ""}</p>
             <SocialLinks
               twitter={twitter}
               website={website}
@@ -91,36 +91,36 @@ const cacheBuster = retryCount ? `?retry=${retryCount}` : "";
           </div>
         </div>
       </div>
-
       {/* Banner Image */}
-      <div className="aspect-[315/199] w-full relative bg-[#00000094] z-10">
+      {/* [315/199]{" "} */}
+
+      <div className="aspect-[39/23] bg-[#00000094] w-full relative z-10">
         <Image
           src={bannerSrc}
           alt={`${title} banner`}
           layout="fill"
           objectFit="cover"
-          objectPosition="top"
+          objectPosition="top-left"
           className="rounded-t-[15px]"
           onError={handleBannerError}
         />
 
         {/* Top Overlay */}
-        <div className="absolute top-0 left-0 w-full flex justify-between gap-4 items-center px-4 py-3 md:py-4 text-white text-xs font-medium z-10">
-          <span className="bg-[#FFFFFF] text-black px-3 py-2 rounded-md">
+        <div className="absolute top-0 left-0 w-full flex justify-between gap-4 items-start text-white text-[10px] font-medium z-10">
+          <span className="bg-[#ffffffb4] text-black px-2 py-1 rounded-br-md">
             {formattedRange}
           </span>
           <span
-            className={`font-extralight px-3 py-2 rounded-md ${
+            className={`font-extralight rounded-bl-md px-2 py-1 ${
               isLive
-                ? "bg-[#B20808] shadow-[0_0_8px_#E00505]"
-                : "bg-[#D0740B] shadow-[0_0_8px_#FF8E16C4]"
+                ? "bg-[#b20808ba] shadow-[0_0_8px_#E00505]"
+                : "bg-[#d0740bb6] shadow-[0_0_8px_#FF8E16C4]"
             }`}
           >
             {isLive ? "Live" : "Upcoming"}
           </span>
         </div>
       </div>
-
       {/* Content */}
       <div className="px-4 pt-3 space-y-2 text-[#F8F8F8] z-10">
         <h3 className="text-lg md:text-xl font-bold text-[#000000]">{title}</h3>

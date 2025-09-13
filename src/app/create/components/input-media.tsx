@@ -12,14 +12,17 @@ const MediaUpload: React.FC = () => {
   const { file, setFile } = useImageContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const { compressImage, error, loading } = useImageCompressor(); // 👈 Use the hook
+  const { compressImage, error, loading } = useImageCompressor(); 
 
   const isImageFile = (file: File) => file.type.startsWith("image/");
 
   const processFile = async (file: File) => {
     if (!isImageFile(file)) return;
 
-    const compressed = await compressImage(file);
+    const compressed = await compressImage(file, {
+      targetRatio: 1,
+      label: "1:1 (square)",
+    });
     if (compressed) {
       setFile(compressed);
       setPreviewUrl(URL.createObjectURL(compressed));
@@ -66,7 +69,7 @@ const MediaUpload: React.FC = () => {
 
           {/* Error Message */}
           {error && (
-            <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+            <p className="text-[#ff5e5e] text-sm mt-2 text-center">{error}</p>
           )}
 
           {/* Preview */}
